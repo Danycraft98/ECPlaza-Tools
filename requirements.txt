@@ -4,6 +4,7 @@ django-heroku>=0.3.1
 
 # Django Packages -------------------
 Django>=3.1.5
+dj-database-url>=0.5.0
 djangorestframework>=3.12.2
 django-rest-auth
 django-allauth
