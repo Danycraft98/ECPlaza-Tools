@@ -1,6 +1,7 @@
 # Heroky Package -------------------
 gunicorn>=20.0.4
 django-heroku>=0.3.1
+whitenoise
 
 # Django Packages -------------------
 Django>=3.1.5
