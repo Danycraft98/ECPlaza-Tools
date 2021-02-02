@@ -6,7 +6,7 @@ import datetime as dt
 class Section(models.Model):
     name = models.CharField(max_length=50, blank=False, null=True, default = '')
     description = models.CharField(max_length=50, blank=False, null=True, default = '')
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Section_created_by', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Section_updated_by', blank=True,null=True)
     def __str__(self):
@@ -19,7 +19,7 @@ class Test(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='test_section')
     name = models.CharField(max_length=50, blank=False, null=True, default = '')
     description = models.CharField(max_length=50, blank=False, null=True, default = '')
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Test_created_by', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Test_updated_by', blank=True,null=True)
     def __str__(self):
@@ -38,7 +38,7 @@ class Field(models.Model):
     measure = models.CharField(max_length=50, blank=False, null=True, default='')
     uplimit = models.FloatField(default = 0)
     downlimit = models.FloatField(default = 0)
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Field_created_by', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Field_updated_by', blank=True,null=True)
     def __str__(self):
@@ -54,7 +54,7 @@ class Client(models.Model):
     address = models.CharField(max_length=150, blank=True, null=True)
     status = models.CharField(max_length=10, blank=True, null=True)
     image = models.ImageField(upload_to='profile/',blank=True, null=True)    
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Client_created_by', blank=True,null=True)
     updated= models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Client_updated_by', blank=True,null=True)
     
@@ -68,7 +68,7 @@ class Client(models.Model):
 class Sample(models.Model):
     client = models.ForeignKey(Client, on_delete=models.PROTECT)
     name = models.CharField(max_length=50, blank=False, null=True, default = '')
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Sample_created_by', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Sample_updated_by', blank=True,null=True)
     def __str__(self):
@@ -84,7 +84,7 @@ class SampleTest(models.Model):
     sample = models.ForeignKey(Sample, on_delete=models.PROTECT,  related_name='SampleTest_sample')
     test = models.ForeignKey(Test, on_delete=models.PROTECT,  related_name='SampleTest_test')
     test_status = models.CharField(max_length=15, default='Created',choices=TYPE_CHOICES)
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='SampleTest_created_by', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='SampleTest_updated_by', blank=True,null=True)
     def __str__(self):
@@ -101,7 +101,7 @@ class ResultFields(models.Model):
     value = models.FloatField(default=0)
     reason = models.CharField(max_length=50, blank=False, null=True, default = '')
     note = models.CharField(max_length=150, blank=False, null=True, default = '')
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='ResultFields_created_by', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='ResultFields_updated_by', blank=True,null=True)
 
@@ -111,7 +111,7 @@ class Product(models.Model):
     name = models.CharField(max_length=150, blank=False, null=True, default = '')
     formula = models.CharField(max_length=150, blank=False, null=True, default = '')
     measure = models.CharField(max_length=50, blank=False, null=True, default = '')
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Product_created_by', blank=True,null=True)
     updated_by = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Product_updated_by', blank=True,null=True)
     def __str__(self):
@@ -123,7 +123,7 @@ class Inventory(models.Model):
     quantity = models.FloatField(default=0)
     unit = models.FloatField(default=0)
     measure = models.CharField(max_length=50, blank=False, null=True, default = '')
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Inventory_created_by', blank=True,null=True)
     updated_by = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Inventory_updated_by', blank=True,null=True)
     def __str__(self):
