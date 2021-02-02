@@ -11,14 +11,14 @@ class Profile(models.Model):
     address = models.CharField(max_length=150, blank=True, null=True)
     status = models.CharField(max_length=10, blank=True, null=True)
     image = models.ImageField(upload_to='profile/',blank=True, null=True)    
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     
     def __str__(self):
         return self.user.username
 
 class Module(models.Model):
     module = models.CharField(max_length=50)
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Module_created', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Module_updated', blank=True,null=True)
     
@@ -30,7 +30,7 @@ class Module(models.Model):
 
 class Role(models.Model):
     role = models.CharField(max_length=50)
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Role_created', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Role_updated', blank=True,null=True)
     
@@ -45,7 +45,7 @@ class Scope(models.Model):
     scope_module = models.ForeignKey(Module, on_delete=models.CASCADE,related_name='scope_scopemodule')#,default=Module.objects.filter(module='Section')[0])
     module = models.ForeignKey(Module, on_delete=models.CASCADE,related_name='scope_Module')
     query_set=models.TextField(blank=True, null=True)
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Scope_created', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='Scope_updated', blank=True,null=True)
     def __str__(self):
@@ -61,7 +61,7 @@ class RolePermission(models.Model):
     update = models.BooleanField(default=False)
     delete = models.BooleanField(default=False)
     type = models.CharField(max_length=50, default='FullAccess',choices=TYPE_CHOICES)
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='RolePersission_created', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='RolePersission_updated', blank=True,null=True)
     def __str__(self):
@@ -76,7 +76,7 @@ class ProfileRole(models.Model):
     user = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='profilerole_profile')
     role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name='profilerole_role')
     depertment = models.ForeignKey(Section,on_delete=models.CASCADE, blank=True, null=True, related_name='profilerole_depertment')
-    date_updated = models.DateTimeField(default=dt.datetime.now(), blank=True)
+    date_updated = models.DateTimeField(default=timezone.now, blank=True)
     created = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='ProfileRole_created', blank=True,null=True)
     updated = models.ForeignKey(User, on_delete=models.PROTECT,  related_name='ProfileRole_updated', blank=True,null=True)
     def __str__(self):
