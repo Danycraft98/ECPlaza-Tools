@@ -14,4 +14,4 @@ django-rest-auth>=0.9.5
 django-allauth>=0.44.0
 
 # Other Packages --------------------
-Pillow
+Pillow>=8.1.0
