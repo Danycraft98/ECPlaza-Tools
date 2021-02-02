@@ -1,62 +1,103 @@
-import itertools
-import numpy as np
-from pandas import DataFrame
+import datetime
+import os
 
-__all__ = [
-    'compare_columns'  # , 'CoupangMgr'
-]
+import pandas
 
-
-'''class CoupangMgr:
-    """Main Coupang Partners API Class"""
-    domain = os.environ.get('DOMAIN', '')
-
-    def __init__(self):
-        super(CoupangMgr, self).__init__()
-
-    @staticmethod
-    def generate_hmac(method, link, secret_key, access_key):
-        path, *query = link.split("?")
-        os.environ["TZ"] = "GMT+0"
-        datetime = time.strftime('%y%m%d') + 'T' + time.strftime('%H%M%S') + 'Z'
-        message = datetime + method + path + (query[0] if query else "")
-        signature = hmac.new(bytes(secret_key, "utf-8"), message.encode("utf-8"), hashlib.sha256).hexdigest()
-        return "CEA algorithm=HmacSHA256, access-key={}, signed-date={}, signature={}".format(access_key, datetime,
-                                                                                              signature)
-
-    def get_products_data(self, request_method, authorization, keyword, limit):
-        url = "/v2/providers/affiliate_open_api/apis/openapi/products/search?keyword=" + urllib.parse.quote(
-            keyword) + "&limit=" + str(limit)
-        link = "{}{}".format(self.domain, url)
-
-        response = requests.request(method=request_method, url=link, headers={"Authorization": authorization,
-                                                                              "Content-Type": "application/json;
-                                                                              charset=UTF-8"})
-        ret_data = json.dumps(response.json(), indent=4).encode('utf-8')
-        json_data = json.loads(ret_data)
-        data = json_data['data']
-        product_data = data['productData']
-        return product_data'''
+from api.models import *
 
 
-def compare_columns(dataframes, header_list):
-    """ Compares two dataframes by selected column headers. """
-    all_combs, df_list = [], []
-    combs_obj = itertools.combinations(header_list, 2)
-    combs_list = list(combs_obj)
-    all_combs += combs_list
+def read_file(filename, **kwargs):
+    """Read file with **kwargs; files supported: xls, xlsx, csv, csv.gz, pkl"""
 
-    for comb in all_combs:
-        if comb[0] in dataframes[0] and comb[1] in dataframes[1]:
-            val1, val2 = dataframes[0][comb[0]], dataframes[1][comb[1]]
-            if dataframes[0][comb[0]].dtype != np.number and dataframes[1][comb[1]].dtype != np.number:
-                comp_result = set(val1.str.lower()).intersection(set(val2.str.lower()))
+    read_map = {'xls': pandas.read_excel, 'xlsx': pandas.read_excel, 'csv': pandas.read_csv,
+                'gz': pandas.read_csv, 'pkl': pandas.read_pickle}
+
+    ext = os.path.splitext(filename)[1].lower()[1:]
+    assert ext in read_map, "Input file not in correct format, must be xls, xlsx, csv, csv.gz, pkl; current format '{0}'".format(ext)
+    assert os.path.isfile(filename), "File Not Found Exception '{0}'.".format(filename)
+
+    return read_map[ext](filename, **kwargs)
+
+
+def create_disease(request, item, dx_values):
+    disease = dx_values.get('id', '')
+    branch = dx_values.get('branch')
+    if disease:
+        dx = Disease.objects.filter(pk=disease.id)
+        old_dx = dict(dx.first().__dict__)
+        dx.update(
+            name=dx_values.get('name'), branch=branch, others=dx_values.get('others', ''),
+            report=dx_values.get('report', ''), variant=item
+        )
+
+        if any(key in {k: None if k in old_dx and old_dx[k] == dx_values[k] else dx_values[k] for k in dx_values} for key in dx_values.keys()):
+            History.objects.create(content='Updated Disease: ' + str(disease), user=request.user, timestamp=datetime.datetime.now(), variant=item)
+    else:
+        disease = Disease.objects.create(
+            name=dx_values.get('name'), branch=branch, others=dx_values.get('others', ''),
+            report=dx_values.get('report', ''), variant=item
+        )
+        History.objects.create(content='Added Disease: ' + str(disease), user=request.user, timestamp=datetime.datetime.now(), variant=item)
+    return disease
+
+
+def create_functional(item, func_values):
+    functional = func_values.pop('id')
+    [func_values.pop(k) for k in ['DELETE', 'disease']]
+    if functional:
+        func = Functional.objects.filter(pk=functional.id)
+        func.update(**func_values)
+    else:
+        functional = Functional.objects.create(**func_values, disease=item)
+    return functional
+
+
+def create_score(item, score_values):
+    score = score_values.pop('id')
+    # [score_values.pop(k) for k in ['DELETE', 'disease']]
+    print(score)
+    """if score:
+        sc = Score.objects.filter(pk=score.id)
+        sc.update(**score_values)
+    else:
+        score = Score.objects.create(**score_values, disease=item)
+    return score"""
+
+
+def create_evidence(request, items, evidence_values):
+    evidence = evidence_values.get('id', '')
+    print(evidence)
+    """for i, (e_id, source_type, source_id, statement) in enumerate(evidence_values):
+        evid_dict = {'source_type': source_type, 'source_id': source_id, 'statement': statement}
+
+        comp_result = None
+        if e_id.isdigit():
+            is_update = True
+            evidence = Evidence.objects.get(pk=e_id)
+            old_evidence = dict(evidence.__dict__)
+            comp_result = {k: None if old_evidence[k] == evid_dict[k] else evid_dict[k] for k in evid_dict}
+            Evidence.objects.filter(pk=e_id).update(**evid_dict)
+        else:
+            is_update = False
+            sub_item = Evidence.objects.create(disease=items[0], **evid_dict)
+            if items[1].__class__.__name__ == 'PathItem':
+                Evidence.objects.filter(pk=sub_item.pk).update(item=items[1])
+            elif items[1].__class__.__name__ == 'Functional':
+                Evidence.objects.filter(pk=sub_item.pk).update(functional=items[1])
+            evidence = Evidence.objects.get(pk=sub_item.pk)
+
+        if request.POST.getlist(prefix + '_sig'):
+            form_dict = {
+                'level': request.POST.getlist(prefix + '_level')[i], 'evid_sig': request.POST.getlist(prefix + '_sig')[i],
+                'evid_dir': request.POST.getlist(prefix + '_dir')[i], 'clin_sig': request.POST.getlist(prefix + '_clin_sig')[i],
+                'drug_class': request.POST.getlist(prefix + '_drug')[i], 'evid_rating': request.POST.getlist(prefix + '_rating')[i]
+            }
+
+            if evidence.subevidences.count() > 0:
+                evidence.subevidences.update(**form_dict, evidence=evidence)
+
             else:
-                comp_result = set(val1).intersection(set(val2))
+                SubEvidence.objects.create(**form_dict, evidence=evidence)
 
-            for row in comp_result:
-                df_list.append([row] + list(comb))
-                # ': '.join([comb[0], str(dataframes[0].index[dataframes[0][comb[0]] == row])]),
-    return DataFrame(data=df_list, columns=[
-         'Column Value', 'Column Name (File #1)', 'Column Name (File #2)'
-    ])
+        if (is_update and any(comp_result[key] for key in evid_dict.keys())) or not is_update:
+            History.objects.create(content=statement, object=evidence, user=request.user, timestamp=datetime.datetime.now(), variant=item)"""
