@@ -161,8 +161,8 @@ STATICFILES_DIRS = (
 )
 
 # Upload Settings
-UPLOADS_PATH = join(dirname(realpath(__file__)), 'static/uploads/')
-FILE_UPLOAD_TEMP_DIR = join(dirname(realpath(__file__)), 'static/tmp-uploads/')
+UPLOADS_PATH = os.path.join(os.path.dirname(realpath(__file__)), 'static/uploads/')
+FILE_UPLOAD_TEMP_DIR = os.path.join(os.path.dirname(realpath(__file__)), 'static/tmp-uploads/')
 FILE_UPLOAD_HANDLERS = (
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
     'django.core.files.uploadhandler.TemporaryFileUploadHandler'
