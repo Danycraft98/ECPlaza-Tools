@@ -1,0 +1,9 @@
+# Heroky Package -------------------
+gunicorn>=20.0.4
+django-heroku>=0.3.1
+
+# Django Packages -------------------
+Django>=3.1.5
+djangorestframework>=3.12.2
+django-rest-auth
+django-allauth
