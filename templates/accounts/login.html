@@ -1,0 +1,61 @@
+{% extends 'accounts_base.html' %}
+
+
+{% block style %}
+<link type='text/css' rel='stylesheet' href="{{ url_for('static', filename='css/style_login.min.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<div class='container-fluid limiter'>
+    <div class='container-login100'> <!--style="background-image: url('images/bg-01.jpg');"-->
+        <div class='wrap-login100'>
+            <form class='login100-form validate-form' method='POST' action=''>
+                <span class='login100-form-logo text-black-50'>
+                    <i class='fa fa-user'></i>
+                </span>
+
+                <span class='login100-form-title p-b-34 p-t-27'>로그인</span>
+
+                <div class='wrap-input100 validate-input' data-validate='사용자 이름 입력해주세요'>
+                    <input class='input100' type='text' placeholder='사용자 이름' id='username' name='username' value='{{ request.form.username }}' aria-label='사용자 이름'>
+                    <span class='focus-input100' data-placeholder=''>
+                        <i class='focus-input100 fa fa-user'></i>
+                    </span>
+                </div>
+
+                <div class='wrap-input100 validate-input' data-validate='비밀번호 입력해주세요'>
+                    <input class='input100' type='password' placeholder='비밀번호' id='password' name='password' value='{{ request.form.password }}' aria-label='비밀번호' autocomplete='true'>
+                    <span class='focus-input100' data-placeholder=''>
+                        <i class='focus-input100 fa fa-lock'></i>
+                    </span>
+                </div>
+
+                <div class='contact100-form-checkbox'>
+                    <input class='input-checkbox100' id='ckb1' type='checkbox' name='remember-me'>
+                    <label class='label-checkbox100' for='ckb1'>로그인 상태 유지</label>
+                </div>
+
+                <div class='container-login100-form-btn'>
+                    <button type='submit' class='login100-form-btn'>로그인</button>
+                </div>
+
+                <div class='text-center p-t-90'>
+                    <a class='txt1' href='#'>비밀번호 찾기</a>
+                    <a class='text-white disabled'>|</a>
+                    <a class='txt1' href="{{ url_for('accounts_app.register') }}">가입하기</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if error %}
+
+<p class='error'>
+    <strong>Error:</strong> {{ error }}
+</p>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,37 @@
+<nav class='navbar navbar-expand navbar-dark navbar-fixed-top bg-secondary justify-content-between'>
+    <div class="container-fluid  d-flex bd-highlight">
+        <div class="p-2 flex-fill bd-highlight">
+            <a class='navbar-brand' href="{{ url_for('admin.index') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" width='150' height='30' class='d-inline-block align-top' alt='Logo'>
+            </a>
+        </div>
+
+        <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-target='#navbar' aria-controls='navbar' aria-expanded='false' aria-label='Toggle navigation'>
+            <span class='navbar-toggler-icon'></span>
+        </button>
+
+        <div class="collapse navbar-collapse d-flex bd-highlight" id='navbarNav_left'>
+            <div class='navbar-nav me-auto'>
+                <a class='nav-item nav-link' href="{{ url_for('admin.index') }}">대시보드</a>
+
+                {% block main_menu %}{% endblock %}
+            </div>
+        </div>
+
+        <div class='collapse navbar-collapse d-flex' id='navbarNav_right'>
+            <div class='navbar-nav ms-auto'>
+                {% if user and user.is_authenticated %}
+
+                <a class='nav-item nav-link disabled' href="">{{ user }}</a>
+                <a class='nav-item nav-link' href="{{ url_for('accounts_app.logout') }}">로그아웃</a>
+
+                {% else %}
+
+                <a class='nav-item nav-link' href="{{ url_for('accounts_app.login') }}">로그인</a>
+                <a class='nav-item nav-link' href="{{ url_for('accounts_app.register') }}">가입</a>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

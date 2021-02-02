@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block style %}
+    <link rel='stylesheet' href='//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css'>
+{% endblock %}
+
+
+{% block content %}
+    <div class='app-main__inner'>
+        <div class='jumbotron mt-4'>
+            <h1>쿠팡 파트너즈 대시보드</h1>
+            <p>모든 도구 애 모음 모실 수 있습니다.</p>
+        </div>
+
+        <div class='tabs-animation'>
+            <div class="mb-3 card">
+                <div class="card-header-tab card-header">
+                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                        <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                        Portfolio Performance
+                    </div>
+
+                    <div class="btn-actions-pane-right text-capitalize">
+                        <button class="btn-wide btn-outline-2x mr-md-2 btn btn-outline-focus btn-sm">View All</button>
+                    </div>
+                </div>
+
+                <div class='card-body'>
+                    Coupang Partners Dashboard
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
+    <script>
+        $(document).ready(function () {
+            $('.dataTable').DataTable();
+        });
+    </script>
+{% endblock %}

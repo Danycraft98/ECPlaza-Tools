@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+{% block style %}
+<link rel='stylesheet' href='//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css'>
+{% endblock %}
+
+
+{% block content %}
+<form method='POST' action="{{ url_for('parse_app.url_parse') }}">
+    <div class='card-header d-flex align-items-center justify-content-between'>
+        <h5 class='my-2'>링크 삽입</h5>
+
+        <div class='align-items-right my-2'>
+            <div class='navbar-nav ml-auto'>
+                <button class='nav-item btn btn-primary' type='submit'>
+                    <i class='fa fa-exchange'></i> 구문 분석
+                </button>
+                <!--button class='nav-item btn btn-primary' type='submit'>결과 보기</button-->
+            </div>
+        </div>
+    </div>
+
+    <div class='card-body container'>
+        <div class='row'>
+            <div class='col'>
+                <label for='link'>URL 링크: </label>
+                <!-- TODO: remove test link -->
+                <input type='url' class='form-control' id='link' name='link' placeholder='예시: https://1688.com' value='https://cht.1688.com/index.html' required/>
+            </div>
+        </div>
+
+        {% if data %}
+        <div class='row'>
+            <div class='col'>
+                {{ data.read() }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</form>
+{% endblock %}
+
+
+{% block script %}
+<script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
+<script>
+    $(document).ready(function () {
+        $('.dataTable').DataTable();
+    });
+</script>
+{% endblock %}

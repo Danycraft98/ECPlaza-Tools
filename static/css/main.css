@@ -1,0 +1,47 @@
+a {
+    text-decoration: none !important
+}
+
+.hidden {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.double-hr {
+    border-top: 3px double #545b62 !important
+}
+
+fieldset.box_fieldset {
+    border: 1px groove #ffffff !important;
+    padding: 0.7em 1.4em !important;
+    margin-bottom: 1.5em;
+    -webkit-box-shadow: 0 0 #000;
+    box-shadow: 0 0 #000;
+}
+
+fieldset.box_fieldset legend a {
+    text-decoration: none
+}
+
+fieldset#level {
+    border: 1px groove #ffffff !important;
+    width: 100%;
+    padding: 0.7em 1.4em !important;
+}
+
+hr {
+    border-top: 1px solid rgb(201, 205, 209);
+}
+
+legend {
+    text-align: left !important;
+    width: auto;
+    padding: 0 10px;
+    border-bottom: none;
+    float: none;
+}
+
+.table > :not(caption) > tr > td {
+    border-bottom: grey 1px !important;
+}
