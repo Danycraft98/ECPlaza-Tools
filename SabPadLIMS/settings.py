@@ -14,6 +14,7 @@ import os
 import dj_database_url
 import django_heroku
 from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
+import dotenv as env
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
