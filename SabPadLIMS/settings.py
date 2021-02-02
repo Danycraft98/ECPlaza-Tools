@@ -13,10 +13,23 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import dj_database_url
 import django_heroku
+from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env.load_dotenv(os.path.join(BASE_DIR, '.env'))
+config = {
+    'BASE_DIR': BASE_DIR,
+    'DATE_FORMAT': os.getenv('DATE_FORMAT'),
+    'LANGUAGE_CODE': os.getenv('LANGUAGE_CODE'),
+    'SENDGRID_API_KEY': os.getenv('SENDGRID_API_KEY'),
+    'SENDGRID_URL': os.getenv('SENDGRID_URL'),
+    'TIME_ZONE': os.getenv('TIME_ZONE')
+}
 
+for key, value in config.items():
+    os.environ[key] = value
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -77,7 +90,7 @@ ROOT_URLCONF = 'SabPadLIMS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(os.environ.get('BASE_DIR', ''), 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,11 +98,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
+            ]
         },
-    },
+    }
 ]
-
 WSGI_APPLICATION = 'SabPadLIMS.wsgi.application'
 
 
@@ -145,6 +157,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
+)
+
+# Upload Settings
+UPLOADS_PATH = join(dirname(realpath(__file__)), 'static/uploads/')
+FILE_UPLOAD_TEMP_DIR = join(dirname(realpath(__file__)), 'static/tmp-uploads/')
+FILE_UPLOAD_HANDLERS = (
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler'
 )
 
 django_heroku.settings(locals())
