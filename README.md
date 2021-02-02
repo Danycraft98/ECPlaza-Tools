@@ -14,10 +14,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Installation
 ```
-	pip install django
-	pip install djangorestframework
-	pip install django-rest-auth
-	pip install django-allauth
+	pip install -r requirements.txt
 	python manage.py makemigrations
 	python manage.py migrate
 	python manage.py runserver
