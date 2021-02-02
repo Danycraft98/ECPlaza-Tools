@@ -14,6 +14,7 @@ django-rest-auth>=0.9.5
 django-allauth>=0.44.0
 
 # Other Packages --------------------
+dotenv>=0.15.0
 numpy>=1.19.5
 openpyxl>=3.0.6
 pandas>=1.1.5
