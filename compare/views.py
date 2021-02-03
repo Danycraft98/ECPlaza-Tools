@@ -28,7 +28,7 @@ def coupang_partners(request):
 
 
 @login_required
-def index(request):
+def compare(request):
     file_paths, header_dict, step = [], [], 'start'
     files, header_dict, step = [], [], 'start'
     if request.method == 'POST':
