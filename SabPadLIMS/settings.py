@@ -11,11 +11,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import dj_database_url
-#import django_heroku
-from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
-import dotenv as env
 
+import dj_database_url
+import dotenv as env
+# import django_heroku
+from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,11 +43,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
+    'compare.apps.CompareConfig',
     'main.apps.MainConfig',
     'lims.apps.LimsConfig',
     'users.apps.UsersConfig',
@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
 ]
-CORS_ORIGIN_ALLOW_ALL=True
+CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS += ['django_extensions']
 
 MIDDLEWARE = [
@@ -104,7 +104,6 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = 'SabPadLIMS.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -133,7 +132,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -146,7 +144,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -169,4 +166,4 @@ FILE_UPLOAD_HANDLERS = (
     'django.core.files.uploadhandler.TemporaryFileUploadHandler'
 )
 
-#django_heroku.settings(locals())
+# django_heroku.settings(locals())
