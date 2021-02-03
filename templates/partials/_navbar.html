@@ -40,7 +40,7 @@
                         <div class='dropdown-divider'></div>
                         <a class='dropdown-item' href='#'>Others</a>
                         {% if user.is_admin %}
-                        <a class='dropdown-item' href="{% url 'admin' %}">관리자 대시보드</a>
+                        <a class='dropdown-item' href="{% url 'admin:index' %}">관리자 대시보드</a>
                         {% endif %}
                     </div>
                 </div>
