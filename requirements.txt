@@ -6,9 +6,9 @@ whitenoise~= 5.2.0
 # Django Packages -------------------
 Django~=3.1.6
 dj-database-url~=0.5.0
+django-cors-headers~=3.7.0
 django-extensions~=3.1.0
 django-filter~=2.4.0
-django-cors-headers~=3.7.0
 djangorestframework~=3.12.2
 django-rest-auth~=0.9.5
 django-allauth~=0.44.0
@@ -17,7 +17,7 @@ django-allauth~=0.44.0
 pip~=21.0.1
 setuptools~=53.0.0
 
-lims
+lims~=1.0.1
 numpy #~=1.20.0
 openpyxl~=3.0.6
 pandas #~=1.2.1

@@ -1,42 +1,36 @@
 import itertools
+import os
+import pandas as pd
 import numpy as np
-from pandas import DataFrame
+
+from .models import *
 
 __all__ = [
-    'compare_columns'  # , 'CoupangMgr'
+    'read_file', 'write_file', 'compare_columns'
 ]
 
 
-'''class CoupangMgr:
-    """Main Coupang Partners API Class"""
-    domain = os.environ.get('DOMAIN', '')
+def read_file(file, filename, **kwargs):
+    """ Read file with **kwargs; files supported: xls, xlsx, csv, json. """
+    if 'nrows' in kwargs and not os.path.exists(filename):
+        Document.objects.create(description=filename, document=file)
 
-    def __init__(self):
-        super(CoupangMgr, self).__init__()
+    read_map = {'xls': pd.read_excel, 'xlsx': pd.read_excel, 'csv': pd.read_csv, 'json': pd.read_json}
+    ext = os.path.splitext(filename)[1].lower()[1:]
+    assert ext in read_map, "Input file not in correct format, must be spreadsheet; current format '{0}'".format(ext)
+    dataframe = read_map[ext](file, index_col=False, **kwargs)
+    return dataframe, dataframe.columns
 
-    @staticmethod
-    def generate_hmac(method, link, secret_key, access_key):
-        path, *query = link.split("?")
-        os.environ["TZ"] = "GMT+0"
-        datetime = time.strftime('%y%m%d') + 'T' + time.strftime('%H%M%S') + 'Z'
-        message = datetime + method + path + (query[0] if query else "")
-        signature = hmac.new(bytes(secret_key, "utf-8"), message.encode("utf-8"), hashlib.sha256).hexdigest()
-        return "CEA algorithm=HmacSHA256, access-key={}, signed-date={}, signature={}".format(access_key, datetime,
-                                                                                              signature)
 
-    def get_products_data(self, request_method, authorization, keyword, limit):
-        url = "/v2/providers/affiliate_open_api/apis/openapi/products/search?keyword=" + urllib.parse.quote(
-            keyword) + "&limit=" + str(limit)
-        link = "{}{}".format(self.domain, url)
+def write_file(dataframe, filename, **kwargs):
+    """ Write file with **kwargs; files supported: xls, xlsx, csv, json. """
+    write_map = {'xls': pd.DataFrame.to_excel, 'xlsx': pd.DataFrame.to_excel, 'csv': pd.DataFrame.to_csv, 'json': pd.DataFrame.to_json}
 
-        response = requests.request(method=request_method, url=link, headers={"Authorization": authorization,
-                                                                              "Content-Type": "application/json;
-                                                                              charset=UTF-8"})
-        ret_data = json.dumps(response.json(), indent=4).encode('utf-8')
-        json_data = json.loads(ret_data)
-        data = json_data['data']
-        product_data = data['productData']
-        return product_data'''
+    ext = os.path.splitext(filename)[1].lower()[1:]
+    assert ext in write_map, "Input file not in correct format, must be spreadsheet current format '{0}'".format(ext)
+    file = write_map[ext](dataframe, filename, **kwargs)
+    document_obj = Document.objects.create(description=filename, document=file)
+    return document_obj
 
 
 def compare_columns(dataframes, header_list):
@@ -57,6 +51,6 @@ def compare_columns(dataframes, header_list):
             for row in comp_result:
                 df_list.append([row] + list(comb))
                 # ': '.join([comb[0], str(dataframes[0].index[dataframes[0][comb[0]] == row])]),
-    return DataFrame(data=df_list, columns=[
+    return pd.DataFrame(data=df_list, columns=[
          'Column Value', 'Column Name (File #1)', 'Column Name (File #2)'
     ])
