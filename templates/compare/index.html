@@ -11,7 +11,7 @@
 
 
 {% block content %}
-<form action="{% if step == 'finished' %}{{ url_for('compare_app.export') }}{% else %}{{ url_for('compare_app.index') }}{% endif %}"
+<form action="{% if step == 'finished' %}{% url 'export' %}{% else %}{% url 'compare:index' %}{% endif %}"
       method='POST'>
     <div class='card-header d-flex align-items-center justify-content-between'>
         <h5 class='my-2'>
@@ -21,8 +21,8 @@
 
             {% else %}
 
-            <strong>파일 이름 #1:</strong> {{ files.0.0 | truncate(40) }}<br/>
-            <strong>파일 이름 #2:</strong> {{ files.1.0 | truncate(40) }}
+            <strong>파일 이름 #1:</strong> {{ files.0.0 | truncatechars:40 }}<br/>
+            <strong>파일 이름 #2:</strong> {{ files.1.0 | truncatechars:40 }}
 
             {% endif %}
         </h5>
@@ -46,7 +46,7 @@
                 <button class='nav-item btn btn-primary mb-2' type="submit">
                     <i class='fa fa-download'></i> 파일 내보내기
                 </button>
-                <a class='nav-item btn btn-primary' href="{{ url_for('compare_app.index') }}">
+                <a class='nav-item btn btn-primary' href="{% url 'compare:index' %}">
                     <i class='fa fa-refresh'></i> 다시 시작
                 </a>
 
