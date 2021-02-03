@@ -18,7 +18,7 @@ def compare(request):
     file_paths, header_dict, step = [], [], 'start'
     files, header_dict, step = [], [], 'start'
     if request.method == 'POST':
-        if 'filename' in request.form:
+        if 'filename' in request.POST:
             step, compare_dict, dataframes = 'finished', [], []
             for i, filename in enumerate(request.POST.getlist('filename')):
                 file_path = os.path.join(settings.UPLOADS_PATH, filename)
