@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import dj_database_url
-import django_heroku
+#import django_heroku
 from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
 import dotenv as env
 
@@ -47,6 +47,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
     'main.apps.MainConfig',
     'lims.apps.LimsConfig',
     'users.apps.UsersConfig',
@@ -60,8 +61,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'corsheaders',
-    'lims',
-    'users',
 ]
 CORS_ORIGIN_ALLOW_ALL=True
 INSTALLED_APPS += ['django_extensions']
@@ -113,6 +112,8 @@ DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL', 'mysql://root:password@localhost:3306/database_db')),
 }
 
+AUTH_USER_MODEL = 'accounts.User'
+LOGIN_REDIRECT_URL = '/'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -168,4 +169,4 @@ FILE_UPLOAD_HANDLERS = (
     'django.core.files.uploadhandler.TemporaryFileUploadHandler'
 )
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())

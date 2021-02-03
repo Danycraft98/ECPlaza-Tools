@@ -1,8 +1,9 @@
 {% extends 'accounts_base.html' %}
+{% load static %}
 
 
 {% block style %}
-<link type='text/css' rel='stylesheet' href="{{ url_for('static', filename='css/style_login.min.css') }}">
+<link type='text/css' rel='stylesheet' href="{% static 'css/style_login.min.css' %}">
 {% endblock %}
 
 
@@ -11,6 +12,7 @@
     <div class='container-login100'> <!--style="background-image: url('images/bg-01.jpg');"-->
         <div class='wrap-login100'>
             <form class='login100-form validate-form' method='POST' action=''>
+                {% csrf_token %}
                 <span class='login100-form-logo text-black-50'>
                     <i class='fa fa-user'></i>
                 </span>
@@ -43,7 +45,7 @@
                 <div class='text-center p-t-90'>
                     <a class='txt1' href='#'>비밀번호 찾기</a>
                     <a class='text-white disabled'>|</a>
-                    <a class='txt1' href="{{ url_for('accounts_app.register') }}">가입하기</a>
+                    <a class='txt1' href="{% url 'signup' %}">가입하기</a>
                 </div>
             </form>
         </div>
