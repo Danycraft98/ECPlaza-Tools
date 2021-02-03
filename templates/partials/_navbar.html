@@ -1,8 +1,9 @@
+{% load static %}
 <nav class='navbar navbar-expand navbar-dark navbar-fixed-top bg-secondary justify-content-between'>
     <div class='container-fluid  d-flex bd-highlight'>
         <div class='p-2 flex-fill bd-highlight'>
-            <a class='navbar-brand' href="{{ url_for('main_app.index') }}">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" width='150' height='30' class='d-inline-block align-top' alt='Logo'>
+            <a class='navbar-brand' href="{% url 'index' %}">
+                <img src="{% static 'images/logo.png' %}" width='150' height='30' class='d-inline-block align-top' alt='Logo'>
             </a>
         </div>
 
@@ -17,14 +18,14 @@
                         쿠팡 파트너즈
                     </a>
                     <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-                        <a class='dropdown-item' href="{{ url_for('compare_app.coupang_partners') }}">대시보드</a>
+                        <a class='dropdown-item' href="{% url 'index' %}">대시보드</a>
                         <div class='dropdown-divider'></div>
                         <a class='dropdown-item' href='https://partners.coupang.com/#affiliate'>쿠팡 사이트</a>
                     </div>
                 </div>
-                <a class='nav-item nav-link' href="{{ url_for('compare_app.index') }}">파일비교</a>
-                <a class='nav-item nav-link' href="{{ url_for('parse_app.url_parse') }}">링크 투 파일</a>
-                <a class='nav-item nav-link' href="{{ url_for('traffic_app.traffic') }}">트래픽 분석</a>
+                <a class='nav-item nav-link' href="{% url 'index' %}">파일비교</a>
+                <a class='nav-item nav-link' href="{% url 'index' %}">링크 투 파일</a>
+                <a class='nav-item nav-link' href="{% url 'index' %}">트래픽 분석</a>
             </div>
         </div>
 
@@ -35,19 +36,19 @@
                 <div class='nav-item dropdown'>
                     <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>{{ user }}</a>
                     <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-                        <a class='dropdown-item' href="{{ url_for('accounts_app.logout') }}">로그아웃</a>
+                        <a class='dropdown-item' href="{% url 'logout' %}">로그아웃</a>
                         <div class='dropdown-divider'></div>
                         <a class='dropdown-item' href='#'>Others</a>
                         {% if user.is_admin %}
-                        <a class='dropdown-item' href="{{ url_for('admin.index') }}">관리자 대시보드</a>
+                        <a class='dropdown-item' href="{% url 'admin' %}">관리자 대시보드</a>
                         {% endif %}
                     </div>
                 </div>
 
                 {% else %}
 
-                <a class='nav-item nav-link' href="{{ url_for('accounts_app.login') }}">로그인</a>
-                <a class='nav-item nav-link' href="{{ url_for('accounts_app.register') }}">가입</a>
+                <a class='nav-item nav-link' href="{% url 'login' %}">로그인</a>
+                <a class='nav-item nav-link' href="{% url 'signup' %}">가입</a>
 
                 {% endif %}
             </div>
