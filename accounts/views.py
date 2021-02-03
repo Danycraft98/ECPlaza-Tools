@@ -12,7 +12,7 @@ def signup(request):
                                  password=request.POST.get('password1', ''),
                                  email=request.POST.get('email', ''))
         return redirect('/accounts/login')
-    return render(request, 'accounts/signup.html', {'form': form})
+    return render(request, 'accounts/register.html', {'form': form})
 
 
 @login_required
