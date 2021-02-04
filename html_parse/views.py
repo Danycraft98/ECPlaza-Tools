@@ -9,7 +9,6 @@ from SabPadLIMS import settings
 from .functions import parse_link
 
 sep = os.path.sep
-parse_app = Blueprint('parse_app', __name__, template_folder='../templates')
 TITLE = ('파일비교 애플리케이션', '파일 내역을 비교하는 애플리케이션')
 
 
