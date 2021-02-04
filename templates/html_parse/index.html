@@ -25,20 +25,28 @@
         <div class='row'>
             <div class='col'>
                 <label for='link'>URL 링크: (예시: https://1688.com)</label>
-                  <!-- TODO: remove test link -->
-                <input type='url' class='form-control' id='link' name='link' value='{% if request_param %}{{ request_param.link }}{% else %}http://{% endif %}' required/>
+                <!-- TODO: remove test link -->
+                <div class="input-group">
+                    <input type='url' class='form-control' id='link' name='link' value='{% if request_param %}{{ request_param.link }}{% else %}http://{% endif %}'/>
+                    <input list='link_list' name='link_list' class='custom-select'/>
+                    <datalist id='link_list'>
+                        <option></option>
+                    </datalist>
+                </div>
             </div>
         </div>
 
         <div class='row'>
             <div class='col-6'>
                 <label for='username'>사용자 이름: </label>
-                <input type='text' class='form-control' id='username' name='username' value='{% if request_param %}{{ request_param.username }}{% endif %}'/>
+                <input type='text' class='form-control' id='username' name='username'
+                       value='{% if request_param %}{{ request_param.username }}{% endif %}'/>
             </div>
 
             <div class='col-6'>
                 <label for='link'>비밀번호: </label>
-                <input type='password' class='form-control' id='password' name='password' value='{% if request_param %}{{ request_param.password }}{% endif %}'/>
+                <input type='password' class='form-control' id='password' name='password'
+                       value='{% if request_param %}{{ request_param.password }}{% endif %}'/>
             </div>
         </div>
 
@@ -70,5 +78,6 @@
             }
         }, 1);
     });
+
 </script>
 {% endblock %}

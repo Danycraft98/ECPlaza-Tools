@@ -1,4 +1,6 @@
-![Made with Love in India](https://madewithlove.org.in/badge.svg) [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+![Made with Love in South Korea](
+
+) [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 # laboratory-information-management-system
 
@@ -11,6 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 - Django (2.1)
 - Django REST Framework
 - Django Rest Auth
+release: python manage.py createuser staff --email staff@email.com --password password
 
 ## Installation
 ```
