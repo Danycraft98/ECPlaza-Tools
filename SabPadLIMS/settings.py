@@ -48,6 +48,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'compare.apps.CompareConfig',
+    'html_parse.apps.HTMLParseConfig',
     'main.apps.MainConfig',
     'lims.apps.LimsConfig',
     'users.apps.UsersConfig',
