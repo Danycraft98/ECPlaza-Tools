@@ -10,7 +10,8 @@ TITLE = ('파일비교 애플리케이션', '파일 내역을 비교하는 애�
 
 @login_required
 def url_parse(request):
-    data = None
+    data, request_param = None, {}
     if request.method == 'POST':
-        data = parse_link(request.POST.get('link'), request.POST.get('username'), request.POST.get('password'))
-    return render(request, 'html_parse/index.html', {'title': TITLE, 'data': data, 'user': request.user})
+        request_param = {'link': request.POST.get('link'), 'username': request.POST.get('username'), 'password': request.POST.get('password')}
+        data = parse_link(**request_param)
+    return render(request, 'html_parse/index.html', {'title': TITLE, 'data': data, 'user': request.user, 'request_param': request_param})
