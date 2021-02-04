@@ -21,6 +21,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('compare/', include('compare.urls')),
-    path('users/', include('users.urls')),
     path('lab/', include('lims.urls')),
+    path('url.parse/', include('html_parse.urls')),
+    path('users/', include('users.urls')),
 ]
