@@ -24,21 +24,21 @@
     <div class='card-body container'>
         <div class='row'>
             <div class='col'>
-                <label for='link'>URL 링크: </label>
+                <label for='link'>URL 링크: (예시: https://1688.com)</label>
                   <!-- TODO: remove test link -->
-                <input type='url' class='form-control' id='link' name='link' placeholder='예시: https://1688.com' value='{% if request_param %}{{ request_param.link }}{% endif %}' required/>
+                <input type='url' class='form-control' id='link' name='link' value='{% if request_param %}{{ request_param.link }}{% else %}http://{% endif %}' required/>
             </div>
         </div>
 
         <div class='row'>
             <div class='col-6'>
                 <label for='username'>사용자 이름: </label>
-                <input type='text' class='form-control' id='username' name='username' value='{% if request_param %}{{ request_param.username }}{% endif %}' required/>
+                <input type='text' class='form-control' id='username' name='username' value='{% if request_param %}{{ request_param.username }}{% endif %}'/>
             </div>
 
             <div class='col-6'>
                 <label for='link'>비밀번호: </label>
-                <input type='password' class='form-control' id='password' name='password' value='{% if request_param %}{{ request_param.password }}{% endif %}' required/>
+                <input type='password' class='form-control' id='password' name='password' value='{% if request_param %}{{ request_param.password }}{% endif %}'/>
             </div>
         </div>
 
@@ -59,6 +59,16 @@
 <script>
     $(document).ready(function () {
         $('.dataTable').DataTable();
+    });
+
+    $("input[name='link']").keydown(function(e) {
+        var oldvalue=$(this).val();
+        var field=this;
+        setTimeout(function () {
+            if(field.value.indexOf('http://') !== 0) {
+                $(field).val(oldvalue);
+            }
+        }, 1);
     });
 </script>
 {% endblock %}

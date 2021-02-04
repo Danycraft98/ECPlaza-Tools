@@ -8,7 +8,7 @@ sep = os.path.sep
 TITLE = ('파일비교 애플리케이션', '파일 내역을 비교하는 애플리케이션')
 
 
-@login_required
+# @login_required
 def url_parse(request):
     data, request_param = None, {}
     if request.method == 'POST':
