@@ -7,7 +7,7 @@
 
 
 {% block content %}
-<form method='POST' action="{{ url_for('parse_app.url_parse') }}">
+<form method='POST' action="{% url 'url_parse' %}">
     <div class='card-header d-flex align-items-center justify-content-between'>
         <h5 class='my-2'>링크 삽입</h5>
 
@@ -33,7 +33,7 @@
         {% if data %}
         <div class='row'>
             <div class='col'>
-                {{ data.read() }}
+                {{ data.read }}
             </div>
         </div>
         {% endif %}
