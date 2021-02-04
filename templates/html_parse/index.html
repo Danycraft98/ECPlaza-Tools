@@ -45,7 +45,7 @@
         {% if data %}
         <div class='row'>
             <div class='col'>
-                {{ data.read }}
+                {{ data.read | safe }}
             </div>
         </div>
         {% endif %}
