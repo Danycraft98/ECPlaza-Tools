@@ -17,4 +17,4 @@ def url_parse(request):
     data = None
     if request.method == 'POST':
         data = parse_link(request.POST.get('link'))
-    return render_template(request, 'html_parse/index.html', {'title': TITLE, 'data': data, 'user': request.user})
+    return render(request, 'html_parse/index.html', {'title': TITLE, 'data': data, 'user': request.user})
