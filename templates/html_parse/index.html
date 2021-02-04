@@ -27,11 +27,8 @@
                 <label for='link'>URL 링크: (예시: https://1688.com)</label>
                 <!-- TODO: remove test link -->
                 <div class="input-group">
-                    <input type='url' class='form-control' id='link' name='link' value='{% if request_param %}{{ request_param.link }}{% else %}http://{% endif %}'/>
-                    <input list='link_list' name='link_list' class='custom-select'/>
-                    <datalist id='link_list'>
-                        <option></option>
-                    </datalist>
+                    <input type='text' class='form-control' id='link' name='link' value='{% if request_param %}{{ request_param.link }}{% else %}https://{% endif %}'/>
+                    <input type='file' class='form-control' id='html_file' name='html_file'/>
                 </div>
             </div>
         </div>
@@ -73,7 +70,7 @@
         var oldvalue=$(this).val();
         var field=this;
         setTimeout(function () {
-            if(field.value.indexOf('http://') !== 0) {
+            if(field.value.indexOf('https://') !== 0) {
                 $(field).val(oldvalue);
             }
         }, 1);
