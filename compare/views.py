@@ -37,8 +37,8 @@ def compare(request):
         input_files = request.FILES.getlist('file')
         step = 'progress'
         for i, file in enumerate(input_files):
-            files.append([file.filename, int(request.POST.getlist('header')[i])])
-            header_dict.append(read_file(file, file.filename, skiprows=files[i][1], nrows=files[i][1] + 1)[1])
+            files.append([file.name, int(request.POST.getlist('header')[i])])
+            header_dict.append(read_file(file, file.name, skiprows=files[i][1], nrows=files[i][1] + 1)[1])
     return render(request, 'compare/index.html', {'filenames': file_paths, 'header_dict': header_dict, 'sep': sep, 'step': step, 'title': TITLE, 'user': request.user})
 
 
@@ -48,6 +48,6 @@ def export(request):
         filename = request.POST.get('out_filename')
         file = Document.objects.filter_by(description=filename).last().document
         resp = HttpResponse(file.read(), content_type='applcations/upload')
-        resp['Content-Disposition'] = 'inline;filename=' + os.path.basename(file.filename)
+        resp['Content-Disposition'] = 'inline;filename=' + os.path.basename(file.name)
         return resp
     return redirect(None)
