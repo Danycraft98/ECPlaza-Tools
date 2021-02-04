@@ -1,6 +1,5 @@
-# import os
-import base64
-from urllib import request, parse
+from bs4 import BeautifulSoup
+from urllib import request
 
 # from url_parser import get_url, get_base_url
 
@@ -29,4 +28,10 @@ def parse_link(link, username=None, password=None):
     # Install the opener.
     # Now all calls to urllib.request.urlopen use our opener.
     request.install_opener(opener)
-    return request.urlopen(link)
+    final_result = request.urlopen(link).read()
+    soup = BeautifulSoup(final_result)
+    link = soup.find("a")
+    if len(link) > 0 and 'href' in link.attrs and 'authorize' in link.attrs.get('href'):
+        final_result = link.attrs.get('href')
+        return parse_link(final_result, username, password)
+    return final_result
