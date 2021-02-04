@@ -13,7 +13,7 @@ __all__ = [
 def read_file(file, filename, **kwargs):
     """ Read file with **kwargs; files supported: xls, xlsx, csv, json. """
     if 'nrows' in kwargs and not os.path.exists(filename):
-        Document.objects.create(description=filename, document=file)
+        Document.objects.get_or_create(description=filename, document=file)
 
     read_map = {'xls': pd.read_excel, 'xlsx': pd.read_excel, 'csv': pd.read_csv, 'json': pd.read_json}
     ext = os.path.splitext(filename)[1].lower()[1:]
