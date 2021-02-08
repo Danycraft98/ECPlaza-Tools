@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from SabPadLIMS import settings
+from .forms import *
 from .functions import compare_columns, read_file
 from .models import Document
 
@@ -16,30 +17,37 @@ sep = os.path.sep
 # @login_required
 def compare(request):
     file_paths, header_dict, step = [], [], 'start'
-    files, header_dict, step = [], [], 'start'
+    header_dict, step = [], 'start'
+    docForms = DocumentFormSet(request.POST or None, request.FILES or None)
+    hsForms = HeaderSelectFormSet(request.POST or None, request.FILES or None)
     if request.method == 'POST':
-        if 'filename' in request.POST:
+        all_valid = all(hsForm.is_valid() for hsForm in hsForms[:2])
+        if all_valid:
             step, compare_dict, dataframes = 'finished', [], []
-            for i, filename in enumerate(request.POST.getlist('filename')):
-                file_path = os.path.join(settings.UPLOADS_PATH, filename)
+            for i, hsForm in enumerate(hsForms[:2]):
+                filename = hsForm.cleaned_data.get('filename')
+                doc = Document.objects.filter_by(document=filename).first()
                 file_comp_list = request.POST.getlist('header' + str(i + 1))
-                files.append([filename, int(request.POST.getlist('header_num')[i])])
                 compare_dict.append(file_comp_list)
-                dataframes.append(read_file(open(file_path, 'rb+'), file_path)[0])
+                dataframes.append(read_file(doc.document, doc.document.path)[0])
 
             out_dataframe = compare_columns(dataframes, compare_dict)
             out_filename = 'output_files/compare_report-' + datetime.now().strftime('%Y-%m-%d') + '.xls'
             out_dataframe.to_excel(out_filename, index=False)
-            return render(request, 'compare/index.html', {'files': files, 'comp_results': out_dataframe.to_html(
+            return render(request, 'compare/index.html', {'comp_results': out_dataframe.to_html(
                 classes='table table-bordered table-hover table-responsive table-striped', index=False
             ), 'sep': sep, 'out_filename': out_filename, 'step': step, 'title': TITLE, 'user': request.user})
 
-        input_files = request.FILES.getlist('file')
-        step = 'progress'
-        for i, file in enumerate(input_files):
-            files.append([file.name, int(request.POST.getlist('header')[i])])
-            header_dict.append(read_file(file, file.name, skiprows=files[i][1], nrows=files[i][1] + 1)[1])
-    return render(request, 'compare/index.html', {'filenames': file_paths, 'header_dict': header_dict, 'sep': sep, 'step': step, 'title': TITLE, 'user': request.user})
+        all_valid = all(docForm.is_valid() for docForm in docForms[:2])
+        if all_valid:
+            step, values = 'progress', []
+            for i, docForm in enumerate(docForms[:2]):
+                file = docForm.cleaned_data.get('document')
+                values.append({'filename': file.name, 'header_num': docForm.cleaned_data.get('header')})
+                header_dict.append(read_file(file, file.name, skiprows=values[i].get('header_num'), nrows=values[i].get('header_num') + 1)[1])
+                docForm.save()
+            hsForms.initial = values
+    return render(request, 'compare/index.html', {'formset': docForms, 'hsForms': hsForms, 'filenames': file_paths, 'header_dict': header_dict, 'sep': sep, 'step': step, 'title': TITLE, 'user': request.user})
 
 
 @login_required

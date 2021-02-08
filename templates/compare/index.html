@@ -6,6 +6,7 @@
     .table tr {
         text-align: left !important;
     }
+
 </style>
 {% endblock %}
 
@@ -21,8 +22,8 @@
 
             {% else %}
 
-            <strong>파일 이름 #1:</strong> {{ files.0.0 | truncatechars:40 }}<br/>
-            <strong>파일 이름 #2:</strong> {{ files.1.0 | truncatechars:40 }}
+            <strong>파일 이름 #1:</strong> {{ hsForms.0.fields.filename.value | truncatechars:40 }}<br/>
+            <strong>파일 이름 #2:</strong> {{ hsForms.1.fields.filename.value | truncatechars:40 }}
 
             {% endif %}
         </h5>
@@ -31,7 +32,8 @@
             <div class='navbar-nav ml-auto'>
                 {% if step == 'start' %}
 
-                <button class='nav-item btn btn-primary' data-bs-target='#uploadModal' data-bs-toggle='modal' type='button'>
+                <button class='nav-item btn btn-primary' data-bs-target='#uploadModal' data-bs-toggle='modal'
+                        type='button'>
                     <i class='fa fa-upload'></i> 업로드
                 </button>
 
@@ -66,10 +68,7 @@
 
                 {% if step == 'progress' %}
 
-                <input aria-label='filename1' hidden id='filename1' name='filename' type='text' value='{{ files.0.0 }}'>
-                <input aria-label='filename2' hidden id='header_num1' name='header_num' type='number' value='{{ files.0.1 }}'>
-                <input aria-label='filename2' hidden id='filename2' name='filename' type='text' value='{{ files.1.0 }}'>
-                <input aria-label='filename2' hidden id='header_num2' name='header_num' type='number' value='{{ files.1.1 }}'>
+                {{ hsForms }}
 
                 {% else %}
 
@@ -86,7 +85,8 @@
                     {% for h in header_list %}
 
                     <div class='form-check form-switch form-check-inline'>
-                        <input class='form-check-input' id='header{{ file_index }}-{{ loop.index0 }}' name='header{{ file_index }}'
+                        <input class='form-check-input' id='header{{ file_index }}-{{ loop.index0 }}'
+                               name='header{{ file_index }}'
                                type='checkbox' value='{{ h }}'>
                         <label class='form-check-label' for='header{{ file_index }}-{{ loop.index0 }}'>{{ h }}</label>
                     </div>
@@ -136,24 +136,12 @@
 
             <form action='' enctype='multipart/form-data' method='post'>
                 <div class='modal-body px-5'>
-                    <div class='mb-3'>
-                        <input accept='.xls,.xlsx,.csv' aria-label='File Upload' class='form-control' id='file1' name='file' required type='file'>
-                    </div>
-
-                    <div class='input-group mb-3'>
-                        <span class='input-group-text'>헤더 행# (첫 행=0)</span>
-                        <input aria-label='File Header' class='form-control' id='header1' min='0' name='header' required type='number' value='0'>
-                    </div>
-                    <hr/>
-
-                    <div class='mb-3'>
-                        <input accept='.xls,.xlsx,.csv' aria-label='File Upload' class='form-control' id='file2' name='file' required type='file'>
-                    </div>
-
-                    <div class='input-group mb-3'>
-                        <span class='input-group-text'>헤더 행# (첫 행=0)</span>
-                        <input aria-label='File Header' class='form-control' id='header2' min='0' name='header' required type='number' value='0'>
-                    </div>
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+                        {% if forloop.counter0 < 2 %}
+                            {{ form }}
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
                 <div class='modal-footer'>
