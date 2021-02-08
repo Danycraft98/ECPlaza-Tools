@@ -2,154 +2,147 @@
 
 
 {% block style %}
-<style>
-    .table tr {
-        text-align: left !important;
-    }
+    <style>
+        .table tr {
+            text-align: left !important;
+        }
 
-</style>
+    </style>
 {% endblock %}
 
 
 {% block content %}
-<form action="{% if step == 'finished' %}{% url 'export' %}{% else %}{% url 'compare' %}{% endif %}"
-      method='POST'>
-    <div class='card-header d-flex align-items-center justify-content-between'>
-        <h5 class='my-2'>
-            {% if step == 'start' %}
+    <form action="{% if step == 'finished' %}{% url 'export' %}{% else %}{% url 'compare' %}{% endif %}"
+          method='POST'>
+        <div class='card-header d-flex align-items-center justify-content-between'>
+            <h5 class='my-2'>
+                {% if step == 'start' %}
 
-            <strong>파일 업로드</strong>
+                    <strong>파일 업로드</strong>
 
-            {% else %}
+                {% else %}
 
-            <strong>파일 이름 #1:</strong> {{ hsForms.0.fields.filename.value | truncatechars:40 }}<br/>
-            <strong>파일 이름 #2:</strong> {{ hsForms.1.fields.filename.value | truncatechars:40 }}
+                    <strong>파일 이름 #1:</strong> {{ hsForms.0.fields.filename.value | truncatechars:40 }}<br/>
+                    <strong>파일 이름 #2:</strong> {{ hsForms.1.fields.filename.value | truncatechars:40 }}
+
+                {% endif %}
+            </h5>
+
+            <div class='align-items-right my-2'>
+                <div class='navbar-nav ml-auto'>
+                    {% if step == 'start' %}
+
+                        <button class='nav-item btn btn-primary' data-bs-target='#uploadModal' data-bs-toggle='modal'
+                                type='button'>
+                            <i class='fa fa-upload'></i> 업로드
+                        </button>
+
+                    {% elif step == 'progress' %}
+
+                        <button class='nav-item btn btn-primary' type='submit'>
+                            <i class='fa fa-search'></i> 비교하기
+                        </button>
+
+                    {% else %}
+
+                        <button class='nav-item btn btn-primary mb-2' type="submit">
+                            <i class='fa fa-download'></i> 파일 내보내기
+                        </button>
+                        <a class='nav-item btn btn-primary' href="{% url 'compare' %}">
+                            <i class='fa fa-refresh'></i> 다시 시작
+                        </a>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class='card-body'>
+            <div class='container-fluid'>
+                <div class='row'>
+                    {% if step == 'start' %}
+
+                        <div class='col'>파일을 업로드 해주세요.</div>
+
+                    {% else %}
+
+                        {% if step == 'progress' %}
+
+                            {{ hs_formset }}
+
+                        {% else %}
+
+                            <input aria-label='out_file' hidden id='out_filename'
+                                   name='out_filename' type='text' value='{{ out_filename }}'>
+
+                        {% endif %}
+
+                        {% for header_list in header_dict %}
+                            {% with file_index=loop.index %}
+
+                                <fieldset class='col-6 form-inline box_fieldset'>
+                                    <legend class='h6'>파일 #{{ file_index }} 열 이름</legend>
+                                    {% for h in header_list %}
+
+                                        <div class='form-check form-switch form-check-inline'>
+                                            <input class='form-check-input' id='header{{ file_index }}-{{ loop.index0 }}' name='header{{ file_index }}' type='checkbox' value='{{ h }}'>
+                                            <label class='form-check-label' for='header{{ file_index }}-{{ loop.index0 }}'>{{ h }}</label>
+                                        </div>
+
+                                    {% endfor %}
+                                </fieldset>
+
+                            {% endwith %}
+                        {% endfor %}
+
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if comp_results %}
+
+                {{ comp_results | safe }}
+
+            {% elif step == 'finished' %}
+
+                <div class='container-fluid row col'>일치하는 아이탬이 없습니다.</div>
 
             {% endif %}
-        </h5>
-
-        <div class='align-items-right my-2'>
-            <div class='navbar-nav ml-auto'>
-                {% if step == 'start' %}
-
-                <button class='nav-item btn btn-primary' data-bs-target='#uploadModal' data-bs-toggle='modal'
-                        type='button'>
-                    <i class='fa fa-upload'></i> 업로드
-                </button>
-
-                {% elif step == 'progress' %}
-
-                <button class='nav-item btn btn-primary' type='submit'>
-                    <i class='fa fa-search'></i> 비교하기
-                </button>
-
-                {% else %}
-
-                <button class='nav-item btn btn-primary mb-2' type="submit">
-                    <i class='fa fa-download'></i> 파일 내보내기
-                </button>
-                <a class='nav-item btn btn-primary' href="{% url 'compare' %}">
-                    <i class='fa fa-refresh'></i> 다시 시작
-                </a>
-
-                {% endif %}
-            </div>
         </div>
-    </div>
-
-    <div class='card-body'>
-        <div class='container-fluid'>
-            <div class='row'>
-                {% if step == 'start' %}
-
-                <div class='col'>파일을 업로드 해주세요.</div>
-
-                {% else %}
-
-                {% if step == 'progress' %}
-
-                {{ hsForms }}
-
-                {% else %}
-
-                <input aria-label='out_file' hidden id='out_filename'
-                       name='out_filename' type='text' value='{{ out_filename }}'>
-
-                {% endif %}
-
-                {% for header_list in header_dict %}
-                {% with file_index=loop.index %}
-
-                <fieldset class='col-6 form-inline box_fieldset'>
-                    <legend class='h6'>파일 #{{ file_index }} 열 이름</legend>
-                    {% for h in header_list %}
-
-                    <div class='form-check form-switch form-check-inline'>
-                        <input class='form-check-input' id='header{{ file_index }}-{{ loop.index0 }}'
-                               name='header{{ file_index }}'
-                               type='checkbox' value='{{ h }}'>
-                        <label class='form-check-label' for='header{{ file_index }}-{{ loop.index0 }}'>{{ h }}</label>
-                    </div>
-
-                    {% endfor %}
-                </fieldset>
-
-                {% endwith %}
-                {% endfor %}
-
-                {% endif %}
-            </div>
-        </div>
-
-        {% if comp_results %}
-
-        {{ comp_results | safe }}
-
-        {% elif step == 'finished' %}
-
-        <div class='container-fluid row col'>일치하는 아이탬이 없습니다.</div>
-
-        {% endif %}
-    </div>
-</form>
+    </form>
 {% endblock %}
 
 
 {% block script %}
-<script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
+    <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
 {% endblock %}
 
 
 {% block modal %}
-<div aria-hidden='true' class='modal fade' id='uploadModal' role='dialog' tabindex='-1'>
-    <div class='modal-dialog' role='document'>
-        <div class='modal-content'>
-            <div class='modal-header'>
-                <h5 class='modal-title' id='uploadModalLabel'>파일 찾기 (예시: File.xlsx)</h5>
+    <div aria-hidden='true' class='modal fade' id='uploadModal' role='dialog' tabindex='-1'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='uploadModalLabel'>파일 찾기 (예시: File.xlsx)</h5>
 
-                <button aria-label='Close' class='close btn btn-default' data-bs-dismiss='modal' type='button'>
+                    <button aria-label='Close' class='close btn btn-default' data-bs-dismiss='modal' type='button'>
                     <span aria-hidden='true'>
                         <i class='fa fa-close'></i>
                     </span>
-                </button>
+                    </button>
+                </div>
+
+                <form action='' enctype='multipart/form-data' method='post'>
+                    <div class='modal-body px-5'>
+                        {{ formset }}
+                    </div>
+
+                    <div class='modal-footer'>
+                        <button class='btn btn-secondary' data-bs-dismiss='modal' type='button'>닫기</button>
+                        <button class='btn btn-primary' type='submit'><i class='fa fa-upload'></i> 업로드</button>
+                    </div>
+                </form>
             </div>
-
-            <form action='' enctype='multipart/form-data' method='post'>
-                <div class='modal-body px-5'>
-                    {{ formset.management_form }}
-                    {% for form in formset %}
-                        {% if forloop.counter0 < 2 %}
-                            {{ form }}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                <div class='modal-footer'>
-                    <button class='btn btn-secondary' data-bs-dismiss='modal' type='button'>닫기</button>
-                    <button class='btn btn-primary' type='submit'><i class='fa fa-upload'></i> 업로드</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 {% endblock %}

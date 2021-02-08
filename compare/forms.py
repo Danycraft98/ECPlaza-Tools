@@ -1,6 +1,6 @@
 from django.forms import (
     ModelForm, modelformset_factory, FileField, IntegerField, FileInput,
-    NumberInput, BooleanField, CheckboxInput, CharField, HiddenInput, formset_factory, Form
+    NumberInput, HiddenInput, formset_factory, Form
 )
 
 from compare.models import Document
@@ -36,8 +36,8 @@ class DocumentForm(ModelForm):
 
 
 class HeaderSelectForm(Form):
-    filename = CharField(required=False, widget=HiddenInput())
-    header_num = IntegerField(required=False, widget=HiddenInput())
+    file_id = IntegerField(widget=HiddenInput())
+    header_num = IntegerField(widget=HiddenInput())
 
     class Meta:
         fields = '__all__'
