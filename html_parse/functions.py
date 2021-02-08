@@ -12,7 +12,7 @@ from pandas import DataFrame
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'}
 
 
-def parse_link(link, username=None, password=None, value=None):
+def parse_link(link, username=None, password=None):
     password_mgr = request.HTTPPasswordMgrWithDefaultRealm()
 
     # Add the username and password.

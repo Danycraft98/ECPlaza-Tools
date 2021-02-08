@@ -6,7 +6,7 @@ from django.forms import (
 from compare.models import Document
 
 __all__ = [
-    'DocumentForm', 'DocumentFormSet', 'HeaderSelectFormSet'
+    'DocumentFormSet', 'HeaderSelectForm'
 ]
 
 
@@ -36,8 +36,11 @@ class DocumentForm(ModelForm):
 
 
 class HeaderSelectForm(Form):
-    file_id = IntegerField(widget=HiddenInput())
-    header_num = IntegerField(widget=HiddenInput())
+    prefix = 'hs'
+    file_id1 = IntegerField(widget=HiddenInput())
+    header_num1 = IntegerField(widget=HiddenInput())
+    file_id2 = IntegerField(widget=HiddenInput())
+    header_num2 = IntegerField(widget=HiddenInput())
 
     class Meta:
         fields = '__all__'
@@ -47,12 +50,6 @@ DocumentFormSet = modelformset_factory(
     Document,
     form=DocumentForm,
     fields='__all__',
-    min_num=2,
-    max_num=2,
-    extra=1
-)
-HeaderSelectFormSet = formset_factory(
-    form=HeaderSelectForm,
     min_num=2,
     max_num=2,
     extra=1

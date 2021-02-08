@@ -16,17 +16,14 @@ sep = os.path.sep
 @login_required
 def compare(request):
     file_paths, header_dict, step = [], [], 'start'
-    header_dict, step = [], 'start'
+    values, step = {}, 'start'
     doc_forms = DocumentFormSet(request.POST or None, request.FILES or None, queryset=Document.objects.none())
-    hs_forms = HeaderSelectFormSet(request.POST or None, request.FILES or None)
+    hs_form = HeaderSelectForm(request.POST or None, request.FILES or None)
     if request.method == 'POST':
-        all_valid = all(hsForm.is_valid() for hsForm in hs_forms)
-        if all_valid:
+        if hs_form.is_valid():
             step, compare_dict, dataframes = 'finished', [], []
-            for i, hsForm in enumerate(hs_forms):
-                file_id = hsForm.cleaned_data.get('file_id')
-                print(file_id)
-                doc = Document.objects.get(id=file_id)
+            for i in range(2):
+                doc = Document.objects.get(id=int(hs_form.cleaned_data.get('file_id' + str(i + 1))))
                 file_comp_list = request.POST.getlist('header' + str(i + 1))
                 compare_dict.append(file_comp_list)
                 dataframes.append(read_file(doc.document, doc.document.path)[0])
@@ -40,14 +37,20 @@ def compare(request):
 
         all_valid = all(docForm.is_valid() for docForm in doc_forms)
         if all_valid:
-            step, values = 'progress', []
+            step, values = 'progress', {}
             for i, docForm in enumerate(doc_forms):
                 file = docForm.cleaned_data.get('document')
                 docForm.save()
-                values.append({'file_id': Document.objects.filter(description=file.name), 'header_num': docForm.cleaned_data.get('header')})
-                header_dict.append(read_file(file, file.name, skiprows=values[i].get('header_num'), nrows=values[i].get('header_num') + 1)[1])
-            hs_forms.initial = values
-    return render(request, 'compare/index.html', {'formset': doc_forms, 'hs_formset': hs_forms, 'filenames': file_paths, 'header_dict': header_dict, 'sep': sep, 'step': step, 'title': TITLE, 'user': request.user})
+                values.update({
+                    'file_id' + str(i + 1): Document.objects.filter(description=file.name).first().id,
+                    'header_num' + str(i + 1): docForm.cleaned_data.get('header')
+                })
+                header_dict.append(read_file(file, file.name, skiprows=values.get(
+                    'header_num' + str(i + 1)), nrows=values.get('header_num' + str(i + 1)) + 1)[1])
+    return render(request, 'compare/index.html', {
+        'formset': doc_forms, 'hs_form': hs_form, 'filenames': file_paths, 'header_dict': header_dict, 'sep': sep,
+        'step': step, 'values': values, 'title': TITLE, 'user': request.user
+    })
 
 
 @login_required

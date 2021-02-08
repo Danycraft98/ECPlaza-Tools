@@ -68,25 +68,27 @@
 
                         {% if step == 'progress' %}
 
-                            {{ hs_formset }}
+                            <input type='number' id='{{ hs_form.header_num1.id_for_label }}' name='{{ hs_form.prefix }}-header_num1' aria-label='' value='{% if values|length > 0 %}{{ values.header_num1 }}{% endif %}' hidden>
+                            <input type='number' id='{{ hs_form.file_id1.id_for_label }}' name='{{ hs_form.prefix }}-file_id1' aria-label='' value='{% if values|length > 0 %}{{ values.file_id1 }}{% endif %}' hidden>
+                            <input type='number' id='{{ hs_form.header_num2.id_for_label }}' name='{{ hs_form.prefix }}-header_num2' aria-label='' value='{% if values|length > 0 %}{{ values.header_num2 }}{% endif %}' hidden>
+                            <input type='number' id='{{ hs_form.file_id2.id_for_label }}' name='{{ hs_form.prefix }}-file_id2' aria-label='' value='{% if values|length > 0 %}{{ values.file_id2 }}{% endif %}' hidden>
 
                         {% else %}
 
-                            <input aria-label='out_file' hidden id='out_filename'
-                                   name='out_filename' type='text' value='{{ out_filename }}'>
+                            <input aria-label='out_file' hidden id='out_filename' name='out_filename' type='text' value='{{ out_filename }}'>
 
                         {% endif %}
 
                         {% for header_list in header_dict %}
-                            {% with file_index=loop.index %}
+                            {% with file_index=forloop.counter0 %}
 
                                 <fieldset class='col-6 form-inline box_fieldset'>
                                     <legend class='h6'>파일 #{{ file_index }} 열 이름</legend>
                                     {% for h in header_list %}
 
                                         <div class='form-check form-switch form-check-inline'>
-                                            <input class='form-check-input' id='header{{ file_index }}-{{ loop.index0 }}' name='header{{ file_index }}' type='checkbox' value='{{ h }}'>
-                                            <label class='form-check-label' for='header{{ file_index }}-{{ loop.index0 }}'>{{ h }}</label>
+                                            <input class='form-check-input' id='header{{ file_index }}-{{ forloop.counter0  }}' name='header{{ file_index }}' type='checkbox' value='{{ h }}'>
+                                            <label class='form-check-label' for='header{{ file_index }}-{{ forloop.counter0  }}'>{{ h }}</label>
                                         </div>
 
                                     {% endfor %}
