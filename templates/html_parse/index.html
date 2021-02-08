@@ -2,79 +2,93 @@
 
 
 {% block style %}
-<link rel='stylesheet' href='//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css'>
+    <link rel='stylesheet' href='//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css'>
 {% endblock %}
 
 
 {% block content %}
-<form method='POST' action="{% url 'url_parse' %}">
-    <div class='card-header d-flex align-items-center justify-content-between'>
-        <h5 class='my-2'>링크 삽입</h5>
+    <form method='POST' enctype='multipart/form-data' action="{% url 'url_parse' %}">
+        <div class='card-header d-flex align-items-center justify-content-between'>
+            <h5 class='my-2'>링크 삽입</h5>
 
-        <div class='align-items-right my-2'>
-            <div class='navbar-nav ml-auto'>
-                <button class='nav-item btn btn-primary' type='submit'>
-                    <i class='fa fa-exchange'></i> 구문 분석
-                </button>
-                <!--button class='nav-item btn btn-primary' type='submit'>결과 보기</button-->
-            </div>
-        </div>
-    </div>
+            <div class='align-items-right my-2'>
+                <div class='navbar-nav ml-auto'>
+                    {% if not data %}
 
-    <div class='card-body container'>
-        <div class='row'>
-            <div class='col'>
-                <label for='link'>URL 링크: (예시: https://1688.com)</label>
-                <!-- TODO: remove test link -->
-                <div class="input-group">
-                    <input type='text' class='form-control' id='link' name='link' value='{% if request_param %}{{ request_param.link }}{% else %}https://{% endif %}'/>
-                    <input type='file' class='form-control' id='html_file' name='html_file'/>
+                        <button class='nav-item btn btn-primary' type='submit'>
+                            <i class='fa fa-exchange'></i> 구문 분석
+                        </button>
+
+                    {% else %}
+
+                        <button class='nav-item btn btn-primary' type='button' onclick='window.print();return false;'>
+                            <i class='fa fa-download'></i> 파일 내보내기
+                        </button>
+                        <a class='nav-item btn btn-primary' href="{% url 'url_parse' %}">
+                            <i class='fa fa-refresh'></i> 다시 시작
+                        </a>
+
+                    {% endif %}
                 </div>
             </div>
         </div>
 
-        <div class='row'>
-            <div class='col-6'>
-                <label for='username'>사용자 이름: </label>
-                <input type='text' class='form-control' id='username' name='username'
-                       value='{% if request_param %}{{ request_param.username }}{% endif %}'/>
-            </div>
+        <div class='card-body container'>
+            {% csrf_token %}
+            {% if not data %}
 
-            <div class='col-6'>
-                <label for='link'>비밀번호: </label>
-                <input type='password' class='form-control' id='password' name='password'
-                       value='{% if request_param %}{{ request_param.password }}{% endif %}'/>
-            </div>
-        </div>
+                <div class='row'>
+                    <div class='col'>
+                        <label>{{ form.link.label }}</label>
+                        <div class="input-group">
+                            {{ form.link }}
+                            {{ form.html_file }}
+                        </div>
+                    </div>
+                </div>
 
-        {% if data %}
-        <div class='row'>
-            <div class='col'>
-                {{ data | safe }}
-            </div>
+                <div class='row'>
+                    <div class='col'>
+                        <label>{{ form.value.label }}</label>
+                        {{ form.value }}
+                        <datalist id='value'>
+                            <option value='cardListItem'>1688</option>
+                            <option value='next-input-wrapper'>Shopify</option>
+                        </datalist>
+                    </div>
+                </div>
+
+                <div class='row mt-4'>
+                    <div class='col-6'>
+                        <label for='{{ form.username.id_for_label }}'>{{ form.username.label }}</label>
+                        {{ form.username }}
+                    </div>
+
+                    <div class='col-6'>
+                        <label for='{{ form.password.id_for_label }}'>{{ form.password.label }}</label>
+                        {{ form.password }}
+                    </div>
+                </div>
+
+            {% else %}
+
+                <div class='row mt-4'>
+                    <div class='col'>
+                        {{ data | safe }}
+                    </div>
+                </div>
+
+            {% endif %}
         </div>
-        {% endif %}
-    </div>
-</form>
+    </form>
 {% endblock %}
 
 
 {% block script %}
-<script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
-<script>
-    $(document).ready(function () {
-        $('.dataTable').DataTable();
-    });
-
-    $("input[name='link']").keydown(function(e) {
-        var oldvalue=$(this).val();
-        var field=this;
-        setTimeout(function () {
-            if(field.value.indexOf('https://') !== 0) {
-                $(field).val(oldvalue);
-            }
-        }, 1);
-    });
-
-</script>
+    <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
+    <script>
+        $(document).ready(function () {
+            $('.dataTable').DataTable();
+        });
+    </script>
 {% endblock %}

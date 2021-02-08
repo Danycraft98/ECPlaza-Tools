@@ -13,11 +13,11 @@ TITLE = ('파일비교 애플리케이션', '파일 내역을 비교하는 애�
 sep = os.path.sep
 
 
-# @login_required
+@login_required
 def compare(request):
     file_paths, header_dict, step = [], [], 'start'
     header_dict, step = [], 'start'
-    doc_forms = DocumentFormSet(request.POST or None, request.FILES or None)
+    doc_forms = DocumentFormSet(request.POST or None, request.FILES or None, queryset=Document.objects.none())
     hs_forms = HeaderSelectFormSet(request.POST or None, request.FILES or None)
     if request.method == 'POST':
         all_valid = all(hsForm.is_valid() for hsForm in hs_forms)

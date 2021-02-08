@@ -29,9 +29,8 @@ def parse_link(link, username=None, password=None):
     # Now all calls to urllib.request.urlopen use our opener.
     request.install_opener(opener)
     final_result = request.urlopen(link).read()
-    soup = BeautifulSoup(final_result)
-    link = soup.find("a")
+    """link = soup.find("a")
     if len(link) > 0 and 'href' in link.attrs and 'authorize' in link.attrs.get('href'):
         final_result = link.attrs.get('href')
-        return parse_link(final_result, username, password)
+        return parse_link(final_result, username, password)"""
     return final_result
