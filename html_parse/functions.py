@@ -4,13 +4,15 @@ from urllib import request
 # from url_parser import get_url, get_base_url
 
 __all__ = [
-    'parse_link'
+    'parse_link', 'get_dataframe'
 ]
+
+from pandas import DataFrame
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'}
 
 
-def parse_link(link, username=None, password=None):
+def parse_link(link, username=None, password=None, value=None):
     password_mgr = request.HTTPPasswordMgrWithDefaultRealm()
 
     # Add the username and password.
@@ -29,8 +31,31 @@ def parse_link(link, username=None, password=None):
     # Now all calls to urllib.request.urlopen use our opener.
     request.install_opener(opener)
     final_result = request.urlopen(link).read()
-    """link = soup.find("a")
-    if len(link) > 0 and 'href' in link.attrs and 'authorize' in link.attrs.get('href'):
-        final_result = link.attrs.get('href')
-        return parse_link(final_result, username, password)"""
     return final_result
+
+
+def get_dataframe(data, value):
+    soup = BeautifulSoup(data)
+    divs, final_data, header, row = soup.find_all('div', {'class': value}), [], [], None
+    for div in divs:
+        if value == 'cardListItem':
+            header = ['image', 'name', 'price', '# Sold', 'location']
+            row = [
+                '<img src=" ' + div.find('img').get('src') + '" width="100px">',
+                str(div.find('span')).replace(r'/[\]', ''),
+                str(div.find('div', {'class': 'salePrice'})),
+                str(div.find('div', {'class': 'iteRep'})),
+                str(div.find('div', {'class': 'itemAdr'}))
+            ]
+
+        elif div.find('textarea'):
+            header = ['label', 'content']
+            row = [
+                str(div.find('label')).replace(r'/[\]', ''),
+                div.find('textarea').get('placeholder')
+            ]
+
+        if row:
+            final_data.append(row)
+    dataframe = DataFrame(columns=header, data=final_data)
+    return dataframe
