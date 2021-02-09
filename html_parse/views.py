@@ -7,6 +7,7 @@ from .functions import *
 
 sep = os.path.sep
 TITLE = ('링크 투 파일 애플리케이션', '링크 컬링해주는 애플리케이션')
+APP_LIST = ['Shopify', '1688', 'Coupang']
 
 
 @login_required
@@ -28,9 +29,9 @@ def url_parse(request):
             return render(request, 'html_parse/index.html', {
                 'title': TITLE, 'form': form, 'data': dataframe.to_html(
                     escape=False, index=False, classes='table table-hover table-responsive table-stripped'),
-                'user': request.user
+                'app_list': APP_LIST, 'user': request.user
             })
 
     return render(request, 'html_parse/index.html', {
-        'title': TITLE, 'form': form, 'data': dataframe, 'user': request.user
+        'title': TITLE, 'form': form, 'data': dataframe, 'app_list': APP_LIST, 'user': request.user
     })

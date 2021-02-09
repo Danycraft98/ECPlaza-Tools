@@ -13,7 +13,7 @@ __all__ = [
 class DocumentForm(ModelForm):
     prefix = 'document'
     document = FileField(
-        required=True,
+        required=True, label='파일',
         widget=FileInput(attrs={
             'accept': '.xls,.xlsx,.csv',
             'aria-label': 'File Upload',

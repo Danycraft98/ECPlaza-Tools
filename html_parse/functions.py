@@ -34,28 +34,51 @@ def parse_link(link, username=None, password=None):
     return final_result
 
 
-def get_dataframe(data, value):
-    soup = BeautifulSoup(data)
-    divs, final_data, header, row = soup.find_all('div', {'class': value}), [], [], None
-    for div in divs:
-        if value == 'cardListItem':
-            header = ['image', 'name', 'price', '# Sold', 'location']
+def get_dataframe(data, key):
+    app_dict = {
+        'Shopify': ['div', 'next-input-wrapper', ['label', 'content']],
+        '1688': ['div', 'cardListItem', ['image', 'name', 'link', 'price', '# Sold', 'location']],
+        'Coupang': ['li', 'baby-product renew-badge', ['image', 'name', 'link', 'base price', 'sale price', 'unit price', 'rating']]
+    }
+
+    values, soup = app_dict.get(key), BeautifulSoup(data)
+    items, final_data, header = soup.find_all(values[0], {'class': values[1]}), [], values[2]
+    for item in items:
+        if key == 'Shopify':
             row = [
-                '<img src=" ' + div.find('img').get('src') + '" width="100px">',
-                str(div.find('span')).replace(r'/[\]', ''),
-                str(div.find('div', {'class': 'salePrice'})),
-                str(div.find('div', {'class': 'iteRep'})),
-                str(div.find('div', {'class': 'itemAdr'}))
+                str(item.find('label')).replace(r'/[\]', ''),
+                item.find('textarea').get('placeholder', '')
             ]
 
-        elif div.find('textarea'):
-            header = ['label', 'content']
+        elif key == '1688':
             row = [
-                str(div.find('label')).replace(r'/[\]', ''),
-                div.find('textarea').get('placeholder')
+                '<img src=" ' + item.find('img').get('src', '') + '" width="100px">',
+                str(item.find('span')).replace(r'/[\]', ''),
+                str(item.find('div', {'class': 'salePrice'})),
+                str(item.find('div', {'class': 'iteRep'})),
+                str(item.find('div', {'class': 'itemAdr'}))
             ]
 
-        if row:
-            final_data.append(row)
+        else:
+            row = [
+                '<img src=" ' + item.find('img').get('src', '') + '" width="100px">',
+                str(item.find('div', {'class': 'name'})).replace('\r\n', ''),
+                str(item.find('span', {'class': 'price-info'})).replace('\n', ' '),
+                str(item.find('strong', {'class': 'price-value'})),
+                str(item.find('span', {'class': 'unit-price'})),
+                str(item.find('em', {'class': 'rating'})),
+            ]
+
+        link = item.find('a')
+        if link:
+            address = link.get('href', '')
+            # print(parse_link(address))
+            row.insert(2, address)
+        elif key == 'Shopify':
+            pass
+        else:
+            row.insert(2, None)
+
+        final_data.append(row)
     dataframe = DataFrame(columns=header, data=final_data)
     return dataframe

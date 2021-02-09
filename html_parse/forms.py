@@ -13,7 +13,7 @@ class CurlForm(Form):
         'placeholder': '예시: https://1688.com',
         'pattern': 'https://.*'
     }))
-    html_file = FileField(required=False, widget=FileInput(attrs={
+    html_file = FileField(required=False, label='파일', widget=FileInput(attrs={
         'accept': '.html,.json,.xml',
         'aria-label': 'File Upload',
         'class': 'form-control'

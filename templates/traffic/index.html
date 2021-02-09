@@ -2,83 +2,93 @@
 
 
 {% block style %}
-<link rel='stylesheet' href='//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css'>
+    <link rel='stylesheet' href='//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css'>
 {% endblock %}
 
 
 {% block content %}
-<div class='col-md-12 graph_wrap'>
-<span>Users Sessions</span>
-# select box to change type of graph
-<span class="col-md-4 select_box">
-  <select id="chart-type-1">
-    <option value="LINE">Line</option>
-    <option value="COLUMN">Column</option>
-    <option value="TABLE">Table</option>
-  </select>
-</span>
-# select box to switch between 1 week and 1 month
-<span class="col-md-4 select_box">
-  <select id="chart-1">
-    <option value="30daysAgo">Last 30 Days</option>
-    <option value="7daysAgo">Last 7 Days</option>
-  </select>
-</span>
-<div class="clearfix"></div>
-<div id="chart-1-container"></div>
+    <div class='col-md-12 graph_wrap'>
+        <span>Users Sessions</span>
+
+        # select box to change type of graph
+        <span class='col-md-4 select_box'>
+            <select id='chart-type-1' aria-label=''>
+                <option value='LINE'>Line</option>
+                <option value='COLUMN'>Column</option>
+                <option value='TABLE'>Table</option>
+            </select>
+        </span>
+
+        # select box to switch between 1 week and 1 month
+        <span class='col-md-4 select_box'>
+            <select id='chart-1' aria-label=''>
+                <option value='30daysAgo'>Last 30 Days</option>
+                <option value='7daysAgo'>Last 7 Days</option>
+            </select>
+        </span>
+
+        <div class='clearfix'></div>
+        <div id='chart-1-container'></div>
+    </div>
 {% endblock %}
 
 
 {% block script %}
-<script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
+    <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
+    <script>
+        (function (w, d, s, g, js, fs) {
+            g = w.gapi || (w.gapi = {});
+            g.analytics = {
+                q: [], ready: function (f) {
+                    this.q.push(f);
+                }
+            };
+            js = d.createElement(s);
+            fs = d.getElementsByTagName(s)[0];
+            js.src = 'https://apis.google.com/js/platform.js';
+            fs.parentNode.insertBefore(js, fs);
+            js.onload = function () {
+                g.load('analytics');
+            };
+        }(window, document, 'script'));
 
-//script to load analytics
-<script>
-(function(w,d,s,g,js,fs){
-  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
-  js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
-  js.src='https://apis.google.com/js/platform.js';
-  fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
-}(window,document,'script'));
-</script>
+        gapi.analytics.ready(function () {
+            gapi.analytics.auth.authorize({
+                'serverAuth': {
+                    'access_token': '{{google_access_token}}'
+                }
+            });
 
+            const dataChart1 = new gapi.analytics.googleCharts.DataChart({
+                query: {
+                    'ids': '{{google_userid}}',
+                    'start-date': '30daysAgo',
+                    'end-date': 'today',
+                    'metrics': 'ga:sessions',
+                    'dimensions': 'ga:date',
+                    'sort': '-ga:date'
+                },
+                chart: {
+                    'container': 'chart-1-container',
+                    'type': 'LINE',
+                    'options': {
+                        'width': '100%'
+                    }
+                }
+            });
+            dataChart1.execute();
 
-<script>
-gapi.analytics.ready(function() {
-  gapi.analytics.auth.authorize({
-    'serverAuth': {
-      'access_token': "{{google_access_token}}"
-    }
-  });
-  var dataChart1 = new gapi.analytics.googleCharts.DataChart({
-    query: {
-      'ids': '{{google_userid}}',
-      'start-date': '30daysAgo',
-      'end-date': 'today',
-      'metrics': 'ga:sessions',
-      'dimensions': 'ga:date',
-      'sort': '-ga:date'
-    },
-    chart: {
-      'container': 'chart-1-container',
-      'type': 'LINE',
-      'options': {
-        'width': '100%'
-      }
-    }
-  });
-  dataChart1.execute();
-//To change when selectbox value is changed
-$("#chart-1").change(function(){
-  dataChart1.set({query: {"start-date": $("#chart-1").val()}, chart:{"type":$("#chart-type-1").val()}})
-  dataChart1.execute();
-})
-$("#chart-type-1").change(function(){
-  dataChart1.set({query: {"start-date": $("#chart-1").val()}, chart:{"type":$("#chart-type-1").val()}})
-  dataChart1.execute();
-})
-});
+            //To change when selectbox value is changed
+            $('#chart-1').change(function () {
+                dataChart1.set({query: {'start-date': $('#chart-1').val()}, chart: {'type': $('#chart-type-1').val()}})
+                dataChart1.execute();
+            })
+            $('#chart-type-1').change(function () {
+                dataChart1.set({query: {'start-date': $('#chart-1').val()}, chart: {'type': $('#chart-type-1').val()}})
+                dataChart1.execute();
+            })
+        });
 
-</script>
+    </script>
 
 {% endblock %}

@@ -1,4 +1,5 @@
 {% load static %}
+
 <nav class='navbar navbar-expand navbar-dark navbar-fixed-top bg-secondary justify-content-between'>
     <div class='container-fluid  d-flex bd-highlight'>
         <div class='p-2 flex-fill bd-highlight'>
@@ -33,22 +34,22 @@
             <div class='navbar-nav ms-auto'>
                 {% if user and user.is_authenticated %}
 
-                <div class='nav-item dropdown'>
-                    <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>{{ user }}</a>
-                    <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-                        <a class='dropdown-item' href="{% url 'logout' %}">로그아웃</a>
-                        <div class='dropdown-divider'></div>
-                        <a class='dropdown-item' href='#'>Others</a>
-                        {% if user.is_admin %}
-                        <a class='dropdown-item' href="{% url 'admin:index' %}">관리자 대시보드</a>
-                        {% endif %}
+                    <div class='nav-item dropdown'>
+                        <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>{{ user }}</a>
+                        <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                            <a class='dropdown-item' href="{% url 'logout' %}">로그아웃</a>
+                            <div class='dropdown-divider'></div>
+                            <a class='dropdown-item' href='#'>Others</a>
+                            {% if user.is_admin %}
+                                <a class='dropdown-item' href="{% url 'admin:index' %}">관리자 대시보드</a>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
 
                 {% else %}
 
-                <a class='nav-item nav-link' href="{% url 'login' %}">로그인</a>
-                <a class='nav-item nav-link' href="{% url 'signup' %}">가입</a>
+                    <a class='nav-item nav-link' href="{% url 'login' %}">로그인</a>
+                    <a class='nav-item nav-link' href="{% url 'signup' %}">가입</a>
 
                 {% endif %}
             </div>

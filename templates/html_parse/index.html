@@ -3,74 +3,99 @@
 
 {% block style %}
     <link rel='stylesheet' href='//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css'>
+    <style>
+        .button-tab {
+            border-radius: 5px 5px 0 0;
+        }
+    </style>
 {% endblock %}
 
 
 {% block content %}
-    <form method='POST' enctype='multipart/form-data' action="{% url 'url_parse' %}">
-        <div class='card-header d-flex align-items-center justify-content-between'>
-            <h5 class='my-2'>링크 삽입</h5>
+    <form id='curl_form' method='POST' enctype='multipart/form-data' action='{% url 'url_parse' %}'>
+        <div class='card-body container-fluid'>
+            {% csrf_token %}
+            <div class='row mx-0'>
+                <div class='nav nav-tabs col-6 d-flex justify-content-start' id='nav-tab' role='tablist'>
+                    <a class='nav-item nav-link active' id='nav-link-tab' data-bs-toggle='tab' href='#nav-link'
+                       role='tab' aria-controls='nav-link' aria-selected='true' onclick='set_required();'>
+                        <i class='fa fa-link'></i> 링크 분석
+                    </a>
+                    <a class='nav-item nav-link' id='nav-file-tab' data-bs-toggle='tab' href='#nav-file' role='tab'
+                       aria-controls='nav-profile' aria-selected='false' onclick='set_required();'>
+                        <i class='fa fa-file'></i> 파일 분석
+                    </a>
+                </div>
 
-            <div class='align-items-right my-2'>
-                <div class='navbar-nav ml-auto'>
-                    {% if not data %}
-
-                        <button class='nav-item btn btn-primary' type='submit'>
-                            <i class='fa fa-exchange'></i> 구문 분석
-                        </button>
-
-                    {% else %}
-
-                        <button class='nav-item btn btn-primary' type='button' onclick='print();'>
+                <div class='nav nav-tabs col-6 d-flex justify-content-end p-0' id='nav-tab' role='tablist'>
+                    {% if data %}
+                        <a class='nav-item btn btn-outline-primary button-tab' href='#' onclick='print();'>
                             <i class='fa fa-download'></i> 파일 내보내기
-                        </button>
-                        <a class='nav-item btn btn-primary' href="{% url 'url_parse' %}">
-                            <i class='fa fa-refresh'></i> 다시 시작
                         </a>
-
                     {% endif %}
+                    <button class='nav-item btn btn-primary button-tab' type='submit'>
+                        <i class='fa fa-exchange '></i> {% if data %}다시 {% endif %}구문 분석
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <div class='card-body container'>
-            {% csrf_token %}
-            {% if not data %}
-
-                <div class='row'>
-                    <div class='col'>
-                        <label>{{ form.link.label }}</label>
-                        <div class="input-group">
+            <div class='tab-content border border-top-0 container-fluid py-4' id='nav-tabContent'>
+                <div class='tab-pane fade show active' id='nav-link' role='tabpanel' aria-labelledby='nav-link-tab'>
+                    <div class='row'>
+                        <div class='col'>
+                            <label for='{{ form.link.id_for_label }}'>{{ form.link.label }}:</label>
                             {{ form.link }}
-                            {{ form.html_file }}
+                        </div>
+                    </div>
+
+                    <div class='row mt-4'>
+                        <div class='col'>
+                            <label for='{{ form.value.id_for_label }}'>{{ form.value.label }}:</label>
+                            {{ form.value }}
+                            <datalist id='value'>
+                                {% for app in app_list %}
+                                    <option>{{ app }}</option>
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                    </div>
+
+                    <div class='row mt-4'>
+                        <div class='col-6'>
+                            <label for='{{ form.username.id_for_label }}'>{{ form.username.label }}:</label>
+                            {{ form.username }}
+                        </div>
+
+                        <div class='col-6'>
+                            <label for='{{ form.password.id_for_label }}'>{{ form.password.label }}:</label>
+                            {{ form.password }}
                         </div>
                     </div>
                 </div>
 
-                <div class='row'>
-                    <div class='col'>
-                        <label>{{ form.value.label }}</label>
-                        {{ form.value }}
-                        <datalist id='value'>
-                            <option value='cardListItem'>1688</option>
-                            <option value='next-input-wrapper'>Shopify</option>
-                        </datalist>
+                <div class='tab-pane fade' id='nav-file' role='tabpanel' aria-labelledby='nav-file-tab'>
+                    <div class='row'>
+                        <div class='col'>
+                            <label>{{ form.html_file.label }}:</label>
+                            {{ form.html_file }}
+                        </div>
+                    </div>
+
+                    <div class='row mt-4'>
+                        <div class='col'>
+                            <label for='{{ form.value.id_for_label }}'>{{ form.value.label }}:</label>
+                            {{ form.value }}
+                            <datalist id='value'>
+                                {% for app in app_list %}
+                                    <option>{{ app }}</option>
+                                {% endfor %}
+                            </datalist>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class='row mt-4'>
-                    <div class='col-6'>
-                        <label for='{{ form.username.id_for_label }}'>{{ form.username.label }}</label>
-                        {{ form.username }}
-                    </div>
-
-                    <div class='col-6'>
-                        <label for='{{ form.password.id_for_label }}'>{{ form.password.label }}</label>
-                        {{ form.password }}
-                    </div>
-                </div>
-
-            {% else %}
+            {% if data %}
 
                 <div class='row mt-4'>
                     <div class='col'>
