@@ -17,7 +17,7 @@ def read_file(file, filename, **kwargs):
     assert ext in read_map, "Input file not in correct format, must be spreadsheet; current format '{0}'".format(ext)
     if ext == 'xlsx':
         kwargs['engine'] = 'openpyxl'
-    if ext == 'xlsb':
+    elif ext == 'xlsb':
         kwargs['engine'] = 'pyxlsb'
     dataframe = read_map[ext](file, index_col=False, **kwargs)
     return dataframe, dataframe.columns
