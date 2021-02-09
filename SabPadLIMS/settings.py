@@ -17,7 +17,10 @@ import dotenv as env
 import django_heroku
 from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from SabPadLIMS.handlers import CustomTempFileUploadHandler
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env.load_dotenv(os.path.join(BASE_DIR, '.env'))
 config = {
@@ -156,13 +159,14 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'SabPadLIMS/static'),
 )
 
+
 # Upload Settings
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10000000
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10000000
 UPLOADS_PATH = os.path.join(BASE_DIR, os.path.join('static', 'uploads'))
-FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, os.path.join('static', 'uploads'))
+FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, os.path.join('static', 'tmp-uploads'))
 FILE_UPLOAD_HANDLERS = (
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
-    'django.core.files.uploadhandler.TemporaryFileUploadHandler'
+    'SabPadLIMS.handlers.CustomTempFileUploadHandler'
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
