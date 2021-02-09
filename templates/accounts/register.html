@@ -1,8 +1,9 @@
 {% extends 'accounts_base.html' %}
+{% load static %}
 
 
 {% block style %}
-    <link type='text/css' rel='stylesheet' href="{{ url_for('static', filename='css/style_login.min.css') }}">
+    <link type='text/css' rel='stylesheet' href="{% static 'css/style_login.min.css' %}">
 {% endblock %}
 
 
@@ -51,7 +52,7 @@
 
                     <div class='text-center p-t-90'>
                         <a class='text-white disabled'>계정있으시나요?</a>
-                        <a class='txt1' href="{{ url_for('accounts_app.login') }}">로그인</a>
+                        <a class='txt1' href="{% url 'login' %}">로그인</a>
                     </div>
                 </form>
             </div>

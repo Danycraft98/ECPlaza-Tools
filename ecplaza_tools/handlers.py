@@ -3,7 +3,7 @@ from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.files.uploadhandler import TemporaryFileUploadHandler, StopFutureHandlers
 
-from SabPadLIMS import settings
+from ecplaza_tools import settings
 
 
 class CustomTempFileUploadHandler(TemporaryFileUploadHandler):

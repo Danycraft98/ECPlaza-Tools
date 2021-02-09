@@ -1,12 +1,14 @@
 from datetime import datetime
 import os
-from shutil import copyfile
 
+from django.template.defaultfilters import filesizeformat
 from django.contrib.auth.decorators import login_required
+from django.forms import forms
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from SabPadLIMS.settings import STATICFILES_DIRS
+from ecplaza_tools import settings
+from ecplaza_tools.settings import STATICFILES_DIRS
 from .forms import *
 from .functions import *
 from .models import Document
@@ -44,6 +46,8 @@ def compare(request):
             step, values = 'progress', {}
             for i, docForm in enumerate(doc_forms):
                 file = docForm.cleaned_data.get('document')
+                if file.size > settings.FILE_UPLOAD_MAX_MEMORY_SIZE:
+                    raise forms.ValidationError('Please keep filesize under' + filesizeformat(settings.FILE_UPLOAD_MAX_MEMORY_SIZE) + '. Current filesize' + filesizeformat(file.size))
                 doc_query = Document.objects.filter(document=file)
                 if doc_query.exists():
                     doc = doc_query.first()

@@ -1,5 +1,5 @@
 """
-WSGI config for SabPadLIMS project.
+WSGI config for ECPlaza Tools project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SabPadLIMS.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecplaza_tools.settings')
 
 application = get_wsgi_application()

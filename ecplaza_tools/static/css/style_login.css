@@ -1,12 +1,12 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 body, html {
     height: 100%;
-    font-family: Poppins-Regular, sans-serif
+    font-family: Poppins-Regular, sans-serif;
 }
 
 a {
@@ -17,140 +17,140 @@ a {
     transition: all .4s;
     -webkit-transition: all .4s;
     -o-transition: all .4s;
-    -moz-transition: all .4s
+    -moz-transition: all .4s;
 }
 
 a:focus {
-    outline: none !important
+    outline: none !important;
 }
 
 a:hover {
     text-decoration: none;
-    color: #fff
+    color: #fff;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin: 0
+    margin: 0;
 }
 
 p {
     font-size: 14px;
     line-height: 1.7;
     color: #666;
-    margin: 0
+    margin: 0;
 }
 
 ul, li {
     margin: 0;
-    list-style-type: none
+    list-style-type: none;
 }
 
 input {
     outline: none;
-    border: none
+    border: none;
 }
 
 textarea {
     outline: none;
-    border: none
+    border: none;
 }
 
 textarea:focus, input:focus {
-    border-color: transparent !important
+    border-color: transparent !important;
 }
 
 input:focus::-webkit-input-placeholder {
-    color: transparent
+    color: transparent;
 }
 
 input:focus:-moz-placeholder {
-    color: transparent
+    color: transparent;
 }
 
 input:focus::-moz-placeholder {
-    color: transparent
+    color: transparent;
 }
 
 input:focus:-ms-input-placeholder {
-    color: transparent
+    color: transparent;
 }
 
 textarea:focus::-webkit-input-placeholder {
-    color: transparent
+    color: transparent;
 }
 
 textarea:focus:-moz-placeholder {
-    color: transparent
+    color: transparent;
 }
 
 textarea:focus::-moz-placeholder {
-    color: transparent
+    color: transparent;
 }
 
 textarea:focus:-ms-input-placeholder {
-    color: transparent
+    color: transparent;
 }
 
 input::-webkit-input-placeholder {
-    color: #fff
+    color: #fff;
 }
 
 input:-moz-placeholder {
-    color: #fff
+    color: #fff;
 }
 
 input::-moz-placeholder {
-    color: #fff
+    color: #fff;
 }
 
 input:-ms-input-placeholder {
-    color: #fff
+    color: #fff;
 }
 
 textarea::-webkit-input-placeholder {
-    color: #fff
+    color: #fff;
 }
 
 textarea:-moz-placeholder {
-    color: #fff
+    color: #fff;
 }
 
 textarea::-moz-placeholder {
-    color: #fff
+    color: #fff;
 }
 
 textarea:-ms-input-placeholder {
-    color: #fff
+    color: #fff;
 }
 
 label {
     margin: 0;
-    display: block
+    display: block;
 }
 
 button {
     outline: none !important;
     border: none;
-    background: 0 0
+    background: 0 0;
 }
 
 button:hover {
-    cursor: pointer
+    cursor: pointer;
 }
 
 iframe {
-    border: none !important
+    border: none !important;
 }
 
 .txt1 {
     font-size: 13px;
     color: #e5e5e5;
-    line-height: 1.5
+    line-height: 1.5;
 }
 
 .limiter {
     width: 100%;
-    margin: 0 auto
+    margin: 0 auto;
 }
 
 .container-login100 {
@@ -169,7 +169,7 @@ iframe {
     background-position: center;
     background-size: cover;
     position: relative;
-    z-index: 1
+    z-index: 1;
 }
 
 .container-login100::before {
@@ -181,7 +181,7 @@ iframe {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, .9)
+    background-color: rgba(255, 255, 255, .9);
 }
 
 .wrap-login100 {
@@ -193,11 +193,11 @@ iframe {
     background: -webkit-linear-gradient(top, #8c98a2, #929ea7);
     background: -o-linear-gradient(top, #7d8891, #929ea7);
     background: -moz-linear-gradient(top, #7d8891, #929ea7);
-    background: linear-gradient(top, #7d8891, #929ea7)
+    background: linear-gradient(top, #7d8891, #929ea7);
 }
 
 .login100-form {
-    width: 100%
+    width: 100%;
 }
 
 .login100-form-logo {
@@ -214,7 +214,7 @@ iframe {
     height: 120px;
     border-radius: 50%;
     background-color: #fff;
-    margin: 0 auto
+    margin: 0 auto;
 }
 
 .login100-form-title {
@@ -223,14 +223,14 @@ iframe {
     line-height: 1.2;
     text-align: center;
     text-transform: uppercase;
-    display: block
+    display: block;
 }
 
 .wrap-input100 {
     width: 100%;
     position: relative;
     border-bottom: 2px solid rgba(255, 255, 255, .24);
-    margin-bottom: 30px
+    margin-bottom: 30px;
 }
 
 .input100 {
@@ -241,7 +241,7 @@ iframe {
     width: 100%;
     height: 45px;
     background: 0 0;
-    padding: 0 5px 0 38px
+    padding: 0 5px 0 38px;
 }
 
 .focus-input100 {
@@ -251,7 +251,7 @@ iframe {
     height: 100%;
     top: 0;
     left: 0;
-    pointer-events: none
+    pointer-events: none;
 }
 
 .focus-input100::before {
@@ -266,7 +266,7 @@ iframe {
     -o-transition: all .4s;
     -moz-transition: all .4s;
     transition: all .4s;
-    background: #fff
+    background: #fff;
 }
 
 .focus-input100::after {
@@ -282,43 +282,43 @@ iframe {
     -webkit-transition: all .4s;
     -o-transition: all .4s;
     -moz-transition: all .4s;
-    transition: all .4s
+    transition: all .4s;
 }
 
 .input100:focus {
-    padding-left: 5px
+    padding-left: 5px;
 }
 
 .input100:focus + .focus-input100::after {
     top: -22px;
-    font-size: 18px
+    font-size: 18px;
 }
 
 .input100:focus + .focus-input100::before {
-    width: 100%
+    width: 100%;
 }
 
 .has-val.input100 + .focus-input100::after {
     top: -22px;
-    font-size: 18px
+    font-size: 18px;
 }
 
 .has-val.input100 + .focus-input100::before {
-    width: 100%
+    width: 100%;
 }
 
 .has-val.input100 {
-    padding-left: 5px
+    padding-left: 5px;
 }
 
 .contact100-form-checkbox {
     padding-left: 5px;
     padding-top: 5px;
-    padding-bottom: 35px
+    padding-bottom: 35px;
 }
 
 .input-checkbox100 {
-    display: none
+    display: none;
 }
 
 .label-checkbox100 {
@@ -328,7 +328,7 @@ iframe {
     display: block;
     position: relative;
     padding-left: 26px;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .label-checkbox100::before {
@@ -353,11 +353,11 @@ iframe {
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
-    transform: translateY(-50%)
+    transform: translateY(-50%);
 }
 
 .input-checkbox100:checked + .label-checkbox100::before {
-    color: #555
+    color: #555;
 }
 
 .container-login100-form-btn {
@@ -368,7 +368,7 @@ iframe {
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center
+    justify-content: center;
 }
 
 .login100-form-btn {
@@ -386,17 +386,13 @@ iframe {
     min-width: 120px;
     height: 50px;
     border-radius: 25px;
-    background: #9152f8;
-    background: -webkit-linear-gradient(bottom, #7579ff, #b224ef);
-    background: -o-linear-gradient(bottom, #7579ff, #b224ef);
-    background: -moz-linear-gradient(bottom, #7579ff, #b224ef);
-    background: linear-gradient(bottom, #7579ff, #b224ef);
+    background: #97a2ac;
     position: relative;
     z-index: 1;
     -webkit-transition: all .4s;
     -o-transition: all .4s;
     -moz-transition: all .4s;
-    transition: all .4s
+    transition: all .4s;
 }
 
 .login100-form-btn::before {
@@ -414,25 +410,25 @@ iframe {
     -webkit-transition: all .4s;
     -o-transition: all .4s;
     -moz-transition: all .4s;
-    transition: all .4s
+    transition: all .4s;
 }
 
 .login100-form-btn:hover {
-    color: #fff
+    color: #fff;
 }
 
 .login100-form-btn:hover:before {
-    opacity: 0
+    opacity: 0;
 }
 
 @media (max-width: 576px) {
     .wrap-login100 {
-        padding: 55px 15px 37px
+        padding: 55px 15px 37px;
     }
 }
 
 .validate-input {
-    position: relative
+    position: relative;
 }
 
 .alert-validate::before {
@@ -460,7 +456,7 @@ iframe {
     -webkit-transition: opacity .4s;
     -o-transition: opacity .4s;
     -moz-transition: opacity .4s;
-    transition: opacity .4s
+    transition: opacity .4s;
 }
 
 .alert-validate::after {
@@ -475,17 +471,17 @@ iframe {
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
-    right: 5px
+    right: 5px;
 }
 
 .alert-validate:hover:before {
     visibility: visible;
-    opacity: 1
+    opacity: 1;
 }
 
 @media (max-width: 992px) {
     .alert-validate::before {
         visibility: visible;
-        opacity: 1
+        opacity: 1;
     }
 }
