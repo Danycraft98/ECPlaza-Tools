@@ -1,5 +1,5 @@
 from django.forms import (
-    URLField, Form, CharField, URLInput, TextInput, PasswordInput, FileInput, FileField
+    URLField, Form, CharField, URLInput, TextInput, PasswordInput, FileInput, FileField, Textarea
 )
 
 __all__ = [
@@ -13,6 +13,13 @@ class CurlForm(Form):
         'placeholder': '예시: https://1688.com',
         'pattern': 'https://.*'
     }))
+    text = CharField(
+        required=False, label='HTML 텍스트',
+        widget=Textarea(attrs={
+            'aria-label': 'Text Input',
+            'class': 'form-control'
+        })
+    )
     html_file = FileField(required=False, label='파일', widget=FileInput(attrs={
         'accept': '.html,.json,.xml',
         'aria-label': 'File Upload',

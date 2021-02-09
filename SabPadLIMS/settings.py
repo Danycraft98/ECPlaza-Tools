@@ -171,4 +171,4 @@ FILE_UPLOAD_HANDLERS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())

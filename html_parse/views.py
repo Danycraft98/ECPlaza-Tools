@@ -7,7 +7,7 @@ from .functions import *
 
 sep = os.path.sep
 TITLE = ('링크 투 파일 애플리케이션', '링크 컬링해주는 애플리케이션')
-APP_LIST = ['Shopify', '1688', 'Coupang']
+APP_LIST = ['Shopify', '1688', 'Coupang', 'Hot Tracks']
 
 
 @login_required
@@ -16,7 +16,10 @@ def url_parse(request):
     dataframe = None
     if request.method == 'POST':
         if form.is_valid():
-            if form.cleaned_data.get('html_file') is not None:
+            if form.cleaned_data.get('text') != '':
+                data = form.cleaned_data.get('text')
+
+            elif form.cleaned_data.get('html_file') is not None:
                 file = form.cleaned_data.get('html_file', None)
                 data = file.read()
 

@@ -16,6 +16,6 @@ $(document).ready(function () {});
 
 function set_required() {
     $(":input[name='value']").prop('required', function () {
-        return !$(this).is(':visible');
+        return $(this).is(':visible');
     });
 }

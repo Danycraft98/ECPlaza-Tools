@@ -64,7 +64,7 @@ def get_dataframe(data, key):
                 str(item.find('div', {'class': 'itemAdr'}))
             ]
 
-        else:
+        elif key == 'Coupang':
             row = [
                 '<img src=" ' + item.find('img').get('src', '') + '" width="100px">',
                 str(item.find('div', {'class': 'name'})).replace('\r\n', ''),
@@ -72,6 +72,12 @@ def get_dataframe(data, key):
                 str(item.find('strong', {'class': 'price-value'})),
                 str(item.find('span', {'class': 'unit-price'})),
                 str(item.find('em', {'class': 'rating'})),
+            ]
+
+        else:
+            print(item)
+            row = [
+                '<img src=" ' + item.find('img').get('src', '') + '" width="100px">',
             ]
 
         link = item.find('a')

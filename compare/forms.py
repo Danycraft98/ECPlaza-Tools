@@ -1,6 +1,6 @@
 from django.forms import (
     ModelForm, modelformset_factory, FileField, IntegerField, FileInput,
-    NumberInput, HiddenInput, formset_factory, Form
+    NumberInput, HiddenInput, Form
 )
 
 from compare.models import Document
@@ -15,7 +15,7 @@ class DocumentForm(ModelForm):
     document = FileField(
         required=True, label='파일',
         widget=FileInput(attrs={
-            'accept': '.xls,.xlsx,.csv',
+            'accept': '.xls,.csv,.xlsb',
             'aria-label': 'File Upload',
             'class': 'form-control'
         })

@@ -17,13 +17,17 @@
             {% csrf_token %}
             <div class='row mx-0'>
                 <div class='nav nav-tabs col-6 d-flex justify-content-start' id='nav-tab' role='tablist'>
-                    <a class='nav-item nav-link active' id='nav-link-tab' data-bs-toggle='tab' href='#nav-link'
-                       role='tab' aria-controls='nav-link' aria-selected='true' onclick='set_required();'>
-                        <i class='fa fa-link'></i> 링크 분석
+                    <a class='nav-item nav-link active' id='nav-text-tab' data-bs-toggle='tab' href='#nav-text' role='tab'
+                       aria-controls='nav-text' aria-selected='true' onclick='set_required();'>
+                        <i class='fa fa-file-text'></i> 택스트 분석
                     </a>
                     <a class='nav-item nav-link' id='nav-file-tab' data-bs-toggle='tab' href='#nav-file' role='tab'
-                       aria-controls='nav-profile' aria-selected='false' onclick='set_required();'>
+                       aria-controls='nav-file' aria-selected='false' onclick='set_required();'>
                         <i class='fa fa-file'></i> 파일 분석
+                    </a>
+                    <a class='nav-item nav-link' id='nav-link-tab' data-bs-toggle='tab' href='#nav-link'
+                       role='tab' aria-controls='nav-link' aria-selected='false' onclick='set_required();'>
+                        <i class='fa fa-link'></i> 링크 분석
                     </a>
                 </div>
 
@@ -40,23 +44,29 @@
             </div>
 
             <div class='tab-content border border-top-0 container-fluid py-4' id='nav-tabContent'>
-                <div class='tab-pane fade show active' id='nav-link' role='tabpanel' aria-labelledby='nav-link-tab'>
+                <div class='tab-pane fade show active' id='nav-text' role='tabpanel' aria-labelledby='nav-text-tab'>
+                    <div class='row'>
+                        <div class='col'>
+                            <label>{{ form.text.label }}:</label>
+                            {{ form.text }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class='tab-pane fade' id='nav-file' role='tabpanel' aria-labelledby='nav-file-tab'>
+                    <div class='row'>
+                        <div class='col'>
+                            <label>{{ form.html_file.label }}:</label>
+                            {{ form.html_file }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class='tab-pane fade' id='nav-link' role='tabpanel' aria-labelledby='nav-link-tab'>
                     <div class='row'>
                         <div class='col'>
                             <label for='{{ form.link.id_for_label }}'>{{ form.link.label }}:</label>
                             {{ form.link }}
-                        </div>
-                    </div>
-
-                    <div class='row mt-4'>
-                        <div class='col'>
-                            <label for='{{ form.value.id_for_label }}'>{{ form.value.label }}:</label>
-                            {{ form.value }}
-                            <datalist id='value'>
-                                {% for app in app_list %}
-                                    <option>{{ app }}</option>
-                                {% endfor %}
-                            </datalist>
                         </div>
                     </div>
 
@@ -73,14 +83,7 @@
                     </div>
                 </div>
 
-                <div class='tab-pane fade' id='nav-file' role='tabpanel' aria-labelledby='nav-file-tab'>
-                    <div class='row'>
-                        <div class='col'>
-                            <label>{{ form.html_file.label }}:</label>
-                            {{ form.html_file }}
-                        </div>
-                    </div>
-
+                <div class='tab-pane fade show active'>
                     <div class='row mt-4'>
                         <div class='col'>
                             <label for='{{ form.value.id_for_label }}'>{{ form.value.label }}:</label>
