@@ -157,6 +157,7 @@ STATICFILES_DIRS = (
 )
 
 # Upload Settings
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10000000
 UPLOADS_PATH = os.path.join(BASE_DIR, os.path.join('static', 'uploads'))
 FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, os.path.join('static', 'tmp-uploads'))
 FILE_UPLOAD_HANDLERS = (
