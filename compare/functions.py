@@ -12,11 +12,13 @@ __all__ = [
 
 def read_file(file, filename, **kwargs):
     """ Read file with **kwargs; files supported: xls, xlsx, csv, json. """
-    read_map = {'xls': pd.read_excel, 'xlsx': pd.read_excel, 'csv': pd.read_csv, 'json': pd.read_json}
+    read_map = {'xls': pd.read_excel, 'xlsx': pd.read_excel, 'xlsb': pd.read_excel, 'csv': pd.read_csv, 'json': pd.read_json}
     ext = os.path.splitext(filename)[1].lower()[1:]
     assert ext in read_map, "Input file not in correct format, must be spreadsheet; current format '{0}'".format(ext)
     if ext == 'xlsx':
         kwargs['engine'] = 'openpyxl'
+    if ext == 'xlsb':
+        kwargs['engine'] = 'pyxlsb'
     dataframe = read_map[ext](file, index_col=False, **kwargs)
     return dataframe, dataframe.columns
 

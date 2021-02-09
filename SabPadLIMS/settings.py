@@ -14,7 +14,7 @@ import os
 
 import dj_database_url
 import dotenv as env
-import django_heroku
+# import django_heroku
 from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
 
 

@@ -38,11 +38,16 @@ def get_dataframe(data, key):
     app_dict = {
         'Shopify': ['div', 'next-input-wrapper', ['label', 'content']],
         '1688': ['div', 'cardListItem', ['image', 'name', 'link', 'price', '# Sold', 'location']],
-        'Coupang': ['li', 'baby-product renew-badge', ['image', 'name', 'link', 'base price', 'sale price', 'unit price', 'rating']]
+        'Coupang': ['li', 'baby-product renew-badge', ['image', 'name', 'link', 'base price', 'sale price', 'unit price', 'rating']],
+        'Hot Tracks': ['li', None, ['label', 'content']],
     }
-
     values, soup = app_dict.get(key), BeautifulSoup(data)
-    items, final_data, header = soup.find_all(values[0], {'class': values[1]}), [], values[2]
+    if values[1]:
+        items = soup.find_all(values[0], {'class': values[1]})
+    else:
+        items = soup.find_all(values[0])
+
+    final_data, header = [], values[2]
     for item in items:
         if key == 'Shopify':
             row = [

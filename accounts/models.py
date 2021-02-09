@@ -165,21 +165,10 @@ class UserManager(BaseUserManager):
         return user
 
 
+# TODO: remove any level other than staff and admin
 class User(AbstractBaseUser, PermissionsMixin):
     """
     A class used to represent a User object
-
-    Attributes:
-        username (models.CharField): User's username
-        email (models.EmailField): User's email
-        active (models.BooleanField): User's active status
-        is_active (models.BooleanField): User's active status
-        staff (models.BooleanField): User's active status
-        specialist (models.BooleanField): User's specialist status
-        counselor (models.BooleanField): User's counselor status
-        scientist (models.BooleanField): User's scientist status
-        admin (models.BooleanField): User's admin status
-        objects (UserManager): Connection to user manager object
     """
 
     username = models.CharField(max_length=150, unique=True)
@@ -268,4 +257,5 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()
