@@ -108,7 +108,7 @@ WSGI_APPLICATION = 'SabPadLIMS.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL', 'mysql://root:password@localhost:3306/database_db')),
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')),
 }
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -159,7 +159,7 @@ STATICFILES_DIRS = (
 # Upload Settings
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10000000
 UPLOADS_PATH = os.path.join(BASE_DIR, os.path.join('static', 'uploads'))
-FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, os.path.join('static', 'tmp-uploads'))
+FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, os.path.join('static', 'uploads'))
 FILE_UPLOAD_HANDLERS = (
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
     'django.core.files.uploadhandler.TemporaryFileUploadHandler'
