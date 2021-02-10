@@ -1,18 +1,17 @@
 {% load static %}
 
+
 <nav class='navbar navbar-expand navbar-dark navbar-fixed-top bg-secondary justify-content-between'>
     <div class='container-fluid  d-flex bd-highlight'>
-        <div class='p-2 flex-fill bd-highlight'>
-            <a class='navbar-brand' href="{% url 'index' %}">
-                <img src="{% static 'images/logo.png' %}" width='150' height='30' class='d-inline-block align-top' alt='Logo'>
-            </a>
-        </div>
+        <a class='p-2 navbar-brand' href="{% url 'index' %}">
+            <img src="{% static 'images/logo.png' %}" width='150' height='30' class='d-inline-block align-top' alt='Logo'>
+        </a>
 
-        <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-target='#navbar' aria-controls='navbar' aria-expanded='false' aria-label='Toggle navigation'>
+        <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-target='#navbar_left' aria-controls='navbar_left' aria-expanded='false' aria-label='Toggle navigation'>
             <span class='navbar-toggler-icon'></span>
         </button>
 
-        <div class='collapse navbar-collapse d-flex bd-highlight' id='navbarNav_left'>
+        <div class='collapse navbar-collapse d-flex bd-highlight' id='navbar_left'>
             <div class='navbar-nav me-auto'>
                 <div class='nav-item dropdown'>
                     <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
@@ -30,7 +29,7 @@
             </div>
         </div>
 
-        <div class='collapse navbar-collapse d-flex' id='navbarNav_right'>
+        <div class='collapse navbar-collapse d-flex' id='navbar_right'>
             <div class='navbar-nav ms-auto'>
                 {% if user and user.is_authenticated %}
 
