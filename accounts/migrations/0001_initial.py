@@ -12,10 +12,8 @@ def add_users(apps, _schema_editor):
     """
     User = apps.get_model('accounts', 'User')
     pwd_hash = make_password('password', hasher='pbkdf2_sha256')
-    User.objects.get_or_create(username='admin', email='admin@ecplaza.com', password=pwd_hash, staff=True,
-                               admin=True, is_superuser=True)
-    User.objects.get_or_create(username='staff', email='staff@ecplaza.com', password=pwd_hash, staff=True,
-                               admin=False, is_superuser=False)
+    User.objects.get_or_create(username='admin', email='admin@ecplaza.com', password=pwd_hash, staff=True, admin=True, is_superuser=True)
+    User.objects.get_or_create(username='staff', email='staff@ecplaza.com', password=pwd_hash, staff=True, admin=False, is_superuser=False)
 
 
 class Migration(migrations.Migration):
