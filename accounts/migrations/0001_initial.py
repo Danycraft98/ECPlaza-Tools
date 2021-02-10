@@ -40,9 +40,6 @@ class Migration(migrations.Migration):
                 ('active', models.BooleanField(default=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('staff', models.BooleanField(default=False)),
-                ('specialist', models.BooleanField(default=False)),
-                ('counselor', models.BooleanField(default=False)),
-                ('scientist', models.BooleanField(default=False)),
                 ('admin', models.BooleanField(default=False)),
                 ('groups', models.ManyToManyField(blank=True,
                                                   help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
@@ -56,4 +53,6 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
         ),
+        
+        migrations.RunPython(add_users),
     ]
