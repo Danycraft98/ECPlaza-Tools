@@ -27,9 +27,7 @@
                 <a class='nav-item nav-link' href="{% url 'url_parse' %}">링크 투 파일</a>
                 <a class='nav-item nav-link' href="{% url 'index' %}">트래픽 분석</a>
             </div>
-        </div>
-
-        <div class='collapse navbar-collapse d-flex' id='navbar_right'>
+            
             <div class='navbar-nav ms-auto'>
                 {% if user and user.is_authenticated %}
 
