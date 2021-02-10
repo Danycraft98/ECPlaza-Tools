@@ -1,9 +1,42 @@
 {% load static %}
 
 
+
+  <div class="container-fluid">
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
 <nav class='navbar navbar-expand navbar-dark navbar-fixed-top bg-secondary justify-content-between'>
-    <div class='container-fluid  d-flex bd-highlight'>
-        <a class='p-2 navbar-brand' href="{% url 'index' %}">
+    <div class='container-fluid d-flex bd-highlight'>
+        <a class='navbar-brand' href="{% url 'index' %}">
             <img src="{% static 'images/logo.png' %}" width='150' height='30' class='d-inline-block align-top' alt='Logo'>
         </a>
 
@@ -20,12 +53,12 @@
                     <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
                         <a class='dropdown-item' href="{% url 'index' %}">대시보드</a>
                         <div class='dropdown-divider'></div>
-                        <a class='dropdown-item' href='https://partners.coupang.com/#affiliate'>쿠팡 사이트</a>
+                        <a class='dropdown-item' href='https://partners.coupang.com/#affiliate'>쿠팡 사이트</a><!--blank-->
                     </div>
                 </div>
-                <a class='nav-item nav-link' href="{% url 'compare' %}">파일비교</a>
-                <a class='nav-item nav-link' href="{% url 'url_parse' %}">링크 투 파일</a>
-                <a class='nav-item nav-link' href="{% url 'index' %}">트래픽 분석</a>
+                <a class='nav-link' href="{% url 'compare' %}">파일비교</a>
+                <a class='nav-link' href="{% url 'url_parse' %}">링크 투 파일</a>
+                <a class='nav-link' href="{% url 'index' %}">트래픽 분석</a>
             </div>
             
             <div class='navbar-nav ms-auto'>
@@ -45,8 +78,8 @@
 
                 {% else %}
 
-                    <a class='nav-item nav-link' href="{% url 'login' %}">로그인</a>
-                    <a class='nav-item nav-link' href="{% url 'signup' %}">가입</a>
+                    <a class='nav-link' href="{% url 'login' %}">로그인</a>
+                    <a class='nav-link' href="{% url 'signup' %}">가입</a>
 
                 {% endif %}
             </div>
