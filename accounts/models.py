@@ -56,85 +56,7 @@ class UserManager(BaseUserManager):
         user.staff = True
         user.save(using=self._db)
         return user
-
-    def create_specialist(self, username, email, password):
-        """
-        Creates and saves a superuser with the given email and password.
-
-        Args:
-            username (str): User's username
-            email (str): User's email
-            password (str): User's password
-        
-        Returns: User
-
-        >>> userManager = UserManager()
-        >>> userManager.create_specialist('username', 'password', 'email@email.com')
-
-        """
-        user = self.create_user(
-            username,
-            password,
-            email=email
-        )
-        user.staff = True
-        user.specialist = True
-        user.save(using=self._db)
-        return user
-
-    def create_counselor(self, username, email, password):
-        """
-        Creates and saves a superuser with the given email and password.
-
-        Args:
-            username (str): User's username
-            email (str): User's email
-            password (str): User's password
-        
-        Returns: User
-
-        >>> userManager = UserManager()
-        >>> userManager.create_counselor('username', 'password', 'email@email.com')
-
-        """
-        user = self.create_user(
-            username,
-            password,
-            email=email
-        )
-        user.staff = True
-        user.specialist = True
-        user.counselor = True
-        user.save(using=self._db)
-        return user
-
-    def create_scientist(self, username, email, password):
-        """
-        Creates and saves a superuser with the given email and password.
-        
-        Args:
-            username (str): User's username
-            email (str): User's email
-            password (str): User's password
-        
-        Returns: User
-
-        >>> userManager = UserManager()
-        >>> userManager.create_scientist('username', 'password', 'email@email.com')
-
-        """
-        user = self.create_user(
-            username,
-            password,
-            email=email
-        )
-        user.staff = True
-        user.specialist = True
-        user.counselor = True
-        user.scientist = True
-        user.save(using=self._db)
-        return user
-
+    
     def create_superuser(self, username, email, password):
         """
         Creates and saves a superuser with the given email and password.
@@ -156,9 +78,6 @@ class UserManager(BaseUserManager):
             email=email
         )
         user.staff = True
-        user.specialist = True
-        user.counselor = True
-        user.scientist = True
         user.admin = True
         user.is_superuser = True
         user.save(using=self._db)
@@ -176,9 +95,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     active = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
-    specialist = models.BooleanField(default=False)
-    counselor = models.BooleanField(default=False)
-    scientist = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
     objects = UserManager()
 
@@ -217,33 +133,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         Returns: bool
         """
         return self.staff
-
-    @property
-    def is_scientist(self):
-        """
-        The user scientist status is returned
-
-        Returns: bool
-        """
-        return self.scientist
-
-    @property
-    def is_counselor(self):
-        """
-        The user counselor status is returned
-
-        Returns: bool
-        """
-        return self.counselor
-
-    @property
-    def is_specialist(self):
-        """
-        The user specialist status is returned
-
-        Returns: bool
-        """
-        return self.specialist
 
     @property
     def is_admin(self):
