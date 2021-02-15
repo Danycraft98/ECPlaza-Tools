@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style %}
+    <link rel='stylesheet' href='//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css'>
+{% endblock %}
+
+
+{% block content %}
+    <form id='curl_form' method='POST' enctype='multipart/form-data' action='{% url 'url_parse' %}'>
+        <div class='card-body container-fluid'>
+            {% csrf_token %}
+            <div class='row mx-0'>
+                <div class="grid-25 h2">
+                    <img width='42' class='rounded-circle' src="{% static '/images/user.png' %}" alt='User'> {{ user.username }}
+                </div>
+            </div>
+
+            <dl class='row'>
+                <dt class='col-3'>Username</dt>
+                <dd class='col-9'>{{ user.username|lower|capfirst }}</dd>
+
+                <dt class='col-3'>First Name</dt>
+                <dd class='col-9'>{{ user.first_name|lower|capfirst }}</dd>
+
+                <dt class='col-3'>Last Name</dt>
+                <dd class='col-9'>{{ user.last_name|lower|capfirst }}</dd>
+
+                <dt class='col-3'>Title</dt>
+                <dd class='col-9'>{{ user.title|lower|capfirst }}</dd>
+
+                <dt class='col-3'>Email</dt>
+                <dd class='col-9'>{{ user.email }}</dd>
+
+                <dt class='col-3'>Biography</dt>
+                {% if user.userprofile.bio %}
+                    {% autoescape on %}
+                        <dd class='col-9'>{{ user.userprofile.bio }}</dd>
+                    {% endautoescape %}
+                {% else %}
+                    <dd class='col-9'>Add biography by clicking <a href="#edit_button">edit button</a> below.</dd>
+                {% endif %}
+            </dl>
+        </div>
+    </form>
+{% endblock %}
+
+
+{% block script %}
+    <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
+    <script>
+        $(ddcument).ready(function () {
+            $('.dataTable').DataTable();
+        });
+    </script>
+{% endblock %}

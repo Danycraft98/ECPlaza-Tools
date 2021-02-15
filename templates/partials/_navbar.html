@@ -4,7 +4,7 @@
 <div class='app-header header-shadow bg-heavy-rain header-text-dark'>
     <div class='app-header__logo'>
         <a class='navbar-brand logo-src' href="{% url 'index' %}">
-            <img class='logo' src="{% static '/images/logo.png' %}" alt='User'>
+            <img class='logo' src="{% static '/images/logo.png' %}" alt='Logo'>
         </a>
         <div class='header__pane ml-auto'>
             <div>
@@ -50,7 +50,7 @@
             <div class='header-megamenu nav'>
                 <div class="nav-item">
                     <a href="javascript:void(0);" data-placement="bottom" rel="popover-focus" data-offset="300" data-toggle="popover-custom" class="nav-link" data-original-title="" title="">
-                        <i class="nav-link-icon pe-7s-gift"> </i> Mega Menu
+                        <i class="nav-link-icon pe-7s-gift"> </i> 메가 메뉴
                         <i class="fa fa-angle-down ml-2 opacity-5"></i>
                     </a>
                     <div class="rm-max-width">
@@ -77,7 +77,7 @@
                                         <div class="col-sm-6 col-xl-4">
                                             <div class="nav flex-column">
                                                 <div class="nav-item-header nav-item">
-                                                    메인 매뉴
+                                                    <i class='pe-7s-menu'></i> 메인 메뉴
                                                 </div>
                                                 <a class='nav-link' href="{% url 'compare' %}">
                                                     <i class='nav-link-icon pe-7s-copy-file'></i>
@@ -87,25 +87,19 @@
                                                     <i class='nav-link-icon pe-7s-link'></i>
                                                     <span> 링크 투 파일</span>
                                                 </a>
-                                                <a class='nav-link' href="{% url 'index' %}">
-                                                    <i class='nav-link-icon pe-7s-graph'></i>
-                                                    <span> 트래픽 분석</span>
-                                                </a>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-6 col-xl-4">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item-header nav-item">Sales &amp; Marketing</li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Queues </a>
-                                                    <a href="javascript:void(0);" class="nav-link">Resource Groups </a>
-                                                    <a href="javascript:void(0);" class="nav-link">Goal Metrics
-                                                        <div class="ml-auto badge badge-warning">3</div>
-                                                    </a>
-                                                    <a href="javascript:void(0);" class="nav-link">Campaigns</a>
-                                                </li>
-                                            </ul>
+                                            <div class="nav flex-column">
+                                                <div class="nav-item-header nav-item">
+                                                    <i class='pe-7s-graph1'></i> 트래픽 분석
+                                                </div>
+                                                <a class='nav-link' href="{% url 'index' %}">
+                                                    <i class='nav-link-icon pe-7s-graph'></i>
+                                                    <span> 대시보드</span>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -175,62 +169,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class='tab-pane' id='tab-events-header' role='tabpanel'>
-                                <div class='scroll-area-sm'>
-                                    <div class='scrollbar-container ps'>
-                                        <div class='p-3'>
-                                            <div class='vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column'>
-                                                <div class='vertical-timeline-item vertical-timeline-element'>
-                                                    <div>
-                                                        <span class='vertical-timeline-element-icon bounce-in'>
-                                                            <i class='badge badge-dot badge-dot-xl badge-success'> </i>
-                                                        </span>
-                                                        <div class='vertical-timeline-element-content bounce-in'>
-                                                            <h4 class='timeline-title'>All Hands Meeting</h4>
-                                                            <p>Lorem ipsum dolor sic amet, today at
-                                                                <a href='javascript:void(0);'>12:00 PM</a>
-                                                            </p>
-                                                            <span class='vertical-timeline-element-date'></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class='vertical-timeline-item vertical-timeline-element'>
-                                                    <div>
-                                                        <span class='vertical-timeline-element-icon bounce-in'>
-                                                            <i class='badge badge-dot badge-dot-xl badge-warning'> </i>
-                                                        </span>
-                                                        <div class='vertical-timeline-element-content bounce-in'>
-                                                            <p>Another meeting today, at <b class='text-danger'>12:00 PM</b></p>
-                                                            <p>Yet another one, at <span class='text-success'>15:00 PM</span></p>
-                                                            <span class='vertical-timeline-element-date'></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class='tab-pane' id='tab-errors-header' role='tabpanel'>
                                 <div class='scroll-area-sm'>
                                     <div class='scrollbar-container ps'>
                                         <div class='no-results pt-3 pb-0'>
                                             <div class='swal2-icon swal2-success swal2-animate-success-icon'>
-                                                <div class='swal2-success-circular-line-left' style='background-color: rgb(255, 255, 255);'></div>
                                                 <span class='swal2-success-line-tip'></span>
                                                 <span class='swal2-success-line-long'></span>
                                                 <div class='swal2-success-ring'></div>
-                                                <div class='swal2-success-fix' style='background-color: rgb(255, 255, 255);'></div>
-                                                <div class='swal2-success-circular-line-right' style='background-color: rgb(255, 255, 255);'></div>
                                             </div>
                                             <div class='results-subtitle'>All caught up!</div>
                                             <div class='results-title'>There are no system errors!</div>
-                                        </div>
-                                        <div class='ps__rail-x' style='left: 0; bottom: 0;'>
-                                            <div class='ps__thumb-x' tabindex='0' style='left: 0; width: 0;'></div>
-                                        </div>
-                                        <div class='ps__rail-y' style='top: 0; right: 0;'>
-                                            <div class='ps__thumb-y' tabindex='0' style='top: 0; height: 0;'></div>
                                         </div>
                                     </div>
                                 </div>
@@ -315,7 +265,7 @@
 
                                     <div class='widget-content-left ml-3'>
                                         <div class='widget-heading pb-0'>{{ user }}</div>
-                                        <div class='nav-link widget-subheading pt-0'>Title: {{ user.title }}</div>
+                                        <div class='widget-subheading pt-0'>Title: {{ user.title }}</div>
                                     </div>
 
                                 {% else %}

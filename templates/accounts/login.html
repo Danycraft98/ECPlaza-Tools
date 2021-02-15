@@ -1,53 +1,109 @@
-{% extends 'accounts_base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 
-{% block style %}
-    <link type='text/css' rel='stylesheet' href="{% static 'css/style_login.min.css' %}">
-{% endblock %}
+{% block account %}
+    <div class='app-container'>
+        <div class='h-100'>
+            <div class='h-100 no-gutters row'>
+                <div class='d-none d-lg-block col-lg-4'>
+                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class='carousel-item active carousel-fade slick-slide slick-cloned' data-slick-index='-1' id='' aria-hidden='true' style='width: 635px;' tabindex='-1'>
+                                <div style='width: 100%; display: inline-block;'>
+                                    <div class='position-relative h-100 d-flex justify-content-center align-items-center bg-heavy-rain' tabindex='-1'>
+                                        <div class='carousel-caption d-none d-md-block slider-content'>
+                                            <h3>Complex, but lightweight</h3>
+                                            <p>We've included a lot of components that cover almost all use cases for any type of application.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class='carousel-item slick-slide slick-cloned' data-slick-index='-1' id='' aria-hidden='true' style='width: 635px;' tabindex='-1'>
+                                <div style='width: 100%; display: inline-block;'>
+                                    <div class='position-relative h-100 d-flex justify-content-center align-items-center bg-heavy-rain' tabindex='-1'>
+                                        <div class='carousel-caption d-none d-md-block slider-content'>
+                                            <h3>Perfect Balance</h3>
+                                            <p>ArchitectUI is like a dream. Some think it's too good to be true! Extensive
+                                                collection of unified React Boostrap Components and Elements.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-{% block content %}
-    <div class='container-fluid limiter'>
-        <div class='container-login100'> <!--style="background-image: url('images/bg-01.jpg');"-->
-            <div class='wrap-login100'>
-                <form class='login100-form validate-form' method='POST' action=''>
-                    {% csrf_token %}
-                    <span class='login100-form-logo text-black-50'>
-                    <i class='fa fa-user'></i>
-                </span>
+                            <div class='carousel-item slick-slide slick-cloned' data-slick-index='-1' id='' aria-hidden='true' style='width: 635px;' tabindex='-1'>
+                                <div style='width: 100%; display: inline-block;'>
+                                    <div class='position-relative h-100 d-flex justify-content-center align-items-center bg-heavy-rain' tabindex='-1'>
+                                        <div class='carousel-caption d-none d-md-block slider-content'>
+                                            <h3>Scalable, Modular, Consistent</h3>
+                                            <p>Easily exclude the components you don't require. Lightweight, consistent
+                                                Bootstrap based styles across all elements and components</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <span class='login100-form-title p-b-34 p-t-27'>로그인</span>
-
-                    <div class='wrap-input100 validate-input' data-validate='사용자 이름 입력해주세요'>
-                        <input class='input100' type='text' placeholder='사용자 이름' id='username' name='username' value='{{ request.form.username }}' aria-label='사용자 이름'>
-                        <span class='focus-input100' data-placeholder=''>
-                        <i class='focus-input100 fa fa-user'></i>
-                    </span>
+                        <ul class='carousel-indicators'>
+                            <li>
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="1 of 3">1</button>
+                            </li>
+                            <li>
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="2 of 3">2</button>
+                            </li>
+                            <li>
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="3 of 3">3</button>
+                            </li>
+                        </ul>
                     </div>
+                </div>
 
-                    <div class='wrap-input100 validate-input' data-validate='비밀번호 입력해주세요'>
-                        <input class='input100' type='password' placeholder='비밀번호' id='password' name='password' value='{{ request.form.password }}' aria-label='비밀번호' autocomplete='true'>
-                        <span class='focus-input100' data-placeholder=''>
-                        <i class='focus-input100 fa fa-lock'></i>
-                    </span>
-                    </div>
+                <div class='h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8'>
+                    <div class='mx-auto app-login-box col-sm-12 col-md-10 col-lg-9'>
+                        <div class='app-logo'></div>
+                        <h4 class='mb-0'>
+                            <span class='d-block'>돌아온 것을 환영합니다</span>
+                            <span>로그인해주세요.</span>
+                        </h4>
+                        <h6 class='mt-3'>계정없나요? <a href='{% url 'signup' %}' class='text-primary'>가입하기</a></h6>
+                        <div class='divider row'></div>
+                        <div>
+                            <form method='POST' action=''>
+                                {% csrf_token %}
+                                <div class='form-row'>
+                                    <div class='col-md-6'>
+                                        <div class='position-relative form-group'>
+                                            <label for='username'>사용자 이름</label>
+                                            <input class='form-control' type='text' placeholder='사용자 이름' id='username' name='username' value='{{ request.form.username }}' aria-label='사용자 이름'>
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='position-relative form-group'>
+                                            <label for='password'>Password</label>
+                                            <input class='form-control' type='password' placeholder='비밀번호' id='password' name='password' value='{{ request.form.password }}' aria-label='비밀번호'
+                                                   autocomplete='true'>
+                                        </div>
+                                    </div>
+                                </div>
 
-                    <div class='contact100-form-checkbox'>
-                        <input class='input-checkbox100' id='ckb1' type='checkbox' name='remember-me'>
-                        <label class='label-checkbox100' for='ckb1'>로그인 상태 유지</label>
-                    </div>
+                                <div class='position-relative form-check'>
+                                    <input name='remember-me' id='remember-me' type='checkbox' class='form-check-input'>
+                                    <label for='remember-me' class='form-check-label'>로그인 상태 유지</label>
+                                </div>
 
-                    <div class='container-login100-form-btn'>
-                        <button type='submit' class='login100-form-btn'>로그인</button>
-                    </div>
+                                <div class='divider row'></div>
 
-                    <div class='text-center p-t-90'>
-                        <a class='txt1' href='#'>비밀번호 찾기</a>
-                        <a class='text-white disabled'>|</a>
-                        <a class='txt1' href="{% url 'signup' %}">가입하기</a>
+                                <div class='d-flex align-items-center'>
+                                    <div class='ml-auto'>
+                                        <a href='javascript:void(0);' class='btn-lg btn btn-link'>비밀번호 찾기</a>
+                                        <button type='submit' class='btn btn-primary btn-lg'>로그인</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

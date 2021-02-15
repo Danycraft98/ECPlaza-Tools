@@ -1,8 +1,14 @@
+import os
+
 from django.contrib.auth.decorators import login_required
 
 from .models import User
 from .forms import *
 from django.shortcuts import render, redirect
+
+
+sep = os.path.sep
+TITLE = ('pe-7s-user', '프로필', '프로필 페이지')
 
 
 def signup(request):
@@ -18,4 +24,4 @@ def signup(request):
 @login_required
 def user_profile(request, user_id):
     user = User.objects.get(id=user_id)
-    return render(request, 'accounts/profile.html', {'user': user})
+    return render(request, 'accounts/profile.html', {'user': user, 'title': TITLE})

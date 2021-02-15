@@ -1,65 +1,84 @@
-{% extends 'accounts_base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 
-{% block style %}
-    <link type='text/css' rel='stylesheet' href="{% static 'css/style_login.min.css' %}">
-{% endblock %}
-
-
-{% block content %}
-    <div class='container-fluid limiter'>
-        <div class='container-login100'> <!--style="background-image: url('images/bg-01.jpg');"-->
-            <div class='wrap-login100'>
-                <form class='login100-form validate-form' method='POST' action=''>
-                <span class='login100-form-logo text-black-50'>
-                    <i class='fa fa-user'></i>
-                </span>
-
-                    <span class='login100-form-title p-b-34 p-t-27'>가입하기</span>
-
-                    <div class='wrap-input100 validate-input' data-validate='사용자 이름 입력해주세요'>
-                        <input class='input100' type='text' placeholder='사용자 이름' id='username' name='username' value='{{ request.form.username }}' aria-label='사용자 이름'>
-                        <span class='focus-input100' data-placeholder=''>
-                        <i class='focus-input100 fa fa-user'></i>
-                    </span>
+{% block account %}
+    <div class='h-100'>
+        <div class='h-100 no-gutters row'>
+            <div class='h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7'>
+                <div class='mx-auto app-login-box col-sm-12 col-md-10 col-lg-9'>
+                    <div class='app-logo'></div>
+                    <div class='h4'>
+                        <div>환영합니다,</div>
+                        <span>계정을 만드는 데 <span class='text-success'>몇 초</span> 밖에 걸리지 않습니다.</span>
                     </div>
+                    <div>
+                        <form class=''>
+                            <div class='form-row'>
+                                <div class='col-md-6'>
+                                    <div class='position-relative form-group'>
+                                        <label for='username'><span class='text-danger'>*</span> 사용자 이름</label>
+                                        <input class='form-control' type='text' placeholder='사용자 이름' id='username' name='username' value='{{ request.form.username }}' aria-label='사용자 이름'>
+                                    </div>
+                                </div>
 
-                    <div class='wrap-input100 validate-input' data-validate='이메일 입력해주세요'>
-                        <input class='input100' type='email' placeholder='이메일' id='email' name='email' value='{{ request.form.email }}' aria-label='이메일'>
-                        <span class='focus-input100' data-placeholder=''>
-                        <i class='focus-input100 fa fa-email'></i>
-                    </span>
-                    </div>
+                                <div class='col-md-6'>
+                                    <div class='position-relative form-group'>
+                                        <label for='email'><span class='text-danger'>*</span> 이메일</label>
+                                        <input class='form-control' type='email' placeholder='이메일' id='email' name='email' value='{{ request.form.email }}' aria-label='이메일'>
+                                    </div>
+                                </div>
 
-                    <div class='wrap-input100 validate-input' data-validate='비밀번호 입력해주세요'>
-                        <input class='input100' type='password' placeholder='비밀번호' id='password' name='password' value='{{ request.form.password }}' aria-label='비밀번호' autocomplete='true'>
-                        <span class='focus-input100' data-placeholder=''>
-                        <i class='focus-input100 fa fa-lock'></i>
-                    </span>
-                    </div>
+                                <div class='col-md-6'>
+                                    <div class='position-relative form-group'>
+                                        <label for='password'><span class='text-danger'>*</span> 비밀번호</label>
+                                        <input class='form-control' type='password' placeholder='비밀번호' id='password' name='password' value='{{ request.form.password }}' aria-label='비밀번호' autocomplete='true'>
+                                    </div>
+                                </div>
 
-                    <div class='wrap-input100 validate-input' data-validate='비밀번호 다시 입력해주세요'>
-                        <input class='input100' type='password' placeholder='비밀번호' id='password2' name='password' value='{{ request.form.password }}' aria-label='비밀번호' autocomplete='true'>
-                        <span class='focus-input100' data-placeholder=''>
-                        <i class='focus-input100 fa fa-lock'></i>
-                    </span>
+                                <div class='col-md-6'>
+                                    <div class='position-relative form-group'>
+                                        <label for='password2'><span class='text-danger'>*</span> 비밀번호</label>
+                                        <input class='form-control' type='password' placeholder='비밀번호' id='password2' name='password' value='{{ request.form.password }}' aria-label='비밀번호' autocomplete='true'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='mt-3 position-relative form-check'>
+                                <input name='check' id='exampleCheck' type='checkbox' class='form-check-input'>
+                                <label for='exampleCheck' class='form-check-label'><a href='javascript:void(0);'>이용 약관</a>에 동의하십시오.</label>
+                            </div>
+                            <div class='mt-4 d-flex align-items-center'>
+                                <h5 class='mb-0'>계정있으시나요? <a href='{% url 'login' %}' class='text-primary'>로그인</a></h5>
+                                <div class='ml-auto'>
+                                    <button type='submit' class='btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg'>가입하기</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-
-                    <div class='container-login100-form-btn'>
-                        <button type='submit' class='login100-form-btn'>가입하기</button>
+                </div>
+            </div>
+            <div class='d-lg-flex d-xs-none col-lg-5'>
+                <div class='slider-light'>
+                    <div class='slick-slider slick-initialized'>
+                        <div>
+                            <div class='position-relative h-100 d-flex justify-content-center align-items-center bg-heavy-rain' tabindex='-1'>
+                                <div class='slide-img-bg'></div>
+                                <div class='slider-content'>
+                                    <h3>Scalable, Modular, Consistent</h3>
+                                    <p>Easily exclude the components you don't require. Lightweight, consistent
+                                        Bootstrap based styles across all elements and components
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class='text-center p-t-90'>
-                        <a class='text-white disabled'>계정있으시나요?</a>
-                        <a class='txt1' href="{% url 'login' %}">로그인</a>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 
     {% if error %}
+        {# 사용자 이름 입력해주세요. 이메일 입력해주세요. 비밀번호 입력해주세요. 비밀번호 다시 입력해주세요. #}
 
         <p class='error'>
             <strong>Error:</strong> {{ error }}
