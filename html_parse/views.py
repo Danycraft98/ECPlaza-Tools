@@ -19,7 +19,7 @@ def url_parse(request):
             if form.cleaned_data.get('text') != '':
                 data = form.cleaned_data.get('text')
 
-            elif form.cleaned_data.get('html_file') is not None:
+            elif form.cleaned_data.get('html_file'):
                 file = form.cleaned_data.get('html_file', None)
                 data = file.read()
 

@@ -7,8 +7,8 @@ from django.forms import forms
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from ecplaza_tools import settings
-from ecplaza_tools.settings import STATICFILES_DIRS
+from ECPlazaTools import settings
+from ECPlazaTools.settings import STATICFILES_DIRS
 from .forms import *
 from .functions import *
 from .models import Document

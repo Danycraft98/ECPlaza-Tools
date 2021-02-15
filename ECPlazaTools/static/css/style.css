@@ -115,7 +115,6 @@ p {
 abbr[data-original-title],
 abbr[title] {
     text-decoration: underline;
-    text-decoration: underline dotted;
     cursor: help;
     border-bottom: 0;
     text-decoration-skip-ink: none
@@ -256,11 +255,6 @@ label {
 
 button {
     border-radius: 0
-}
-
-button:focus {
-    outline: 1px dotted;
-    outline: 5px auto -webkit-focus-ring-color
 }
 
 button,
@@ -2202,7 +2196,7 @@ pre code {
     background-color: rgba(255, 255, 255, .075)
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
     .table-responsive-sm {
         display: block;
         width: 100%;
@@ -2216,7 +2210,7 @@ pre code {
     }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .table-responsive-md {
         display: block;
         width: 100%;
@@ -2230,7 +2224,7 @@ pre code {
     }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
     .table-responsive-lg {
         display: block;
         width: 100%;
@@ -2244,7 +2238,7 @@ pre code {
     }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1200px) {
     .table-responsive-xl {
         display: block;
         width: 100%;
@@ -2562,8 +2556,6 @@ form .form-row textarea.is-valid {
     border-color: #28a745;
     padding-right: 2.25rem;
     background-repeat: no-repeat;
-    background-position: center right -webkit-calc(2.25rem / 4);
-    background-position: center right calc(2.25rem / 4);
     background-size: -webkit-calc(2.25rem / 2) -webkit-calc(2.25rem / 2);
     background-size: calc(2.25rem / 2) calc(2.25rem / 2);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e")
@@ -2623,8 +2615,6 @@ form .form-row textarea.is-valid,
 textarea.form-control.is-valid,
 textarea.is-valid.wpcf7-form-control {
     padding-right: 2.25rem;
-    background-position: top -webkit-calc(2.25rem / 4) right -webkit-calc(2.25rem / 4);
-    background-position: top calc(2.25rem / 4) right calc(2.25rem / 4)
 }
 
 .custom-select.is-valid,
@@ -2756,8 +2746,6 @@ form .form-row textarea.is-invalid {
     border-color: #dc3545;
     padding-right: 2.25rem;
     background-repeat: no-repeat;
-    background-position: center right -webkit-calc(2.25rem / 4);
-    background-position: center right calc(2.25rem / 4);
     background-size: -webkit-calc(2.25rem / 2) -webkit-calc(2.25rem / 2);
     background-size: calc(2.25rem / 2) calc(2.25rem / 2);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23d9534f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E")
@@ -2817,8 +2805,6 @@ form .form-row textarea.is-invalid,
 textarea.form-control.is-invalid,
 textarea.is-invalid.wpcf7-form-control {
     padding-right: 2.25rem;
-    background-position: top -webkit-calc(2.25rem / 4) right -webkit-calc(2.25rem / 4);
-    background-position: top calc(2.25rem / 4) right calc(2.25rem / 4)
 }
 
 .custom-select.is-invalid,
@@ -4691,8 +4677,7 @@ form .form-row .input-group-sm > textarea {
     line-height: 1.5;
     color: #495057;
     vertical-align: middle;
-    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right .75rem center/8px 10px;
-    background-color: #fff;
+    background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right .75rem center;
     border: 1px solid #ced4da;
     border-radius: .25rem;
     -webkit-appearance: none;
@@ -5204,7 +5189,7 @@ form .form-row .input-group-sm > textarea {
     background-size: 100% 100%
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
     .navbar-expand-sm > .container,
     .navbar-expand-sm > .container-fluid {
         padding-right: 0;
@@ -5256,7 +5241,7 @@ form .form-row .input-group-sm > textarea {
     }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .navbar-expand-md > .container,
     .navbar-expand-md > .container-fluid {
         padding-right: 0;
@@ -5308,7 +5293,7 @@ form .form-row .input-group-sm > textarea {
     }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
     .navbar-expand-lg > .container,
     .navbar-expand-lg > .container-fluid {
         padding-right: 0;
@@ -5360,7 +5345,7 @@ form .form-row .input-group-sm > textarea {
     }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1200px) {
     .navbar-expand-xl > .container,
     .navbar-expand-xl > .container-fluid {
         padding-right: 0;
@@ -5632,7 +5617,6 @@ form .form-row .input-group-sm > textarea {
 
 .card-header:first-child {
     border-radius: -webkit-calc(.25rem - 1px) -webkit-calc(.25rem - 1px) 0 0;
-    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
 }
 
 .card-header + .list-group .list-group-item:first-child {
@@ -5647,7 +5631,6 @@ form .form-row .input-group-sm > textarea {
 
 .card-footer:last-child {
     border-radius: 0 0 -webkit-calc(.25rem - 1px) -webkit-calc(.25rem - 1px);
-    border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px)
 }
 
 .card-header-tabs {
@@ -5720,8 +5703,8 @@ form .form-row .input-group-sm > textarea {
         display: -ms-flexbox;
         display: flex;
         -webkit-box-flex: 1;
-        -ms-flex: 1 0 0%;
-        flex: 1 0 0%;
+        -ms-flex: 1 0 0;
+        flex: 1 0 0;
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -5754,8 +5737,8 @@ form .form-row .input-group-sm > textarea {
 
     .card-group > .card {
         -webkit-box-flex: 1;
-        -ms-flex: 1 0 0%;
-        flex: 1 0 0%;
+        -ms-flex: 1 0 0;
+        flex: 1 0 0;
         margin-bottom: 0
     }
 
@@ -6885,8 +6868,6 @@ a.close.disabled {
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
-    text-align: left;
-    text-align: start;
     text-decoration: none;
     text-shadow: none;
     text-transform: none;
@@ -7010,8 +6991,6 @@ a.close.disabled {
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
-    text-align: left;
-    text-align: start;
     text-decoration: none;
     text-shadow: none;
     text-transform: none;
@@ -11928,11 +11907,6 @@ a.text-dark:hover {
     outline: 0
 }
 
-.slick-list.dragging {
-    cursor: pointer;
-    cursor: hand
-}
-
 .slick-slider .slick-list,
 .slick-slider .slick-track {
     -webkit-transform: translate3d(0, 0, 0);
@@ -12004,10 +11978,6 @@ a.text-dark:hover {
     display: none
 }
 
-.slick-loading .slick-list {
-    background: #fff slick-image-url("ajax-loader.gif") center center no-repeat
-}
-
 .slick-next,
 .slick-prev {
     position: absolute;
@@ -12026,7 +11996,7 @@ a.text-dark:hover {
     box-shadow: 0 .46875rem 2.1875rem rgba(4, 9, 20, .03), 0 .9375rem 1.40625rem rgba(4, 9, 20, .03), 0 .25rem .53125rem rgba(4, 9, 20, .05), 0 .125rem .1875rem rgba(4, 9, 20, .03);
     -webkit-transition: all .2s;
     transition: all .2s;
-    font-family: fontello;
+    font-family: fontello, serif;
     border-radius: 50px;
     background: #fff;
     z-index: 6;
@@ -12218,17 +12188,9 @@ html {
     -moz-osx-font-smoothing: grayscale
 }
 
-@font-face {
-    font-family: fontello;
-    src: url(assets/styles/build/fonts/fontello.eot?49697320);
-    src: url(assets/styles/build/fonts/fontello.eot?49697320#iefix) format("embedded-opentype"), url(assets/styles/build/fonts/fontello.woff2?49697320) format("woff2"), url(assets/styles/build/fonts/fontello.woff?49697320) format("woff"), url(assets/styles/build/fonts/fontello.ttf?49697320) format("truetype"), url(assets/styles/build/fonts/fontello.svg?49697320#fontello) format("svg");
-    font-weight: 400;
-    font-style: normal
-}
-
 [class*=" icon-"]:before,
 [class^=icon-]:before {
-    font-family: fontello;
+    font-family: fontello, serif;
     font-style: normal;
     font-weight: 400;
     speak: none;
@@ -12714,39 +12676,6 @@ html {
     box-shadow: 0 .46875rem 2.1875rem rgba(13, 16, 45, .06), 0 .9375rem 1.40625rem rgba(13, 16, 45, .06), 0 .25rem .53125rem rgba(13, 16, 45, .13), 0 .125rem .1875rem rgba(13, 16, 45, .08)
 }
 
-.hero-wrapper-default {
-    background-image: url(images/section-bg.jpg);
-    background-attachment: initial
-}
-
-.hero-wrapper-freestuff {
-    background-image: url(images/section-bg-free.jpg)
-}
-
-.hero-wrapper-premium {
-    background-image: url(images/section-bg-premium.jpg)
-}
-
-.hero-wrapper-html5 {
-    background-image: url(images/section-bg.jpg);
-    background-attachment: initial
-}
-
-.hero-wrapper-reactjs {
-    background-image: url(images/section-bg-reactjs.jpg);
-    background-attachment: initial
-}
-
-.hero-wrapper-vue {
-    background-image: url(images/section-bg-vue.jpg);
-    background-attachment: initial
-}
-
-.hero-wrapper-angular {
-    background-image: url(images/section-bg-angular.jpg);
-    background-attachment: initial
-}
-
 .theme-cta {
     text-align: center;
     margin: 2rem 0 0
@@ -13172,30 +13101,6 @@ html {
     box-shadow: 0 25px 20px -20px rgba(0, 0, 0, .1), 0 0 15px rgba(0, 0, 0, .06)
 }
 
-.supported-tags .tag-react {
-    background-image: url(images/tags/react.png)
-}
-
-.supported-tags .tag-vue {
-    background-image: url(images/tags/vue.png)
-}
-
-.supported-tags .tag-angular {
-    background-image: url(images/tags/angular.png)
-}
-
-.supported-tags .tag-html5 {
-    background-image: url(images/tags/html.png)
-}
-
-.supported-tags .tag-bootstrap {
-    background-image: url(images/tags/bootstrap.png)
-}
-
-.supported-tags .tag-sass {
-    background-image: url(images/tags/sass.png)
-}
-
 .supported-tags .support-tag-lg {
     background-color: #fff;
     border-radius: 100%;
@@ -13206,30 +13111,6 @@ html {
     background-position: 50% 50%;
     background-repeat: no-repeat;
     box-shadow: 0 25px 20px -20px rgba(0, 0, 0, .1), 0 0 15px rgba(0, 0, 0, .06)
-}
-
-.supported-tags .tag-lg-react {
-    background-image: url(images/tags/react-lg.png)
-}
-
-.supported-tags .tag-lg-vue {
-    background-image: url(images/tags/vue-lg.png)
-}
-
-.supported-tags .tag-lg-angular {
-    background-image: url(images/tags/angular-lg.png)
-}
-
-.supported-tags .tag-lg-html5 {
-    background-image: url(images/tags/html-lg.png)
-}
-
-.supported-tags .tag-lg-bootstrap {
-    background-image: url(images/tags/bootstrap-lg.png)
-}
-
-.supported-tags .tag-lg-sass {
-    background-image: url(images/tags/sass-lg.png)
 }
 
 .modal-dialog-cart {
@@ -14151,7 +14032,7 @@ label {
 #billing_first_name_field,
 #billing_last_name_field,
 #billing_state_field,
-billing_address_2_field {
+#billing_address_2_field {
     width: 50%;
     float: left
 }
@@ -14565,7 +14446,7 @@ p.woocommerce-shipping-contents {
 }
 
 .hamburger--elastic .hamburger-inner {
-    top: 1.5px;
+    top: 2px;
     -webkit-transition-duration: 275ms;
     transition-duration: 275ms;
     -webkit-transition-timing-function: cubic-bezier(.68, -.55, .265, 1.55);
@@ -14610,13 +14491,13 @@ p.woocommerce-shipping-contents {
     }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1200px) {
     .hero-wrapper-snp .hero-wrapper-inner > .container {
         max-width: none
     }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
     .live-topbar h5 b {
         display: none
     }
@@ -14755,7 +14636,7 @@ p.woocommerce-shipping-contents {
     }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1200px) {
     #billing_address_1_field,
     #billing_address_2_field,
     #billing_city_field,
@@ -14767,7 +14648,7 @@ p.woocommerce-shipping-contents {
     }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .cart-title .close {
         position: fixed;
         right: 1rem
@@ -14904,7 +14785,7 @@ p.woocommerce-shipping-contents {
     }
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
     .modal-dialog-cart {
         width: 100%;
         margin-left: auto;

@@ -15,7 +15,7 @@ import dj_database_url
 import dotenv as env
 import django_heroku
 from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
-from ecplaza_tools.handlers import CustomTempFileUploadHandler
+from ECPlazaTools.handlers import CustomTempFileUploadHandler
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -85,7 +85,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
-ROOT_URLCONF = 'ecplaza_tools.urls'
+ROOT_URLCONF = 'ECPlazaTools.urls'
 
 TEMPLATES = [
     {
@@ -102,7 +102,7 @@ TEMPLATES = [
         },
     }
 ]
-WSGI_APPLICATION = 'ecplaza_tools.wsgi.application'
+WSGI_APPLICATION = 'ECPlazaTools.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -153,7 +153,7 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'ecplaza_tools/static'),
+    os.path.join(BASE_DIR, 'ECPlazaTools/static'),
 )
 
 
@@ -163,7 +163,7 @@ UPLOADS_PATH = os.path.join(BASE_DIR, os.path.join('static', 'uploads'))
 FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, os.path.join('static', 'tmp-uploads'))
 FILE_UPLOAD_HANDLERS = (
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
-    'ecplaza_tools.handlers.CustomTempFileUploadHandler'
+    'ECPlazaTools.handlers.CustomTempFileUploadHandler'
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
