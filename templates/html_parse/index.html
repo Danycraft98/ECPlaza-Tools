@@ -3,11 +3,6 @@
 
 {% block style %}
     <link rel='stylesheet' href='//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css'>
-    <style>
-        .button-tab {
-            border-radius: 5px 5px 0 0;
-        }
-    </style>
 {% endblock %}
 
 
@@ -16,7 +11,7 @@
         <div class='card-body container-fluid'>
             {% csrf_token %}
             <div class='row mx-0'>
-                <div class='nav nav-tabs col-6 d-flex justify-content-start' id='nav-tab' role='tablist'>
+                <div class='nav nav-tabs col-6 d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
                     <a class='nav-item nav-link active' id='nav-text-tab' data-bs-toggle='tab' href='#nav-text' role='tab'
                        aria-controls='nav-text' aria-selected='true' onclick='set_required();'>
                         <i class='fa fa-file-text'></i> 택스트 분석
@@ -31,7 +26,7 @@
                     </a>
                 </div>
 
-                <div class='nav nav-tabs col-6 d-flex justify-content-end p-0' id='nav-tab' role='tablist'>
+                <div class='nav nav-tabs col-6 d-flex justify-content-end p-0 mb-0' id='nav-tab' role='tablist'>
                     {% if data %}
                         <a class='nav-item btn btn-outline-primary button-tab' href='#' onclick='print();'>
                             <i class='fa fa-download'></i> 파일 내보내기

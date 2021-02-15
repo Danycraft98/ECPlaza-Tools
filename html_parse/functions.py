@@ -39,7 +39,7 @@ def get_dataframe(data, key):
         'Shopify': ['div', 'next-input-wrapper translation', ['label', 'content']],
         '1688': ['div', 'cardListItem', ['image', 'name', 'link', 'price', '# Sold', 'location']],
         'Coupang': ['li', 'baby-product renew-badge', ['image', 'name', 'link', 'base price', 'sale price', 'unit price', 'rating']],
-        'Hot Tracks': ['li', None, ['label', 'content']],
+        'Hot Tracks': ['li', None, ['image', 'name', 'link', 'base price', 'sale price']],
     }
     values, soup = app_dict.get(key), BeautifulSoup(data)
     if values[1]:
@@ -79,9 +79,12 @@ def get_dataframe(data, key):
             ]
 
         else:
-            print(item)
+            price_div = item.find('p', {'class': 'price font_t'})
             row = [
                 '<img src=" ' + item.find('img').get('src', '') + '" width="100px">',
+                str(item.find('p', {'class': 'tit'})).replace('\r\n', ''),
+                str(price_div.find('span', {'class': 'discount'})).replace('\r\n', ''),
+                str(price_div.find('span', {'class': ''})).replace('\r\n', ''),
             ]
 
         link = item.find('a')

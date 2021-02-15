@@ -1,10 +1,7 @@
 /* My Own added */
 
-
-.hidden {
-    position: absolute;
-    visibility: hidden;
-    opacity: 0;
+.button-tab {
+    border-radius: 5px 5px 0 0;
 }
 
 .double-hr {
@@ -29,6 +26,12 @@ fieldset#level {
     padding: 0.7em 1.4em !important;
 }
 
+.hidden {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+}
+
 hr {
     border-top: 1px solid rgb(201, 205, 209);
 }
@@ -43,6 +46,11 @@ legend {
 
 .table > :not(caption) > tr > td {
     border-bottom: grey 1px !important;
+}
+
+
+.table {
+    display: table !important;
 }
 
 /*!

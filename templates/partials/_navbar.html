@@ -187,7 +187,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class='nav flex-column'>
                             <div class='nav-item-divider nav-item'></div>
                             <div class='nav-item-btn text-center nav-item'>
@@ -196,7 +196,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class='dropdown'>
                     <button type='button' data-bs-toggle='dropdown' class='p-0 mr-2 btn btn-link'>
                         <span class='icon-wrapper icon-wrapper-alt rounded-circle'>
@@ -204,7 +204,7 @@
                             <i class='pe-7s-global'></i>
                         </span>
                     </button>
-                    
+
                     <div tabindex='-1' role='menu' aria-hidden='true' class='rm-pointers dropdown-menu dropdown-menu-right'>
                         <div class='dropdown-menu-header'>
                             <div class='dropdown-menu-header-inner pt-4 pb-4 bg-focus'>
@@ -271,8 +271,10 @@
 
                                 {% else %}
 
-                                    <a class='nav-link' href="{% url 'login' %}">로그인</a>
-                                    <a class='nav-link' href="{% url 'signup' %}">가입</a>
+                                    <div class='widget-content-left ml-3'>
+                                        <a class='nav-link' href="{% url 'login' %}">로그인</a>
+                                        <a class='nav-link' href="{% url 'signup' %}">가입</a>
+                                    </div>
 
                                 {% endif %}
                             </div>
