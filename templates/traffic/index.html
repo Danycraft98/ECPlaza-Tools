@@ -53,9 +53,10 @@
         }(window, document, 'script'));
 
         gapi.analytics.ready(function () {
+            console.log('test')
             gapi.analytics.auth.authorize({
                 'serverAuth': {
-                    'access_token': '{{google_access_token}}'
+                    'access_token': '{{ google_access_token }}'
                 }
             });
 
@@ -89,6 +90,7 @@
             })
         });
 
+        console.log(gapi.analytics.auth);
     </script>
 
 {% endblock %}

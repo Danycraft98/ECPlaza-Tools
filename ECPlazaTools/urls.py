@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('compare/', include('compare.urls')),
     path('url.parse/', include('html_parse.urls')),
+    path('traffic/', include('traffic.urls')),
 ]

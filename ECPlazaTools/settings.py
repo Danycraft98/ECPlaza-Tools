@@ -17,7 +17,6 @@ import django_heroku
 from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
 from ECPlazaTools.handlers import CustomTempFileUploadHandler
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env.load_dotenv(os.path.join(BASE_DIR, '.env'))
 config = {
@@ -49,6 +48,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'compare.apps.CompareConfig',
     'html_parse.apps.HTMLParseConfig',
+    'traffic.apps.TrafficConfig',
     'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -155,7 +155,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'ECPlazaTools/static'),
 )
-
 
 # Upload Settings
 FILE_UPLOAD_MAX_MEMORY_SIZE = 3000000
