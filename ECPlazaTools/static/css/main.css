@@ -12239,6 +12239,12 @@ a, button, .btn {
     align-items: center;
 }
 
+.app-footer .app-footer__inner .app-footer-center {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
 .app-footer .app-footer__inner .app-footer-right {
     margin-left: auto;
     display: flex;
@@ -29137,8 +29143,8 @@ span.multiselect-native-select select {
 }
 
 .rdw-image-modal-upload-option-input {
-    width: 0.1px;
-    height: 0.1px;
+    width: 0;
+    height: 0;
     opacity: 0;
     overflow: hidden;
     position: absolute;
@@ -29427,7 +29433,7 @@ span.multiselect-native-select select {
 
 .DraftEditor-editorContainer {
     background-color: rgba(255, 255, 255, 0);
-    border-left: .1px solid transparent;
+    border-left: 1px solid transparent;
     position: relative;
     z-index: 1;
 }
