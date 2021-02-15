@@ -56,7 +56,7 @@ class UserManager(BaseUserManager):
         user.staff = True
         user.save(using=self._db)
         return user
-    
+
     def create_superuser(self, username, email, password):
         """
         Creates and saves a superuser with the given email and password.
@@ -123,7 +123,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         Returns: str
         """
-        return self.username
+        return self.get_full_name()
+
+    def title(self):
+        """
+        The user title is returned
+
+        Returns: str
+        """
+        if self.is_admin:
+            return 'Admin'
+        elif self.is_staff:
+            return 'Staff'
+        return 'User'
 
     @property
     def is_staff(self):

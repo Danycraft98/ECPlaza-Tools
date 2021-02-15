@@ -377,119 +377,107 @@
                     <div class='widget-content-wrapper'>
                         <div class='widget-content-left'>
                             <div class='btn-group'>
-                                <a data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false' class='p-0 btn'>
-                                    <img width='42' class='rounded-circle' src='assets/images/avatars/1.jpg' alt=''>
-                                    <i class='fa fa-angle-down ml-2 opacity-8'></i>
-                                </a>
-                                <div tabindex='-1' role='menu' aria-hidden='true' class='rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right'>
-                                    <div class='dropdown-menu-header'>
-                                        <div class='dropdown-menu-header-inner bg-info'>
-                                            <div class='menu-header-image opacity-2'></div>
-                                            <div class='menu-header-content text-left'>
-                                                <div class='widget-content p-0'>
-                                                    <div class='widget-content-wrapper'>
-                                                        <div class='widget-content-left mr-3'>
-                                                            <img width='42' class='rounded-circle' src='assets/images/avatars/1.jpg' alt=''>
-                                                        </div>
-                                                        <div class='widget-content-left'>
-                                                            <div class='widget-heading'>Alina Mcloughlin</div>
-                                                            <div class='widget-subheading opacity-8'>A short profile description</div>
-                                                        </div>
-                                                        <div class='widget-content-right mr-2'>
-                                                            <button class='btn-pill btn-shadow btn-shine btn btn-focus'>Logout</button>
+                                {% if user and user.is_authenticated %}
+                                    <a data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false' class='p-0 btn widget-content-left ml-3'>
+                                        <img width='42' class='rounded-circle' src='assets/images/avatars/1.jpg' alt=''>
+                                        <div class='widget-heading pb-0'>{{ user }} <i class='fa fa-angle-down ml-2 opacity-8'></i></div>
+                                        <div class='nav-link widget-subheading pt-0'>Title: {{ user.title }}</div>
+                                    </a>
+                                    <div tabindex='-1' role='menu' aria-hidden='true' class='rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right'>
+                                        <div class='dropdown-menu-header'>
+                                            <div class='dropdown-menu-header-inner bg-info'>
+                                                <div class='menu-header-image opacity-2'></div>
+                                                <div class='menu-header-content text-left'>
+                                                    <div class='widget-content p-0'>
+                                                        <div class='widget-content-wrapper'>
+                                                            <div class='widget-content-left mr-3'>
+                                                                <img width='42' class='rounded-circle' src='assets/images/avatars/1.jpg' alt=''>
+                                                            </div>
+                                                            <div class='widget-content-left'>
+                                                                <div class='widget-heading'>Alina Mcloughlin</div>
+                                                                <div class='widget-subheading opacity-8'>A short profile description</div>
+                                                            </div>
+                                                            <div class='widget-content-right mr-2'>
+                                                                <a class='btn-pill btn-shadow btn-shine btn btn-focus' href='{% url 'logout' %}'>로그아웃</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class='scroll-area-xs' style='height: 150px;'>
-                                        <div class='scrollbar-container ps'>
-                                            <div class='nav flex-column'>
-                                                <div class='nav-item-header nav-item'>Activity</div>
-                                                <div class='nav-item'>
-                                                    <a href='javascript:void(0);' class='nav-link'>Chat
-                                                        <div class='ml-auto badge badge-pill badge-info'>8</div>
-                                                    </a>
+                                        <div class='scroll-area-xs' style='height: 150px;'>
+                                            <div class='scrollbar-container ps'>
+                                                <div class='nav flex-column'>
+                                                    <div class='nav-item-header nav-item'>Activity</div>
+                                                    {% if user.is_admin %}
+                                                        <a class='nav-item nav-link' href='{% url 'admin:index' %}'>관리자 대시보드</a>
+                                                    {% endif %}
+                                                    <div class='nav-item'>
+                                                        <a href='javascript:void(0);' class='nav-link'>Chat
+                                                            <div class='ml-auto badge badge-pill badge-info'>8</div>
+                                                        </a>
+                                                    </div>
+                                                    <div class='nav-item'>
+                                                        <a href='javascript:void(0);' class='nav-link'>Recover Password</a>
+                                                    </div>
+                                                    <div class='nav-item-header nav-item'>My Account
+                                                    </div>
+                                                    <div class='nav-item'>
+                                                        <a href='javascript:void(0);' class='nav-link'>Settings
+                                                            <div class='ml-auto badge badge-success'>New</div>
+                                                        </a>
+                                                    </div>
+                                                    <div class='nav-item'>
+                                                        <a href='javascript:void(0);' class='nav-link'>Messages
+                                                            <div class='ml-auto badge badge-warning'>512</div>
+                                                        </a>
+                                                    </div>
+                                                    <div class='nav-item'>
+                                                        <a href='javascript:void(0);' class='nav-link'>Logs</a>
+                                                    </div>
                                                 </div>
-                                                <div class='nav-item'>
-                                                    <a href='javascript:void(0);' class='nav-link'>Recover Password</a>
+                                                <div class='ps__rail-x' style='left: 0; bottom: 0;'>
+                                                    <div class='ps__thumb-x' tabindex='0' style='left: 0; width: 0;'></div>
                                                 </div>
-                                                <div class='nav-item-header nav-item'>My Account
-                                                </div>
-                                                <div class='nav-item'>
-                                                    <a href='javascript:void(0);' class='nav-link'>Settings
-                                                        <div class='ml-auto badge badge-success'>New</div>
-                                                    </a>
-                                                </div>
-                                                <div class='nav-item'>
-                                                    <a href='javascript:void(0);' class='nav-link'>Messages
-                                                        <div class='ml-auto badge badge-warning'>512</div>
-                                                    </a>
-                                                </div>
-                                                <div class='nav-item'>
-                                                    <a href='javascript:void(0);' class='nav-link'>Logs</a>
+                                                <div class='ps__rail-y' style='top: 0; right: 0;'>
+                                                    <div class='ps__thumb-y' tabindex='0' style='top: 0; height: 0;'></div>
                                                 </div>
                                             </div>
-                                            <div class='ps__rail-x' style='left: 0; bottom: 0;'>
-                                                <div class='ps__thumb-x' tabindex='0' style='left: 0; width: 0;'></div>
+                                        </div>
+                                        <div class='nav flex-column'>
+                                            <div class='nav-item-divider mb-0 nav-item'></div>
+                                        </div>
+                                        <div class='grid-menu grid-menu-2col'>
+                                            <div class='no-gutters row'>
+                                                <div class='col-sm-6'>
+                                                    <button class='btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning'>
+                                                        <i class='pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2'></i> Message Inbox
+                                                    </button>
+                                                </div>
+                                                <div class='col-sm-6'>
+                                                    <button class='btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger'>
+                                                        <i class='pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2'></i>
+                                                        <b>Support Tickets</b>
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class='ps__rail-y' style='top: 0; right: 0;'>
-                                                <div class='ps__thumb-y' tabindex='0' style='top: 0; height: 0;'></div>
+                                        </div>
+                                        <div class='nav flex-column'>
+                                            <div class='nav-item-divider nav-item'>
+                                            </div>
+                                            <div class='nav-item-btn text-center nav-item'>
+                                                <button class='btn-wide btn btn-primary btn-sm'> Open Messages</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class='nav flex-column'>
-                                        <div class='nav-item-divider mb-0 nav-item'></div>
-                                    </div>
-                                    <div class='grid-menu grid-menu-2col'>
-                                        <div class='no-gutters row'>
-                                            <div class='col-sm-6'>
-                                                <button class='btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning'>
-                                                    <i class='pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2'></i> Message Inbox
-                                                </button>
-                                            </div>
-                                            <div class='col-sm-6'>
-                                                <button class='btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger'>
-                                                    <i class='pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2'></i>
-                                                    <b>Support Tickets</b>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class='nav flex-column'>
-                                        <div class='nav-item-divider nav-item'>
-                                        </div>
-                                        <div class='nav-item-btn text-center nav-item'>
-                                            <button class='btn-wide btn btn-primary btn-sm'> Open Messages</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% else %}
+
+                                    <a class='nav-link' href='{% url 'login' %}'>로그인</a>
+                                    <a class='nav-link' href='{% url 'signup' %}'>가입</a>
+
+                                {% endif %}
                             </div>
                         </div>
-
-                        {% if user and user.is_authenticated %}
-
-                            <div class='widget-content-left ml-3 header-user-info nav-item dropdown'>
-                                <a class='nav-link dropdown-toggle widget-heading pb-0' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>{{ user }}</a>
-                                <div class='nav-link widget-subheading pt-0'> {{ user }}</div>
-
-                                <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-                                    <a class='dropdown-item' href='{% url 'logout' %}'>로그아웃</a>
-                                    <div class='dropdown-divider'></div>
-                                    <a class='dropdown-item' href='#'>Others</a>
-                                    {% if user.is_admin %}
-                                        <a class='dropdown-item' href='{% url 'admin:index' %}'>관리자 대시보드</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                        {% else %}
-
-                            <a class='nav-link' href='{% url 'login' %}'>로그인</a>
-                            <a class='nav-link' href='{% url 'signup' %}'>가입</a>
-
-                        {% endif %}
                     </div>
                 </div>
             </div>
