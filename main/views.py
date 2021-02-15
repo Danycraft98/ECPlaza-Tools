@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.template import RequestContext
 
-TITLE = ('ECPlaza Tools 사이트', '모든 도구를 사용할수있어요.')
+TITLE = ('pe-7s-rocket', 'ECPlaza Tools 사이트', '모든 도구를 사용할수있어요.')
 
 
 @login_required

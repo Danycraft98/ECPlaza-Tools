@@ -36,7 +36,7 @@ def parse_link(link, username=None, password=None):
 
 def get_dataframe(data, key):
     app_dict = {
-        'Shopify': ['div', 'next-input-wrapper', ['label', 'content']],
+        'Shopify': ['div', 'next-input-wrapper translation', ['label', 'content']],
         '1688': ['div', 'cardListItem', ['image', 'name', 'link', 'price', '# Sold', 'location']],
         'Coupang': ['li', 'baby-product renew-badge', ['image', 'name', 'link', 'base price', 'sale price', 'unit price', 'rating']],
         'Hot Tracks': ['li', None, ['label', 'content']],
@@ -49,10 +49,10 @@ def get_dataframe(data, key):
 
     final_data, header = [], values[2]
     for item in items:
-        if key == 'Shopify':
+        if key == 'Shopify' and item.find('textarea'):
             row = [
                 str(item.find('label')).replace(r'/[\]', ''),
-                item.find('textarea').get('placeholder', '')
+                item.find('textarea').text
             ]
 
         elif key == '1688':

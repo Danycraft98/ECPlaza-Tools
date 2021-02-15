@@ -51,13 +51,13 @@
                 </div>
             </div>
             <div class='app-header__menu'>
-                    <span>
-                        <button type='button' class='btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav'>
-                            <span class='btn-icon-wrapper'>
-                                <i class='fa fa-ellipsis-v fa-w-6'></i>
-                            </span>
-                        </button>
-                    </span>
+                <span>
+                    <button type='button' class='btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav'>
+                        <span class='btn-icon-wrapper'>
+                            <i class='fa fa-ellipsis-v fa-w-6'></i>
+                        </span>
+                    </button>
+                </span>
             </div>
             <div class='scrollbar-sidebar ps ps--active-y'>
                 <div class='app-sidebar__inner'>
@@ -417,20 +417,19 @@
         </div>
         <div class='app-main__outer'>
             <div class='app-main__inner'>
-                {% if user and user.is_authenticated %}
+                {% if user and user.is_authenticated and title %}
                     <div class='app-page-title'>
                         <div class='page-title-wrapper'>
                             <div class='page-title-heading'>
                                 <div class='page-title-icon'>
-                                    <i class='pe-7s-car icon-gradient bg-mean-fruit'></i>
+                                    <i class='{{ title.0 }}'></i>
                                 </div>
-                                {% if title %}
-                                    <div>
-                                        <h1>{{ title.0 }}</h1>
 
-                                        <div class='page-title-subheading'>{{ title.1 }}</div>
-                                    </div>
-                                {% endif %}
+                                <div>
+                                    <h1>{{ title.1 }}</h1>
+
+                                    <div class='page-title-subheading'>{{ title.2 }}</div>
+                                </div>
                             </div>
                             <div class='page-title-actions'>
                                 <button type='button' data-toggle='tooltip' title='' data-placement='bottom' class='btn-shadow mr-3 btn btn-dark' data-original-title='Example Tooltip'>

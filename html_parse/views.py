@@ -6,7 +6,7 @@ from .forms import CurlForm
 from .functions import *
 
 sep = os.path.sep
-TITLE = ('링크 투 파일 애플리케이션', '링크 컬링해주는 애플리케이션')
+TITLE = ('pe-7s-link', '링크 투 파일 애플리케이션', '링크 컬링해주는 애플리케이션')
 APP_LIST = ['Shopify', '1688', 'Coupang', 'Hot Tracks']
 
 

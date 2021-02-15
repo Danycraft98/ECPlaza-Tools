@@ -14,7 +14,7 @@ from .functions import *
 from .models import Document
 
 
-TITLE = ('파일비교 애플리케이션', '파일 내역을 비교하는 애플리케이션')
+TITLE = ('pe-7s-copy-file', '파일비교 애플리케이션', '파일 내역을 비교하는 애플리케이션')
 sep = os.path.sep
 
 
