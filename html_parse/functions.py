@@ -52,8 +52,12 @@ def get_dataframe(data, key):
         if key == 'Shopify' and item.find('textarea'):
             row = [
                 str(item.find('label')).replace(r'/[\]', ''),
-                item.find('textarea').text
             ]
+            textarea = item.find('textarea')
+            if textarea.get('placeholder'):
+                row.append(item.find('textarea').get('placeholder'))
+            else:
+                row.append(item.find('textarea').text)
 
         elif key == '1688':
             row = [

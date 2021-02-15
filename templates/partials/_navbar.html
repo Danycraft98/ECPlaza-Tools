@@ -3,7 +3,7 @@
 
 <div class='app-header header-shadow bg-heavy-rain header-text-dark'>
     <div class='app-header__logo'>
-        <a class='navbar-brand logo-src' href='{% url 'index' %}'>
+        <a class='navbar-brand logo-src' href="{% url 'index' %}">
             <img class='logo' src="{% static '/images/logo.png' %}" alt='User'>
         </a>
         <div class='header__pane ml-auto'>
@@ -34,6 +34,7 @@
             </button>
         </span>
     </div>
+
     <div class='app-header__content'>
         <div class='app-header-left'>
             <div class='search-wrapper'>
@@ -43,29 +44,31 @@
                 </div>
                 <button class='close'></button>
             </div>
+
             <div class='header-megamenu nav'>
                 <div class='nav-item dropdown'>
                     <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                        쿠팡 파트너즈
+                        <i class='pe-7s-box1'></i> 쿠팡 파트너즈
                     </a>
                     <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-                        <a class='dropdown-item' href='{% url 'index' %}'>대시보드</a>
+                        <a class='dropdown-item' href="{% url 'index' %}">대시보드</a>
                         <div class='dropdown-divider'></div>
                         <a class='dropdown-item' href='https://partners.coupang.com/#affiliate'>쿠팡 사이트</a>
                     </div>
                 </div>
-                <a class='nav-link' href='{% url 'compare' %}'>파일비교</a>
-                <a class='nav-link' href='{% url 'url_parse' %}'>링크 투 파일</a>
-                <a class='nav-link' href='{% url 'index' %}'>트래픽 분석</a>
+                <a class='nav-link' href="{% url 'compare' %}"><i class='pe-7s-copy-file'></i> 파일비교</a>
+                <a class='nav-link' href="{% url 'url_parse' %}"><i class='pe-7s-link'></i> 링크 투 파일</a>
+                <a class='nav-link' href="{% url 'index' %}"><i class='pe-7s-graph'></i> 트래픽 분석</a>
             </div>
         </div>
+
         <div class='app-header-right'>
             <div class='header-dots'>
                 <div class='dropdown'>
                     <button type='button' aria-haspopup='true' aria-expanded='false' data-bs-toggle='dropdown' class='p-0 mr-2 btn btn-link'>
                         <span class='icon-wrapper icon-wrapper-alt rounded-circle'>
                             <span class='icon-wrapper-bg bg-danger'></span>
-                            <i class='icon text-danger icon-anim-pulse ion-android-notifications'></i>
+                            <i class='pe-7s-bell text-danger'></i>
                             <span class='badge badge-dot badge-dot-sm badge-danger'>Notifications</span>
                         </span>
                     </button>
@@ -79,15 +82,11 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class='tabs-animated-shadow tabs-animated nav nav-justified tabs-shadow-bordered p-3'>
                             <div class='nav-item'>
                                 <a role='tab' class='nav-link active' data-bs-toggle='tab' href='#tab-messages-header'>
                                     <span>Messages</span>
-                                </a>
-                            </div>
-                            <div class='nav-item'>
-                                <a role='tab' class='nav-link' data-bs-toggle='tab' href='#tab-events-header'>
-                                    <span>Events</span>
                                 </a>
                             </div>
                             <div class='nav-item'>
@@ -96,6 +95,7 @@
                                 </a>
                             </div>
                         </div>
+
                         <div class='tab-content'>
                             <div class='tab-pane active' id='tab-messages-header' role='tabpanel'>
                                 <div class='scroll-area-sm'>
@@ -123,12 +123,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class='ps__rail-x' style='left: 0; bottom: 0;'>
-                                            <div class='ps__thumb-x' tabindex='0' style='left: 0; width: 0;'></div>
-                                        </div>
-                                        <div class='ps__rail-y' style='top: 0; right: 0;'>
-                                            <div class='ps__thumb-y' tabindex='0' style='top: 0; height: 0;'></div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -153,101 +147,17 @@
                                                 </div>
                                                 <div class='vertical-timeline-item vertical-timeline-element'>
                                                     <div>
-                                                                <span class='vertical-timeline-element-icon bounce-in'>
-                                                                    <i class='badge badge-dot badge-dot-xl badge-warning'> </i>
-                                                                </span>
+                                                        <span class='vertical-timeline-element-icon bounce-in'>
+                                                            <i class='badge badge-dot badge-dot-xl badge-warning'> </i>
+                                                        </span>
                                                         <div class='vertical-timeline-element-content bounce-in'>
                                                             <p>Another meeting today, at <b class='text-danger'>12:00 PM</b></p>
                                                             <p>Yet another one, at <span class='text-success'>15:00 PM</span></p>
-                                                            <span class='vertical-timeline-element-date'></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class='vertical-timeline-item vertical-timeline-element'>
-                                                    <div>
-                                                                <span class='vertical-timeline-element-icon bounce-in'>
-                                                                    <i class='badge badge-dot badge-dot-xl badge-danger'> </i>
-                                                                </span>
-                                                        <div class='vertical-timeline-element-content bounce-in'>
-                                                            <h4 class='timeline-title'>Build the production release</h4>
-                                                            <p>Lorem ipsum dolor sit amit,consectetur eiusmdd tempor incididunt ut
-                                                                labore et dolore magna elit enim at minim veniam quis nostrud
-                                                            </p>
-                                                            <span class='vertical-timeline-element-date'></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class='vertical-timeline-item vertical-timeline-element'>
-                                                    <div>
-                                                                <span class='vertical-timeline-element-icon bounce-in'>
-                                                                    <i class='badge badge-dot badge-dot-xl badge-primary'> </i>
-                                                                </span>
-                                                        <div class='vertical-timeline-element-content bounce-in'>
-                                                            <h4 class='timeline-title text-success'>Something not important</h4>
-                                                            <p>Lorem ipsum dolor sit amit,consectetur elit enim at minim veniam quis nostrud</p>
-                                                            <span class='vertical-timeline-element-date'></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class='vertical-timeline-item vertical-timeline-element'>
-                                                    <div>
-                                                                <span class='vertical-timeline-element-icon bounce-in'>
-                                                                    <i class='badge badge-dot badge-dot-xl badge-success'> </i>
-                                                                </span>
-                                                        <div class='vertical-timeline-element-content bounce-in'>
-                                                            <h4 class='timeline-title'>All Hands Meeting</h4>
-                                                            <p>Lorem ipsum dolor sic amet, today at
-                                                                <a href='javascript:void(0);'>12:00 PM</a>
-                                                            </p>
-                                                            <span class='vertical-timeline-element-date'></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class='vertical-timeline-item vertical-timeline-element'>
-                                                    <div>
-                                                                <span class='vertical-timeline-element-icon bounce-in'>
-                                                                    <i class='badge badge-dot badge-dot-xl badge-warning'> </i>
-                                                                </span>
-                                                        <div class='vertical-timeline-element-content bounce-in'>
-                                                            <p>Another meeting today, at <b class='text-danger'>12:00 PM</b></p>
-                                                            <p>Yet another one, at <span class='text-success'>15:00 PM</span></p>
-                                                            <span class='vertical-timeline-element-date'></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class='vertical-timeline-item vertical-timeline-element'>
-                                                    <div>
-                                                                <span class='vertical-timeline-element-icon bounce-in'>
-                                                                    <i class='badge badge-dot badge-dot-xl badge-danger'> </i>
-                                                                </span>
-                                                        <div class='vertical-timeline-element-content bounce-in'>
-                                                            <h4 class='timeline-title'>Build the production release</h4>
-                                                            <p>Lorem ipsum dolor sit amit,consectetur eiusmdd tempor incididunt ut
-                                                                labore et dolore magna elit enim at minim veniam quis nostrud
-                                                            </p>
-                                                            <span class='vertical-timeline-element-date'></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class='vertical-timeline-item vertical-timeline-element'>
-                                                    <div>
-                                                                <span class='vertical-timeline-element-icon bounce-in'>
-                                                                    <i class='badge badge-dot badge-dot-xl badge-primary'> </i>
-                                                                </span>
-                                                        <div class='vertical-timeline-element-content bounce-in'>
-                                                            <h4 class='timeline-title text-success'>Something not important</h4>
-                                                            <p>Lorem ipsum dolor sit amit,consectetur elit enim at minim veniam quis nostrud</p>
                                                             <span class='vertical-timeline-element-date'></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class='ps__rail-x' style='left: 0px; bottom: 0px;'>
-                                            <div class='ps__thumb-x' tabindex='0' style='left: 0px; width: 0px;'></div>
-                                        </div>
-                                        <div class='ps__rail-y' style='top: 0px; right: 0px;'>
-                                            <div class='ps__thumb-y' tabindex='0' style='top: 0px; height: 0px;'></div>
                                         </div>
                                     </div>
                                 </div>
@@ -267,16 +177,17 @@
                                             <div class='results-subtitle'>All caught up!</div>
                                             <div class='results-title'>There are no system errors!</div>
                                         </div>
-                                        <div class='ps__rail-x' style='left: 0px; bottom: 0px;'>
-                                            <div class='ps__thumb-x' tabindex='0' style='left: 0px; width: 0px;'></div>
+                                        <div class='ps__rail-x' style='left: 0; bottom: 0;'>
+                                            <div class='ps__thumb-x' tabindex='0' style='left: 0; width: 0;'></div>
                                         </div>
-                                        <div class='ps__rail-y' style='top: 0px; right: 0px;'>
-                                            <div class='ps__thumb-y' tabindex='0' style='top: 0px; height: 0px;'></div>
+                                        <div class='ps__rail-y' style='top: 0; right: 0;'>
+                                            <div class='ps__thumb-y' tabindex='0' style='top: 0; height: 0;'></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class='nav flex-column'>
                             <div class='nav-item-divider nav-item'></div>
                             <div class='nav-item-btn text-center nav-item'>
@@ -285,91 +196,25 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class='dropdown'>
                     <button type='button' data-bs-toggle='dropdown' class='p-0 mr-2 btn btn-link'>
-                                <span class='icon-wrapper icon-wrapper-alt rounded-circle'>
-                                    <span class='icon-wrapper-bg bg-focus'></span>
-                                    <span class='language-icon opacity-8 flag large DE'></span>
-                                </span>
+                        <span class='icon-wrapper icon-wrapper-alt rounded-circle'>
+                            <span class='icon-wrapper-bg bg-focus'></span>
+                            <i class='pe-7s-global'></i>
+                        </span>
                     </button>
+                    
                     <div tabindex='-1' role='menu' aria-hidden='true' class='rm-pointers dropdown-menu dropdown-menu-right'>
                         <div class='dropdown-menu-header'>
                             <div class='dropdown-menu-header-inner pt-4 pb-4 bg-focus'>
-                                <div class='menu-header-image opacity-05'></div>
                                 <div class='menu-header-content text-center text-white'>
                                     <h6 class='menu-header-subtitle mt-0'> Choose Language</h6>
                                 </div>
                             </div>
                         </div>
-                        <h6 tabindex='-1' class='dropdown-header'> Popular Languages</h6>
-                        <button type='button' tabindex='0' class='dropdown-item'>
-                            <span class='mr-3 opacity-8 flag large US'></span> USA
-                        </button>
-                        <button type='button' tabindex='0' class='dropdown-item'>
-                            <span class='mr-3 opacity-8 flag large CH'></span> Switzerland
-                        </button>
-                        <button type='button' tabindex='0' class='dropdown-item'>
-                            <span class='mr-3 opacity-8 flag large FR'></span> France
-                        </button>
-                        <button type='button' tabindex='0' class='dropdown-item'>
-                            <span class='mr-3 opacity-8 flag large ES'></span>Spain
-                        </button>
-                        <div tabindex='-1' class='dropdown-divider'></div>
-                        <h6 tabindex='-1' class='dropdown-header'>Others</h6>
-                        <button type='button' tabindex='0' class='dropdown-item active'>
-                            <span class='mr-3 opacity-8 flag large DE'></span> Germany
-                        </button>
-                        <button type='button' tabindex='0' class='dropdown-item'>
-                            <span class='mr-3 opacity-8 flag large IT'></span> Italy
-                        </button>
-                    </div>
-                </div>
-                <div class='dropdown'>
-                    <button type='button' aria-haspopup='true' data-bs-toggle='dropdown' aria-expanded='false' class='p-0 btn btn-link dd-chart-btn'>
-                        <span class='icon-wrapper icon-wrapper-alt rounded-circle'>
-                            <span class='icon-wrapper-bg bg-success'></span>
-                            <i class='icon text-success ion-ios-analytics'></i>
-                        </span>
-                    </button>
-                    <div tabindex='-1' role='menu' aria-hidden='true' class='dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right'>
-                        <div class='dropdown-menu-header'>
-                            <div class='dropdown-menu-header-inner bg-premium-dark'>
-                                <div class='menu-header-image'></div>
-                                <div class='menu-header-content text-white'>
-                                    <h5 class='menu-header-title'>Users Online</h5>
-                                    <h6 class='menu-header-subtitle'>Recent Account Activity Overview</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='widget-chart'>
-                            <div class='widget-chart-content'>
-                                <div class='icon-wrapper rounded-circle'>
-                                    <div class='icon-wrapper-bg opacity-9 bg-focus'></div>
-                                    <i class='lnr-users text-white'></i>
-                                </div>
-                                <div class='widget-numbers'>
-                                    <span>344k</span>
-                                </div>
-                                <div class='widget-subheading pt-2'>
-                                    Profile views since last login
-                                </div>
-                                <div class='widget-description text-danger'>
-                                    <span class='pr-1'><span>176%</span></span>
-                                    <i class='fa fa-arrow-left'></i>
-                                </div>
-                            </div>
-                            <div class='widget-chart-wrapper'>
-                                <div id='dashboard-sparkline-carousel-3-pop'></div>
-                            </div>
-                        </div>
-                        <div class='nav flex-column'>
-                            <div class='nav-item-divider mt-0 nav-item'></div>
-                            <div class='nav-item-btn text-center nav-item'>
-                                <button class='btn-shine btn-wide btn-pill btn btn-warning btn-sm'>
-                                    <i class='fa fa-cog fa-spin mr-2'></i>View Details
-                                </button>
-                            </div>
-                        </div>
+                        <button type='button' tabindex='0' class='dropdown-item'>Korean</button>
+                        <button type='button' tabindex='0' class='dropdown-item'>English</button>
                     </div>
                 </div>
             </div>
@@ -382,92 +227,39 @@
                                 {% if user and user.is_authenticated %}
                                     <a data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false' class='p-0 btn inline'>
                                         <img width='42' class='rounded-circle' src="{% static '/images/user.png' %}" alt='User'>
-                                         <i class='fa fa-angle-down ml-2 opacity-8'></i>
+                                        <i class='fa fa-angle-down ml-2 opacity-8'></i>
                                     </a>
                                     <div tabindex='-1' role='menu' aria-hidden='true' class='rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right'>
                                         <div class='dropdown-menu-header'>
                                             <div class='dropdown-menu-header-inner bg-info'>
-                                                <div class='menu-header-image opacity-2'></div>
                                                 <div class='menu-header-content text-left'>
                                                     <div class='widget-content p-0'>
                                                         <div class='widget-content-wrapper'>
                                                             <div class='widget-content-left mr-3'>
-                                                                <img width='42' class='rounded-circle' src='{% static '/images/user.png' %}' alt='User'>
+                                                                <img width='42' class='rounded-circle' src="{% static '/images/user.png' %}" alt='User'>
                                                             </div>
                                                             <div class='widget-content-left'>
                                                                 <div class='widget-heading'>{{ user }}</div>
                                                                 <div class='widget-subheading opacity-8'>Title: {{ user.title }}</div>
                                                             </div>
                                                             <div class='widget-content-right mr-2'>
-                                                                <a class='btn-pill btn-shadow btn-shine btn btn-focus' href='{% url 'logout' %}'>로그아웃</a>
+                                                                <a class='btn-pill btn-shadow btn-shine btn btn-focus' href="{% url 'logout' %}">로그아웃</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class='scroll-area-xs' style='height: 150px;'>
                                             <div class='scrollbar-container ps'>
                                                 <div class='nav flex-column'>
                                                     <div class='nav-item-header nav-item'>Activity</div>
+                                                    <a class='nav-item nav-link' href="{% url 'profile' user.id %}">프로필</a>
                                                     {% if user.is_admin %}
-                                                        <a class='nav-item nav-link' href='{% url 'admin:index' %}'>관리자 대시보드</a>
+                                                        <a class='nav-item nav-link' href="{% url 'admin:index' %}">관리자 대시보드</a>
                                                     {% endif %}
-                                                    <div class='nav-item'>
-                                                        <a href='javascript:void(0);' class='nav-link'>Chat
-                                                            <div class='ml-auto badge badge-pill badge-info'>8</div>
-                                                        </a>
-                                                    </div>
-                                                    <div class='nav-item'>
-                                                        <a href='javascript:void(0);' class='nav-link'>Recover Password</a>
-                                                    </div>
-                                                    <div class='nav-item-header nav-item'>My Account
-                                                    </div>
-                                                    <div class='nav-item'>
-                                                        <a href='javascript:void(0);' class='nav-link'>Settings
-                                                            <div class='ml-auto badge badge-success'>New</div>
-                                                        </a>
-                                                    </div>
-                                                    <div class='nav-item'>
-                                                        <a href='javascript:void(0);' class='nav-link'>Messages
-                                                            <div class='ml-auto badge badge-warning'>512</div>
-                                                        </a>
-                                                    </div>
-                                                    <div class='nav-item'>
-                                                        <a href='javascript:void(0);' class='nav-link'>Logs</a>
-                                                    </div>
                                                 </div>
-                                                <div class='ps__rail-x' style='left: 0; bottom: 0;'>
-                                                    <div class='ps__thumb-x' tabindex='0' style='left: 0; width: 0;'></div>
-                                                </div>
-                                                <div class='ps__rail-y' style='top: 0; right: 0;'>
-                                                    <div class='ps__thumb-y' tabindex='0' style='top: 0; height: 0;'></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='nav flex-column'>
-                                            <div class='nav-item-divider mb-0 nav-item'></div>
-                                        </div>
-                                        <div class='grid-menu grid-menu-2col'>
-                                            <div class='no-gutters row'>
-                                                <div class='col-sm-6'>
-                                                    <button class='btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning'>
-                                                        <i class='pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2'></i> Message Inbox
-                                                    </button>
-                                                </div>
-                                                <div class='col-sm-6'>
-                                                    <button class='btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger'>
-                                                        <i class='pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2'></i>
-                                                        <b>Support Tickets</b>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='nav flex-column'>
-                                            <div class='nav-item-divider nav-item'>
-                                            </div>
-                                            <div class='nav-item-btn text-center nav-item'>
-                                                <button class='btn-wide btn btn-primary btn-sm'> Open Messages</button>
                                             </div>
                                         </div>
                                     </div>
@@ -476,10 +268,11 @@
                                         <div class='widget-heading pb-0'>{{ user }}</div>
                                         <div class='nav-link widget-subheading pt-0'>Title: {{ user.title }}</div>
                                     </div>
+
                                 {% else %}
 
-                                    <a class='nav-link' href='{% url 'login' %}'>로그인</a>
-                                    <a class='nav-link' href='{% url 'signup' %}'>가입</a>
+                                    <a class='nav-link' href="{% url 'login' %}">로그인</a>
+                                    <a class='nav-link' href="{% url 'signup' %}">가입</a>
 
                                 {% endif %}
                             </div>
