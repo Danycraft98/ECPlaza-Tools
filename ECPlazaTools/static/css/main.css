@@ -110,14 +110,14 @@ legend {
  * Container and UL / LI
  *----------------------------------------------------------------------------*/
 ul.fancytree-container {
-    font-family: tahoma, arial, helvetica;
+    font-family: tahoma, arial, helvetica, serif;
     font-size: 10pt;
     white-space: nowrap;
     padding: 3px;
     margin: 0;
     background-color: white;
     border: 1px dotted gray;
-    min-height: 0%;
+    min-height: 0;
     position: relative;
 }
 
@@ -131,15 +131,13 @@ ul.fancytree-container ul > li:before {
 }
 
 ul.fancytree-container li {
-    list-style-image: none;
-    list-style-position: outside;
-    list-style-type: none;
+    list-style: none outside none;
     -moz-background-clip: border;
     -moz-background-inline-policy: continuous;
     -moz-background-origin: padding;
     background-attachment: scroll;
     background-color: transparent;
-    background-position: 0px 0px;
+    background-position: 0 0;
     background-repeat: repeat-y;
     background-image: none;
     margin: 0;
@@ -155,7 +153,6 @@ ul.fancytree-container li.fancytree-lastsib {
 }
 
 ul.fancytree-connectors.fancytree-container li {
-    background-image: url(assets/images/vline.gif);
     background-position: 0 0;
 }
 
@@ -183,8 +180,7 @@ span.fancytree-drag-helper-img,
     display: inline-block;
     vertical-align: top;
     background-repeat: no-repeat;
-    background-image: url(assets/images/icons.gif);
-    background-position: 0px 0px;
+    background-position: 0 0;
 }
 
 span.fancytree-icon,
@@ -200,7 +196,7 @@ span.fancytree-custom-icon {
     height: 16px;
     display: inline-block;
     margin-left: 3px;
-    background-position: 0px 0px;
+    background-position: 0 0;
 }
 
 /* Used by 'icon' node option: */
@@ -236,13 +232,12 @@ span.fancytree-expander {
 
 .fancytree-connectors .fancytree-exp-n span.fancytree-expander,
 .fancytree-connectors .fancytree-exp-nl span.fancytree-expander {
-    background-image: url(assets/images/icons.gif);
     margin-top: 0;
 }
 
 .fancytree-connectors .fancytree-exp-n span.fancytree-expander,
 .fancytree-connectors .fancytree-exp-n span.fancytree-expander:hover {
-    background-position: 0px -64px;
+    background-position: 0 -64px;
 }
 
 .fancytree-connectors .fancytree-exp-nl span.fancytree-expander,
@@ -251,7 +246,7 @@ span.fancytree-expander {
 }
 
 .fancytree-exp-c span.fancytree-expander {
-    background-position: 0px -80px;
+    background-position: 0 -80px;
 }
 
 .fancytree-exp-c span.fancytree-expander:hover {
@@ -259,7 +254,7 @@ span.fancytree-expander {
 }
 
 .fancytree-exp-cl span.fancytree-expander {
-    background-position: 0px -96px;
+    background-position: 0 -96px;
 }
 
 .fancytree-exp-cl span.fancytree-expander:hover {
@@ -321,7 +316,7 @@ span.fancytree-expander {
  *----------------------------------------------------------------------------*/
 span.fancytree-checkbox {
     margin-left: 3px;
-    background-position: 0px -32px;
+    background-position: 0 -32px;
 }
 
 span.fancytree-checkbox:hover {
@@ -329,7 +324,7 @@ span.fancytree-checkbox:hover {
 }
 
 span.fancytree-checkbox.fancytree-radio {
-    background-position: 0px -48px;
+    background-position: 0 -48px;
 }
 
 span.fancytree-checkbox.fancytree-radio:hover {
@@ -374,11 +369,11 @@ span.fancytree-checkbox.fancytree-radio:hover {
 }
 
 .fancytree-unselectable span.fancytree-checkbox:hover {
-    background-position: 0px -32px;
+    background-position: 0 -32px;
 }
 
 .fancytree-unselectable span.fancytree-checkbox.fancytree-radio:hover {
-    background-position: 0px -48px;
+    background-position: 0 -48px;
 }
 
 .fancytree-unselectable.fancytree-partsel span.fancytree-checkbox:hover {
@@ -420,33 +415,33 @@ span.fancytree-checkbox.fancytree-radio:hover {
  *----------------------------------------------------------------------------*/
 span.fancytree-icon {
     margin-left: 3px;
-    background-position: 0px 0px;
+    background-position: 0 0;
 }
 
 /* Documents */
 .fancytree-ico-c span.fancytree-icon:hover {
-    background-position: -16px 0px;
+    background-position: -16px 0;
 }
 
 .fancytree-has-children.fancytree-ico-c span.fancytree-icon {
-    background-position: -32px 0px;
+    background-position: -32px 0;
 }
 
 .fancytree-has-children.fancytree-ico-c span.fancytree-icon:hover {
-    background-position: -48px 0px;
+    background-position: -48px 0;
 }
 
 .fancytree-ico-e span.fancytree-icon {
-    background-position: -64px 0px;
+    background-position: -64px 0;
 }
 
 .fancytree-ico-e span.fancytree-icon:hover {
-    background-position: -80px 0px;
+    background-position: -80px 0;
 }
 
 /* Folders */
 .fancytree-ico-cf span.fancytree-icon {
-    background-position: 0px -16px;
+    background-position: 0 -16px;
 }
 
 .fancytree-ico-cf span.fancytree-icon:hover {
@@ -474,14 +469,13 @@ span.fancytree-icon {
 .fancytree-statusnode-loading span.fancytree-icon,
 .fancytree-statusnode-loading span.fancytree-icon:hover,
 span.fancytree-icon.fancytree-icon-loading {
-    background-image: url(assets/images/loading.gif);
-    background-position: 0px 0px;
+    background-position: 0 0;
 }
 
 /* Status node icons */
 .fancytree-statusnode-error span.fancytree-icon,
 .fancytree-statusnode-error span.fancytree-icon:hover {
-    background-position: 0px -112px;
+    background-position: 0 -112px;
 }
 
 /*------------------------------------------------------------------------------
@@ -491,7 +485,7 @@ span.fancytree-node {
     /* See #117 */
     display: inherit;
     width: 100%;
-    margin-top: 0px;
+    margin-top: 0;
     min-height: 20px;
 }
 
@@ -502,13 +496,13 @@ span.fancytree-title {
     vertical-align: top;
     min-height: 20px;
     padding: 0 3px 0 3px;
-    margin: 0px 0 0 3px;
+    margin: 0 0 0 3px;
     border: 1px solid transparent;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    -ms-border-radius: 0px;
-    -o-border-radius: 0px;
-    border-radius: 0px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
 }
 
 span.fancytree-node.fancytree-error span.fancytree-title {
@@ -569,14 +563,14 @@ div.fancytree-drag-helper.fancytree-drop-reject span.fancytree-drag-helper-img {
 #fancytree-drop-marker {
     width: 32px;
     position: absolute;
-    background-position: 0px -128px;
+    background-position: 0 -128px;
     margin: 0;
 }
 
 #fancytree-drop-marker.fancytree-drop-after,
 #fancytree-drop-marker.fancytree-drop-before {
     width: 64px;
-    background-position: 0px -144px;
+    background-position: 0 -144px;
 }
 
 #fancytree-drop-marker.fancytree-drop-copy {
@@ -601,22 +595,11 @@ span.fancytree-drag-source.fancytree-drag-remove {
     /* optional: reverse title letters */
 }
 
-.fancytree-container.fancytree-rtl span.fancytree-connector,
-.fancytree-container.fancytree-rtl span.fancytree-expander,
-.fancytree-container.fancytree-rtl span.fancytree-icon,
-.fancytree-container.fancytree-rtl span.fancytree-drag-helper-img {
-    background-image: url(assets/images/icons-rtl.gif);
-}
-
 .fancytree-container.fancytree-rtl .fancytree-exp-n span.fancytree-expander,
 .fancytree-container.fancytree-rtl .fancytree-exp-nl span.fancytree-expander {
     background-image: none;
 }
 
-.fancytree-container.fancytree-rtl.fancytree-connectors .fancytree-exp-n span.fancytree-expander,
-.fancytree-container.fancytree-rtl.fancytree-connectors .fancytree-exp-nl span.fancytree-expander {
-    background-image: url(assets/images/icons-rtl.gif);
-}
 
 ul.fancytree-container.fancytree-rtl ul {
     padding: 0 16px 0 0;
@@ -624,7 +607,6 @@ ul.fancytree-container.fancytree-rtl ul {
 
 ul.fancytree-container.fancytree-rtl.fancytree-connectors li {
     background-position: right 0;
-    background-image: url(assets/images/vline-rtl.gif);
 }
 
 ul.fancytree-container.fancytree-rtl li.fancytree-lastsib,
@@ -632,15 +614,11 @@ ul.fancytree-container.fancytree-rtl.fancytree-no-connector > li {
     background-image: none;
 }
 
-#fancytree-drop-marker.fancytree-rtl {
-    background-image: url(assets/images/icons-rtl.gif);
-}
-
 /*------------------------------------------------------------------------------
  * 'table' extension
  *----------------------------------------------------------------------------*/
 table.fancytree-ext-table {
-    font-family: tahoma, arial, helvetica;
+    font-family: tahoma, arial, helvetica, serif;
     font-size: 10pt;
     border-collapse: collapse;
     /* ext-ariagrid */
@@ -688,15 +666,13 @@ table.fancytree-ext-columnview tbody tr td > ul {
 }
 
 table.fancytree-ext-columnview tbody tr td > ul li {
-    list-style-image: none;
-    list-style-position: outside;
-    list-style-type: none;
+    list-style: none outside none;
     -moz-background-clip: border;
     -moz-background-inline-policy: continuous;
     -moz-background-origin: padding;
     background-attachment: scroll;
     background-color: transparent;
-    background-position: 0px 0px;
+    background-position: 0 0;
     background-repeat: repeat-y;
     background-image: none;
     /* no v-lines */
@@ -720,7 +696,7 @@ table.fancytree-ext-columnview span.fancytree-node.fancytree-active {
 table.fancytree-ext-columnview .fancytree-has-children span.fancytree-cv-right {
     position: absolute;
     right: 3px;
-    background-position: 0px -80px;
+    background-position: 0 -80px;
 }
 
 table.fancytree-ext-columnview .fancytree-has-children span.fancytree-cv-right:hover {
@@ -820,7 +796,7 @@ ul.fancytree-ext-wide span.fancytree-node > span {
 ul.fancytree-ext-wide span.fancytree-node span.fancytree-title {
     position: absolute;
     z-index: 1;
-    left: 0px;
+    left: 0;
     min-width: 100%;
     margin-left: 0;
     margin-right: 0;
@@ -848,22 +824,22 @@ ul.fancytree-ext-wide span.fancytree-node span.fancytree-title {
     position: absolute;
     overflow: hidden;
     z-index: 3;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
 }
 
 .fancytree-ext-fixed-wrapper div.fancytree-ext-fixed-wrapper-tr {
     position: absolute;
     overflow: hidden;
     z-index: 2;
-    top: 0px;
+    top: 0;
 }
 
 .fancytree-ext-fixed-wrapper div.fancytree-ext-fixed-wrapper-bl {
     position: absolute;
     overflow: hidden;
     z-index: 2;
-    left: 0px;
+    left: 0;
 }
 
 .fancytree-ext-fixed-wrapper div.fancytree-ext-fixed-wrapper-br {
@@ -1038,11 +1014,9 @@ table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-selected {
     clear: both;
     width: 240px;
     text-align: center;
-    font-weight: 600;
     display: block;
     padding: .5em 0;
     color: #4278F5;
-    font-weight: 400;
 }
 
 .br-theme-bars-movie .br-readonly a {
@@ -1622,7 +1596,6 @@ p {
 
 abbr[title], abbr[data-original-title] {
     text-decoration: underline;
-    text-decoration: underline dotted;
     cursor: help;
     border-bottom: 0;
     text-decoration-skip-ink: none
@@ -1754,11 +1727,6 @@ button {
     border-radius: 0
 }
 
-button:focus {
-    outline: 1px dotted;
-    outline: 5px auto -webkit-focus-ring-color
-}
-
 input, button, select, optgroup, textarea {
     margin: 0;
     font-family: inherit;
@@ -1864,7 +1832,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 h1, .h1 {
-    font-size: 2.5rem
+    font-size: 3rem
 }
 
 h2, .h2 {
@@ -3266,7 +3234,7 @@ pre code {
     background-color: rgba(255, 255, 255, 0.075)
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
     .table-responsive-sm {
         display: block;
         width: 100%;
@@ -3280,7 +3248,7 @@ pre code {
     }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .table-responsive-md {
         display: block;
         width: 100%;
@@ -3294,7 +3262,7 @@ pre code {
     }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
     .table-responsive-lg {
         display: block;
         width: 100%;
@@ -3308,7 +3276,7 @@ pre code {
     }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1200px) {
     .table-responsive-xl {
         display: block;
         width: 100%;
@@ -5193,8 +5161,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     line-height: 1.5;
     color: #495057;
     vertical-align: middle;
-    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right .75rem center/8px 10px;
-    background-color: #fff;
+    background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right .75rem center;
     border: 1px solid #ced4da;
     border-radius: .25rem;
     appearance: none
@@ -5646,7 +5613,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     background-size: 100% 100%
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
     .navbar-expand-sm > .container, .navbar-expand-sm > .container-fluid {
         padding-right: 0;
         padding-left: 0
@@ -5686,7 +5653,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .navbar-expand-md > .container, .navbar-expand-md > .container-fluid {
         padding-right: 0;
         padding-left: 0
@@ -5726,7 +5693,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
     .navbar-expand-lg > .container, .navbar-expand-lg > .container-fluid {
         padding-right: 0;
         padding-left: 0
@@ -5766,7 +5733,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1200px) {
     .navbar-expand-xl > .container, .navbar-expand-xl > .container-fluid {
         padding-right: 0;
         padding-left: 0
@@ -6067,7 +6034,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
     .card-deck .card {
         display: flex;
-        flex: 1 0 0%;
+        flex: 1 0 0;
         flex-direction: column;
         margin-right: 15px;
         margin-bottom: 0;
@@ -6090,7 +6057,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     }
 
     .card-group > .card {
-        flex: 1 0 0%;
+        flex: 1 0 0;
         margin-bottom: 0
     }
 
@@ -7189,8 +7156,6 @@ a.close.disabled {
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
-    text-align: left;
-    text-align: start;
     text-decoration: none;
     text-shadow: none;
     text-transform: none;
@@ -7302,8 +7267,6 @@ a.close.disabled {
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
-    text-align: left;
-    text-align: start;
     text-decoration: none;
     text-shadow: none;
     text-transform: none;
@@ -7577,11 +7540,11 @@ a.close.disabled {
 }
 
 .carousel-control-prev-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e")
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-3-3 3-3-1.5-1.5z'/%3e%3c/svg%3e")
 }
 
 .carousel-control-next-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e")
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 3 3-3 3 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e")
 }
 
 .carousel-indicators {
@@ -11283,10 +11246,9 @@ a, button, .btn {
     transition: width .2s
 }
 
-.app-header__logo .logo-src {
-    height: 23px;
-    width: 97px;
-    background: url(../images/logo.png)
+.app-header__logo .logo-src .logo {
+    height: 30px;
+    width: 150px;
 }
 
 .app-header__menu, .app-header__mobile-menu {
@@ -11503,10 +11465,6 @@ a, button, .btn {
     background: rgba(255, 255, 255, 0.8)
 }
 
-.app-header.header-text-light .app-header__logo .logo-src {
-    background: url(../images/logo.png)
-}
-
 .app-header.header-text-light .app-header__mobile-menu .hamburger-inner, .app-header.header-text-light .app-header__mobile-menu .hamburger-inner::before, .app-header.header-text-light .app-header__mobile-menu .hamburger-inner::after {
     background: rgba(255, 255, 255, 0.9)
 }
@@ -11584,10 +11542,6 @@ a, button, .btn {
 
 .app-header.header-text-dark .search-wrapper .close::before, .app-header.header-text-dark .search-wrapper .close::after, .app-header.header-text-dark .search-wrapper .input-holder .search-icon span::before {
     background: rgba(0, 0, 0, 0.8)
-}
-
-.app-header.header-text-dark .app-header__logo .logo-src {
-    background: url(../images/logo.png)
 }
 
 .app-sidebar {
@@ -11862,10 +11816,6 @@ a, button, .btn {
 
 .app-sidebar.sidebar-text-light .ps__rail-y:hover .ps__thumb-y {
     background: rgba(255, 255, 255, 0.2)
-}
-
-.app-sidebar.sidebar-text-light .app-header__logo .logo-src {
-    background: url(assets/images/logo.png)
 }
 
 .app-sidebar.sidebar-text-light .app-header__logo .hamburger-inner, .app-sidebar.sidebar-text-light .app-header__logo .hamburger-inner::before, .app-sidebar.sidebar-text-light .app-header__logo .hamburger-inner::after {
@@ -12873,7 +12823,7 @@ a, button, .btn {
         background-position: 100% 50%
     }
     100% {
-        background-position: 0% 50%
+        background-position: 0 50%
     }
 }
 
@@ -12882,7 +12832,7 @@ a, button, .btn {
         background-position: 100% 50%
     }
     100% {
-        background-position: 0% 50%
+        background-position: 0 50%
     }
 }
 
@@ -15460,7 +15410,7 @@ body {
         opacity: 0
     }
     100% {
-        margin-top: 0px;
+        margin-top: 0;
         visibility: visible;
         opacity: 1
     }
@@ -15493,10 +15443,7 @@ body {
 }
 
 .btn.btn-pill.btn-wide, .btn.btn-pill {
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px
+    border-radius: 50px;
 }
 
 .btn-dashed {
@@ -15563,10 +15510,7 @@ body {
 }
 
 .btn-hover-shine.btn-pill::after {
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px
+    border-radius: 50px;
 }
 
 .btn-icon-vertical {
@@ -15614,7 +15558,7 @@ body {
 }
 
 .btn-icon-lg {
-    font-size: 2.5rem !important
+    font-size: 3rem !important
 }
 
 .btn-transition {
@@ -16433,7 +16377,7 @@ body {
 }
 
 .btn-outline-primary.btn-shadow:hover {
-    box-shadow: 0px 5px 15px 2px rgba(63, 106, 216, 0.19)
+    box-shadow: 0 5px 15px 2px rgba(63, 106, 216, 0.19)
 }
 
 .btn-outline-secondary {
@@ -16475,7 +16419,7 @@ body {
 }
 
 .btn-outline-secondary.btn-shadow:hover {
-    box-shadow: 0px 5px 15px 2px rgba(108, 117, 125, 0.19)
+    box-shadow: 0 5px 15px 2px rgba(108, 117, 125, 0.19)
 }
 
 .btn-outline-success {
@@ -16517,7 +16461,7 @@ body {
 }
 
 .btn-outline-success.btn-shadow:hover {
-    box-shadow: 0px 5px 15px 2px rgba(58, 196, 125, 0.19)
+    box-shadow: 0 5px 15px 2px rgba(58, 196, 125, 0.19)
 }
 
 .btn-outline-info {
@@ -16559,7 +16503,7 @@ body {
 }
 
 .btn-outline-info.btn-shadow:hover {
-    box-shadow: 0px 5px 15px 2px rgba(22, 170, 255, 0.19)
+    box-shadow: 0 5px 15px 2px rgba(22, 170, 255, 0.19)
 }
 
 .btn-outline-warning {
@@ -16601,7 +16545,7 @@ body {
 }
 
 .btn-outline-warning.btn-shadow:hover {
-    box-shadow: 0px 5px 15px 2px rgba(247, 185, 36, 0.19)
+    box-shadow: 0 5px 15px 2px rgba(247, 185, 36, 0.19)
 }
 
 .btn-outline-danger {
@@ -16643,7 +16587,7 @@ body {
 }
 
 .btn-outline-danger.btn-shadow:hover {
-    box-shadow: 0px 5px 15px 2px rgba(217, 37, 80, 0.19)
+    box-shadow: 0 5px 15px 2px rgba(217, 37, 80, 0.19)
 }
 
 .btn-outline-light {
@@ -16685,7 +16629,7 @@ body {
 }
 
 .btn-outline-light.btn-shadow:hover {
-    box-shadow: 0px 5px 15px 2px rgba(238, 238, 238, 0.19)
+    box-shadow: 0 5px 15px 2px rgba(238, 238, 238, 0.19)
 }
 
 .btn-outline-dark {
@@ -16727,7 +16671,7 @@ body {
 }
 
 .btn-outline-dark.btn-shadow:hover {
-    box-shadow: 0px 5px 15px 2px rgba(52, 58, 64, 0.19)
+    box-shadow: 0 5px 15px 2px rgba(52, 58, 64, 0.19)
 }
 
 .btn-outline-focus {
@@ -16769,7 +16713,7 @@ body {
 }
 
 .btn-outline-focus.btn-shadow:hover {
-    box-shadow: 0px 5px 15px 2px rgba(68, 64, 84, 0.19)
+    box-shadow: 0 5px 15px 2px rgba(68, 64, 84, 0.19)
 }
 
 .btn-outline-alternate {
@@ -16811,7 +16755,7 @@ body {
 }
 
 .btn-outline-alternate.btn-shadow:hover {
-    box-shadow: 0px 5px 15px 2px rgba(121, 76, 138, 0.19)
+    box-shadow: 0 5px 15px 2px rgba(121, 76, 138, 0.19)
 }
 
 .btn {
@@ -17375,7 +17319,7 @@ a.badge-alternate:hover, a.badge-alternate:focus {
 }
 
 .btn-sm .badge-dot, .btn-group-sm > .btn .badge-dot {
-    top: 0px;
+    top: 0;
     right: 2px
 }
 
@@ -17562,7 +17506,7 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 
 @-webkit-keyframes sploosh {
     0% {
-        box-shadow: 0 0 0 0px rgba(51, 51, 51, 0.2)
+        box-shadow: 0 0 0 0 rgba(51, 51, 51, 0.2)
     }
     100% {
         box-shadow: 0 0 0 8px rgba(51, 51, 51, 0)
@@ -17825,7 +17769,7 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .card-header-lg {
-    padding: 1.5rem 2.5rem;
+    padding: 1.5rem 3rem;
     height: auto
 }
 
@@ -17965,7 +17909,7 @@ a.avatar-icon-wrapper:hover .avatar-icon {
     top: 0;
     z-index: 4;
     bottom: auto;
-    box-shadow: 0 16px 26px -10px rgba(63, 106, 216, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(63, 106, 216, 0.2);
+    box-shadow: 0 16px 26px -10px rgba(63, 106, 216, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(63, 106, 216, 0.2);
     border-radius: 100%;
     opacity: .5
 }
@@ -18005,7 +17949,7 @@ a.avatar-icon-wrapper:hover .avatar-icon {
     top: 15%;
     z-index: 4;
     bottom: auto;
-    box-shadow: 0 16px 26px -10px rgba(63, 106, 216, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(63, 106, 216, 0.2);
+    box-shadow: 0 16px 26px -10px rgba(63, 106, 216, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(63, 106, 216, 0.2);
     border-radius: 100%;
     opacity: .5
 }
@@ -18020,9 +17964,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .body-tabs-line .body-tabs-layout {
-    margin: 0 -30px;
     padding: 0 30px;
-    margin-bottom: 30px;
+    margin: 0 -30px 30px;
     border-bottom: #dee2e6 solid 1px
 }
 
@@ -18179,14 +18122,10 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 
 .ball-scale > div {
     background-color: #3f6ad8;
-    width: 15px;
-    height: 15px;
     border-radius: 100%;
     margin: 2px;
     animation-fill-mode: both;
     display: inline-block;
-    height: 60px;
-    width: 60px;
     animation: ball-scale 1s 0s ease-in-out infinite
 }
 
@@ -18232,12 +18171,12 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .ball-rotate > div:before {
-    top: 0px;
+    top: 0;
     left: -28px
 }
 
 .ball-rotate > div:after {
-    top: 0px;
+    top: 0;
     left: 25px
 }
 
@@ -18254,17 +18193,11 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .ball-clip-rotate > div {
-    background-color: #3f6ad8;
-    width: 15px;
-    height: 15px;
     border-radius: 100%;
     margin: 2px;
     animation-fill-mode: both;
     border: 2px solid #3f6ad8;
     border-bottom-color: transparent;
-    height: 25px;
-    width: 25px;
-    background: transparent !important;
     display: inline-block;
     animation: rotate 0.75s 0s linear infinite
 }
@@ -18298,8 +18231,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 .ball-clip-rotate-pulse > div {
     animation-fill-mode: both;
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     border-radius: 100%
 }
 
@@ -18314,14 +18247,11 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 
 .ball-clip-rotate-pulse > div:last-child {
     position: absolute;
-    border: 2px solid #3f6ad8;
     width: 30px;
     height: 30px;
     left: -16px;
     top: -2px;
     background: transparent;
-    border: 2px solid;
-    border-color: #3f6ad8 transparent #3f6ad8 transparent;
     animation: rotate 1s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
     animation-duration: 1s
 }
@@ -18492,18 +18422,12 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 
 .ball-scale-multiple > div {
     background-color: #3f6ad8;
-    width: 15px;
-    height: 15px;
     border-radius: 100%;
-    margin: 2px;
     animation-fill-mode: both;
     position: absolute;
     left: -30px;
-    top: 0px;
+    top: 0;
     opacity: 0;
-    margin: 0;
-    width: 60px;
-    height: 60px;
     animation: ball-scale-multiple 1s 0s linear infinite
 }
 
@@ -18512,10 +18436,10 @@ a.avatar-icon-wrapper:hover .avatar-icon {
         transform: translate(25px, -50px)
     }
     66% {
-        transform: translate(50px, 0px)
+        transform: translate(50px, 0)
     }
     100% {
-        transform: translate(0px, 0px)
+        transform: translate(0px, 0)
     }
 }
 
@@ -18527,19 +18451,19 @@ a.avatar-icon-wrapper:hover .avatar-icon {
         transform: translate(-25px, 50px)
     }
     100% {
-        transform: translate(0px, 0px)
+        transform: translate(0px, 0)
     }
 }
 
 @keyframes ball-triangle-path-3 {
     33% {
-        transform: translate(-50px, 0px)
+        transform: translate(-50px, 0)
     }
     66% {
         transform: translate(-25px, -50px)
     }
     100% {
-        transform: translate(0px, 0px)
+        transform: translate(0px, 0)
     }
 }
 
@@ -18607,10 +18531,6 @@ a.avatar-icon-wrapper:hover .avatar-icon {
     75% {
         transform: translateY(30px)
     }
-    100% {
-        transform: translateY(0);
-        transform: scale(1)
-    }
 }
 
 @keyframes ball-pulse-rise-odd {
@@ -18625,10 +18545,6 @@ a.avatar-icon-wrapper:hover .avatar-icon {
     }
     75% {
         transform: translateY(-30px)
-    }
-    100% {
-        transform: translateY(0);
-        transform: scale(0.75)
     }
 }
 
@@ -18827,8 +18743,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .ball-spin-fade-loader > div:nth-child(2) {
-    top: 17.04545px;
-    left: 17.04545px;
+    top: 17px;
+    left: 17px;
     animation: ball-spin-fade-loader 1s -.84s infinite linear
 }
 
@@ -18839,8 +18755,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .ball-spin-fade-loader > div:nth-child(4) {
-    top: -17.04545px;
-    left: 17.04545px;
+    top: -17px;
+    left: 17px;
     animation: ball-spin-fade-loader 1s -.6s infinite linear
 }
 
@@ -18863,8 +18779,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .ball-spin-fade-loader > div:nth-child(8) {
-    top: 17.04545px;
-    left: -17.04545px;
+    top: 17px;
+    left: -17px;
     animation: ball-spin-fade-loader 1s -.12s infinite linear
 }
 
@@ -18898,8 +18814,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .ball-spin-loader > span:nth-child(2) {
-    top: 30.68182px;
-    left: 30.68182px;
+    top: 31px;
+    left: 31px;
     animation: ball-spin-loader 2s 1.8s infinite linear
 }
 
@@ -18910,8 +18826,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .ball-spin-loader > span:nth-child(4) {
-    top: -30.68182px;
-    left: 30.68182px;
+    top: -31px;
+    left: 31px;
     animation: ball-spin-loader 2s 3.6s infinite linear
 }
 
@@ -18922,8 +18838,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .ball-spin-loader > span:nth-child(6) {
-    top: -30.68182px;
-    left: -30.68182px;
+    top: -31px;
+    left: -31px;
     animation: ball-spin-loader 2s 5.4s infinite linear
 }
 
@@ -18934,8 +18850,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .ball-spin-loader > span:nth-child(8) {
-    top: 30.68182px;
-    left: -30.68182px;
+    top: 31px;
+    left: -31px;
     animation: ball-spin-loader 2s 7.2s infinite linear
 }
 
@@ -18982,10 +18898,9 @@ a.avatar-icon-wrapper:hover .avatar-icon {
     width: 15px;
     height: 15px;
     border-radius: 100%;
-    margin: 2px;
     animation-fill-mode: both;
     position: absolute;
-    margin-left: 15px;
+    margin: 2px 2px 2px 15px;
     top: 4px;
     left: -7px
 }
@@ -19050,10 +18965,9 @@ a.avatar-icon-wrapper:hover .avatar-icon {
     width: 15px;
     height: 15px;
     border-radius: 100%;
-    margin: 2px;
     animation-fill-mode: both;
     position: absolute;
-    margin-left: 15px;
+    margin: 2px 2px 2px 15px;
     top: 4px;
     left: -7px
 }
@@ -19238,8 +19152,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .line-spin-fade-loader > div:nth-child(2) {
-    top: 13.63636px;
-    left: 13.63636px;
+    top: 14px;
+    left: 14px;
     transform: rotate(-45deg);
     animation: line-spin-fade-loader 1.2s -.72s infinite ease-in-out
 }
@@ -19252,8 +19166,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .line-spin-fade-loader > div:nth-child(4) {
-    top: -13.63636px;
-    left: 13.63636px;
+    top: -14px;
+    left: 14px;
     transform: rotate(45deg);
     animation: line-spin-fade-loader 1.2s -.48s infinite ease-in-out
 }
@@ -19265,8 +19179,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .line-spin-fade-loader > div:nth-child(6) {
-    top: -13.63636px;
-    left: -13.63636px;
+    top: -14px;
+    left: -14px;
     transform: rotate(-45deg);
     animation: line-spin-fade-loader 1.2s -.24s infinite ease-in-out
 }
@@ -19279,22 +19193,18 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .line-spin-fade-loader > div:nth-child(8) {
-    top: 13.63636px;
-    left: -13.63636px;
+    top: 14px;
+    left: -14px;
     transform: rotate(45deg);
     animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out
 }
 
 .line-spin-fade-loader > div {
     background-color: #3f6ad8;
-    width: 4px;
-    height: 35px;
     border-radius: 2px;
     margin: 2px;
     animation-fill-mode: both;
     position: absolute;
-    width: 5px;
-    height: 15px
 }
 
 @keyframes triangle-skew-spin {
@@ -19399,8 +19309,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .pacman > div:first-of-type {
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     border-right: 25px solid transparent;
     border-top: 25px solid #3f6ad8;
     border-left: 25px solid #3f6ad8;
@@ -19412,8 +19322,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 }
 
 .pacman > div:nth-child(2) {
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     border-right: 25px solid transparent;
     border-top: 25px solid #3f6ad8;
     border-left: 25px solid #3f6ad8;
@@ -19427,12 +19337,8 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 
 .pacman > div:nth-child(3), .pacman > div:nth-child(4), .pacman > div:nth-child(5), .pacman > div:nth-child(6) {
     background-color: #3f6ad8;
-    width: 15px;
-    height: 15px;
     border-radius: 100%;
     margin: 2px;
-    width: 10px;
-    height: 10px;
     position: absolute;
     transform: translate(0, -6.25px);
     top: 25px;
@@ -19495,7 +19401,7 @@ a.avatar-icon-wrapper:hover .avatar-icon {
 
 .semi-circle-spin > div {
     position: absolute;
-    border-width: 0px;
+    border-width: 0;
     border-radius: 100%;
     animation: spin-rotate 0.6s 0s infinite linear;
     background-image: linear-gradient(transparent 0%, transparent 70%, #3f6ad8 30%, #3f6ad8 100%);
@@ -20195,8 +20101,7 @@ legend {
     background: #e0f3ff;
     border: 0;
     padding: .75rem 1.5rem;
-    border-radius: 30px;
-    border-top-left-radius: .25rem;
+    border-radius: .25rem 30px 30px 30px;
     flex: 1;
     display: flex;
     max-width: 50%;
@@ -20216,9 +20121,7 @@ legend {
 }
 
 .chat-box-wrapper.chat-box-wrapper-right .chat-box {
-    border-radius: 30px;
-    border-top-left-radius: 30px;
-    border-top-right-radius: .25rem;
+    border-radius: 30px .25rem 30px 30px;
     margin-left: auto
 }
 
@@ -20323,7 +20226,7 @@ legend {
 }
 
 .forms-wizard li.done em {
-    font-family: 'Linearicons-Free';
+    font-family: 'Linearicons-Free', serif;
     background: #3ac47d;
     overflow: hidden
 }
@@ -20469,7 +20372,7 @@ legend {
 
 .widget-chart .widget-numbers {
     font-weight: bold;
-    font-size: 2.5rem;
+    font-size: 3rem;
     display: block;
     line-height: 1;
     margin: 1rem auto
@@ -20539,10 +20442,7 @@ legend {
 }
 
 .widget-chart .widget-progress-wrapper.progress-wrapper-bottom .progress {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: .25rem;
-    border-bottom-left-radius: .25rem
+    border-radius: 0 0 .25rem .25rem;
 }
 
 .widget-chart .widget-progress-wrapper.progress-wrapper-bottom .progress .progress-bar {
@@ -20875,18 +20775,6 @@ legend {
     background: rgba(255, 255, 255, 0.2)
 }
 
-.app-logo {
-    height: 23px;
-    width: 97px;
-    background: url(assets/images/logo-inverse.png)
-}
-
-.app-logo-inverse {
-    height: 23px;
-    width: 97px;
-    background: url(assets/images/logo.png)
-}
-
 .app-login-box .app-logo {
     margin-bottom: 3rem
 }
@@ -21034,7 +20922,7 @@ legend {
     padding: 1.5rem
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1200px) {
     .chat-layout.app-inner-layout .app-inner-layout__sidebar .widget-content .widget-content-left .widget-subheading {
         white-space: normal
     }
@@ -21045,7 +20933,7 @@ legend {
     margin: 3px 1.5rem 0 0
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
     .app-inner-layout__sidebar {
         display: none !important
     }
@@ -21301,8 +21189,7 @@ legend {
 .cropper-view-box {
     display: block;
     height: 100%;
-    outline-color: rgba(51, 153, 255, 0.75);
-    outline: 1px solid #39f;
+    outline: #39f solid 1px;
     overflow: hidden;
     width: 100%
 }
@@ -21543,12 +21430,11 @@ legend {
     background-color: #000;
     opacity: 0;
     background: -moz-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0, 0, 0, 0.4)), color-stop(100%, rgba(0, 0, 0, 0.9)));
+    background: -webkit-gradient(radial, center center, 0, center center, 100%, color-stop(0%, rgba(0, 0, 0, 0.4)), color-stop(100%, rgba(0, 0, 0, 0.9)));
     background: -webkit-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
     background: -o-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
     background: -ms-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
     background: radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.9) 100%);
-    filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#66000000',endColorstr='#e6000000',GradientType=1)";
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
     filter: alpha(opacity=50);
     -webkit-transition: all 0.3s ease-out;
@@ -21591,7 +21477,6 @@ legend {
     background-color: #FFF;
     background-color: rgba(255, 255, 255, 0.9);
     border: 1px solid #777;
-    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 4px;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
     -webkit-transition: all 0.3s ease-out;
@@ -21630,7 +21515,7 @@ legend {
     left: -16px;
     z-index: 9999999999 !important;
     padding: 2px;
-    font-family: Arial, verdana, tahoma;
+    font-family: Arial, verdana, tahoma, serif;
     font-size: 13px;
     font-weight: bold;
     color: white;
@@ -21648,8 +21533,6 @@ legend {
     line-height: 20px;
     border: 3px solid white;
     border-radius: 50%;
-    filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3019', endColorstr='#cf0404', GradientType=0)";
-    filter: "progid:DXImageTransform.Microsoft.Shadow(direction=135, strength=2, color=ff0000)";
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4)
 }
 
@@ -21748,7 +21631,6 @@ legend {
     display: inline-block;
     padding: 0.3em 0.8em;
     border: 1px solid #d4d4d4;
-    margin: 0;
     text-decoration: none;
     text-shadow: 1px 1px 0 #fff;
     font: 11px/normal sans-serif;
@@ -21769,13 +21651,13 @@ legend {
     border-radius: 0.2em;
     zoom: 1;
     *display: inline;
-    margin-top: 10px
+    margin: 10px 0 0;
 }
 
 .introjs-button:hover {
     border-color: #bcbcbc;
     text-decoration: none;
-    box-shadow: 0px 1px 1px #e3e3e3
+    box-shadow: 0 1px 1px #e3e3e3
 }
 
 .introjs-button:focus, .introjs-button:active {
@@ -21888,7 +21770,7 @@ legend {
 .introjs-progressbar {
     box-sizing: content-box;
     float: left;
-    width: 0%;
+    width: 0;
     height: 100%;
     font-size: 10px;
     line-height: 10px;
@@ -22316,7 +22198,7 @@ legend {
 .ladda-button[data-style=zoom-out] .ladda-spinner {
     left: 50%;
     margin-left: 32px;
-    transform: scale(2.5)
+    transform: scale(3)
 }
 
 .ladda-button[data-style=zoom-out] .ladda-label {
@@ -22387,7 +22269,7 @@ legend {
 .ladda-button[data-style=contract-overlay] {
     overflow: hidden;
     width: 100px;
-    box-shadow: 0px 0px 0px 2000px rgba(0, 0, 0, 0)
+    box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0)
 }
 
 .ladda-button[data-style=contract-overlay] .ladda-spinner {
@@ -22398,7 +22280,7 @@ legend {
 .ladda-button[data-style=contract-overlay][data-loading] {
     border-radius: 50%;
     width: 52px;
-    box-shadow: 0px 0px 0px 2000px rgba(0, 0, 0, 0.8)
+    box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.8)
 }
 
 .ladda-button[data-style=contract-overlay][data-loading] .ladda-label {
@@ -22495,7 +22377,7 @@ legend {
  * @link https://github.com/jonsuh/hamburgers
  */
 .hamburger {
-    padding: 0px 0px;
+    padding: 0 0;
     display: inline-block;
     cursor: pointer;
     transition-property: opacity, filter;
@@ -23573,13 +23455,12 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end, body.swal2-no-backdrop .sw
 }
 
 .swal2-popup .swal2-actions.swal2-loading .swal2-styled.swal2-confirm {
-    width: 2.5em;
-    height: 2.5em;
+    width: 3em;
+    height: 3em;
     margin: .46875em;
     padding: 0;
     border: .25em solid transparent;
     border-radius: 100%;
-    border-color: transparent;
     background-color: transparent !important;
     color: transparent;
     cursor: default;
@@ -23625,8 +23506,7 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end, body.swal2-no-backdrop .sw
 .swal2-popup .swal2-styled.swal2-confirm {
     border: 0;
     border-radius: 0.25em;
-    background: initial;
-    background-color: #3f6ad8;
+    background: #3f6ad8;
     color: #fff;
     font-size: 1.0625em
 }
@@ -23634,8 +23514,7 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end, body.swal2-no-backdrop .sw
 .swal2-popup .swal2-styled.swal2-cancel {
     border: 0;
     border-radius: 0.25em;
-    background: initial;
-    background-color: #f8f9fa;
+    background: #f8f9fa;
     color: #fff;
     font-size: 1.0625em
 }
@@ -23678,7 +23557,7 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end, body.swal2-no-backdrop .sw
     background: transparent;
     color: #495057;
     font-family: serif;
-    font-size: 2.5em;
+    font-size: 3em;
     line-height: 1.2;
     cursor: pointer;
     overflow: hidden
@@ -24055,7 +23934,7 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end, body.swal2-no-backdrop .sw
 }
 
 .swal2-progresssteps .swal2-progressline {
-    width: 2.5em;
+    width: 3em;
     height: .4em;
     margin: 0 -1px;
     background: #3085d6;
@@ -24427,11 +24306,6 @@ button.toast-close-button {
     outline: none
 }
 
-.slick-list.dragging {
-    cursor: pointer;
-    cursor: hand
-}
-
 .slick-slider .slick-track, .slick-slider .slick-list {
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
@@ -24578,11 +24452,9 @@ button.toast-close-button {
 
 .slick-dots li button {
     border: 0;
-    background: transparent;
     display: block;
     height: 14px;
     width: 14px;
-    background: #3f6ad8;
     cursor: pointer;
     position: relative;
     border-radius: 20px;
@@ -25764,11 +25636,11 @@ a.fc-more:hover {
 }
 
 .fc-ltr .fc-time-grid .fc-event-container {
-    margin: 0 2.5% 0 2px
+    margin: 0 3% 0 2px
 }
 
 .fc-rtl .fc-time-grid .fc-event-container {
-    margin: 0 2px 0 2.5%
+    margin: 0 2px 0 3%
 }
 
 .fc-time-grid .fc-event, .fc-time-grid .fc-bgevent {
@@ -26798,9 +26670,9 @@ div.fixed-table-scroll-outer {
 }
 
 .datepicker-panel > ul[data-view="years"] > li, .datepicker-panel > ul[data-view="months"] > li {
-    height: 52.5px;
-    line-height: 52.5px;
-    width: 62.5px
+    height: 53px;
+    line-height: 53px;
+    width: 63px
 }
 
 .datepicker-panel > ul[data-view="week"] > li, .datepicker-panel > ul[data-view="week"] > li:hover {
@@ -26974,7 +26846,6 @@ div.fixed-table-scroll-outer {
     line-height: 34px;
     border-radius: .25rem;
     border: 1px solid transparent;
-    white-space: nowrap;
     cursor: pointer
 }
 
@@ -27133,7 +27004,6 @@ div.fixed-table-scroll-outer {
     border-radius: .25rem;
     color: #212529;
     background-color: transparent;
-    cursor: pointer
 }
 
 .daterangepicker .ranges li:hover {
@@ -28135,7 +28005,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .select2-container--bootstrap4 .select2-selection--multiple .select2-search--inline .select2-search__field {
     background: transparent;
     padding: 0 .375rem;
-    height: calc(2.25rem + 2px) -2;
+    height: calc(2.25rem + 2px) 2;
     line-height: 1;
     margin-top: 0;
     min-width: 5em
@@ -28210,8 +28080,6 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 
 .select2-container--bootstrap4 .select2-selection--single.input-lg .select2-selection__arrow b, .input-group-lg .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b, .form-group-lg .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
     border-width: .3125rem .3125rem 0 .3125rem;
-    margin-left: -.3125rem;
-    margin-left: -1rem;
     margin-top: -.15625rem
 }
 
@@ -28224,14 +28092,14 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     font-size: 1.1rem;
     line-height: 1;
     border-radius: .25rem;
-    margin: 0rem 0 0 .25rem;
+    margin: 0 0 0 .25rem;
     padding: 0 1rem
 }
 
 .select2-container--bootstrap4 .select2-selection--multiple.input-lg .select2-search--inline .select2-search__field, .input-group-lg .select2-container--bootstrap4 .select2-selection--multiple .select2-search--inline .select2-search__field, .form-group-lg .select2-container--bootstrap4 .select2-selection--multiple .select2-search--inline .select2-search__field {
     padding: 0 .5rem;
     font-size: 1.1rem;
-    height: calc(2.875rem + 2px) -2;
+    height: calc(2.875rem + 2px) 2;
     line-height: 1
 }
 
@@ -28543,15 +28411,15 @@ span.multiselect-native-select select {
 }
 
 .rdw-option-wrapper:hover {
-    box-shadow: 1px 1px 0px #BFBDBD
+    box-shadow: 1px 1px 0 #BFBDBD
 }
 
 .rdw-option-wrapper:active {
-    box-shadow: 1px 1px 0px #BFBDBD inset
+    box-shadow: 1px 1px 0 #BFBDBD inset
 }
 
 .rdw-option-active {
-    box-shadow: 1px 1px 0px #BFBDBD inset
+    box-shadow: 1px 1px 0 #BFBDBD inset
 }
 
 .rdw-option-disabled {
@@ -28567,7 +28435,6 @@ span.multiselect-native-select select {
     border-radius: 2px;
     margin: 0 3px;
     text-transform: capitalize;
-    background: white
 }
 
 .rdw-dropdown-wrapper:focus {
@@ -28575,17 +28442,17 @@ span.multiselect-native-select select {
 }
 
 .rdw-dropdown-wrapper:hover {
-    box-shadow: 1px 1px 0px #BFBDBD;
+    box-shadow: 1px 1px 0 #BFBDBD;
     background-color: #FFFFFF
 }
 
 .rdw-dropdown-wrapper:active {
-    box-shadow: 1px 1px 0px #BFBDBD inset
+    box-shadow: 1px 1px 0 #BFBDBD inset
 }
 
 .rdw-dropdown-carettoopen {
-    height: 0px;
-    width: 0px;
+    height: 0;
+    width: 0;
     position: absolute;
     top: 35%;
     right: 10%;
@@ -28595,8 +28462,8 @@ span.multiselect-native-select select {
 }
 
 .rdw-dropdown-carettoclose {
-    height: 0px;
-    width: 0px;
+    height: 0;
+    width: 0;
     position: absolute;
     top: 35%;
     right: 10%;
@@ -28627,7 +28494,7 @@ span.multiselect-native-select select {
 }
 
 .rdw-dropdown-optionwrapper:hover {
-    box-shadow: 1px 1px 0px #BFBDBD;
+    box-shadow: 1px 1px 0 #BFBDBD;
     background-color: #FFFFFF
 }
 
@@ -28854,7 +28721,7 @@ span.multiselect-native-select select {
 }
 
 .rdw-colorpicker-option-active {
-    box-shadow: 0px 0px 2px 2px #BFBDBD
+    box-shadow: 0 0 2px 2px #BFBDBD
 }
 
 .rdw-link-wrapper {
@@ -28935,11 +28802,11 @@ span.multiselect-native-select select {
 }
 
 .rdw-link-modal-btn:hover {
-    box-shadow: 1px 1px 0px #BFBDBD
+    box-shadow: 1px 1px 0 #BFBDBD
 }
 
 .rdw-link-modal-btn:active {
-    box-shadow: 1px 1px 0px #BFBDBD inset
+    box-shadow: 1px 1px 0 #BFBDBD inset
 }
 
 .rdw-link-modal-btn:focus {
@@ -29047,11 +28914,11 @@ span.multiselect-native-select select {
 }
 
 .rdw-embedded-modal-btn:hover {
-    box-shadow: 1px 1px 0px #BFBDBD
+    box-shadow: 1px 1px 0 #BFBDBD
 }
 
 .rdw-embedded-modal-btn:active {
-    box-shadow: 1px 1px 0px #BFBDBD inset
+    box-shadow: 1px 1px 0 #BFBDBD inset
 }
 
 .rdw-embedded-modal-btn:focus {
@@ -29106,7 +28973,7 @@ span.multiselect-native-select select {
 }
 
 .rdw-emoji-icon {
-    margin: 2.5px;
+    margin: 3px;
     height: 24px;
     width: 24px;
     cursor: pointer;
@@ -29296,11 +29163,11 @@ span.multiselect-native-select select {
 }
 
 .rdw-image-modal-btn:hover {
-    box-shadow: 1px 1px 0px #BFBDBD
+    box-shadow: 1px 1px 0 #BFBDBD
 }
 
 .rdw-image-modal-btn:active {
-    box-shadow: 1px 1px 0px #BFBDBD inset
+    box-shadow: 1px 1px 0 #BFBDBD inset
 }
 
 .rdw-image-modal-btn:focus {
@@ -29810,10 +29677,10 @@ span.multiselect-native-select select {
 .toggle-handle {
     position: relative;
     margin: 0 auto;
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
     height: 100%;
-    width: 0px;
+    width: 0;
     border-width: 0;
     background-color: #fff
 }
@@ -29880,7 +29747,7 @@ span.multiselect-native-select select {
     }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
     .app-main {
         display: block
     }
@@ -30107,7 +29974,7 @@ span.multiselect-native-select select {
     }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
     .app-page-title .page-title-icon, .ui-theme-settings {
         display: none
     }
@@ -30140,13 +30007,13 @@ span.multiselect-native-select select {
     }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1200px) {
     .-hide-paging .-pagination .-center {
         display: none
     }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .app-main .app-main__inner {
         padding: 15px 15px 0
     }
@@ -30384,7 +30251,7 @@ span.multiselect-native-select select {
 }
 
 .font-icon-wrapper.font-icon-lg i {
-    font-size: 2.5rem
+    font-size: 3rem
 }
 
 .font-icon-wrapper:hover {
