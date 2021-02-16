@@ -10,6 +10,14 @@ def index(request):
     return render(request, 'main/index.html', {'title': TITLE})
 
 
+def terms(request):
+    return render(request, 'main/index.html', {'title': TITLE})
+
+
+def policy(request):
+    return render(request, 'main/index.html', {'title': TITLE})
+
+
 def handler403(request, *args):
     response = render(request, 'errors/403.html', context=RequestContext(request))
     response.status_code = 403

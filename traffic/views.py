@@ -12,5 +12,5 @@ sep = os.path.sep
 @login_required
 def traffic(request):
     google_access_token = get_access_token()
-    google_userid = 'ga:127029097345'
+    google_userid = 'ga:260668703'
     return render(request, 'traffic/index.html', {'google_access_token': google_access_token, 'google_userid': google_userid, 'title': TITLE, 'user': request.user})
