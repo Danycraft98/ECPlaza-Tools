@@ -36,7 +36,7 @@
 {% block script %}
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
     <script>
-        (function (w, d, s, g, js, fs) {
+        /*(function (w, d, s, g, js, fs) {
             g = w.gapi || (w.gapi = {});
             g.analytics = {
                 q: [], ready: function (f) {
@@ -50,8 +50,10 @@
             js.onload = function () {
                 g.load('analytics');
             };
-        }(window, document, 'script'));
+        }(window, document, 'script'));*/
+    </script>
 
+    <script>
         gapi.analytics.ready(function () {
             console.log('test')
             gapi.analytics.auth.authorize({
@@ -62,7 +64,7 @@
 
             const dataChart1 = new gapi.analytics.googleCharts.DataChart({
                 query: {
-                    'ids': '{{google_userid}}',
+                    'ids': '{{ google_userid }}',
                     'start-date': '30daysAgo',
                     'end-date': 'today',
                     'metrics': 'ga:sessions',
@@ -89,8 +91,6 @@
                 dataChart1.execute();
             })
         });
-
-        console.log(gapi.analytics.auth);
     </script>
 
 {% endblock %}
