@@ -22,6 +22,7 @@ env.load_dotenv(os.path.join(BASE_DIR, '.env'))
 config = {
     'BASE_DIR': BASE_DIR,
     'DATE_FORMAT': os.getenv('DATE_FORMAT'),
+    'GOOGLE_USER_ID': os.getenv('GOOGLE_USER_ID'),
     'LANGUAGE_CODE': os.getenv('LANGUAGE_CODE'),
     'SENDGRID_API_KEY': os.getenv('SENDGRID_API_KEY'),
     'SENDGRID_URL': os.getenv('SENDGRID_URL'),
