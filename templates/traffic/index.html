@@ -43,14 +43,10 @@
     <script>
         gapi.analytics.ready(function () {
             console.log('test')
-            /*gapi.analytics.auth.authorize({
+            gapi.analytics.auth.authorize({
                 'serverAuth': {
                     'access_token': '{{ google_access_token }}'
                 }
-            });*/
-            gapi.analytics.auth.authorize({
-                container: 'auth-button',
-                clientid: '117896925232452184503',
             });
 
             const viewSelector = new gapi.analytics.ViewSelector({
