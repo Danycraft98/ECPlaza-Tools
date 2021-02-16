@@ -1,9 +1,18 @@
+from itertools import repeat
+
 from django.forms import (
-    URLField, Form, CharField, URLInput, TextInput, PasswordInput, FileInput, FileField, Textarea
+    URLField, Form, CharField, URLInput, TextInput, PasswordInput, FileInput, FileField, Textarea, ChoiceField, Select
 )
 
 __all__ = [
-    'CurlForm'
+    'CurlForm', 'APP_LIST'
+]
+
+APP_LIST = [
+    list(repeat('Shopify', 2)),
+    list(repeat('1688 List', 2)), list(repeat('1688 Detail', 2)),
+    list(repeat('Coupang List', 2)), list(repeat('Coupang Detail', 2)),
+    list(repeat('Hot Tracks List', 2)), list(repeat('Hot Tracks Detail', 2)),
 ]
 
 
@@ -25,9 +34,8 @@ class CurlForm(Form):
         'aria-label': 'File Upload',
         'class': 'form-control'
     }))
-    value = CharField(required=True, label='앱이름', widget=TextInput(attrs={
+    value = ChoiceField(required=True, label='앱이름', choices=APP_LIST, widget=Select(attrs={
         'class': 'form-select',
-        'list': 'value'
     }))
     username = CharField(required=False, label='사용자 이름', widget=TextInput(attrs={
         'class': 'form-control'

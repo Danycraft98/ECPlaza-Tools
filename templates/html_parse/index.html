@@ -83,11 +83,6 @@
                         <div class='col'>
                             <label for='{{ form.value.id_for_label }}'>{{ form.value.label }}:</label>
                             {{ form.value }}
-                            <datalist id='value'>
-                                {% for app in app_list %}
-                                    <option>{{ app }}</option>
-                                {% endfor %}
-                            </datalist>
                         </div>
                     </div>
                 </div>
