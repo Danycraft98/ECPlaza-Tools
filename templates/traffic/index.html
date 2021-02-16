@@ -44,7 +44,8 @@
         gapi.analytics.ready(function () {
             console.log('test')
             gapi.analytics.auth.authorize({
-                'serverAuth': {
+                container: 'auth-button',
+                serverAuth: {
                     'access_token': '{{ google_access_token }}'
                 }
             });
