@@ -33,8 +33,6 @@ def traffic(request):
             'pageSize': 100
         }]
     }).execute()
-    print(response)
     google_access_token = get_access_token()
-    print(os.environ.get('GOOGLE_USER_ID', None))
     google_userid = os.environ.get('GOOGLE_USER_ID', None)
-    return render(request, 'traffic/index.html', {'google_access_token': google_access_token, 'google_userid': google_userid, 'title': TITLE, 'user': request.user})
+    return render(request, 'traffic/index.html', {'resp': response, 'google_access_token': google_access_token, 'google_userid': google_userid, 'title': TITLE, 'user': request.user})
