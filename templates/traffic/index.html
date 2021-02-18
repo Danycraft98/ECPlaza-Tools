@@ -37,11 +37,53 @@
 
 {% block script %}
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
+    <script src="https://apis.google.com/js/api.js"></script>
     <script>
         gapi.analytics.ready(function () {
+            let CLIENT_ID = '117503275351610672621';
+
+            gapi.analytics.auth.authorize({
+                container: 'auth-button',
+                clientid: CLIENT_ID,
+            });
+
+            var viewSelector = new gapi.analytics.ViewSelector({
+                container: 'view-selector'
+            });
+
+            // Step 5: Create the timeline chart.
+
+            var timeline = new gapi.analytics.googleCharts.DataChart({
+                reportType: 'ga',
+                query: {
+                    'dimensions': 'ga:date',
+                    'metrics': 'ga:sessions',
+                    'start-date': '30daysAgo',
+                    'end-date': 'yesterday',
+                },
+                chart: {
+                    type: 'LINE',
+                    container: 'timeline'
+                }
+            });
+
+            // Step 6: Hook up the components to work together.
+
+            gapi.analytics.auth.on('success', function (response) {
+                viewSelector.execute();
+            });
+
+            viewSelector.on('change', function (ids) {
+                var newIds = {
+                    query: {
+                        ids: ids
+                    }
+                }
+                timeline.set(newIds).execute();
+            });
             /*gapi.auth.authorize({client_id: '117503275351610672621', scope: ['https://www.googleapis.com/auth/analytics.readonly']}, function (resp) {
                 console.log(resp)
-            });*/
+            });
             gapi.analytics.auth.authorize({
                 'serverAuth': {
                     'access_token': '{{ google_access_token }}'
@@ -78,9 +120,8 @@
             $('#chart-type-1').change(function () {
                 dataChart1.set({query: {'start-date': $('#chart-1').val()}, chart: {'type': $('#chart-type-1').val()}})
                 dataChart1.execute();
-            })
-        })
-        ;
+            })*/
+        });
     </script>
 
 {% endblock %}
