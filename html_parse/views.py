@@ -11,7 +11,7 @@ from .forms import *
 from .functions import *
 
 sep = os.path.sep
-TITLE = ('pe-7s-link', '링크 투 파일 애플리케이션', '링크 컬링해주는 애플리케이션')
+TITLE = ('pe-7s-browser', '링크 투 파일 애플리케이션', '링크 컬링해주는 애플리케이션')
 
 
 @login_required
@@ -39,7 +39,7 @@ def url_parse(request):
                 copy.insert(0, 'app_name', app_name)
                 db_parts = make_url(os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3'))
                 # url.username, url.password, url.host, url.port, url.database
-                with psycopg2.connect(host=db_parts.host, port=db_parts.port, username=db_parts.username, password=db_parts.password, database=db_parts.database) as conn:
+                with psycopg2.connect(host=db_parts.host, port=db_parts.port, user=db_parts.username, passwd=db_parts.password, dbname=db_parts.database) as conn:
                     copy.to_sql('product', conn, index=False)
 
             except (IndexError, TypeError) as _e:

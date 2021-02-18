@@ -68,7 +68,7 @@
                                                     <span> 파일비교</span>
                                                 </a>
                                                 <a class='nav-link' href="{% url 'url_parse' %}">
-                                                    <i class='nav-link-icon pe-7s-link'></i>
+                                                    <i class='nav-link-icon pe-7s-browser'></i>
                                                     <span> 링크 투 파일</span>
                                                 </a>
                                             </div>
@@ -77,10 +77,10 @@
                                         <div class="col-sm-6 col-xl-4">
                                             <div class="nav flex-column">
                                                 <div class="nav-item-header nav-item">
-                                                    <i class='pe-7s-graph1'></i> 트래픽 분석
+                                                    <i class='pe-7s-graph'></i> 트래픽 분석
                                                 </div>
                                                 <a class='nav-link' href="{% url 'traffic' %}">
-                                                    <i class='nav-link-icon pe-7s-graph'></i>
+                                                    <i class='nav-link-icon pe-7s-rocket'></i>
                                                     <span> 대시보드</span>
                                                 </a>
                                             </div>
@@ -89,15 +89,11 @@
                                         <div class="col-sm-6 col-xl-4">
                                             <div class="nav flex-column">
                                                 <div class="nav-item-header nav-item">
-                                                    <i class='pe-7s-box1'></i> 쿠팡 파트너즈
+                                                    <i class='pe-7s-box1'></i> Blaknk
                                                 </div>
                                                 <a href="{% url 'index' %}" class="nav-item nav-link">
-                                                    <i class="nav-link-icon pe-7s-rocket"></i>
-                                                    <span> 대시보드</span>
-                                                </a>
-                                                <a href='https://partners.coupang.com/#affiliate' class="nav-item nav-link">
                                                     <i class="nav-link-icon pe-7s-gift"></i>
-                                                    <span> 쿠팡 사이트</span>
+                                                    <span> Blank</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -113,6 +109,63 @@
         <div class='app-header-right'>
             <div class='header-dots'>
                 <div class='dropdown'>
+                    <button type='button' aria-haspopup='true' aria-expanded='false' data-toggle='dropdown' class='p-0 mr-2 btn btn-link'>
+                        <span class='icon-wrapper icon-wrapper-alt rounded-circle'>
+                            <span class='icon-wrapper-bg bg-primary'></span>
+                            <i class='pe-7s-gift text-primary'></i>
+                        </span>
+                    </button>
+
+                    <div tabindex='-1' role='menu' aria-hidden='true' class='dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right'>
+                        <div class='dropdown-menu-header'>
+                            <div class='dropdown-menu-header-inner bg-plum-plate'>
+                                <div class='menu-header-image'></div>
+                                <div class='menu-header-content text-white'>
+                                    <h5 class='menu-header-title'>메가 메뉴</h5>
+                                    <h6 class='menu-header-subtitle'>모든것을 한눈에!!</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='grid-menu grid-menu-xl grid-menu-3col'>
+                            <div class='no-gutters row'>
+                                <div class='col-sm-6 col-xl-4'>
+                                    <a class='btn-icon-vertical btn-square btn-transition btn btn-outline-link' href='{% url 'compare' %}'>
+                                        <i class='pe-7s-copy-file btn-icon-wrapper btn-icon-lg mb-3'></i> 파일비교
+                                    </a>
+                                </div>
+                                <div class='col-sm-6 col-xl-4'>
+                                    <a class='btn-icon-vertical btn-square btn-transition btn btn-outline-link' href="{% url 'traffic' %}">
+                                        <i class='pe-7s-rocket btn-icon-wrapper btn-icon-lg mb-3'> </i> 대시보드
+                                    </a>
+                                </div>
+                                <div class='col-sm-6 col-xl-4'>
+                                    <a class='btn-icon-vertical btn-square btn-transition btn btn-outline-link' href='#'>
+                                        <i class='pe-7s-config btn-icon-wrapper btn-icon-lg mb-3'> </i> Settings
+                                    </a>
+                                </div>
+
+                                <div class='col-sm-6 col-xl-4'>
+                                    <a class='btn-icon-vertical btn-square btn-transition btn btn-outline-link' href='{% url 'url_parse' %}'>
+                                        <i class='pe-7s-browser btn-icon-wrapper btn-icon-lg mb-3'> </i> 링크 투 파일
+                                    </a>
+                                </div>
+                                <div class='col-sm-6 col-xl-4'>
+                                    <a class='btn-icon-vertical btn-square btn-transition btn btn-outline-link' href='#'>
+                                        <i class='pe-7s-hourglass btn-icon-wrapper btn-icon-lg mb-3'></i> Activity
+                                    </a>
+                                </div>
+                                <div class='col-sm-6 col-xl-4'>
+                                    <a class='btn-icon-vertical btn-square btn-transition btn btn-outline-link' href='#'>
+                                        <i class='pe-7s-world btn-icon-wrapper btn-icon-lg mb-3'> </i> Contacts
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='dropdown'>
                     <button type='button' aria-haspopup='true' aria-expanded='false' data-bs-toggle='dropdown' class='p-0 mr-2 btn btn-link'>
                         <span class='icon-wrapper icon-wrapper-alt rounded-circle'>
                             <span class='icon-wrapper-bg bg-danger'></span>
@@ -120,6 +173,7 @@
                             <span class='badge badge-dot badge-dot-sm badge-danger'>Notifications</span>
                         </span>
                     </button>
+
                     <div tabindex='-1' role='menu' aria-hidden='true' class='dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right'>
                         <div class='dropdown-menu-header mb-0'>
                             <div class='dropdown-menu-header-inner bg-deep-blue'>
