@@ -23,7 +23,7 @@ APP_LIST = {
         [['span', None], ['div', {'class': 'salePrice'}], ['div', {'class': 'iteRep'}], ['div', {'class': 'itemAdr'}]]
     ],
     '1688 Detail': [
-        'div', 'wp-content-fold-out', ['images', 'name', 'price', 'options', 'detail'],
+        'div', 'wp-content-fold-out', ['images', 'name', 'price', 'options', 'details'],
         [['h1', {'class': 'd-title'}], ['div', {'class': 'price-original-sku'}]],
         ['mod', 'data-gallery-image-list'], ['div', 'obj-sku', ['span', {'class': 'vertical-img-title'}]], {'class': 'area-detail-feature'}
     ],
@@ -33,7 +33,7 @@ APP_LIST = {
         [['div', {'class': 'name'}], ['span', {'class': 'price-info'}], ['strong', {'class': 'price-value'}], ['span', {'class': 'unit-price'}], ['em', {'class': 'rating'}]]
     ],
     'Coupang Detail': [
-        'div', 'product', ['images', 'name', 'options', 'detail'],
+        'div', 'product', ['images', 'name', 'options', 'details'],
         [['h2', {'class': 'prod-buy-header__title'}]],
         ['prod-image__items', None], ['div', 'prod-option__item', ['li', {'class': 'prod-option-dropdown-item'}]], {'class': 'product-item__table'}
     ],
@@ -43,7 +43,7 @@ APP_LIST = {
         [['p', {'class': 'tit'}], ['span', {'class': 'discount'}], ['p', {'class': 'price'}]]
     ],
     'Hot Tracks Detail': [
-        'div', 'content', ['images', 'name', 'options', 'detail'],
+        'div', 'content', ['images', 'name', 'options', 'details'],
         [['h2', {'class': 'tit'}]],
         ['slide_pannels', None], ['select', 'select', ['option']], {'id': 'detail_cont01'}
     ]
@@ -52,11 +52,13 @@ APP_LIST = {
 
 def get_items(item, tag_name, tag_value, sub_values, is_image=False):
     div = item.find(tag_name, {'class': tag_value})
-    if is_image:
-        if sub_values:
-            return [image_tag_parser(image) for image in div.get(sub_values).split(',')]
-        return [image_tag_parser(image) for image in div.findAll('img')]
-    return [subitem.text.replace('\n', ' ') for subitem in div.findAll(*sub_values)]
+    if div:
+        if is_image:
+            if sub_values:
+                return [image_tag_parser(image) for image in div.get(sub_values).split(',')]
+            return [image_tag_parser(image) for image in div.findAll('img')]
+        return [subitem.text.replace('\n', ' ') for subitem in div.findAll(*sub_values)]
+    return []
 
 
 def image_tag_parser(image):
@@ -127,8 +129,8 @@ def get_dataframe(data, key):
 
         images = get_items(item, 'div', *values[4], True)
         options = get_items(item, *values[5])
-        details = pairwise(
-            [child.replace('\t', '') for subitem in item.find('div', values[6]).findAll(['dd', 'th', 'td']) for child in subitem.text.splitlines() if child != '' and child.replace('\t', '')])
+        details = pairwise([child.replace('\t', '') for subitem in item.find('div', values[6]).findAll(['dd', 'th', 'td'])
+                            for child in subitem.text.splitlines() if child != '' and child.replace('\t', '')])
 
         row_item = [item.find(*tag_value).text.replace('/[\n\r\\[\\]]+/g', '') if item.find(*tag_value) else '' for tag_value in values[3]]
         row = [' '.join(images)] + row_item + [

@@ -12,8 +12,8 @@ def add_users(apps, _schema_editor):
     """
     User = apps.get_model('accounts', 'User')
     pwd_hash = make_password('password', hasher='pbkdf2_sha256')
-    User.objects.get_or_create(username='admin', email='admin@ecplaza.com', password=pwd_hash, staff=True, admin=True, is_superuser=True)
-    User.objects.get_or_create(username='staff', email='staff@ecplaza.com', password=pwd_hash, staff=True, admin=False, is_superuser=False)
+    User.objects.get_or_create(username='admin', email='admin@ecplaza.com', password=pwd_hash, active=True, is_active=True, staff=True, admin=True, is_superuser=True)
+    User.objects.get_or_create(username='staff', email='staff@ecplaza.com', password=pwd_hash, active=True, is_active=True, staff=True, admin=False, is_superuser=False)
 
 
 class Migration(migrations.Migration):
@@ -30,27 +30,22 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
                 ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False,
-                                                     help_text='Designates that this user has all permissions without explicitly assigning them.',
-                                                     verbose_name='superuser status')),
+                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
                 ('username', models.CharField(max_length=150, unique=True)),
                 ('email', models.EmailField(max_length=255, null=True, verbose_name='email address')),
-                ('active', models.BooleanField(default=True)),
-                ('is_active', models.BooleanField(default=True)),
+                ('active', models.BooleanField(default=False)),
+                ('is_active', models.BooleanField(default=False)),
                 ('staff', models.BooleanField(default=False)),
                 ('admin', models.BooleanField(default=False)),
-                ('groups', models.ManyToManyField(blank=True,
-                                                  help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-                                                  related_name='user_set', related_query_name='user', to='auth.Group',
-                                                  verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.',
-                                                            related_name='user_set', related_query_name='user',
-                                                            to='auth.Permission', verbose_name='user permissions')),
+                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set',
+                                                  related_query_name='user', to='auth.Group', verbose_name='groups')),
+                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission',
+                                                            verbose_name='user permissions')),
             ],
             options={
                 'abstract': False,
             },
         ),
-        
+
         migrations.RunPython(add_users),
     ]

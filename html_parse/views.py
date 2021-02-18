@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from pandas import DataFrame
 
+from ECPlazaTools import settings
 from .forms import *
 from .functions import *
 
@@ -29,9 +30,13 @@ def url_parse(request):
                     [request_param.pop(key) for key in ['html_file', 'value']]
                     data = parse_link(**request_param)
 
-                dataframe = get_dataframe(data, form.cleaned_data.get('value'))
+                app_name = form.cleaned_data.get('value')
+                dataframe = get_dataframe(data, app_name)
+                copy = dataframe.copy().transpose()
+                copy.insert(0, 'app_name', app_name)
+                copy.to_sql('product', settings.DATABASES['default']['ENGINE'], index=False)
 
-            except (IndexError, TypeError) as e:
+            except (IndexError, TypeError) as _e:
                 dataframe = DataFrame()
 
             return render(request, 'html_parse/index.html', {
