@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ecplaza",
+  "private_key_id": "67f2563cb0424c9b5a451ed8868dffadd28dbf02",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCgdh6fu7NWF/Tl\nLEGXEND7Q96yp47qhChzQa+f58WreNrkFo8keQSaMqlUplJjRQ1iDm+XVp6S1iAM\nwH2BVdZTS6UxiZLIOArE8jn4WbcChimCO4cr9XcKMq/NyCVqUY+5Cm0fw/m6Un6i\nOD47hGJjGCmOmsuLazhHJnHTqkYYR+4r0n8gpVYS0fIQWp5oMk76lOXOW8FUmuQV\ng2QyVR4bNYxiz4ljdTTDOaapZhL4mLTuFR3Lq3lmByqt19+4pVIT5eue3jyrOBlH\nIj9zRVxUMhnuS9ZEViSdaL7AxkviKRnoc0B42pjwT9OedPsT/LZ6LLgb6zDNTfZ8\nOrAZ23ZlAgMBAAECggEAAyZ+igboScSIcUCer9jlLK6G8bDN4tEIbq1EX1o9Ri7f\nwU9BRs292n2SV7afDHlMS3enSjkQCo4vExqeYpeTilwd8kYjF+o9wxZSyNgq4MWC\nJoWFRsaReT8VUFZH7pMkxFT6xbJjAnz6WBrMyGQpGFmR/oCpUv0eaqTL4rd6zwdm\nizX69Zlsm1RdVojnPomoqIt5Zcx8/arYNmGwZzwGZo/uwOIMuGgJs4uzLnFMeaF2\nnpuxd/B0tSFoKYlMYTxfwZMi/i1ph9ZQK9437ChdfjBY6jYHu/R1Dqpqs2/Tlcd9\nts+T+xfAjvYSn6OIUjdqZXM5vKKco/u0zBIyWwUIewKBgQDQa3CqyTY4GdCPwVeC\nvSwZqcgA5IgL69QKxQ8B9YazoiGJ1C+tY7wJ0UoZxcVjwzVgP2ETHLns76ZEb3Xx\ngRs6LXddffmw1i73lOb/2UczYwcsyScvL5yGl9/CLvvVKtyW3cBlq4K/g8XulREc\nKy4CCJrksCAt3IOq1YzjRv9aQwKBgQDFF+Eb82aj5qCY3PsTBmzaDXdfk6QUewOi\nfviI+FbLhwnXD8mo71t6A7PWZVpE+oxdrle1ropwZF6xQJ5kDaXenDjDYwuj1i5Q\ntr/0qJlMOf+XqS7ZqMB/sh3vAn7V0SsRedGOP6h/NqeK4uFm1AJK0sbFdkS4IhU1\nEuTJdUCGNwKBgB/Cr6mm/fcwn+K4QOCweT7z64GPUdgXOPnnK7FNvBg1tcyuJBHV\nJ/uLBDLHO5xHTCP9pIpoD0E3B+xX2+5QkVidQxphLyKukPuzmjwU3U/MYHSHtsvv\nAnhUPon15PSIEpN++WnE6CjNKOWBm9jiD6HJs+jzmgPDHeFzp4Oe9xzHAoGBALla\nQLCpkhB3tvarc0+sDjhuy6HN1lQQcBWkdRVS/0U+xMlFJrBCEfRIgRsSi/cs7U64\nw/GvqLAUJF1r2MldcG1O268ceXjl1v6/LvzmheyC6tT1HYNCyW4N00rQPPnWUTuJ\nJcMyKMMiYiQiRDoRDerSGG7hT7UfEHSuRQ0UwM63AoGAeP13kH+Pt1QiHBcUDqDI\nPGWBzQYPhkHGLm9Y53tg6JMOXyX+3CFnnAwH3OhrKFRYI8dVNGfsptw/j1gWUtgI\neVryZOv3cCaJN7IL+qm+edu8EIQ6WFq/WP+RfFgMuD2pMp/xrjZA+SWM28QjipgG\njnH6hR5HUHO2fljGqMFfcVw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "ecplaza-dashboard@ecplaza.iam.gserviceaccount.com",
+  "client_id": "117503275351610672621",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ecplaza-dashboard%40ecplaza.iam.gserviceaccount.com"
+}

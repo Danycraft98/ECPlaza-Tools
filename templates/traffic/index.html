@@ -7,10 +7,7 @@
 
 
 {% block content %}
-
     <section id="auth-button"></section>
-    <section id="view-selector"></section>
-    <section id="timeline"></section>
 
     <div class='col-md-12 graph_wrap'>
         <span>Users Sessions</span>
@@ -42,41 +39,47 @@
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
     <script>
         gapi.analytics.ready(function () {
-            console.log('test')
-            gapi.analytics.auth.authorize({
+            gapi.auth.authorize({client_id: '117503275351610672621', scope: ['https://www.googleapis.com/auth/analytics.readonly']}, function (resp) {
+                console.log(resp)
+            });
+            gapi.auth.authorize({
                 'serverAuth': {
                     'access_token': '{{ google_access_token }}'
                 }
             });
 
-            const dataChart1 = new gapi.analytics.googleCharts.DataChart({
-                query: {
-                    'ids': '{{ google_userid }}',
-                    'start-date': '30daysAgo',
-                    'end-date': 'today',
-                    'metrics': 'ga:sessions',
-                    'dimensions': 'ga:date',
-                    'sort': '-ga:date'
-                },
-                chart: {
-                    'container': 'chart-1-container',
-                    'type': 'LINE',
-                    'options': {
-                        'width': '100%'
-                    }
-                }
-            });
-            dataChart1.execute();
+            gapi.analytics.auth.on('signIn', function () {
+                //console.log(gapi.analytics.auth.getUserProfile());
 
-            //To change when selectbox value is changed
-            $('#chart-1').change(function () {
-                dataChart1.set({query: {'start-date': $('#chart-1').val()}, chart: {'type': $('#chart-type-1').val()}})
+                const dataChart1 = new gapi.analytics.googleCharts.DataChart({
+                    query: {
+                        'ids': '{{ google_userid }}',
+                        'start-date': '30daysAgo',
+                        'end-date': 'today',
+                        'metrics': 'ga:sessions',
+                        'dimensions': 'ga:date',
+                        'sort': '-ga:date'
+                    },
+                    chart: {
+                        'container': 'chart-1-container',
+                        'type': 'LINE',
+                        'options': {
+                            'width': '100%'
+                        }
+                    }
+                });
                 dataChart1.execute();
-            })
-            $('#chart-type-1').change(function () {
-                dataChart1.set({query: {'start-date': $('#chart-1').val()}, chart: {'type': $('#chart-type-1').val()}})
-                dataChart1.execute();
-            })
+
+                //To change when selectbox value is changed
+                $('#chart-1').change(function () {
+                    dataChart1.set({query: {'start-date': $('#chart-1').val()}, chart: {'type': $('#chart-type-1').val()}})
+                    dataChart1.execute();
+                })
+                $('#chart-type-1').change(function () {
+                    dataChart1.set({query: {'start-date': $('#chart-1').val()}, chart: {'type': $('#chart-type-1').val()}})
+                    dataChart1.execute();
+                })
+            });
         })
         ;
     </script>
