@@ -6,7 +6,6 @@ from django.shortcuts import render
 from pandas import DataFrame
 import psycopg2
 
-from ECPlazaTools import settings
 from .forms import *
 from .functions import *
 
@@ -38,7 +37,6 @@ def url_parse(request):
                 copy = dataframe.copy().transpose()
                 copy.insert(0, 'app_name', app_name)
                 db_parts = make_url(os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3'))
-                # url.username, url.password, url.host, url.port, url.database
                 with psycopg2.connect(host=db_parts.host, port=db_parts.port, user=db_parts.username, passwd=db_parts.password, dbname=db_parts.database) as conn:
                     copy.to_sql('product', conn, index=False)
 

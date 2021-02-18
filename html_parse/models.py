@@ -1,14 +1,26 @@
-from django.contrib.auth.models import (
-    AbstractBaseUser, PermissionsMixin
-)
 from django.db import models
+
+
+class Catalog(models.Model):
+    """
+    A class used to represent a User object
+    """
+    app_name = models.CharField(max_length=30)
+
+    def __str__(self):
+        """
+        The string return method
+
+        Returns: str
+        """
+        return self.app_name
 
 
 class Product(models.Model):
     """
     A class used to represent a User object
     """
-    app_name = models.CharField(max_length=30)
+    catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE)
     images = models.CharField(max_length=150, unique=True)  # models.FileField(verbose_name='images', upload_to='static/uploads/')
     name = models.CharField(max_length=150, unique=True)
     options = models.CharField(max_length=150)
@@ -20,7 +32,7 @@ class Product(models.Model):
 
         Returns: str
         """
-        return self.app_name + ': ' + self.name
+        return self.catalog.app_name + ': ' + self.name
 
 
 if __name__ == '__main__':

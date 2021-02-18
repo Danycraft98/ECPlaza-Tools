@@ -1,11 +1,11 @@
 from itertools import repeat
 
 from django.forms import (
-    URLField, Form, CharField, URLInput, TextInput, PasswordInput, FileInput, FileField, Textarea, ChoiceField, Select
+    URLField, Form, CharField, URLInput, TextInput, PasswordInput, FileInput, FileField, Textarea, ChoiceField, Select, ModelForm
 )
 
 __all__ = [
-    'CurlForm', 'APP_LIST'
+    'CurlForm', 'APP_LIST', 'CatalogForm', 'ProductForm'
 ]
 
 APP_LIST = [
@@ -14,6 +14,14 @@ APP_LIST = [
     list(repeat('Coupang List', 2)), list(repeat('Coupang Detail', 2)),
     list(repeat('Hot Tracks List', 2)), list(repeat('Hot Tracks Detail', 2)),
 ]
+
+
+class CatalogForm(ModelForm):
+    pass
+
+
+class ProductForm(ModelForm):
+    pass
 
 
 class CurlForm(Form):
