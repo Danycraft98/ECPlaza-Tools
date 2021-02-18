@@ -6697,7 +6697,7 @@ a.badge-alternate:hover, a.badge-alternate:focus {
     padding: .75rem 1.25rem;
     margin-bottom: -1px;
     background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    border: 1px solid rgba(0, 0, 0, 0.125) !important;
 }
 
 .list-group-item:first-child {

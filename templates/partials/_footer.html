@@ -2,7 +2,57 @@
     <div class='app-footer'>
         <div class='app-footer__inner'>
             <div class='app-footer-center'>
-                <span class='small'>Place sticky footer content here.</span>
+                <div class='header-megamenu nav'>
+                    <div class='nav-item'>
+                        <a data-placement='top' rel='popover-focus' data-offset='300' class='nav-link disabled'>Place sticky footer content here.</a>
+                    </div>
+                    <div class='nav-item'>
+                        <a href='javascript:void(0);' data-placement='top' data-offset='150' rel='popover-focus' data-toggle='popover-custom' class='nav-link'>
+                            상새 정보 <i class='fa fa-angle-up ml-2 opacity-8'></i>
+                        </a>
+                        
+                        <div class='rm-max-width rm-pointers'>
+                            <div class='d-none popover-custom-content'>
+                                <div class='dropdown-mega-menu dropdown-mega-menu-sm'>
+                                    <div class='grid-menu grid-menu-2col'>
+                                        <div class='no-gutters row'>
+                                            <div class='col-sm-6 col-xl-6'>
+                                                <div class='nav flex-column'>
+                                                    <div class='nav-item-header nav-item'>Overview</div>
+                                                    <div class='nav-item'>
+                                                        <a class='nav-link'>
+                                                            <i class='nav-link-icon lnr-picture'></i>
+                                                            <span>About Us</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class='col-sm-6 col-xl-6'>
+                                                <div class='nav flex-column'>
+                                                    <div class='nav-item-header nav-item'>문서</div>
+                                                    <div class='nav-item'>
+                                                        <a class='nav-link' href='{% url 'terms' %}'>
+                                                            <i class='nav-link-icon pe-7s-culture'></i>
+                                                            <span>이용 약관</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class='nav-item'>
+                                                        <a class='nav-link' href='{% url 'policy' %}'>
+                                                            <i class='nav-link-icon pe-7s-notebook'></i>
+                                                            <span>정책</span>
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

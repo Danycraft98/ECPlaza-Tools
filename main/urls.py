@@ -5,8 +5,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('', views.terms, name='terms'),
-    path('', views.policy, name='policy'),
+    path('terms/', views.terms, name='terms'),
+    path('policy/', views.policy, name='policy'),
 ]
 
 handler403 = 'main.views.handler403'
