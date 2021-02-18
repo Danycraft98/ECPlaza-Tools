@@ -304,7 +304,7 @@
                                             </div>
                                         </div>
 
-                                        <div class='scroll-area-xs' style='height: 150px;'>
+                                        <div class='scroll-area-xs'>
                                             <div class='scrollbar-container ps'>
                                                 <div class='nav flex-column'>
                                                     <div class='nav-item-header nav-item'>Activity</div>
@@ -312,6 +312,22 @@
                                                     {% if user.is_admin %}
                                                         <a class='nav-item nav-link' href="{% url 'admin:index' %}">관리자 대시보드</a>
                                                     {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="nav flex-column nav-item-divider mb-0 nav-item"></div>
+                                        <div class="grid-menu grid-menu-2col">
+                                            <div class="no-gutters row">
+                                                <div class="col-sm-6">
+                                                    <a class='btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning{% if not user.is_admin %}disabled{% endif %}' href="{% url 'chat' %}">
+                                                        <i class="pe-7s-chat btn-icon-wrapper mb-2"></i> 대화 내역
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <a class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">
+                                                        <i class="pe-7s-ticket btn-icon-wrapper mb-2"></i> Support Tickets
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
