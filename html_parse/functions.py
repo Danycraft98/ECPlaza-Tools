@@ -13,6 +13,11 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9
 
 # Name: [Tag Name, Class Name, Table Header, Row Tags, Images Tag Info, Options Tag Info, Detail Tag Info]
 APP_LIST = {
+    'SAM.GOV': [
+        'div', 'next-input-wrapper translation', ['label', 'content'],
+        []
+    ],
+
     'Shopify': [
         'div', 'next-input-wrapper translation', ['label', 'content'],
         []
