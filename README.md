@@ -19,58 +19,30 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![LGPL License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
 <!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/Danycraft98/ecplaza-tools">
-    <img src="ECPlazaTools/static/images/logo.png" alt="Logo" width="180" height="80">
-  </a>
+[![Logo][logo-uri]](https://github.com/Danycraft98/ecplaza-tools)
 
-  <h3 align="center">ECPlaza Tools</h3>
+### ECPlaza Tools
 
-  <p align="center">
-    Web Application that contains different tools.
-    <br />
-    <a href="https://github.com/Danycraft98/ecplaza-tools/wiki"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://ecplaza-tools.herokuapp.com/">View Demo</a>
-    ·
-    <a href="https://github.com/Danycraft98/ecplaza-tools/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/Danycraft98/ecplaza-tools/issues">Request Feature</a>
-  </p>
-</p>
-
-
+Web Application that contains different tools.<br />
+[View Demo](https://ecplaza-tools.herokuapp.com/) * [Report Bug](https://github.com/Danycraft98/ecplaza-tools/issues) * [Report Feature](https://github.com/Danycraft98/ecplaza-tools/issues)
 
 <!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
-
+#### Table of Content
+1. [About The Project](#about-the-project)
+2. [Getting Started](#getting-started)
+   * [Prerequisites](#prerequisites)
+   * [Installation](#installation)
+3. [Usage](#usage)
+4. [Contributing](#contributing)
+5. [License](#license)
+6. [Contact](#contact)
+7. [Acknowledgements](#acknowledgements)
 
 
 <!-- ABOUT THE PROJECT -->
@@ -190,7 +162,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the LGPL License. See `LICENSE` for more information.
 
 
 
@@ -223,6 +195,7 @@ Project Link: [https://github.com/Danycraft98/ecplaza-tools](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[logo-uri]: ECPlazaTools/static/images/logo.png
 [contributors-shield]: https://img.shields.io/github/contributors/Danycraft98/ecplaza-tools.svg?style=for-the-badge
 [contributors-url]: https://github.com/Danycraft98/ecplaza-tools/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Danycraft98/ecplaza-tools.svg?style=for-the-badge
