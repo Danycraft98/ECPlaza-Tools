@@ -183,7 +183,7 @@ Distributed under the LGPL License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Daniel Lee - [@Daniel Lee](https://linkedin.com/danycraft98) - lee.daniel.jhl@gmail.com
+Daniel Lee - [@Daniel Lee](https://www.linkedin.com/in/daniel-lee-jhl/) - lee.daniel.jhl@gmail.com
 
 Project Link: [https://github.com/Danycraft98/ecplaza-tools](https://github.com/Danycraft98/ecplaza-tools)
 
@@ -221,5 +221,5 @@ Project Link: [https://github.com/Danycraft98/ecplaza-tools](https://github.com/
 [license-shield]: https://img.shields.io/github/license/Danycraft98/ecplaza-tools.svg?style=for-the-badge
 [license-url]: https://github.com/Danycraft98/ecplaza-tools/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://www.linkedin.com/in/daniel-lee-jhl/
 [product-screenshot]: images/screenshot.png
