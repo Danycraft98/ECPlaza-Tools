@@ -223,15 +223,15 @@ Project Link: [https://github.com/Danycraft98/ecplaza-tools](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/Danycraft98/ecplaza-tools.svg?style=for-the-badge
 [contributors-url]: https://github.com/Danycraft98/ecplaza-tools/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/Danycraft98/ecplaza-tools.svg?style=for-the-badge
 [forks-url]: https://github.com/Danycraft98/ecplaza-tools/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/Danycraft98/ecplaza-tools.svg?style=for-the-badge
 [stars-url]: https://github.com/Danycraft98/ecplaza-tools/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/Danycraft98/ecplaza-tools.svg?style=for-the-badge
 [issues-url]: https://github.com/Danycraft98/ecplaza-tools/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/Danycraft98/ecplaza-tools.svg?style=for-the-badge
 [license-url]: https://github.com/Danycraft98/ecplaza-tools/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
