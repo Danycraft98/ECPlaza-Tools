@@ -24,13 +24,27 @@
 
 
 
-<!-- PROJECT LOGO -->
-[![Logo][logo-uri]](https://github.com/Danycraft98/ecplaza-tools)
+<br />
+<p align="center">
+  <a href="https://github.com/Danycraft98/ecplaza-tools">
+    <img src="ECPlazaTools/static/images/logo.png" alt="Logo">
+  </a>
 
-### ECPlaza Tools
+  <h3 align="center">ECPlaza Tools</h3>
 
-Web Application that contains different tools.<br />
-[View Demo](https://ecplaza-tools.herokuapp.com/) * [Report Bug](https://github.com/Danycraft98/ecplaza-tools/issues) * [Report Feature](https://github.com/Danycraft98/ecplaza-tools/issues)
+  <p align="center">
+    Web Application that contains multiple tool applications.
+    <br />
+    <a href="https://github.com/Danycraft98/ecplaza-tools/wiki"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://ecplaza-tools.herokuapp.com/">View Demo</a>
+    ·
+    <a href="https://github.com/Danycraft98/ecplaza-tools/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Danycraft98/ecplaza-tools/issues">Request Feature</a>
+  </p>
+</p>
 
 <!-- TABLE OF CONTENTS -->
 #### Table of Content
