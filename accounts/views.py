@@ -24,8 +24,3 @@ def signup(request):
 def user_profile(request, user_id):
     user = User.objects.get(id=user_id)
     return render(request, 'accounts/profile.html', {'user': user, 'title': ('pe-7s-user', '프로필', '프로필 페이지')})
-
-
-@login_required
-def chat(request):
-    return render(request, 'accounts/chat.html', {'title': ('pe-7s-chat', '대화 내역', '대화 내역 페이지')})

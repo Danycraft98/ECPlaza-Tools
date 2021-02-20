@@ -11,11 +11,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+
 import dj_database_url
 import dotenv as env
+
 import django_heroku
-from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
-from ECPlazaTools.handlers import CustomTempFileUploadHandler
+from django.contrib.admin import AdminSite
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env.load_dotenv(os.path.join(BASE_DIR, '.env'))
@@ -57,7 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels',
+    'chatterbot.ext.django_chatterbot',
     'corsheaders',
     'django_createuser',
     'django_filters',
@@ -92,7 +93,7 @@ ROOT_URLCONF = 'ECPlazaTools.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(os.environ.get('BASE_DIR', ''), 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,18 +114,13 @@ DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')),
 }
 
+AdminSite.login_template = os.path.join(BASE_DIR, 'templates', 'accounts', 'login.html')
+AdminSite.index_template = os.path.join(BASE_DIR, 'templates', 'admin', 'index.html')
+
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/'
 
 ASGI_APPLICATION = 'mysite.routing.application'
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
