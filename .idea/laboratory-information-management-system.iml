@@ -26,6 +26,7 @@
     <orderEntry type="library" name="pixeden-stroke-7-icon" level="application" />
     <orderEntry type="library" name="platform" level="application" />
     <orderEntry type="library" name="api" level="application" />
+    <orderEntry type="library" name="pixeden-stroke-7-icon" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

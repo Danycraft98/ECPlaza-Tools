@@ -4,6 +4,46 @@
     border-radius: 5px 5px 0 0;
 }
 
+.chat-box{
+	position: absolute;
+	right: 20px;
+	bottom: 0;
+	background: white;
+	width: 300px;
+	border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 0 transparent;
+    border-width: 1px;
+}
+
+.chat-head{
+	width: inherit;
+	height: 45px;
+	background: #2c3e50;
+	border-radius: 5px 5px 0 0;
+}
+
+.chat-head span{
+	color: white;
+	padding: 8px;
+	display: inline-block;
+}
+
+.chat-head i{
+	cursor: pointer;
+	float: right;
+	width: 25px;
+	margin: 10px;
+}
+
+.chat-body{
+	max-height: 250px;
+	width: inherit;
+	overflow: auto;
+    overflow-y: scroll !important;
+    padding: 10px;
+	margin-bottom: 45px;
+}
+
 .double-hr {
     border-top: 3px double #545b62 !important;
 }
@@ -26,6 +66,13 @@ fieldset#level {
     padding: 0.7em 1.4em !important;
 }
 
+.file-group input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    width: 20px
+}
+
 .hidden {
     position: absolute;
     visibility: hidden;
@@ -44,10 +91,35 @@ legend {
     float: none;
 }
 
+.media-chat.media-chat-reverse .media-body p {
+    float: right;
+    clear: right;
+    background-color: #48b0f7;
+    color: #fff
+}
+
+.media-chat .media-body p {
+    float: left;
+    position: relative;
+    padding: 6px 8px;
+    margin: 4px 0;
+    background-color: #f5f6f7;
+    border-radius: 3px;
+    font-weight: 100;
+    color: #9b9b9b
+}
+
+.publisher-input {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    border: none;
+    outline: none !important;
+    background-color: transparent
+}
+
 .table > :not(caption) > tr > td {
     border-bottom: grey 1px !important;
 }
-
 
 .table {
     display: table !important;
