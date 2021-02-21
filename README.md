@@ -27,7 +27,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Danycraft98/ecplaza-tools">
-    <img src="ECPlazaTools/static/images/logo.png" alt="Logo">
+    <img src="static/images/logo.png" alt="Logo">
   </a>
 
   <h3 align="center">ECPlaza Tools</h3>
@@ -209,7 +209,7 @@ Project Link: [https://github.com/Danycraft98/ecplaza-tools](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[logo-uri]: ECPlazaTools/static/images/logo.png
+[logo-uri]: static/images/logo.png
 [contributors-shield]: https://img.shields.io/github/contributors/Danycraft98/ecplaza-tools.svg?style=for-the-badge
 [contributors-url]: https://github.com/Danycraft98/ecplaza-tools/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Danycraft98/ecplaza-tools.svg?style=for-the-badge
