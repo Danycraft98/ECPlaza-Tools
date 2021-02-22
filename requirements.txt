@@ -22,7 +22,7 @@ django-allauth
 
 # Other Packages --------------------
 beautifulsoup4
-https://github.com/mmoore7/ChatterBot.git
+chatterbot
 cymem
 google-api-python-client
 httplib2
@@ -38,7 +38,7 @@ pyopenssl
 python-dotenv
 pyxlsb
 SQLAlchemy
-spacy
+spacy~=2.3.5
 thinc
 xlrd
 xlwt
