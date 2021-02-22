@@ -5,6 +5,7 @@ import sys
 
 
 def main():
+    os.system('python -m spacy download en')
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ECPlazaTools.settings')
     try:
         from django.core.management import execute_from_command_line
