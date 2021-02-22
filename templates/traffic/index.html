@@ -7,63 +7,97 @@
 
 
 {% block content %}
-    <div id="chart-1-container"></div>
-    <div id="chart-2-container"></div>
     <iframe id="galaxyIframe" name="galaxy" style="width: 1663px; height: 435px; top: 64px; left: 257px; display: block;" class="visible"></iframe>
-{% endblock %}
+
+    <section id="auth-button"></section>
+    <section id="view-selector"></section>
+    <section id="timeline"></section>
+{% endblock %}`
 
 
 {% block script %}
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
     <script src="https://apis.google.com/js/api.js"></script>
-    <script>
-        const xhttp = new XMLHttpRequest();
-        xhttp.open('GET', 'https://analytics.google.com/analytics/app/#dashboard/pDvQqkxrSDyFCPFpo-ifgg/a188561512w260691190p236543335/%3F_.useg%3Dbuiltin2%2Cbuiltin1/');
-        xhttp.setRequestHeader("Authorization", "Basic " + btoa('lee.daniel.jhl@gmail.com:Gr33n-Google1!'))
-        xhttp.setRequestHeader('X-PINGOTHER', 'pingpong');
-        xhttp.setRequestHeader('Content-Type', 'application/xml');
-        console.log(xhttp)
-        xhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                // Typical action to be performed when the document is ready:
-                document.querySelector('#galaxyIframe').src = URL.createObjectURL(this.response);
-            } else {
-                document.querySelector('#galaxyIframe').src = 'https://google.ca';
-                console.log('I am sorry.')
-            }
-        };
-        xhttp.send();
+    <script crossorigin="anonymous">
+        ga('create', 'UA-188561512-1', 'auto');
+        ga(function (tracker) {
+            // Logs the tracker created above to the console.
+            console.log(tracker);
+        });
 
-        /*gapi.analytics.ready(function () {
-            /*gapi.analytics.auth.authorize({
-                container: 'auth-button',
-                clientid: CLIENT_ID,
-            });
-            gapi.analytics.auth.authorize({
-                'serverAuth': {
-                    'access_token': '{ { google_access_token }}'
-                }
-            });
+        gtag('get', 'UA-188561512-1', 'client_id', function (token) {
+            gapi.analytics.ready(function() {
+                console.log('')
 
-            const dataChart1 = new gapi.analytics.googleCharts.DataChart({
-                query: {
-                    'ids': '{ { google_userid }}',
-                    'start-date': '30daysAgo',
-                    'end-date': 'today',
-                    'metrics': 'ga:sessions',
-                    'dimensions': 'ga:date',
-                    'sort': '-ga:date'
-                },
-                chart: {
-                    'container': 'chart-1-container',
-                    'type': 'LINE',
-                    'options': {
-                        'width': '100%'
+                gapi.analytics.auth.authorize({
+                    container: 'auth-button',
+                    clientid: token
+                });
+
+                const viewSelector = new gapi.analytics.ViewSelector({
+                    container: 'view-selector'
+                });
+
+                const timeline = new gapi.analytics.googleCharts.DataChart({
+                    reportType: 'ga',
+                    query: {
+                        'dimensions': 'ga:date',
+                        'metrics': 'ga:sessions',
+                        'start-date': '30daysAgo',
+                        'end-date': 'yesterday',
+                    },
+                    chart: {
+                        type: 'LINE',
+                        container: 'timeline'
                     }
+                });
+
+                // Step 6: Hook up the components to work together.
+
+                gapi.analytics.auth.on('success', function (response) {
+                    viewSelector.execute();
+                });
+
+                viewSelector.on('change', function (ids) {
+                    const newIds = {
+                        query: {
+                            ids: ids
+                        }
+                    };
+                    timeline.set(newIds).execute();
+                });
+
+                /*const xhttp = new XMLHttpRequest();
+                xhttp.open('GET', 'https://analyticsdata.googleapis.com/v1alpha:runReport');
+                //xhttp.open('GET', 'https://analytics.google.com/analytics/app/#dashboard/pDvQqkxrSDyFCPFpo-ifgg/a188561512w260691190p236543335/%3F_.useg%3Dbuiltin2%2Cbuiltin1/');
+                const headers = {
+                    'Authorization': 'Basic ' + token, 'X-PINGOTHER': 'pingpong', 'Content-Type': 'application/xml', 'entity': {"propertyId": "260668703"},
+                    "dateRanges": [{"startDate": "2021-01-01", "endDate": "2020-02-22"}], "dimensions": [{"name": "country"}], "metrics": [{"name": "activeUsers"}]
                 }
+                for (let key in headers) {
+                    xhttp.setRequestHeader(key, headers[key])
+                }
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        // Typical action to be performed when the document is ready:
+                        document.querySelector('#galaxyIframe').src = URL.createObjectURL(this.response);
+                    } else {
+                        document.querySelector('#galaxyIframe').src = 'https://google.ca';
+                        console.log('I am sorry.')
+                    }
+                };
+                xhttp.send();*/
             });
-            dataChart1.execute();
-        });*/
+        });
+
+        const getMethods = (obj) => {
+            let properties = new Set()
+            let currentObj = obj
+            do {
+                Object.getOwnPropertyNames(currentObj).map(item => properties.add(item))
+            } while ((currentObj = Object.getPrototypeOf(currentObj)))
+            return [...properties.keys()].filter(item => typeof obj[item] === 'function')
+        }
     </script>
 
 {% endblock %}
