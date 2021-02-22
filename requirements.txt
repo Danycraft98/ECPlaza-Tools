@@ -39,5 +39,6 @@ python-dotenv
 pyxlsb
 SQLAlchemy
 spacy
+thinc
 xlrd
 xlwt
