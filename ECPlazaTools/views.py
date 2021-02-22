@@ -16,17 +16,7 @@ class ChatterBotApiView(View):
     """
     Provide an API endpoint to interact with ChatterBot.
     """
-
     chatterbot = ChatBot(**settings.CHATTERBOT)
-    trainer = ListTrainer(chatterbot)
-
-    trainer.train([
-        'How are you?',
-        'I am good.',
-        'That is good to hear.',
-        'Thank you',
-        'You are welcome.',
-    ])
 
     def post(self, request, *args, **kwargs):
         """

@@ -115,8 +115,8 @@ DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')),
 }
 
-AdminSite.login_template = os.path.join(BASE_DIR, 'templates', 'accounts', 'login.html')
-AdminSite.index_template = os.path.join(BASE_DIR, 'templates', 'admin', 'index.html')
+AdminSite.login_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'accounts', 'login.html')
+AdminSite.index_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'admin', 'index.html')
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/'
@@ -128,7 +128,9 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 CHATTERBOT = {
     'name': 'Mr.ChatterBot',
-    'django_app_name': 'django_chatterbot'
+    'django_app_name': 'django_chatterbot',
+    'storage_adapter': 'chatterbot.storage.SQLStorageAdapter',
+    'database_uri': os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')
 }
 
 # Password validation

@@ -71,26 +71,11 @@
                         <i class='fa fa-chevron-down'></i>
                     </div>
 
-                    <div class='chat-body ps-container ps-theme-default ps-active-y' id='chat-content'>
-                        <div class='media media-chat'>
-                            <img class='avatar' src="{% static 'images/user.png' %}" alt='...' width='42'>
-                            <div class='media-body'>
-                                <p>Hi</p>
-                                <p>How to do this ...???</p>
-                                <p>What are you doing tomorrow?<br> Can we come up a bar?</p>
-                            </div>
-                        </div>
-
-                        <div class='media media-chat media-chat-reverse'>
-                            <div class='media-body'>
-                                <p>Here is the information to do this.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div class='chat-body ps-container ps-theme-default ps-active-y' id='chat-content'></div>
 
                     <div class='card-footer chat-text publisher bt-1 border-light d-flex justify-content-between'>
                         <img class='avatar' src="{% static 'images/user.png' %}" alt='...' width='42'>
-                        <input class='publisher-input' type='text' placeholder='Write something' aria-label='Chat Input' onkeypress='add_msg(this)'>
+                        <input class='publisher-input' type='text' placeholder='Write something' aria-label='Chat Input' onkeypress='add_msg(this, "{% url 'chatterbot' %}");'>
 
                         <div class='my-2'>
                             <span class='publisher-btn file-group mr-1'>
