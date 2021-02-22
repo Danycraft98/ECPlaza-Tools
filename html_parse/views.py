@@ -37,18 +37,14 @@ def url_parse(request):
                 copy = dataframe.copy().transpose()
                 copy.insert(0, 'app_name', app_name)
                 db_parts = make_url(os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3'))
-                with psycopg2.connect(host=db_parts.host, port=db_parts.port, user=db_parts.username, passwd=db_parts.password, dbname=db_parts.database) as conn:
+                with psycopg2.connect(host=db_parts.host, port=db_parts.port, user=db_parts.username, password=db_parts.password, dbname=db_parts.database) as conn:
                     copy.to_sql('product', conn, index=False)
 
             except (IndexError, TypeError) as _e:
                 dataframe = DataFrame()
 
             return render(request, 'html_parse/index.html', {
-                'title': TITLE, 'form': form, 'data': dataframe.to_html(
-                    escape=False, classes='table table-hover table-responsive table-stripped'),
-                'user': request.user
+                'title': TITLE, 'form': form, 'data': dataframe.to_html(escape=False, classes='table table-hover table-responsive table-stripped'), 'user': request.user
             })
 
-    return render(request, 'html_parse/index.html', {
-        'title': TITLE, 'form': form, 'data': dataframe, 'user': request.user
-    })
+    return render(request, 'html_parse/index.html', {'title': TITLE, 'form': form, 'data': dataframe, 'user': request.user})
