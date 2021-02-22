@@ -7,8 +7,8 @@
 
 
 {% block content %}
-     <iframe id="galaxyIframe" name="galaxy"  style="width: 1663px; height: 435px; top: 64px; left: 257px; display: block;" class="visible"
-    src="https://analytics.google.com/analytics/web/#/report-home/a188561512w260691190p236543335/%3F_.useg=builtin2,builtin1"></iframe>
+    <iframe id="galaxyIframe" name="galaxy" style="width: 1663px; height: 435px; top: 64px; left: 257px; display: block;" class="visible"
+            src="https://analytics.google.com/analytics/web/#/report-home/a188561512w260691190p236543335/%3F_.useg=builtin2,builtin1"></iframe>
 {% endblock %}`
 
 
@@ -16,8 +16,8 @@
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script crossorigin="anonymous">
-        gtag('get', 'UA-188561512-1', 'client_id', function (token) {
-            gapi.analytics.ready(function() {
+        /*gtag('get', 'UA-188561512-1', 'client_id', function (token) {
+            gapi.analytics.ready(function () {
                 const xhttp = new XMLHttpRequest();
                 xhttp.open('GET', 'https://analytics.google.com/analytics/web/#/report-home/a188561512w260691190p236543335/%3F_.useg=builtin2,builtin1');
                 const headers = {
@@ -38,8 +38,7 @@
                 };
                 xhttp.send();
             });
-        });
-
+        });*/
 
         const getMethods = (obj) => {
             let properties = new Set()

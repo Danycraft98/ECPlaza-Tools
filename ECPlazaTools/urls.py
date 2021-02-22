@@ -13,8 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
+
+from ECPlazaTools.views import ChatterBotAppView, ChatterBotApiView
 
 urlpatterns = [
     path('', include('main.urls')),
@@ -23,4 +26,8 @@ urlpatterns = [
     path('compare/', include('compare.urls')),
     path('url.parse/', include('html_parse.urls')),
     path('traffic/', include('traffic.urls')),
+
+    url(r'^$', ChatterBotAppView.as_view(), name='main'),
+    url(r'^admin/', admin.site.urls, name='admin'),
+    url(r'^api/chatterbot/', ChatterBotApiView.as_view(), name='chatterbot'),
 ]

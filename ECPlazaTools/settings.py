@@ -124,6 +124,13 @@ LOGIN_REDIRECT_URL = '/'
 ASGI_APPLICATION = 'mysite.routing.application'
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+# ChatterBot Settings
+
+CHATTERBOT = {
+    'name': 'Mr.ChatterBot',
+    'django_app_name': 'django_chatterbot'
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
