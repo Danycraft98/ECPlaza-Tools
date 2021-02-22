@@ -47,7 +47,7 @@ APP_LIST = {
     ],
     'Hot Tracks Detail': [
         'div', 'content', ['images', 'name', 'options', 'details', 'image details'],
-        [['h2', {'class': 'tit'}]], ['slide_pannels', None], ['select', 'select', ['option']], {'id': 'detail_cont01'}, ['detail_cont01', None]
+        [['h2', {'class': 'tit'}]], ['slide_pannels', None], ['select', 'select', ['option']], {'id': 'detail_cont01'}, ['detail_p_info', None]
     ]
 }
 
