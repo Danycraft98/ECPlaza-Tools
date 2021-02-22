@@ -10,6 +10,7 @@ __all__ = [
 
 APP_LIST = [
     list(repeat('Shopify', 2)),
+    list(repeat('SAM.GOV', 2)),
     list(repeat('1688 List', 2)), list(repeat('1688 Detail', 2)),
     list(repeat('Coupang List', 2)), list(repeat('Coupang Detail', 2)),
     list(repeat('Hot Tracks List', 2)), list(repeat('Hot Tracks Detail', 2)),
@@ -42,8 +43,9 @@ class CurlForm(Form):
         'aria-label': 'File Upload',
         'class': 'form-control'
     }))
-    value = ChoiceField(required=True, label='앱이름', choices=APP_LIST, widget=Select(attrs={
+    value = ChoiceField(label='앱이름', choices=APP_LIST, widget=Select(attrs={
         'class': 'form-select',
+        'required': ''
     }))
     username = CharField(required=False, label='사용자 이름', widget=TextInput(attrs={
         'class': 'form-control'

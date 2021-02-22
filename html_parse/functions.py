@@ -13,14 +13,12 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9
 
 # Name: [Tag Name, Class Name, Table Header, Row Tags, Images Tag Info, Options Tag Info, Detail Tag Info]
 APP_LIST = {
-    'SAM.GOV': [
-        'div', 'next-input-wrapper translation', ['label', 'content'],
-        []
+    'Shopify': [
+        'div', 'next-input-wrapper translation', ['label', 'content'], []
     ],
 
-    'Shopify': [
-        'div', 'next-input-wrapper translation', ['label', 'content'],
-        []
+    'SAM.GOV': [
+        'div', '', [], []
     ],
 
     '1688 List': [
@@ -28,7 +26,7 @@ APP_LIST = {
         [['span', None], ['div', {'class': 'salePrice'}], ['div', {'class': 'iteRep'}], ['div', {'class': 'itemAdr'}]]
     ],
     '1688 Detail': [
-        'div', 'wp-content-fold-out', ['images', 'name', 'price', 'options', 'details'],
+        'div', 'wp-content-fold-out', ['images', 'name', 'price', 'options', 'details', 'image details'],
         [['h1', {'class': 'd-title'}], ['div', {'class': 'price-original-sku'}]],
         ['mod', 'data-gallery-image-list'], ['div', 'obj-sku', ['span', {'class': 'vertical-img-title'}]], {'class': 'area-detail-feature'}
     ],
@@ -38,7 +36,7 @@ APP_LIST = {
         [['div', {'class': 'name'}], ['span', {'class': 'price-info'}], ['strong', {'class': 'price-value'}], ['span', {'class': 'unit-price'}], ['em', {'class': 'rating'}]]
     ],
     'Coupang Detail': [
-        'div', 'product', ['images', 'name', 'options', 'details'],
+        'div', 'product', ['images', 'name', 'options', 'details', 'image details'],
         [['h2', {'class': 'prod-buy-header__title'}]],
         ['prod-image__items', None], ['div', 'prod-option__item', ['li', {'class': 'prod-option-dropdown-item'}]], {'class': 'product-item__table'}
     ],
@@ -48,7 +46,7 @@ APP_LIST = {
         [['p', {'class': 'tit'}], ['span', {'class': 'discount'}], ['p', {'class': 'price'}]]
     ],
     'Hot Tracks Detail': [
-        'div', 'content', ['images', 'name', 'options', 'details'],
+        'div', 'content', ['images', 'name', 'options', 'details', 'image details'],
         [['h2', {'class': 'tit'}]],
         ['slide_pannels', None], ['select', 'select', ['option']], {'id': 'detail_cont01'}
     ]

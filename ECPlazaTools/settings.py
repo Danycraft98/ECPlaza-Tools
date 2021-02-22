@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chatterbot.ext.django_chatterbot',
+    # 'chatterbot.ext.django_chatterbot',
     'corsheaders',
     'django_createuser',
     'django_filters',
