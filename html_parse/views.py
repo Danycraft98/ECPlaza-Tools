@@ -1,12 +1,10 @@
 import os
 
 import sqlalchemy
-from sqlalchemy.engine.url import make_url
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from pandas import DataFrame
-import psycopg2
 
 from .forms import *
 from .functions import *
@@ -39,7 +37,7 @@ def url_parse(request):
                 copy = dataframe.copy().transpose()
                 copy.insert(0, 'app_name', app_name)
                 with sqlalchemy.create_engine(os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')).connect() as conn:
-                    copy.to_sql('product', conn, index=False)
+                    copy.to_sql('product', conn, if_exists='replace', index=False)
 
             except (IndexError, TypeError) as _e:
                 dataframe = DataFrame()

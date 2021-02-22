@@ -47,7 +47,7 @@ APP_LIST = {
     ],
     'Hot Tracks Detail': [
         'div', 'content', ['images', 'name', 'options', 'details', 'image details'],
-        [['h2', {'class': 'tit'}]], ['slide_pannels', None], ['select', 'select', ['option']], {'id': 'detail_cont01'}
+        [['h2', {'class': 'tit'}]], ['slide_pannels', None], ['select', 'select', ['option']], {'id': 'detail_cont01'}, ['detail_cont01', None]
     ]
 }
 
@@ -90,7 +90,7 @@ def parse_link(link, username=None, password=None):
 
 def get_dataframe(data, key):
     """ Returns the dataframe from HTML Curling """
-    values, soup = APP_LIST.get(key), BeautifulSoup(data)
+    values, soup = APP_LIST.get(key), BeautifulSoup(data, features="lxml")
     final_data, header = [], values[2]
     if 'List' in key:
         if values[1]:
@@ -135,8 +135,9 @@ def get_dataframe(data, key):
                             for child in subitem.text.splitlines() if child != '' and child.replace('\t', '')])
         detail_images = get_items(item, 'div', *values[7], True)
 
-        row_item = [item.find(*tag_value).text.replace('/[\n\r\\[\\]]+/g', '') if item.find(*tag_value) else '' for tag_value in values[3]]
-        row = [' '.join(images)] + row_item + [
+        row = [' '.join(images)] + [
+            item.find(*tag_value).text.replace('/[\n\r\\[\\]]+/g', '') if item.find(*tag_value) else '' for tag_value in values[3]
+        ] + [
             '<br/>'.join(options),
             str('<br/><br/>'.join([': '.join(detail) for detail in details]))
         ] + [' '.join(detail_images)]
