@@ -1,43 +1,43 @@
 # Main Packages ---------------------
-pip~=21.0.1
-setuptools~=53.0.0
-wheel~=0.36.2
-psycopg2~=2.8.6
+pip
+setuptools
+wheel
+psycopg2
 
 # Heroku Packages -------------------
-gunicorn~=20.0.4
-django-heroku~=0.3.1
-whitenoise~= 5.2.0
+gunicorn
+django-heroku
+whitenoise
 
 # Django Packages -------------------
 Django~=3.1.7
-dj-database-url~=0.5.0
-django-cors-headers~=3.7.0
-django-createuser~=0.1.0
-django-extensions~=3.1.1
-django-filter~=2.4.0
-djangorestframework~=3.12.2
-django-rest-auth~=0.9.5
-django-allauth~=0.44.0
+dj-database-url
+django-cors-headers
+django-createuser
+django-extensions
+django-filter
+djangorestframework
+django-rest-auth
+django-allauth
 
 # Other Packages --------------------
-beautifulsoup4~=4.9.3
-chatterbot~=1.0.4 #1.1.0
-cymem~=2.0.5
-google-api-python-client~=1.12.8
-httplib2~=0.19.0
-lims~=1.0.1
-lxml~=4.6.2
-murmurhash~=1.0.5
-numpy #~=1.20.1
-oauth2client~=4.1.3
-openpyxl~=3.0.6
-pandas #~=1.2.2
-Pillow~=8.1.0
-pyopenssl~=20.0.1
-python-dotenv~=0.15.0
-pyxlsb~=1.0.8
-SQLAlchemy~=1.3.23
-spacy~=2.2.0
-xlrd~=2.0.1
-xlwt~=1.3.0
+beautifulsoup4
+chatterbot~=1.0.4
+cymem~
+google-api-python-client
+httplib2
+lims
+lxml
+murmurhash
+numpy
+oauth2client
+openpyxl
+pandas
+Pillow
+pyopenssl
+python-dotenv
+pyxlsb
+SQLAlchemy
+spacy
+xlrd
+xlwt
