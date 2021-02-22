@@ -23,11 +23,12 @@ class Migration(migrations.Migration):
             name='Product',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('images', models.CharField(max_length=150, unique=True)),
+                ('images', models.CharField(max_length=150)),
                 ('name', models.CharField(max_length=150, unique=True)),
                 ('options', models.CharField(max_length=150)),
                 ('details', models.CharField(max_length=150)),
                 ('catalog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='html_parse.catalog')),
+                ('image_details', models.CharField(max_length=150)),
             ],
         ),
     ]

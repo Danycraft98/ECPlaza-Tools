@@ -27,8 +27,8 @@ APP_LIST = {
     ],
     '1688 Detail': [
         'div', 'wp-content-fold-out', ['images', 'name', 'price', 'options', 'details', 'image details'],
-        [['h1', {'class': 'd-title'}], ['div', {'class': 'price-original-sku'}]], ['mod', 'data-gallery-image-list'],
-        ['div', 'obj-sku', ['span', {'class': 'vertical-img-title'}]], {'class': 'area-detail-feature'}
+        [['h1', {'class': 'd-title'}], ['div', {'class': 'price-original-sku'}]], ['mod', 'data-gallery-image-list'], ['div', 'obj-sku', ['span', {'class': 'vertical-img-title'}]],
+        {'class': 'area-detail-feature'}, ['area-detail-feature', None]
     ],
 
     'Coupang List': [
@@ -53,18 +53,18 @@ APP_LIST = {
 
 
 def get_items(item, tag_name, tag_value, sub_values, is_image=False):
+    """ Get list of items. """
     div = item.find(tag_name, {'class': tag_value})
-    if div:
-        if is_image:
-            if sub_values:
-                return [image_tag_parser(image) for image in div.get(sub_values).split(',')]
-            return [image_tag_parser(image) for image in div.findAll('img')]
-        return [subitem.text.replace('\n', ' ') for subitem in div.findAll(*sub_values)]
-    return []
+    return (([image_tag_parser(image) for image in div.get(sub_values).split(',')] if sub_values else [image_tag_parser(image) for image in div.findAll('img')]) if is_image else
+            [subitem.text.replace('\n', ' ') for subitem in div.findAll(*sub_values)]) if div else []
 
 
 def image_tag_parser(image):
-    return '<img src=" ' + image.get('src') + '" width="100px">'
+    """ Parse image url as HTML tag. """
+    url = image
+    if not isinstance(image, str):
+        url = image.get('src')
+    return '<img src=" ' + url + '" width="100px">'
 
 
 def pairwise(iterable):
@@ -75,7 +75,7 @@ def pairwise(iterable):
 
 
 def parse_link(link, username=None, password=None):
-    """ Return Web Curling Result """
+    """ Return Web Curling Result. """
     password_mgr = request.HTTPPasswordMgrWithDefaultRealm()
     password_mgr.add_password(None, link, username, password)
     handler = request.HTTPBasicAuthHandler(password_mgr)

@@ -21,10 +21,11 @@ class Product(models.Model):
     A class used to represent a User object
     """
     catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE)
-    images = models.CharField(max_length=150, unique=True)  # models.FileField(verbose_name='images', upload_to='static/uploads/')
+    images = models.CharField(max_length=150)  # models.FileField(verbose_name='images', upload_to='static/uploads/')
     name = models.CharField(max_length=150, unique=True)
     options = models.CharField(max_length=150)
     details = models.CharField(max_length=150)
+    image_details = models.CharField(max_length=150)  # models.FileField(verbose_name='images', upload_to='static/uploads/')
 
     def __str__(self):
         """
