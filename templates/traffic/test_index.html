@@ -1,20 +1,9 @@
+{% extends 'base.html' %}
+
 {% load static %}
 
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>Embed API &mdash; Basic Dashboard &mdash; Google Analytics Demos &amp; Tools</title>
-
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:600,400,300' rel='stylesheet'>
-    <link href="/public/css/index.css" rel="stylesheet">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
+{% block style %}
     <script>
         addEventListener('error', window.__e = function f(e) {
             f.q = f.q || [];
@@ -104,30 +93,9 @@
             });
         });
     </script>
-</head>
-<body class="Site is-loading">
+{% endblock %}
 
-<aside class="Site-sidebar" id="sidebar">
-    <header class="NavHeader">
-        <a class="NavHeader-homeLink" href="/">
-            <span class="NavHeader-homeIcon">
-                <svg class="Icon" viewBox="0 0 24 24">
-                    <use xlink:href="/public/images/icons.svg#icon-home"></use>
-                </svg>
-            </span>
-            <h1 class="NavHeader-title">Home</h1>
-        </a>
-
-        <span class="NavHeader-controls" id="sidebar-close">
-            <span class="NavHeader-controlsIcon">
-                <svg class="Icon" viewBox="0 0 24 24">
-                    <use xlink:href="/public/images/icons.svg#icon-arrow-back"></use>
-                </svg>
-            </span>
-        </span>
-    </header>
-</aside>
-
+{% block content %}
 <main class="Site-main">
     <header class="Header" id="header">
         <div class="Header-block">
@@ -200,8 +168,10 @@
         </div>
     </div>
 </main>
+{% endblock %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+{% block script %}
 <script src="{% static 'js/common.js' %}"></script>
 <script src="{% static 'js/index.js' %}"></script>
 <script src="{% static 'js/embed-api.js' %}"></script>
@@ -250,5 +220,4 @@
         });
     });
 </script>
-</body>
-</html>
+{% endblock %}
