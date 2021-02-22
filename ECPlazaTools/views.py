@@ -1,4 +1,6 @@
 import json
+
+from chatterbot.trainers import ListTrainer
 from django.views.generic.base import TemplateView
 from django.views.generic import View
 from django.http import JsonResponse
@@ -7,7 +9,7 @@ from chatterbot.ext.django_chatterbot import settings
 
 
 class ChatterBotAppView(TemplateView):
-    template_name = 'app.html'
+    template_name = 'main/index.html'
 
 
 class ChatterBotApiView(View):
@@ -16,6 +18,15 @@ class ChatterBotApiView(View):
     """
 
     chatterbot = ChatBot(**settings.CHATTERBOT)
+    trainer = ListTrainer(chatterbot)
+
+    trainer.train([
+        'How are you?',
+        'I am good.',
+        'That is good to hear.',
+        'Thank you',
+        'You are welcome.',
+    ])
 
     def post(self, request, *args, **kwargs):
         """
