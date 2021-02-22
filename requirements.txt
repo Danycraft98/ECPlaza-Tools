@@ -38,8 +38,6 @@ pyopenssl
 python-dotenv
 pyxlsb
 SQLAlchemy
-spacy
-thinc
-srsly
+spacy~=2.1
 xlrd
 xlwt

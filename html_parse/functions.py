@@ -116,8 +116,7 @@ def get_dataframe(data, key):
             link = item.find('a')
             if 'Shopify' not in key:
                 if link:
-                    address = link.get('href', '')
-                    row.insert(2, address)
+                    row.insert(2, link)
                 else:
                     row.insert(2, None)
 
