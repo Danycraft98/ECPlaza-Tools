@@ -9,6 +9,16 @@
 {% block content %}
     <iframe id="galaxyIframe" name="galaxy" style="width: 1663px; height: 435px; top: 64px; left: 257px; display: block;" class="visible"
             src="https://analytics.google.com/analytics/web/#/report-home/a188561512w260691190p236543335/%3F_.useg=builtin2,builtin1"></iframe>
+
+    <div class="Dashboard">
+        <div id="embed-api-auth-container"></div>
+        <div id="chart-container"></div>
+        <div id="view-selector-container"></div>
+
+
+        <div class="Chart"></div>
+        <div class="ViewSelector" id="view-selector-container"></div>
+    </div>
 {% endblock %}`
 
 
@@ -16,10 +26,55 @@
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script crossorigin="anonymous">
-        /*gtag('get', 'UA-188561512-1', 'client_id', function (token) {
+        gtag('get', 'UA-188561512-1', 'client_id', function (token) {
             gapi.analytics.ready(function () {
-                const xhttp = new XMLHttpRequest();
-                xhttp.open('GET', 'https://analytics.google.com/analytics/web/#/report-home/a188561512w260691190p236543335/%3F_.useg=builtin2,builtin1');
+                gapi.analytics.auth.authorize({
+                    container: 'embed-api-auth-container',
+                    clientid: token
+                });
+
+                /**
+                 * Create a new ViewSelector instance to be rendered inside of an
+                 * element with the id "view-selector-container".
+                 */
+                var viewSelector = new gapi.analytics.ViewSelector({
+                    container: 'view-selector-container'
+                });
+
+                // Render the view selector to the page.
+                viewSelector.execute();
+
+                /**
+                 * Create a new DataChart instance with the given query parameters
+                 * and Google chart options. It will be rendered inside an element
+                 * with the id "chart-container".
+                 */
+                var dataChart = new gapi.analytics.googleCharts.DataChart({
+                    query: {
+                        metrics: 'ga:sessions',
+                        dimensions: 'ga:date',
+                        'start-date': '30daysAgo',
+                        'end-date': 'yesterday'
+                    },
+                    chart: {
+                        container: 'chart-container',
+                        type: 'LINE',
+                        options: {
+                            width: '100%'
+                        }
+                    }
+                });
+
+                /**
+                 * Render the dataChart on the page whenever a new view is selected.
+                 */
+                viewSelector.on('change', function (ids) {
+                    dataChart.set({query: {ids: ids}}).execute();
+                });
+
+
+                /*const xhttp = new XMLHttpRequest();
+                xhttp.open('GET', 'https://analytics.google.com/analytics/web/#/report-home/a188561512w260691190p236543335/%3F_.useg=builtin2,builtin1"');
                 const headers = {
                     'Authorization': 'Basic ' + token, 'X-PINGOTHER': 'pingpong', 'X-Frame-Options': 'sameorigin', 'Content-Type': 'application/xml', 'entity': {"propertyId": "260668703"},
                     "dateRanges": [{"startDate": "2021-01-01", "endDate": "2020-02-22"}], "dimensions": [{"name": "country"}], "metrics": [{"name": "activeUsers"}]
@@ -36,9 +91,9 @@
                         console.log('I am sorry.')
                     }
                 };
-                xhttp.send();
+                xhttp.send();*/
             });
-        });*/
+        });
 
         const getMethods = (obj) => {
             let properties = new Set()
