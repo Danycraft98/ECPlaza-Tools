@@ -11,7 +11,7 @@ from pandas import DataFrame
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'}
 
-# Name: [Tag Name, Class Name, Table Header, Row Tags, Images Tag Info, Options Tag Info, Detail Tag Info]
+# Name: [Tag Name, Class Name, Table Header, Row Tags, Images Tag Info, Options Tag Info, Detail Tag Info, Detail Images Info]
 APP_LIST = {
     'Shopify': [
         'div', 'next-input-wrapper translation', ['label', 'content'], []
@@ -27,8 +27,8 @@ APP_LIST = {
     ],
     '1688 Detail': [
         'div', 'wp-content-fold-out', ['images', 'name', 'price', 'options', 'details', 'image details'],
-        [['h1', {'class': 'd-title'}], ['div', {'class': 'price-original-sku'}]],
-        ['mod', 'data-gallery-image-list'], ['div', 'obj-sku', ['span', {'class': 'vertical-img-title'}]], {'class': 'area-detail-feature'}
+        [['h1', {'class': 'd-title'}], ['div', {'class': 'price-original-sku'}]], ['mod', 'data-gallery-image-list'],
+        ['div', 'obj-sku', ['span', {'class': 'vertical-img-title'}]], {'class': 'area-detail-feature'}
     ],
 
     'Coupang List': [
@@ -37,8 +37,8 @@ APP_LIST = {
     ],
     'Coupang Detail': [
         'div', 'product', ['images', 'name', 'options', 'details', 'image details'],
-        [['h2', {'class': 'prod-buy-header__title'}]],
-        ['prod-image__items', None], ['div', 'prod-option__item', ['li', {'class': 'prod-option-dropdown-item'}]], {'class': 'product-item__table'}
+        [['h2', {'class': 'prod-buy-header__title'}]], ['prod-image__items', None], ['div', 'prod-option__item', ['li', {'class': 'prod-option-dropdown-item'}]],
+        {'class': 'product-item__table'}, ['detail-item', None]
     ],
 
     'Hot Tracks List': [
@@ -47,8 +47,7 @@ APP_LIST = {
     ],
     'Hot Tracks Detail': [
         'div', 'content', ['images', 'name', 'options', 'details', 'image details'],
-        [['h2', {'class': 'tit'}]],
-        ['slide_pannels', None], ['select', 'select', ['option']], {'id': 'detail_cont01'}
+        [['h2', {'class': 'tit'}]], ['slide_pannels', None], ['select', 'select', ['option']], {'id': 'detail_cont01'}
     ]
 }
 
@@ -134,12 +133,13 @@ def get_dataframe(data, key):
         options = get_items(item, *values[5])
         details = pairwise([child.replace('\t', '') for subitem in item.find('div', values[6]).findAll(['dd', 'th', 'td'])
                             for child in subitem.text.splitlines() if child != '' and child.replace('\t', '')])
+        detail_images = get_items(item, 'div', *values[7], True)
 
         row_item = [item.find(*tag_value).text.replace('/[\n\r\\[\\]]+/g', '') if item.find(*tag_value) else '' for tag_value in values[3]]
         row = [' '.join(images)] + row_item + [
             '<br/>'.join(options),
             str('<br/><br/>'.join([': '.join(detail) for detail in details]))
-        ]
+        ] + [' '.join(detail_images)]
         final_data.append(row)
 
     dataframe = DataFrame(columns=header, data=final_data)
