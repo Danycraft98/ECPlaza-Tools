@@ -1,4 +1,6 @@
 import os
+
+import sqlalchemy
 from sqlalchemy.engine.url import make_url
 
 from django.contrib.auth.decorators import login_required
@@ -36,8 +38,7 @@ def url_parse(request):
                 dataframe = get_dataframe(data, app_name)
                 copy = dataframe.copy().transpose()
                 copy.insert(0, 'app_name', app_name)
-                db_parts = make_url(os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3'))
-                with psycopg2.connect(host=db_parts.host, port=db_parts.port, user=db_parts.username, password=db_parts.password, dbname=db_parts.database) as conn:
+                with sqlalchemy.create_engine(os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')).connect() as conn:
                     copy.to_sql('product', conn, index=False)
 
             except (IndexError, TypeError) as _e:
