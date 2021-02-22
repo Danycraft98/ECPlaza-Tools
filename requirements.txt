@@ -22,7 +22,7 @@ django-allauth
 
 # Other Packages --------------------
 beautifulsoup4
-chatterbot
+chatterbot~=1.0.4
 cymem
 google-api-python-client
 httplib2
@@ -38,7 +38,8 @@ pyopenssl
 python-dotenv
 pyxlsb
 SQLAlchemy
-spacy~=2.3.5
-thinc~=7.4.1
+spacy
+thinc
+srsly
 xlrd
 xlwt
