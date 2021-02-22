@@ -1,0 +1,254 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Embed API &mdash; Basic Dashboard &mdash; Google Analytics Demos &amp; Tools</title>
+
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:600,400,300' rel='stylesheet'>
+    <link href="/public/css/index.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script>
+        addEventListener('error', window.__e = function f(e) {
+            f.q = f.q || [];
+            f.q.push(e)
+        });
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+    <script>
+        !function () {
+            if (window.PerformanceLongTaskTiming) {
+                var g = window.__tti = {e: []};
+                g.o = new PerformanceObserver(function (l) {
+                    g.e = g.e.concat(l.getEntries())
+                });
+                g.o.observe({entryTypes: ['longtask']});
+            }
+        }();
+
+        window.__trackAbandons = () => {
+            const ANALYTICS_URL = 'https://www.google-analytics.com/collect';
+            const GA_COOKIE = document.cookie.replace(
+                /(?:(?:^|.*;)\s*_ga\s*\=\s*(?:\w+\.\d\.)([^;]*).*$)|^.*$/, '$1');
+            const TRACKING_ID = 'UA-41425441-7';
+            const CLIENT_ID = GA_COOKIE || (Math.random() * Math.pow(2, 52));
+
+            navigator.sendBeacon && navigator.sendBeacon(ANALYTICS_URL, [
+                'v=1', 't=event', 'ec=Load', 'ea=abandon', 'el=pre-load', 'ni=1',
+                'tid=' + TRACKING_ID,
+                'cid=' + CLIENT_ID,
+                'cd9' + CLIENT_ID, // client ID custom dimension
+                'ev=' + Math.round(performance.now()),
+            ].join('&'));
+        };
+        window.addEventListener('unload', window.__trackAbandons);
+
+        // Adds a progress bar if the page doesn't load after 1s.
+        setTimeout(function () {
+            var progressBar = document.createElement('div');
+            progressBar.className = 'ProgressBar Header-progressIndicator';
+            document.getElementById('header').appendChild(progressBar);
+        }, 1000);
+
+        (function (w, d, s, g, js, fs) {
+            g = w.gapi || (w.gapi = {});
+            g.analytics = {
+                q: [], ready: function (f) {
+                    this.q.push(f);
+                }
+            };
+            js = d.createElement(s);
+            fs = d.getElementsByTagName(s)[0];
+            js.src = 'https://apis.google.com/js/platform.js';
+            fs.parentNode.insertBefore(js, fs);
+            js.onload = function () {
+                g.load('analytics');
+            };
+        }(window, document, 'script'));
+
+        gapi.analytics.ready(function () {
+
+            function setSignedInState() {
+                document.body.classList.remove('is-needingAuthorization');
+                document.body.classList.add('is-authorized');
+            }
+
+            function setSignedOutState() {
+                document.body.classList.remove('is-authorized');
+                document.body.classList.add('is-needingAuthorization');
+            }
+
+            function setNeedsAuthorizingState() {
+                document.body.classList.add('is-needingAuthorization');
+            }
+
+            gapi.analytics.auth.on('signIn', setSignedInState);
+            gapi.analytics.auth.on('signOut', setSignedOutState);
+            gapi.analytics.auth.once('needsAuthorization', setNeedsAuthorizingState);
+            gapi.analytics.auth.once('error', setNeedsAuthorizingState);
+
+            // Authorize this user with the client ID in sitemap.yaml
+            gapi.analytics.auth.authorize({
+
+                container: 'embed-api-auth-container',
+                userInfoLabel: '',
+                clientid: '793177639245-olst43lspv93vkoql0b9l26hmpf9kfmv.apps.googleusercontent.com',
+            });
+        });
+    </script>
+</head>
+<body class="Site is-loading">
+
+<aside class="Site-sidebar" id="sidebar">
+    <header class="NavHeader">
+        <a class="NavHeader-homeLink" href="/">
+            <span class="NavHeader-homeIcon">
+                <svg class="Icon" viewBox="0 0 24 24">
+                    <use xlink:href="/public/images/icons.svg#icon-home"></use>
+                </svg>
+            </span>
+            <h1 class="NavHeader-title">Home</h1>
+        </a>
+
+        <span class="NavHeader-controls" id="sidebar-close">
+            <span class="NavHeader-controlsIcon">
+                <svg class="Icon" viewBox="0 0 24 24">
+                    <use xlink:href="/public/images/icons.svg#icon-arrow-back"></use>
+                </svg>
+            </span>
+        </span>
+    </header>
+</aside>
+
+<main class="Site-main">
+    <header class="Header" id="header">
+        <div class="Header-block">
+            <span class="Header-menu" id="header-menu">
+                <span class="Header-menuIcon">
+                    <svg class="Icon" viewBox="0 0 24 24">
+                        <use xlink:href="/public/images/icons.svg#icon-menu"></use>
+                    </svg>
+                </span>
+            </span>
+
+            <div class="Logo" title="Google Analytics Demos and Tools">
+                <div class="Logo-full">
+                    <svg viewBox="0 0 303 26">
+                        <use xlink:href="/public/images/icons.svg#ga-developer-logo"></use>
+                    </svg>
+                </div>
+                <div class="Logo-partial">
+                    <svg viewBox="0 0 111 16">
+                        <use xlink:href="/public/images/icons.svg#google-analytics-text"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="Header-user" id="header-user">
+                <span class="Header-userIcon">
+                    <svg class="Icon" viewBox="0 0 24 24">
+                        <use xlink:href="/public/images/icons.svg#icon-person"></use>
+                    </svg>
+                </span>
+            </div>
+
+            <div class="u-hidden u-lg-block">
+                <div class="Titles Titles--hero">
+                    <h1 class="Titles-main">Embed API</h1>
+                    <div class="Titles-sub">Basic Dashboard</div>
+                </div>
+            </div>
+        </div>
+
+
+        <aside class="Header-auth" id="header-auth">
+            <div class="Header-embedApi" id="embed-api-auth-container" ga-on="click" ga-event-category="User" ga-event-label="auth" ga-event-action="signin"></div>
+            <button class="Header-signOut LinkButton" id="header-sign-out" ga-on="click" ga-event-category="User" ga-event-label="auth" ga-event-action="signout">Sign Out</button>
+        </aside>
+    </header>
+
+    <div class="Content">
+        <div class="u-lg-hidden">
+            <div class="Titles Titles--hero">
+                <h1 class="Titles-main">Embed API</h1>
+                <div class="Titles-sub">Basic Dashboard</div>
+            </div>
+        </div>
+
+        <section>
+            <h2>Demo Overview</h2>
+            <p>This demos shows how to create a basic dashboard with a single timeline chart showing site traffic over the past week. You can update the chart to see data for any Google Analytics view you have access to.</p>
+        </section>
+
+        <div class="Dashboard">
+            <div class="Chart">
+                <header class="Titles">
+                    <h1 class="Titles-main">Sessions</h1>
+                    <p class="Titles-sub">Last 30 days</p>
+                </header>
+                <figure id="chart-container"></figure>
+            </div>
+            <div class="ViewSelector" id="view-selector-container"></div>
+        </div>
+    </div>
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="{% static 'js/common.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/embed-api.js' %}"></script>
+<script>
+    gapi.analytics.ready(function () {
+        /* Authorize the user immediately if the user has already granted access.
+         * If no access has been created, render an authorize button inside the
+         * element with the ID "embed-api-auth-container". */
+        gapi.analytics.auth.authorize({
+            container: 'embed-api-auth-container',
+            clientid: 'REPLACE WITH YOUR CLIENT ID'
+        });
+
+        /* Create a new ViewSelector instance to be rendered inside of an
+         * element with the id "view-selector-container". */
+        const viewSelector = new gapi.analytics.ViewSelector({
+            container: 'view-selector-container'
+        });
+
+        // Render the view selector to the page.
+        viewSelector.execute();
+
+
+        /* Create a new DataChart instance with the given query parameters
+         * and Google chart options. It will be rendered inside an element
+         * with the id "chart-container". */
+        const dataChart = new gapi.analytics.googleCharts.DataChart({
+            query: {
+                metrics: 'ga:sessions',
+                dimensions: 'ga:date',
+                'start-date': '30daysAgo',
+                'end-date': 'yesterday'
+            },
+            chart: {
+                container: 'chart-container',
+                type: 'LINE',
+                options: {
+                    width: '100%'
+                }
+            }
+        });
+
+        /* Render the dataChart on the page whenever a new view is selected. */
+        viewSelector.on('change', function (ids) {
+            dataChart.set({query: {ids: ids}}).execute();
+        });
+    });
+</script>
+</body>
+</html>

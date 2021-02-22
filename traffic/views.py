@@ -12,4 +12,4 @@ sep = os.path.sep
 def traffic(request):
     google_access_token = get_access_token()
     google_userid = os.environ.get('GOOGLE_USER_ID', None)
-    return render(request, 'traffic/index.html', {'google_access_token': google_access_token, 'google_userid': google_userid, 'title': TITLE, 'user': request.user})
+    return render(request, 'traffic/test_index.html', {'google_access_token': google_access_token, 'google_userid': google_userid, 'title': TITLE, 'user': request.user})
