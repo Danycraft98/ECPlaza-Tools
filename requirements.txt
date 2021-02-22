@@ -23,7 +23,7 @@ django-allauth
 # Other Packages --------------------
 beautifulsoup4
 chatterbot~=1.0.4
-cymem~
+cymem
 google-api-python-client
 httplib2
 lims
