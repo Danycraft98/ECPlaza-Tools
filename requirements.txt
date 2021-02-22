@@ -39,6 +39,6 @@ python-dotenv
 pyxlsb
 SQLAlchemy
 spacy==2.3.5
-spacy en_core_web_sm --force
+spacy en_core_web_sm
 xlrd
 xlwt
