@@ -7,11 +7,8 @@
 
 
 {% block content %}
-    <iframe id="galaxyIframe" name="galaxy" style="width: 1663px; height: 435px; top: 64px; left: 257px; display: block;" class="visible"></iframe>
-
-    <section id="auth-button"></section>
-    <section id="view-selector"></section>
-    <section id="timeline"></section>
+     <iframe id="galaxyIframe" name="galaxy"  style="width: 1663px; height: 435px; top: 64px; left: 257px; display: block;" class="visible"
+    src="https://analytics.google.com/analytics/web/#/report-home/a188561512w260691190p236543335/%3F_.useg=builtin2,builtin1"></iframe>
 {% endblock %}`
 
 
@@ -19,59 +16,12 @@
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script crossorigin="anonymous">
-        ga('create', 'UA-188561512-1', 'auto');
-        ga(function (tracker) {
-            // Logs the tracker created above to the console.
-            console.log(tracker);
-        });
-
         gtag('get', 'UA-188561512-1', 'client_id', function (token) {
             gapi.analytics.ready(function() {
-                console.log('')
-
-                gapi.analytics.auth.authorize({
-                    container: 'auth-button',
-                    clientid: token
-                });
-
-                const viewSelector = new gapi.analytics.ViewSelector({
-                    container: 'view-selector'
-                });
-
-                const timeline = new gapi.analytics.googleCharts.DataChart({
-                    reportType: 'ga',
-                    query: {
-                        'dimensions': 'ga:date',
-                        'metrics': 'ga:sessions',
-                        'start-date': '30daysAgo',
-                        'end-date': 'yesterday',
-                    },
-                    chart: {
-                        type: 'LINE',
-                        container: 'timeline'
-                    }
-                });
-
-                // Step 6: Hook up the components to work together.
-
-                gapi.analytics.auth.on('success', function (response) {
-                    viewSelector.execute();
-                });
-
-                viewSelector.on('change', function (ids) {
-                    const newIds = {
-                        query: {
-                            ids: ids
-                        }
-                    };
-                    timeline.set(newIds).execute();
-                });
-
-                /*const xhttp = new XMLHttpRequest();
-                xhttp.open('GET', 'https://analyticsdata.googleapis.com/v1alpha:runReport');
-                //xhttp.open('GET', 'https://analytics.google.com/analytics/app/#dashboard/pDvQqkxrSDyFCPFpo-ifgg/a188561512w260691190p236543335/%3F_.useg%3Dbuiltin2%2Cbuiltin1/');
+                const xhttp = new XMLHttpRequest();
+                xhttp.open('GET', 'https://analytics.google.com/analytics/web/#/report-home/a188561512w260691190p236543335/%3F_.useg=builtin2,builtin1');
                 const headers = {
-                    'Authorization': 'Basic ' + token, 'X-PINGOTHER': 'pingpong', 'Content-Type': 'application/xml', 'entity': {"propertyId": "260668703"},
+                    'Authorization': 'Basic ' + token, 'X-PINGOTHER': 'pingpong', 'X-Frame-Options': 'sameorigin', 'Content-Type': 'application/xml', 'entity': {"propertyId": "260668703"},
                     "dateRanges": [{"startDate": "2021-01-01", "endDate": "2020-02-22"}], "dimensions": [{"name": "country"}], "metrics": [{"name": "activeUsers"}]
                 }
                 for (let key in headers) {
@@ -80,15 +30,16 @@
                 xhttp.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
                         // Typical action to be performed when the document is ready:
-                        document.querySelector('#galaxyIframe').src = URL.createObjectURL(this.response);
+                        console.log(this.responseURL)
+                        $('#galaxyIframe').attr('src', this.responseURL); //URL.createObjectURL(this.response)
                     } else {
-                        document.querySelector('#galaxyIframe').src = 'https://google.ca';
                         console.log('I am sorry.')
                     }
                 };
-                xhttp.send();*/
+                xhttp.send();
             });
         });
+
 
         const getMethods = (obj) => {
             let properties = new Set()
