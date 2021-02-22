@@ -24,7 +24,6 @@ django-allauth
 beautifulsoup4
 chatterbot
 cymem
-en_core_web_sm
 google-api-python-client
 httplib2
 lims
