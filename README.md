@@ -125,7 +125,9 @@ $ git push heroku main
 $ heroku open
 ```
 
+Or
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Danycraft98/ecplaza-tools)
 #### Useful Commands
 ##### Python Commands
 Create Migration files<br/>

@@ -9,13 +9,10 @@
         "django"
     ],
     "addons": [
+        "logdna:quaco",
         {
             "plan": "heroku-postgresql:hobby-dev",
             "as": "ecptools_db"
-        },
-        {
-            "plan": "logdna:quaco",
-            "as": "ecptools_log"
         },
         {
             "plan": "scout:chair",
