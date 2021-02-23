@@ -11,6 +11,7 @@
     "addons": [
         "logdna:quaco",
         "scout:chair",
+        "sqreen:developer",
         {
             "plan": "heroku-postgresql:hobby-dev",
             "as": "ecptools_db"
@@ -23,8 +24,7 @@
         }
     },
     "scripts": {
-        "heroku-prebuild": "python -m spacy download en",
-        "heroku-postbuild": "python manage.py makemigrations && python manage.py migrate"
+        "postdeploy": "python -m spacy download en && python manage.py makemigrations && python manage.py migrate"
     },
     "environments": {
         "test": {
