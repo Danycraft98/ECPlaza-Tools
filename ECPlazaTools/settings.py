@@ -27,7 +27,8 @@ config = {
     'SENDGRID_API_KEY': os.getenv('SENDGRID_API_KEY'),
     'SENDGRID_URL': os.getenv('SENDGRID_URL'),
     'TIME_ZONE': os.getenv('TIME_ZONE'),
-    'TOUR_API_KEY': os.getenv('TOUR_API_KEY')
+    'TOUR_API_KEY': os.getenv('TOUR_API_KEY'),
+    'SCOUT_KEY': os.getenv('SCOUT_KEY')
 }
 
 for key, value in config.items():
@@ -47,6 +48,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'scout_apm.django',
     'accounts.apps.AccountsConfig',
     'file_app.apps.FileAppConfig',
     'api.apps.APIConfig',
@@ -122,6 +124,12 @@ LOGIN_REDIRECT_URL = '/'
 
 ASGI_APPLICATION = 'mysite.routing.application'
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# Scout settings
+
+SCOUT_MONITOR = True
+SCOUT_KEY = os.environ.get('SCOUT_KEY')
+SCOUT_NAME = 'A FRIENDLY NAME FOR YOUR APP'
 
 # ChatterBot Settings
 
