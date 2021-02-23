@@ -8,7 +8,6 @@
         "python",
         "django"
     ],
-    "start":"gunicorn ECPlazaTools.wsgi --log-file -",
     "addons": [
         {
             "plan": "heroku-postgresql:hobby-dev",
