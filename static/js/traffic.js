@@ -1,19 +1,16 @@
 window.dataLayer = window.dataLayer || [];
 
+
 function gtag() {
     dataLayer.push(arguments);
 }
 
+
 gtag('js', new Date());
-gtag('config', 'UA-188561512-1');
+gtag('config', 'UA-188561512-2');
 $(document).ready(function () {
 });
 
-function set_required() {
-    $(":input[name='value']").prop('required', function () {
-        return $(this).is(':visible');
-    });
-}
 
 (function (w, d, s, g, js, fs) {
     g = w.gapi || (w.gapi = {});
@@ -43,3 +40,11 @@ function set_required() {
     a.src = g;
     m.parentNode.insertBefore(a, m)
 })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+
+function get_text(respText, url) {
+    const container = $("#chart-container"),
+        parsedResponse = $((new window.DOMParser()).parseFromString(respText, "text/html")),
+        graph = parsedResponse.find('#chart-container');
+    container.html(graph.html());
+}

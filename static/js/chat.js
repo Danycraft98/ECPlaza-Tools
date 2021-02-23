@@ -1,9 +1,5 @@
 function chat_click() {
-    const head = $('.chat-head');
-    const arrow = head.find('i');
-
-    $('.chat-body').slideToggle('fast');
-    $('.chat-text').slideToggle('fast');
+    const head = $('.chat-head'), arrow = head.find('i');
     if (arrow.hasClass('fa-chevron-down')) {
         arrow.addClass('fa-chevron-up');
         arrow.removeClass('fa-chevron-down');

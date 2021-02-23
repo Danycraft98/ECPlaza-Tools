@@ -27,7 +27,8 @@ config = {
     'LANGUAGE_CODE': os.getenv('LANGUAGE_CODE'),
     'SENDGRID_API_KEY': os.getenv('SENDGRID_API_KEY'),
     'SENDGRID_URL': os.getenv('SENDGRID_URL'),
-    'TIME_ZONE': os.getenv('TIME_ZONE')
+    'TIME_ZONE': os.getenv('TIME_ZONE'),
+    'TOUR_API_KEY': os.getenv('TOUR_API_KEY')
 }
 
 for key, value in config.items():
@@ -48,9 +49,8 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
-    'compare.apps.CompareConfig',
-    'html_parse.apps.HTMLParseConfig',
-    'traffic.apps.TrafficConfig',
+    'file_app.apps.FileAppConfig',
+    'api.apps.APIConfig',
     'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -116,7 +116,7 @@ DATABASES = {
 }
 
 AdminSite.login_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'accounts', 'login.html')
-AdminSite.index_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'admin', 'index.html')
+AdminSite.index_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'admin', 'traffic.html')
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/'

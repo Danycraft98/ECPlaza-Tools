@@ -6,14 +6,12 @@
         .table tr {
             text-align: left !important;
         }
-
     </style>
 {% endblock %}
 
 
 {% block content %}
-    <form action="{% if step == 'finished' %}{% url 'export' %}{% else %}{% url 'compare' %}{% endif %}"
-          method='POST'>
+    <form action="{% if step == 'finished' %}{% url 'export' %}{% else %}{% url 'compare' %}{% endif %}" method='POST'>
         <div class='card-header d-flex align-items-center justify-content-between'>
             <h5 class='my-2'>
                 {% if step == 'start' %}

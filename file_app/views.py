@@ -1,11 +1,13 @@
 from datetime import datetime
 import os
 
+import sqlalchemy
 from django.template.defaultfilters import filesizeformat
 from django.contrib.auth.decorators import login_required
 from django.forms import forms
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from pandas import DataFrame
 
 from ECPlazaTools import settings
 from ECPlazaTools.settings import STATICFILES_DIRS
@@ -14,7 +16,7 @@ from .functions import *
 from .models import Document
 
 
-TITLE = ('pe-7s-copy-file', '파일비교 애플리케이션', '파일 내역을 비교하는 애플리케이션')
+TITLE1 = ('pe-7s-copy-file', '파일비교 애플리케이션', '파일 내역을 비교하는 애플리케이션')
 sep = os.path.sep
 
 
@@ -39,7 +41,7 @@ def compare(request):
             comp_results = out_dataframe.to_html(classes='table table-bordered table-hover table-striped', index=False)
             [doc_obj.document.delete() for doc_obj in doc_objs]
             [doc_obj.delete() for doc_obj in doc_objs]
-            return render(request, 'compare/index.html', {'comp_results': comp_results, 'out_filename': out_filename, 'step': step, 'values': values, 'title': TITLE, 'user': request.user})
+            return render(request, 'file_app/compare.html', {'comp_results': comp_results, 'out_filename': out_filename, 'step': step, 'values': values, 'title': TITLE1, 'user': request.user})
 
         all_valid = all(docForm.is_valid() for docForm in doc_forms)
         if all_valid:
@@ -60,7 +62,7 @@ def compare(request):
                     'header_num' + str(i + 1): docForm.cleaned_data.get('header')
                 })
                 header_dict.append(read_file(file, file.name, skiprows=values.get('header_num' + str(i + 1)), nrows=values.get('header_num' + str(i + 1)) + 1)[1])
-    return render(request, 'compare/index.html', {'formset': doc_forms, 'hs_form': hs_form, 'header_dict': header_dict, 'step': step, 'values': values, 'title': TITLE, 'user': request.user})
+    return render(request, 'file_app/compare.html', {'formset': doc_forms, 'hs_form': hs_form, 'header_dict': header_dict, 'step': step, 'values': values, 'title': TITLE1, 'user': request.user})
 
 
 @login_required
@@ -72,3 +74,43 @@ def export(request):
         resp['Content-Disposition'] = 'inline;filename=' + os.path.basename(file.name)
         return resp
     return redirect(None)
+
+
+# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TITLE2 = ('pe-7s-browser', '링크 투 파일 애플리케이션', '링크 컬링해주는 애플리케이션')
+
+
+@login_required
+def url_parse(request):
+    divs, form = None, CurlForm(request.POST or None, request.FILES or None)
+    dataframe = None
+    if request.method == 'POST':
+        if form.is_valid():
+            try:
+                if form.cleaned_data.get('text') != '':
+                    data = form.cleaned_data.get('text')
+
+                elif form.cleaned_data.get('html_file'):
+                    file = form.cleaned_data.get('html_file', None)
+                    data = file.read()
+
+                else:
+                    request_param = dict(form.cleaned_data)
+                    [request_param.pop(key) for key in ['html_file', 'value']]
+                    data = parse_link(**request_param)
+
+                app_name = form.cleaned_data.get('value')
+                dataframe = get_dataframe(data, app_name)
+                copy = dataframe.copy().transpose()
+                copy.insert(0, 'app_name', app_name)
+                with sqlalchemy.create_engine(os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')).connect() as conn:
+                    copy.to_sql('product', conn, if_exists='replace', index=False)
+
+            except (IndexError, TypeError) as _e:
+                dataframe = DataFrame()
+
+            return render(request, 'file_app/html_parse.html', {
+                'title': TITLE2, 'form': form, 'data': dataframe.to_html(escape=False, classes='table table-hover table-responsive table-stripped'), 'user': request.user
+            })
+
+    return render(request, 'file_app/html_parse.html', {'title': TITLE2, 'form': form, 'data': dataframe, 'user': request.user})

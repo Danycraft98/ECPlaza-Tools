@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class='card-header d-flex align-items-center justify-content-between'>
+        <h5 class='my-2'>
+            <i class='header-icon lnr-charts icon-gradient bg-happy-green'> </i>
+            API: API endpoint that represents ...
+        </h5>
+
+        <div class='align-items-right my-2'>
+            <div class='navbar-nav ml-auto'>
+                <button class='nav-item btn btn-primary' type='button'>View All</button>
+            </div>
+        </div>
+    </div>
+
+
+    <form id='search' method='POST' class='card-body container-xxl mx-auto'>
+        <pre class='row col well mx-0'>
+            <code>GET http://api.visitkorea.or.kr/openapi/service/rest/</code>
+        </pre>
+
+
+        <div class='card card-body shadow-none border-1'>
+            <div class='row'>
+                <div class='col-6'>
+                    <label for='service'>{{ form.service.label }}</label>
+                    {{ form.service }}
+                </div>
+
+                <div class='col-6'>
+                    <label for='area'>{{ form.area.label }}</label>
+                    {{ form.area }}
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-4'>
+                    <label for='pageNo'>{{ form.pageNo.label }}</label>
+                    {{ form.pageNo }}
+                </div>
+
+                <div class='col-4'>
+                    <label for='numOfRows'>{{ form.numOfRows.label }}</label>
+                    {{ form.numOfRows }}
+                </div>
+            </div>
+
+            <div class='row mt-2'>
+                <div class='col'>
+                    <button class='btn btn-primary btn-block' type='submit'>찾기</button>
+                </div>
+            </div>
+        </div>
+
+
+        <pre class='row col mt-4 well mx-0'>
+            <code id='url'>Result URL here!</code>
+        </pre>
+
+        <pre class='row col mt-4 well mx-0'>
+            <code id='result'>Result Code here!</code>
+        </pre>
+    </form>
+
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        $('#search').submit(function (e) {
+            e.preventDefault();
+            const key = '{{ api_key }}', detail = {};
+            for (let i = 0; i < 4; i++) {
+                let tag = $(e.currentTarget[i])
+                detail[tag.attr('name')] = tag.val();
+            }
+            load_ajax(
+                '#result',
+                'http://api.visitkorea.or.kr/openapi/service/rest/' + detail.service + '/' + detail.area + '?serviceKey=' + key + '&numOfRows=' + detail.numOfRows + '&pageNo=' + detail.pageNo + '&MobileOS=ETC&MobileApp=AppTest',
+                write_result
+            )
+        });
+    </script>
+{% endblock %}

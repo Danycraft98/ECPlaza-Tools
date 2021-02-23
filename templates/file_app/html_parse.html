@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+
+{% block style %}
+    <link rel='stylesheet' href='//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css'>
+{% endblock %}
+
+
+{% block content %}
+    <form id='curl_form' method='POST' enctype='multipart/form-data' action='{% url 'url_parse' %}' class='card-body container-fluid'>
+        {% csrf_token %}
+        <div class='row mx-0'>
+            <div class='nav nav-tabs col-6 d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
+                <a class='nav-item nav-link active' id='nav-text-tab' data-bs-toggle='tab' href='#nav-text' role='tab'
+                   aria-controls='nav-text' aria-selected='true'>
+                    <i class='fa fa-file-text'></i> 택스트 분석
+                </a>
+                <a class='nav-item nav-link' id='nav-file-tab' data-bs-toggle='tab' href='#nav-file' role='tab'
+                   aria-controls='nav-file' aria-selected='false'>
+                    <i class='fa fa-file'></i> 파일 분석
+                </a>
+                <a class='nav-item nav-link' id='nav-link-tab' data-bs-toggle='tab' href='#nav-link'
+                   role='tab' aria-controls='nav-link' aria-selected='false'>
+                    <i class='fa fa-link'></i> 링크 분석
+                </a>
+            </div>
+
+            <div class='nav nav-tabs col-6 d-flex justify-content-end p-0 mb-0' id='nav-tab' role='tablist'>
+                {% if data %}
+                    <a class='nav-item btn btn-outline-primary button-tab' href='#' onclick='print();'>
+                        <i class='fa fa-download'></i> 파일 내보내기
+                    </a>
+                {% endif %}
+                <button class='nav-item btn btn-primary button-tab' type='submit'>
+                    <i class='fa fa-exchange '></i> {% if data %}다시 {% endif %}구문 분석
+                </button>
+            </div>
+        </div>
+
+        <div class='tab-content border border-top-0 container-fluid py-4' id='nav-tabContent'>
+            <div class='tab-pane fade show active' id='nav-text' role='tabpanel' aria-labelledby='nav-text-tab'>
+                <div class='row'>
+                    <div class='col'>
+                        <label>{{ form.text.label }}:</label>
+                        {{ form.text }}
+                    </div>
+                </div>
+            </div>
+
+            <div class='tab-pane fade' id='nav-file' role='tabpanel' aria-labelledby='nav-file-tab'>
+                <div class='row'>
+                    <div class='col'>
+                        <label>{{ form.html_file.label }}:</label>
+                        {{ form.html_file }}
+                    </div>
+                </div>
+            </div>
+
+            <div class='tab-pane fade' id='nav-link' role='tabpanel' aria-labelledby='nav-link-tab'>
+                <div class='row'>
+                    <div class='col'>
+                        <label for='{{ form.link.id_for_label }}'>{{ form.link.label }}:</label>
+                        {{ form.link }}
+                    </div>
+                </div>
+
+                <div class='row mt-4'>
+                    <div class='col-6'>
+                        <label for='{{ form.username.id_for_label }}'>{{ form.username.label }}:</label>
+                        {{ form.username }}
+                    </div>
+
+                    <div class='col-6'>
+                        <label for='{{ form.password.id_for_label }}'>{{ form.password.label }}:</label>
+                        {{ form.password }}
+                    </div>
+                </div>
+            </div>
+
+            <div class='tab-pane fade show active'>
+                <div class='row mt-4'>
+                    <div class='col'>
+                        <label for='{{ form.value.id_for_label }}'>{{ form.value.label }}:</label>
+                        {{ form.value }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if data %}
+
+            <div class='row mt-4'>
+                <div class='col'>
+                    {{ data | safe }}
+                </div>
+            </div>
+
+        {% endif %}
+    </form>
+{% endblock %}
+
+
+{% block script %}
+    <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
+    <script>
+        $(document).ready(function () {
+            $('.dataTable').DataTable();
+        });
+    </script>
+{% endblock %}

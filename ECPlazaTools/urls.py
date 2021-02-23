@@ -23,9 +23,8 @@ urlpatterns = [
     path('', include('main.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
-    path('compare/', include('compare.urls')),
-    path('url.parse/', include('html_parse.urls')),
-    path('traffic/', include('traffic.urls')),
+    path('file_app/', include('file_app.urls')),
+    path('api/', include('api.urls')),
 
     url(r'^$', ChatterBotAppView.as_view(), name='main'),
     url(r'^api/chatterbot/', ChatterBotApiView.as_view(), name='chatterbot'),
