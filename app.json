@@ -10,13 +10,10 @@
     ],
     "addons": [
         "logdna:quaco",
+        "scout:chair",
         {
             "plan": "heroku-postgresql:hobby-dev",
             "as": "ecptools_db"
-        },
-        {
-            "plan": "scout:chair",
-            "as": "ecptools_monitor"
         }
     ],
     "env": {
