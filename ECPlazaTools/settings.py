@@ -14,7 +14,7 @@ import os
 
 import dj_database_url
 import dotenv as env
-# import django_heroku
+import django_heroku
 from django.contrib.admin import AdminSite
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -196,4 +196,4 @@ FILE_UPLOAD_HANDLERS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
