@@ -116,7 +116,7 @@ DATABASES = {
 }
 
 AdminSite.login_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'accounts', 'login.html')
-AdminSite.index_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'admin', 'traffic.html')
+AdminSite.index_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'admin', 'index.html')
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/'
@@ -127,8 +127,19 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 # ChatterBot Settings
 
 CHATTERBOT = {
-    'name': 'Mr.ChatterBot',
+    'name': 'Tech Support Bot',
     'django_app_name': 'django_chatterbot',
+
+    'logic_adapters': ['chatterbot.logic.BestMatch'],
+    'trainer': 'chatterbot.trainers.ChatterBotCorpusTrainer',
+    'training_data': [
+        'chatterbot.corpus.english.greeting',
+        'chatterbot.corpus.english.conversations',
+        # 'chatterbot.corpus.custom.myown',
+        'chatterbot.corpus.korean.greeting',
+        'chatterbot.corpus.korean.conversations',
+    ],
+
     'storage_adapter': 'chatterbot.storage.SQLStorageAdapter',
     'database_uri': os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')
 }

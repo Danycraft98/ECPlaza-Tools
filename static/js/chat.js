@@ -9,6 +9,15 @@ function chat_click() {
     }
 }
 
+
+function auto_scroll(div) {
+    setInterval(function () {
+        let pos = div.scrollTop();
+        div.scrollTop(++pos);
+    }, 100);
+}
+
+
 function add_msg(input, url) {
     const chat_div = $('#chat-content'), $this = $(input);
     if (event.keyCode === 13) {
@@ -19,8 +28,10 @@ function add_msg(input, url) {
             chat_div.append(text);
         } else last_div.find("div[class*='media-body']").append(msg);
         $this.val('');
+        auto_scroll(chat_div)
     }
 }
+
 
 function msgSend(elem, url) {
     const chat_div = $('#chat-content'), xhttp = new XMLHttpRequest();

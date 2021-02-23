@@ -16,55 +16,53 @@
     </div>
 
 
-    <form id='search' method='POST' class='card-body container-xxl mx-auto'>
-        <pre class='row col well mx-0'>
-            <code>GET http://api.visitkorea.or.kr/openapi/service/rest/</code>
-        </pre>
+    <div class='card-body'>
+        <form id='search' method='POST' class='container mx-0 px-0'>
+            <pre class='row col well mx-0'>
+                <code>GET http://api.visitkorea.or.kr/openapi/service/rest/</code>
+            </pre>
 
+            <div class='card card-body shadow-none border-1'>
+                <div class='row'>
+                    <div class='col-6'>
+                        <label for='service'>{{ form.service.label }}</label>
+                        {{ form.service }}
+                    </div>
 
-        <div class='card card-body shadow-none border-1'>
-            <div class='row'>
-                <div class='col-6'>
-                    <label for='service'>{{ form.service.label }}</label>
-                    {{ form.service }}
+                    <div class='col-6'>
+                        <label for='area'>{{ form.area.label }}</label>
+                        {{ form.area }}
+                    </div>
                 </div>
 
-                <div class='col-6'>
-                    <label for='area'>{{ form.area.label }}</label>
-                    {{ form.area }}
+                <div class='row'>
+                    <div class='col-4'>
+                        <label for='pageNo'>{{ form.pageNo.label }}</label>
+                        {{ form.pageNo }}
+                    </div>
+
+                    <div class='col-4'>
+                        <label for='numOfRows'>{{ form.numOfRows.label }}</label>
+                        {{ form.numOfRows }}
+                    </div>
+                </div>
+
+                <div class='row mt-2'>
+                    <div class='col'>
+                        <button class='btn btn-primary btn-block' type='submit'>찾기</button>
+                    </div>
                 </div>
             </div>
 
-            <div class='row'>
-                <div class='col-4'>
-                    <label for='pageNo'>{{ form.pageNo.label }}</label>
-                    {{ form.pageNo }}
-                </div>
-
-                <div class='col-4'>
-                    <label for='numOfRows'>{{ form.numOfRows.label }}</label>
-                    {{ form.numOfRows }}
-                </div>
-            </div>
-
-            <div class='row mt-2'>
-                <div class='col'>
-                    <button class='btn btn-primary btn-block' type='submit'>찾기</button>
-                </div>
-            </div>
-        </div>
-
-
-        <pre class='row col mt-4 well mx-0'>
+            <pre class='row col mt-4 well mx-0'>
             <code id='url'>Result URL here!</code>
         </pre>
 
-        <pre class='row col mt-4 well mx-0'>
+            <pre class='row col mt-4 well mx-0'>
             <code id='result'>Result Code here!</code>
         </pre>
-    </form>
-
-
+        </form>
+    </div>
 {% endblock %}
 
 

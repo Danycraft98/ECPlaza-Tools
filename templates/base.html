@@ -73,16 +73,15 @@
                     </a>
 
                     <div class='chat-body collapse ps-container ps-theme-default ps-active-y' id='chat-content'>
-
                         <div class='card-footer position-fixed bottom-0 end-0 chat-text publisher bt-1 border-light d-flex justify-content-between'>
                             <img class='avatar' src="{% static 'images/user.png' %}" alt='...' width='42'>
                             <input class='publisher-input' type='text' placeholder='Write something' aria-label='Chat Input' onkeypress='add_msg(this, "{% url 'chatterbot' %}");'>
 
                             <div class='my-2'>
-                            <span class='publisher-btn file-group mr-1'>
-                                <i class='fa fa-paperclip file-browser'></i>
-                                <input type='file'>
-                            </span>
+                                <span class='publisher-btn file-group mr-1'>
+                                    <i class='fa fa-paperclip file-browser'></i>
+                                    <input type='file'>
+                                </span>
                                 <a class='publisher-btn mr-1' href='#' data-abc='true'><i class='fa fa-smile-o'></i></a>
                                 <a class='publisher-btn text-info' href='#' data-abc='true'><i class='fa fa-paper-plane'></i></a>
                             </div>

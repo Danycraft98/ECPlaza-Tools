@@ -1,11 +1,10 @@
 import json
 
-from chatterbot.trainers import ListTrainer
-from django.views.generic.base import TemplateView
-from django.views.generic import View
-from django.http import JsonResponse
 from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
+from django.http import JsonResponse
+from django.views.generic import View
+from django.views.generic.base import TemplateView
 
 
 class ChatterBotAppView(TemplateView):
@@ -16,7 +15,13 @@ class ChatterBotApiView(View):
     """
     Provide an API endpoint to interact with ChatterBot.
     """
-    chatterbot = ChatBot(**settings.CHATTERBOT)
+    chat_bot = ChatBot(**settings.CHATTERBOT)
+    """trainer = ChatterBotCorpusTrainer(chatbot)
+    trainer.train(
+        "chatterbot.corpus.english.greetings",
+        "chatterbot.corpus.english.conversations"
+        "chatterbot.corpus.korean"
+    )"""
 
     def post(self, request, *args, **kwargs):
         """
@@ -32,7 +37,7 @@ class ChatterBotApiView(View):
                 ]
             }, status=400)
 
-        response = self.chatterbot.get_response(input_data)
+        response = self.chat_bot.get_response(input_data)
 
         response_data = response.serialize()
 
@@ -43,5 +48,5 @@ class ChatterBotApiView(View):
         Return data corresponding to the current conversation.
         """
         return JsonResponse({
-            'name': self.chatterbot.name
+            'name': self.chat_bot.name
         })
