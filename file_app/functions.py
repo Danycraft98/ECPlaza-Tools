@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import itertools
-from itertools import tee
 import os
 import pandas as pd
 from pandas import DataFrame
@@ -12,6 +11,8 @@ __all__ = [
     'read_file', 'write_file', 'compare_columns', 'parse_link', 'get_dataframe'
 ]
 
+
+# Constants --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Name: [Tag Name, Class Name, Table Header, Row Tags, Images Tag Info, Options Tag Info, Detail Tag Info, Detail Images Info]
 APP_LIST = {
     'Shopify': [
@@ -57,6 +58,7 @@ APP_LIST = {
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'}
 
 
+# Compare ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def read_file(file, filename, **kwargs):
     """ Read file with **kwargs; files supported: xls, xlsb, csv, json. """
     read_map = {'xls': pd.read_excel, 'xlsb': pd.read_excel, 'csv': pd.read_csv, 'json': pd.read_json}
@@ -98,7 +100,7 @@ def compare_columns(dataframes, header_list):
     return pd.DataFrame(data=df_list, columns=['Column Value', 'Column Name (File #1)', 'Column Name (File #2)'])
 
 
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# HTML Parser ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def get_items(item, tag_name, tag_value, sub_values, is_image=False):
     """ Get list of items. """
     div = item.find(tag_name, {'class': tag_value})
@@ -116,7 +118,7 @@ def image_tag_parser(image):
 
 def pairwise(iterable):
     """ s -> (s0,s1), (s1,s2), (s2, s3), ... """
-    a, b = tee(iterable)
+    a, b = itertools.tee(iterable)
     next(b, None)
     return zip(a, b)
 
@@ -139,7 +141,7 @@ def get_dataframe(data, key):
     """ Returns the dataframe from HTML Curling """
     values, soup = APP_LIST.get(key), BeautifulSoup(data, features="lxml")
     final_data, header = [], values[2]
-    if 'List' in key:
+    if 'List' in key or key == 'Shopify':
         if values[1]:
             items = soup.find_all(values[0], {'class': values[1]})
         else:
