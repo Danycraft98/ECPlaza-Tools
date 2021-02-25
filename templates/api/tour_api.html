@@ -2,8 +2,8 @@
 
 
 {% block style %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
-          integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous"/>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css'
+          integrity='sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==' crossorigin='anonymous'/>
 {% endblock %}
 
 
@@ -42,30 +42,31 @@
                 </div>
 
                 <div class='row'>
-                    <div class='col-4'>
+                    <div class='col-3'>
                         <label for='{{ form.pageNo.id_for_label }}'>{{ form.pageNo.label }}</label>
                         {{ form.pageNo }}
                     </div>
 
-                    <div class='col-4'>
+                    <div class='col-3'>
                         <label for='{{ form.numOfRows.id_for_label }}'>{{ form.numOfRows.label }}</label>
                         {{ form.numOfRows }}
                     </div>
 
-                    <div id='searchFestival' class='col-4 last'>
+                    <fieldset id='searchFestival' class='col-6 last'>
                         <label for='{{ form.eventStartDate.id_for_label }}'>{{ form.eventStartDate.label }}</label>
-                        <div class="input-group input-daterange">
+                        <div class="input-group input-date">
                             {{ form.eventStartDate }}
                             <span class="input-group-text">to</span>
                             {{ form.eventEndDate }}
                         </div>
-                    </div>
+                    </fieldset>
 
-                    <div id='categoryCode' class='col-4 last' hidden>
-                        <label for='{{ form.cat1.id_for_label }}'>{{ form.cat1.label }} & {{ form.cat2.label }}</label>
+                    <fieldset id='categoryCode' class='col-6 last' hidden>
+                        <label for='{{ form.cat1.id_for_label }}'>{{ form.cat1.label }} / {{ form.cat2.label }} / {{ form.cat3.label }}</label>
                         <div class="input-group">
                             {{ form.cat1 }}
                             {{ form.cat2 }}
+                            {{ form.cat3 }}
                         </div>
 
                         <!--div class='dropdown form-select'>
@@ -88,7 +89,7 @@
                                     </div>
                                 </div>
                             </div-->
-                    </div>
+                    </fieldset>
                 </div>
             </div>
 
@@ -98,7 +99,7 @@
                 </div>
             </div>
 
-            <pre class='row col mt-4 well mx-0'>
+            <pre class='row col mt-4 well mx-0' style="width: 900px">
                 <code id='url'>Result URL here!</code>
             </pre>
 
@@ -121,27 +122,28 @@
             details['numOfRows'] = '10';
             details['pageNo'] = '1';
             get_tour_info(key, details, '', get_cat);
+            get_tour_info(key, {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1'}, '', get_content_id);
         });
 
         $('#search').submit(function (e) {
             e.preventDefault();
-
-            for (let i = 0; i < 4; i++) {
-                let tag = $(e.currentTarget[i])
-                details[tag.attr('name')] = tag.val();
-            }
-
-            for (let i = 4; i < e.currentTarget.length; i++) {
-                let tag = $(e.currentTarget[i])
+            tail = '';
+            $(this).find(":input:visible:not('button')").each(function (i) {
+                let tag = $(this);
                 if (tag.val()) {
-                    tail += '&' + tag.attr('name') + '=' + formatDate(tag.val());
+                    if (i < 4) details[tag.attr('name')] = tag.val();
+                    else tail += '&' + tag.attr('name') + '=' + tag.val();
                 }
-            }
+            })
             get_tour_info(key, details, tail, write_result);
         });
 
-        $('.input-daterange input').each(function () {
-            $(this).datepicker('clearDates');
+        $('.input-date input').each(function () {
+            $(this).datepicker({
+                format: 'yyyymmdd', endDate: 'today',
+                startView: 2, todayBtn: 'linked',
+                clearBtn: true, orientation: 'bottom auto'
+            });
         });
     </script>
 {% endblock %}
