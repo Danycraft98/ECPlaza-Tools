@@ -32,4 +32,4 @@ else
     usage;
 fi
 
-cmd /k
+#cmd /k

@@ -2,9 +2,14 @@ import json
 
 from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.shortcuts import render
+from django.template import RequestContext
 from django.views.generic import View
 from django.views.generic.base import TemplateView
+
+TITLE = ('pe-7s-rocket', 'ECPlaza Tools', '모든 도구를 사용할수있어요.')
 
 
 class ChatterBotAppView(TemplateView):
@@ -50,3 +55,34 @@ class ChatterBotApiView(View):
         return JsonResponse({
             'name': self.chat_bot.name
         })
+
+
+@login_required
+def index(request):
+    return render(request, 'main/index.html', {'title': TITLE})
+
+
+def terms(request):
+    return render(request, 'main/terms+conditions.html', {'title': TITLE})
+
+
+def policy(request):
+    return render(request, 'main/policy.html', {'title': TITLE})
+
+
+def handler403(request, *args):
+    response = render(request, 'errors/403.html', context=RequestContext(request))
+    response.status_code = 403
+    return response
+
+
+def handler404(request, *args):
+    response = render(request, 'errors/404.html', context=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler410(request, *args):
+    response = render(request, 'errors/410.html', context=RequestContext(request))
+    response.status_code = 410
+    return response

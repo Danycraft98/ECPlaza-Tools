@@ -26,18 +26,12 @@
     <orderEntry type="library" name="pixeden-stroke-7-icon" level="application" />
     <orderEntry type="library" name="pixeden-stroke-7-icon" level="application" />
     <orderEntry type="library" name="analytics" level="application" />
+    <orderEntry type="library" name="bootstrap-datepicker" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />
     <option name="myDocStringFormat" value="Plain" />
     <option name="renderExternalDocumentation" value="true" />
-  </component>
-  <component name="PyNamespacePackagesService">
-    <option name="namespacePackageFolders">
-      <list>
-        <option value="$MODULE_DIR$/main" />
-      </list>
-    </option>
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

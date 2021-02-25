@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'file_app.apps.FileAppConfig',
     'api.apps.APIConfig',
-    'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,7 +116,7 @@ DATABASES = {
 }
 
 AdminSite.login_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'accounts', 'login.html')
-AdminSite.index_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'admin', 'index.html')
+#AdminSite.index_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'admin', 'index.html')
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/'

@@ -1,4 +1,4 @@
-{% load static %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang='en'>
@@ -20,18 +20,22 @@
 
     <meta name='google-site-verification' content='xVVd_aR6yaFsP1f8avoPEnkkPcjZoKDXLgJkK4MhNHw'/>
 
-    <title>이씨플라자 도구 애플리케이션</title>
+    <title>{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}</title>
 </head>
+
+
+{% block nav-global %}{% endblock %}
 
 
 <body data-new-gr-c-s-check-loaded='14.993.0' data-gr-ext-installed=''>
 <div class='app-container app-theme-white body-tabs-shadow closed-sidebar'>
     {% if user and user.is_authenticated %}
-        {% include 'partials/_navbar.html' %}
+        {% include 'admin/_navbar.html' %}
 
         <div class='app-main'>
 
-            {% include 'partials/_sidebar.html' %}
+            {% include 'admin/_sidebar.html' %}
+
             <div class='app-main__outer'>
                 <div class='app-main__inner'>
                     <div class='app-page-title'>
@@ -42,7 +46,7 @@
                                 </div>
 
                                 <div>
-                                    <h1>{{ title }}</h1>
+                                    {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
 
                                     <div class='page-title-subheading'>{% block breadcrumbs %}{% endblock %}</div>
                                 </div>
@@ -54,9 +58,40 @@
                     </div>
 
                     <div class='tabs-animation'>
-                        {% block content %}{% endblock %}
+                        <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
+                        <div id="container">
+                            <div class="main" id="main">
+                                <div class="content">
+                                    {% block messages %}
+                                        {% if messages %}
+                                            <ul class="messagelist">{% for message in messages %}
+                                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+                                            {% endfor %}</ul>
+                                        {% endif %}
+                                    {% endblock messages %}
+
+                                    <!-- Content -->
+                                    <div id="content" class="{% block coltype %}colM{% endblock %}">
+                                        {% block pretitle %}{% endblock %}
+                                        {% block content_subtitle %}{% if subtitle %}<h2>{{ subtitle }}</h2>{% endif %}{% endblock %}
+                                        {% block content %}
+                                            {{ content }}
+                                        {% endblock %}
+
+                                        <br class="clear">
+                                    </div>
+
+
+                                    <!-- END Content -->
+                                    {% block footer %}
+                                        <div id="footer"></div>
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <link type='text/css' rel='stylesheet' href='{% static 'css/style.min.css' %}'>
                 {% include 'partials/_footer.html' %}
             </div>
         </div>

@@ -8,8 +8,6 @@ function gtag() {
 
 gtag('js', new Date());
 gtag('config', 'UA-188561512-2');
-$(document).ready(function () {
-});
 
 
 (function (w, d, s, g, js, fs) {

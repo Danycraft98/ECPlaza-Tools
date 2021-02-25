@@ -1,6 +1,6 @@
 from itertools import repeat
 
-from django.forms import Form, ChoiceField, Select, IntegerField, NumberInput
+from django.forms import Form, ChoiceField, Select, IntegerField, NumberInput, CharField, TextInput
 
 LANG_LIST = [('KorService', '한국어/국문 서비스'), ('EngService', '영어 서비스'), ('RusService', '러시아어/노어 서비스')]
 CAT_LIST = [('searchFestival', '행사 정보 조회'), ('categoryCode', '서비스 분류 코드 조회'), ('detailImage', '이미지정보 조회')]
@@ -24,6 +24,28 @@ class TourAPIForm(Form):
     )
     numOfRows = ChoiceField(label='열 No.', choices=NUM_ROW_LIST, widget=Select(attrs={
         'class': 'form-select'
+    }))
+    eventStartDate = CharField(
+        required=False, label='행사 날짜 범위',
+        widget=TextInput(attrs={
+            'class': 'form-control'
+        })
+    )
+    eventEndDate = CharField(
+        required=False, label='행사 종료일',
+        widget=TextInput(attrs={
+            'class': 'form-control'
+        })
+    )
+    cat1 = ChoiceField(label='대분류', widget=Select(attrs={
+        'class': 'form-select',
+        'size': '4',
+        'onchange': "get_tour_info(key, details, '&cat1=' + $(this).val(), get_cat);"
+    }))
+    cat2 = ChoiceField(label='중분류', widget=Select(attrs={
+        'class': 'form-select',
+        'size': '4',
+        'onchange': ''
     }))
 
     class Meta:

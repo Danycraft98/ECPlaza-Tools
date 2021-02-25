@@ -17,10 +17,14 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
+from ECPlazaTools import views
 from ECPlazaTools.views import ChatterBotAppView, ChatterBotApiView
 
 urlpatterns = [
-    path('', include('main.urls')),
+    path('', views.index, name='index'),
+    path('terms/', views.terms, name='terms'),
+    path('policy/', views.policy, name='policy'),
+
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('file_app/', include('file_app.urls')),
@@ -29,3 +33,7 @@ urlpatterns = [
     url(r'^$', ChatterBotAppView.as_view(), name='main'),
     url(r'^api/chatterbot/', ChatterBotApiView.as_view(), name='chatterbot'),
 ]
+
+handler403 = 'ECPlazaTools.views.handler403'
+handler404 = 'ECPlazaTools.views.handler404'
+handler410 = 'ECPlazaTools.views.handler410'
