@@ -159,8 +159,11 @@ def get_dataframe(data, key):
                     row.append(item.find('textarea').text)
 
             else:
+                if not item.find('img'):
+                    continue
                 row_item = [item.find(*tag_value).text.replace('/[\n\r\\[\\]]+/g', '') if item.find(*tag_value) else '' for tag_value in values[3]]
                 row = [image_tag_parser(item.find('img'))] + row_item
+                print(row)
 
             link = item.find('a')
             if 'Shopify' not in key:
