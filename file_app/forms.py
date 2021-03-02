@@ -7,7 +7,7 @@ from django.forms import (
 from .models import Document
 
 __all__ = [
-    'DocumentFormSet', 'HeaderSelectForm', 'CurlForm', 'APP_LIST', 'CatalogForm', 'ProductForm'
+    'DocumentFormSet', 'HeaderSelectForm', 'CurlForm', 'APP_LIST', 'CatalogForm', 'ProductForm', 'PostmanAPIForm'
 ]
 
 APP_LIST = [
@@ -17,6 +17,9 @@ APP_LIST = [
     list(repeat('Coupang List', 2)), list(repeat('Coupang Detail', 2)),
     list(repeat('Hot Tracks List', 2)), list(repeat('Hot Tracks Detail', 2)),
 ]
+
+REQUEST_LIST = [list(repeat('GET', 2)), list(repeat('POST', 2))]
+AUTH_LIST = [list(repeat('No Auth', 2)), list(repeat('Basic Auth', 2)), list(repeat('OAuth', 2))]
 
 
 class DocumentForm(ModelForm):
@@ -75,32 +78,62 @@ class ProductForm(ModelForm):
 
 
 class CurlForm(Form):
-    link = URLField(required=False, label='URL 링크', widget=URLInput(attrs={
-        'class': 'form-control',
-        'placeholder': '예시: https://1688.com',
-        'pattern': 'https://.*'
+    username = CharField(required=False, widget=TextInput(attrs={
+        'class': 'form-control'
+    }))
+    password = CharField(required=False,  widget=PasswordInput(attrs={
+        'class': 'form-control'
+    }))
+
+    class Meta:
+        fields = '__all__'
+
+
+class PostmanAPIForm(Form):
+    request = ChoiceField(required=False, choices=REQUEST_LIST, widget=Select(attrs={
+        'class': 'form-select col-2'
+    }))
+
+    url = CharField(label='URL 링크', required=False, widget=TextInput(attrs={
+        'class': 'form-control'
     }))
     text = CharField(
-        required=False, label='HTML 텍스트',
+        label='HTML 텍스트', required=False,
         widget=Textarea(attrs={
             'aria-label': 'Text Input',
             'class': 'form-control'
         })
     )
-    html_file = FileField(required=False, label='파일', widget=FileInput(attrs={
+    html_file = FileField(label='파일', required=False, widget=FileInput(attrs={
         'accept': '.html,.json,.xml',
         'aria-label': 'File Upload',
         'class': 'form-control'
     }))
-    value = ChoiceField(label='앱이름', choices=APP_LIST, widget=Select(attrs={
+
+    auth = ChoiceField(required=False, choices=AUTH_LIST, widget=Select(attrs={
+        'class': 'form-select col-2'
+    }))
+    username = CharField(label='사용자 이름', required=False, widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'username'
+    }))
+    password = CharField(label='비밀번호', required=False, widget=PasswordInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'password'
+    }))
+
+    key = CharField(required=False, widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'key'
+    }))
+    value = CharField(required=False, widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'value'
+    }))
+
+    app_name = ChoiceField(label='앱이름', choices=APP_LIST, widget=Select(attrs={
         'class': 'form-select',
         'required': ''
-    }))
-    username = CharField(required=False, label='사용자 이름', widget=TextInput(attrs={
-        'class': 'form-control'
-    }))
-    password = CharField(required=False, label='비밀번호', widget=PasswordInput(attrs={
-        'class': 'form-control'
     }))
 
     class Meta:

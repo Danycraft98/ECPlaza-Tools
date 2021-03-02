@@ -55,7 +55,7 @@
     border-top: 3px double #545b62 !important;
 }
 
-.dropdown:hover>.dropdown-content, .dropdown:hover>.dropdown-menu {
+.dropdown:hover > .dropdown-content, .dropdown:hover > .dropdown-menu {
     display: block;
 }
 
@@ -142,6 +142,15 @@ legend {
 
 .table {
     display: table !important;
+}
+
+.transpose tr {
+    display: block;
+    float: left;
+}
+
+.transpose th, .transpose td {
+    display: block;
 }
 
 .well {

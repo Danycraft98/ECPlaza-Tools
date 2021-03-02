@@ -1,14 +1,11 @@
-from bs4 import BeautifulSoup
 import itertools
 import os
 import pandas as pd
-from pandas import DataFrame
-from urllib import request
 
 from .models import *
 
 __all__ = [
-    'read_file', 'write_file', 'compare_columns', 'parse_link', 'get_dataframe'
+    'read_file', 'write_file', 'compare_columns'
 ]
 
 
@@ -101,100 +98,9 @@ def compare_columns(dataframes, header_list):
 
 
 # HTML Parser ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def get_items(item, tag_name, tag_value, sub_values, is_image=False):
-    """ Get list of items. """
-    div = item.find(tag_name, {'class': tag_value})
-    return (([image_tag_parser(image) for image in div.get(sub_values).split(',')] if sub_values else [image_tag_parser(image) for image in div.findAll('img')]) if is_image else
-            [subitem.text.replace('\n', ' ') for subitem in div.findAll(*sub_values)]) if div else []
-
-
-def image_tag_parser(image):
-    """ Parse image url as HTML tag. """
-    url = image
-    if not isinstance(image, str) and image is not None:
-        url = image.get('src')
-    return '<img src=" ' + url + '" width="100px">'
-
-
 def pairwise(iterable):
     """ s -> (s0,s1), (s1,s2), (s2, s3), ... """
     a, b = itertools.tee(iterable)
     next(b, None)
     return zip(a, b)
 
-
-def parse_link(link, username=None, password=None):
-    """ Return Web Curling Result. """
-    password_mgr = request.HTTPPasswordMgrWithDefaultRealm()
-    password_mgr.add_password(None, link, username, password)
-    handler = request.HTTPBasicAuthHandler(password_mgr)
-
-    opener = request.build_opener(handler)
-    opener.open(link)
-
-    request.install_opener(opener)
-    final_result = request.urlopen(link).read()
-    return final_result
-
-
-def get_dataframe(data, key):
-    """ Returns the dataframe from HTML Curling """
-    values, soup = APP_LIST.get(key), BeautifulSoup(data, features="lxml")
-    final_data, header = [], values[2]
-    if 'List' in key or key == 'Shopify':
-        if values[1]:
-            items = soup.find_all(values[0], {'class': values[1]})
-        else:
-            items = soup.find_all(values[0])
-
-        for item in items:
-            if 'Shopify' in key and item.find('textarea'):
-                row = [
-                    str(item.find('label')).replace(r'/[\]', ''),
-                ]
-                textarea = item.find('textarea')
-                if textarea.get('placeholder'):
-                    row.append(item.find('textarea').get('placeholder'))
-                else:
-                    row.append(item.find('textarea').text)
-
-            else:
-                if not item.find('img'):
-                    continue
-                row_item = [item.find(*tag_value).text.replace('/[\n\r\\[\\]]+/g', '') if item.find(*tag_value) else '' for tag_value in values[3]]
-                row = [image_tag_parser(item.find('img'))] + row_item
-                print(row)
-
-            link = item.find('a')
-            if 'Shopify' not in key:
-                if link:
-                    row.insert(2, link)
-                else:
-                    row.insert(2, None)
-
-            final_data.append(row)
-
-    else:
-        if values[1]:
-            item = soup.find(values[0], {'class': values[1]})
-        else:
-            item = soup.find(values[0])
-
-        images = get_items(item, 'div', *values[4], True)
-        options = get_items(item, *values[5])
-        details = pairwise([child.replace('\t', '') for subitem in item.find('div', values[6]).findAll(['dd', 'th', 'td'])
-                            for child in subitem.text.splitlines() if child != '' and child.replace('\t', '')])
-        detail_images = get_items(item, 'div', *values[7], True)
-
-        row = [' '.join(images)] + [
-            item.find(*tag_value).text.replace('/[\n\r\\[\\]]+/g', '') if item.find(*tag_value) else '' for tag_value in values[3]
-        ] + [
-                  '<br/>'.join(options),
-                  str('<br/><br/>'.join([': '.join(detail) for detail in details]))
-              ] + [' '.join(detail_images)]
-        final_data.append(row)
-
-    dataframe = DataFrame(columns=header, data=final_data)
-    if 'Detail' in key:
-        return dataframe.transpose()
-    return dataframe
