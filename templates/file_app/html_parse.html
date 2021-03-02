@@ -7,9 +7,8 @@
 
 
 {% block content %}
-    <!--form id='curl_form' method='POST' enctype='multipart/form-data' action='{% url 'url_parse' %}' class='card-body container-fluid'-->
     <form id='postman' method='POST' enctype='multipart/form-data' class='card-body container-fluid'>
-        <div class='row mx-0'>
+        <div class='row col'>
             <div class='nav nav-tabs col-6 d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
                 <a class='nav-item nav-link active' id='nav-text-tab' data-bs-toggle='tab' href='#nav-text' role='tab'
                    aria-controls='nav-text' aria-selected='true'>
@@ -152,9 +151,7 @@
                 </pre>
             </div>
 
-            <div class='tab-pane fade row col mx-0' id='nav-table'>
-                <table class=' row col mx-0' id='resultTable'>Result Table here!</table>
-            </div>
+            <div class='tab-pane fade row col mx-0' id='nav-table'>Result Table here!</div>
         </div>
     </form>
 {% endblock %}

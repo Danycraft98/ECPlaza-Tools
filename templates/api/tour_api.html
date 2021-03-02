@@ -68,27 +68,6 @@
                             {{ form.cat2 }}
                             {{ form.cat3 }}
                         </div>
-
-                        <!--div class='dropdown form-select'>
-                            <div class='dropdown-toggle cat-button-text' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>카테고리</div>
-                            <div class='dropdown-content dropdown-menu dropdown-menu-light' aria-labelledby='navbarDarkDropdownMenuLink'>
-                                <div class='dropdown dropdown-item dropend'>
-                                    <a class='dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>패션의류/잡화</a>
-                                    <div class='dropdown-menu'>
-                                        <a class='dropdown-item' href='#'>여성패션</a>
-                                        <a class='dropdown-item' href='#'>남성패션</a>
-                                        <a class='dropdown-item' href='#'>유아동패션</a>
-                                    </div>
-                                </div>
-
-                                <div class='dropdown dropdown-item dropend'>
-                                    <a class='dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>홈인테리어</a>
-                                    <div class='dropdown-menu'>
-                                        <a class='dropdown-item' href='#'>봄침구샵</a>
-                                        <a class='dropdown-item' href='#'>싱글하우스</a>
-                                    </div>
-                                </div>
-                            </div-->
                     </fieldset>
                 </div>
             </div>
@@ -103,9 +82,24 @@
                 <code id='url'>Result URL here!</code>
             </pre>
 
-            <pre class='row col mt-4 well mx-0'>
-                <code id='result'>Result Code here!</code>
-            </pre>
+            <div class='nav nav-tabs col-6 d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
+                <a class='nav-item nav-link active' id='nav-HTML-tab' data-bs-toggle='tab' href='#nav-HTML' role='tab' aria-controls='nav-HTML' aria-selected='true'>
+                    <i class='fa fa-file-text'></i> XML/HTML
+                </a>
+                <a class='nav-item nav-link' id='nav-table-tab' data-bs-toggle='tab' href='#nav-table' role='tab' aria-controls='nav-table' aria-selected='true'>
+                    <i class='fa fa-table'></i> Table
+                </a>
+            </div>
+
+            <div class='tab-content border border-top-0 container-fluid py-4' id='nav-tabContent'>
+                <div class='tab-pane fade show active' id='nav-HTML' role='tabpanel' aria-labelledby='nav-text-tab'>
+                <pre class='row col well mx-0'>
+                    <code id='resultML'>Result XML/HTML Code here!</code>
+                </pre>
+                </div>
+
+                <div class='tab-pane fade row col mx-0' id='nav-table'>Result Table here!</div>
+            </div>
         </form>
     </div>
 {% endblock %}

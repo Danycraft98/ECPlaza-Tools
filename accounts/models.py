@@ -84,7 +84,6 @@ class UserManager(BaseUserManager):
         return user
 
 
-# TODO: remove any level other than staff and admin
 class User(AbstractBaseUser, PermissionsMixin):
     """
     A class used to represent a User object

@@ -36,20 +36,33 @@ function parse_file(respText, details, method) {
 }
 
 
-details.app_name = undefined;
-
 function write_result(respText, details, method) {
-    const result_div = $('#resultML'), html = document.createElement('html');
+    const result_div = $('#resultML'), table_div = $('#nav-table');
+    let html = $(document.createElement('html')), url;
     if (!respText) result_div.text('None');
-    html.innerHTML = respText.trim();
+    if (typeof respText.trim === "function") html.html(respText.trim());
+    else html = $(respText.documentElement);
 
-    let url;
     if (details.hasOwnProperty('html_file')) url = details.html_file;
     else url = details.link;
 
     $('#url').text(method + ' ' + url);
-    result_div.text(formatML(html, 0).outerHTML);
-    $('#resultTable').html(get_app_values(details.app_name, $(html)));
+    result_div.text(formatML(html.get(0), 0).outerHTML);
+    if (details.hasOwnProperty('app_name')) table_div.html(get_app_values(details.app_name, html));
+    else {
+        const header = [], data = [];
+        html.find('item').each(function (i) {
+            let row = {};
+            $(this).children().each(function () {
+                if (i === 0) header.push(this.tagName)
+                if (this.tagName.includes('image')) row[this.tagName] = $(document.createElement('img')).attr('src', $(this).text()).get(0).outerHTML;
+                else row[this.tagName] = $(this).text();
+
+            })
+            data.push(row);
+        })
+        table_div.html(create_table('', data, header));
+    }
 }
 
 
@@ -77,7 +90,6 @@ function get_app_values(app_name, node) {
         'Hot Tracks Detail': ["div[class*='content']", ['images', 'name', 'options', 'details'],
             ["div[class*='slide_pannels']", "h2[class*='tit']", "span[class*='discount']", 'option', "div[id*='detail_cont01']"]],
     };
-    //[['p', {'class': 'tit'}], ['span', {'class': 'discount'}], ['p', {'class': 'price'}]]
 
     let config = app_prop[app_name], data = [];
     node.find(config[0]).each(function () {
@@ -105,10 +117,14 @@ function get_app_values(app_name, node) {
         }
         data.push(row);
     });
+    return create_table(app_name, data, config[1])
+}
 
+
+function create_table(app_name, data, header) {
     let html = $(document.createElement('table')), head_row = $(document.createElement('tr'));
-    html.attr('class', 'table table-striped table-responsive');
-    config[1].forEach(function (value) {
+    html.attr('class', 'table table-striped table-responsive table-hover');
+    header.forEach(function (value) {
         let head_item = $(document.createElement('th'));
         head_item.text(value);
         head_row.append(head_item);
@@ -116,7 +132,7 @@ function get_app_values(app_name, node) {
     html.append(head_row);
 
     let body_row = $(document.createElement('tr'));
-    data.forEach(function (row, _) {
+    data.forEach(function (row) {
         body_row = $(document.createElement('tr'));
         Object.values(row).forEach(function (value) {
             let body_item = $(document.createElement('td'));
@@ -127,6 +143,37 @@ function get_app_values(app_name, node) {
     });
     if (app_name.includes('Detail')) html.addClass('transpose');
     return html;
+}
+
+
+function get_tour_info(key, details, tail, return_func) {
+    details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
+        '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest' + tail;
+    load_ajax('#result', details, return_func);
+}
+
+
+function get_cat(respText, details) {
+    const url = details.url;
+    let container = $(respText.documentElement), div_selection = [$('#id_cat1'), $('#id_cat2'), $('#id_cat3')], div;
+    const switch_val = url.includes('cat2') ? 2 : (url.includes('cat1') ? 1 : 0)
+    div = div_selection[switch_val];
+    const is_equal = switch_val > 0 ? div_selection[switch_val - 1] && div_selection[switch_val - 1].children().last().text() === container.find('code,name').last().text() : false;
+    if (switch_val === 1) div_selection[2].html('');
+
+    if (!is_equal) {
+        div.html(document.createElement('option'));
+        container.find('item').each(function () {
+            let item = $(this).find('code,name'), opt = $(document.createElement('option'))
+            let row = item.map(function () {
+                return $(this).text();
+            }).get();
+            opt.val(row[0]).text(row[1]);
+            div.append(opt);
+        });
+    } else {
+        div.html('');
+    }
 }
 
 
@@ -147,38 +194,6 @@ function formatML(node, level) {
         }
     })
     return node;
-}
-
-
-function get_tour_info(key, details, tail, return_func) {
-    let url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
-        '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest' + tail;
-    load_ajax('#result', url, return_func);
-}
-
-
-function get_cat(respText, url) {
-    let container = $(respText.documentElement), div_selection = [$('#id_cat1'), $('#id_cat2'), $('#id_cat3')], div;
-    const switch_val = url.includes('cat2') ? 2 : (url.includes('cat1') ? 1 : 0)
-    div = div_selection[switch_val];
-    const is_equal = switch_val > 0 ? div_selection[switch_val - 1] && div_selection[switch_val - 1].children().last().text() === container.find('code,name').last().text() : false;
-    if (switch_val === 1) div_selection[2].html('');
-
-    if (!is_equal) {
-        div.html(document.createElement('option'));
-        container.find('item').each(function () {
-            let item = $(this).find('code,name');
-            let row = item.map(function () {
-                return $(this).text();
-            }).get();
-            let opt = $(document.createElement('option'));
-            opt.val(row[0]);
-            opt.text(row[1]);
-            div.append(opt);
-        });
-    } else {
-        div.html('');
-    }
 }
 
 
@@ -207,8 +222,7 @@ function change_last_div(elem) {
 
 
 function getMethods(obj) {
-    let properties = new Set()
-    let currentObj = obj
+    let properties = new Set(), currentObj = obj;
     do {
         Object.getOwnPropertyNames(currentObj).map(item => properties.add(item))
     } while ((currentObj = Object.getPrototypeOf(currentObj)))

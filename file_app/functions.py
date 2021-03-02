@@ -11,47 +11,6 @@ __all__ = [
 
 # Constants --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Name: [Tag Name, Class Name, Table Header, Row Tags, Images Tag Info, Options Tag Info, Detail Tag Info, Detail Images Info]
-APP_LIST = {
-    'Shopify': [
-        'div', 'next-input-wrapper translation', ['label', 'content'], []
-    ],
-
-    'SAM.GOV': [
-        'div', '', [], []
-    ],
-
-    # TODO: Fix list
-    '1688 List': [
-        'div', 'cardListItem', ['image', 'name', 'link', 'price', '# Sold', 'location'],
-        [['span', None], ['div', {'class': 'salePrice'}], ['div', {'class': 'iteRep'}], ['div', {'class': 'itemAdr'}]]
-    ],
-    '1688 Detail': [
-        'div', 'wp-content-fold-out', ['images', 'name', 'price', 'options', 'details', 'image details'],
-        [['h1', {'class': 'd-title'}], ['div', {'class': 'price-original-sku'}]], ['mod', 'data-gallery-image-list'], ['div', 'obj-sku', ['span', {'class': 'vertical-img-title'}]],
-        {'class': 'area-detail-feature'}, ['area-detail-feature', None]
-    ],
-
-    'Coupang List': [
-        'li', 'baby-product renew-badge', ['image', 'name', 'link', 'base price', 'sale price', 'unit price', 'rating'],
-        [['div', {'class': 'name'}], ['span', {'class': 'price-info'}], ['strong', {'class': 'price-value'}], ['span', {'class': 'unit-price'}], ['em', {'class': 'rating'}]]
-    ],
-    'Coupang Detail': [
-        'div', 'product', ['images', 'name', 'options', 'details', 'image details'],
-        [['h2', {'class': 'prod-buy-header__title'}]], ['prod-image__items', None], ['div', 'prod-option__item', ['li', {'class': 'prod-option-dropdown-item'}]],
-        {'class': 'product-item__table'}, ['detail-item', None]
-    ],
-
-    # TODO: Fix list
-    'Hot Tracks List': [
-        'li', None, ['image', 'name', 'link', 'base price', 'sale price'],
-        [['p', {'class': 'tit'}], ['span', {'class': 'discount'}], ['p', {'class': 'price'}]]
-    ],
-    'Hot Tracks Detail': [
-        'div', 'content', ['images', 'name', 'options', 'details', 'image details'],
-        [['h2', {'class': 'tit'}]], ['slide_pannels', None], ['select', 'select', ['option']], {'id': 'detail_cont01'}, ['detail_p_info', None]
-    ]
-}
-
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'}
 
 
