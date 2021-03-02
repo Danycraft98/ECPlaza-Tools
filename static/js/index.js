@@ -147,7 +147,7 @@ function create_table(app_name, data, header) {
 
 
 function get_tour_info(key, details, tail, return_func) {
-    details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
+    details.url = 'https://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
         '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest' + tail;
     load_ajax('#result', details, return_func);
 }
