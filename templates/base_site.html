@@ -113,24 +113,17 @@
 <script type='text/javascript' src='{% static 'js/chat.js' %}'></script>
 <script src='{% static 'js/traffic.js' %}'></script>
 <script>
-    function get_test(respText, details, _) {
-        details.types.forEach(function (type, i) {
-            let text = respText.rows[0][i];
-            $('#' + type).text(text);
-        });
-    }
-
     $(document).ready(function () {
         $.ajax("{% url 'token' %}").done(function (resp) {
             let access_token = resp,
                 types = ['users', 'newUsers', 'sessions', 'bounces', 'transactions'],
                 url = 'https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A237994931&start-date=yesterday&end-date=yesterday&metrics=ga%3A',
                 final_url = url + types.join('%2Cga%3A') + "&access_token=" + access_token;
-            load_ajax('', {url: final_url, method: 'GET', types: types}, get_test);
+            load_ajax('', {url: final_url, method: 'GET', types: types}, get_analytic_values);
 
             types = ['productAddsToCart', 'productCheckouts', 'itemRevenue', 'productRefunds', 'transactionShipping', 'transactionTax'];
             final_url = url + types.join('%2Cga%3A') + "&access_token=" + access_token;
-            load_ajax('', {url: final_url, method: 'GET', types: types}, get_test);
+            load_ajax('', {url: final_url, method: 'GET', types: types}, get_analytic_values);
         })
     });
 </script>

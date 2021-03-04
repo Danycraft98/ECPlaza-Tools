@@ -1,3 +1,11 @@
+function get_analytic_values(respText, details, _) {
+    details.types.forEach(function (type, i) {
+        let text = respText.rows[0][i];
+        $('#' + type).text(text);
+    });
+}
+
+
 (function (w, d, s, g, js, fs) {
     g = w.gapi || (w.gapi = {});
     g.analytics = {
@@ -26,11 +34,3 @@
     a.src = g;
     m.parentNode.insertBefore(a, m)
 })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-
-function get_text(respText, url) {
-    const container = $("#chart-container"),
-        parsedResponse = $((new window.DOMParser()).parseFromString(respText, "text/html")),
-        graph = parsedResponse.find('#chart-container');
-    container.html(graph.html());
-}
