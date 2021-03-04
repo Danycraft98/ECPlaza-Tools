@@ -1,4 +1,5 @@
 {% extends 'base_site.html' %}
+{% load static %}
 
 
 {% block style %}
@@ -7,8 +8,8 @@
 
 
 {% block content %}
-    <form id='postman' method='POST' enctype='multipart/form-data' class='card-body container-fluid'>
-        <div class='row col mt-4'>
+    <form id='postman' method='POST' enctype='multipart/form-data' class='card-body container'>
+        <div class='row mt-4 mx-0'>
             <div class='nav nav-tabs col-6 d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
                 <a class='nav-item nav-link active' id='nav-text-tab' data-bs-toggle='tab' href='#nav-text' role='tab'
                    aria-controls='nav-text' aria-selected='true'>
@@ -25,10 +26,13 @@
             </div>
 
             <div class='nav nav-tabs col-6 d-flex justify-content-end p-0 mb-0' id='nav-tab' role='tablist'>
-                <a class='nav-item btn btn-outline-primary button-tab' href='#' onclick='print();'>
+                <a class='nav-item nav-link hidden' href='#' onclick="to_database({{ database }}, '{% static 'database.php' %}')">
+                    <i class='fa fa-upload'></i> DB 업로드
+                </a>
+                <a class='nav-item nav-link hidden' href='#' onclick='print();'>
                     <i class='fa fa-download'></i> 파일 내보내기
                 </a>
-                <button class='nav-item btn btn-primary button-tab' type='submit'>
+                <button class='nav-item nav-link' type='submit'>
                     <i class='fa fa-exchange '></i> 구문 분석
                 </button>
             </div>
@@ -137,7 +141,7 @@
         </pre>
 
 
-        <div class='nav nav-tabs col-6 d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
+        <div class='nav nav-tabs col d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
             <a class='nav-item nav-link active' id='nav-HTML-tab' data-bs-toggle='tab' href='#nav-HTML' role='tab' aria-controls='nav-HTML' aria-selected='true'>
                 <i class='fa fa-file-text'></i> XML/HTML
             </a>
@@ -161,23 +165,5 @@
 
 {% block script %}
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
-    <script>
-        $(document).ready(function () {
-            $('.dataTable').DataTable();
-        });
-
-        $('#postman').submit(function (e) {
-            e.preventDefault();
-            let details = {}, file = null;
-            $(this).find(":input:visible:not('button')").each(function () {
-                let tag = $(this);
-                if (tag.attr('name').includes('html_file')) file = tag.get(0).files[0];
-                if (tag.val()) details[tag.attr('name')] = tag.val();
-            });
-
-            if (details.hasOwnProperty('url')) load_ajax('#result', details, write_result);
-            else if (details.hasOwnProperty('html_file')) parse_file(file, details, 'GET')
-            else write_result(details.text, details, 'GET');
-        });
-    </script>
+    <script src="{% static 'js/html_parse.js' %}"></script>
 {% endblock %}

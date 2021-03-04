@@ -69,16 +69,13 @@ CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS += ['django_extensions']
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 REST_FRAMEWORK = {
@@ -116,15 +113,21 @@ DATABASES = {
 }
 
 AdminSite.login_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'accounts', 'login.html')
-#AdminSite.index_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'admin', 'index.html')
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/'
 
-ASGI_APPLICATION = 'mysite.routing.application'
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+# CORS Settings
 
-# Scout settings
+CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://ecplaza-tools.herokuapp.com",
+    "http://localhost:8000",
+    "http://127.0.0.1:9000"
+]
+
+# Scout Settings
 
 SCOUT_MONITOR = True
 SCOUT_KEY = os.environ.get('SCOUT_KEY')

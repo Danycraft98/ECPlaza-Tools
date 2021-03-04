@@ -1,4 +1,5 @@
 {% extends 'base_site.html' %}
+{% load static %}
 
 
 {% block style %}
@@ -21,11 +22,10 @@
         </div>
     </div>
 
-
     <div class='card-body'>
-        <form id='search' method='POST' class='container-fluid'>
+        <form id='search' method='POST' class='container'>
             <pre class='row col well mx-0'>
-                <code>GET https://api.visitkorea.or.kr/openapi/service/rest/</code>
+                <code>GET http://api.visitkorea.or.kr/openapi/service/rest/</code>
             </pre>
 
             <div class='card card-body shadow-none border-1'>
@@ -78,11 +78,11 @@
                 </div>
             </div>
 
-            <pre class='row col mt-4 well mx-0' style="width: 900px">
+            <pre class='row col mt-4 well mx-0'>
                 <code id='url'>Result URL here!</code>
             </pre>
 
-            <div class='nav nav-tabs col-6 d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
+            <div class='nav nav-tabs d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
                 <a class='nav-item nav-link active' id='nav-HTML-tab' data-bs-toggle='tab' href='#nav-HTML' role='tab' aria-controls='nav-HTML' aria-selected='true'>
                     <i class='fa fa-file-text'></i> XML/HTML
                 </a>
@@ -93,12 +93,12 @@
 
             <div class='tab-content border border-top-0 container-fluid py-4' id='nav-tabContent'>
                 <div class='tab-pane fade show active' id='nav-HTML' role='tabpanel' aria-labelledby='nav-text-tab'>
-                <pre class='row col well mx-0'>
-                    <code id='resultML'>Result XML/HTML Code here!</code>
-                </pre>
+                    <pre class='row col well mx-0'>
+                        <code id='resultML'>Result XML/HTML Code here!</code>
+                    </pre>
                 </div>
 
-                <div class='tab-pane fade row col mx-0' id='nav-table'>Result Table here!</div>
+                <div class='tab-pane fade row col mx-0' id='nav-table' style='overflow-x: auto;'>Result Table here!</div>
             </div>
         </form>
     </div>
@@ -108,36 +108,6 @@
 {% block script %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
             integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
-    <script>
-        let key = '{{ api_key }}', details = {'service': '', 'area': '', 'numOfRows': '', 'pageNo': ''}, tail = '';
-        $(document).ready(function () {
-            details['service'] = 'KorService';
-            details['area'] = 'categoryCode';
-            details['numOfRows'] = '10';
-            details['pageNo'] = '1';
-            get_tour_info(key, details, '', get_cat);
-            get_tour_info(key, {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1'}, '', get_content_id);
-        });
-
-        $('#search').submit(function (e) {
-            e.preventDefault();
-            tail = '';
-            $(this).find(":input:visible:not('button')").each(function (i) {
-                let tag = $(this);
-                if (tag.val()) {
-                    if (i < 4) details[tag.attr('name')] = tag.val();
-                    else tail += '&' + tag.attr('name') + '=' + tag.val();
-                }
-            })
-            get_tour_info(key, details, tail, write_result);
-        });
-
-        $('.input-date input').each(function () {
-            $(this).datepicker({
-                format: 'yyyymmdd', endDate: 'today',
-                startView: 2, todayBtn: 'linked',
-                clearBtn: true, orientation: 'bottom auto'
-            });
-        });
-    </script>
+    <script>let key = '{{ api_key }}', details = {'service': '', 'area': '', 'numOfRows': '', 'pageNo': ''}, tail = '';</script>
+    <script src="{% static 'js/tour.js' %}"></script>
 {% endblock %}
