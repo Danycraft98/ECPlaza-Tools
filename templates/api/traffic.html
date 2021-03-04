@@ -7,83 +7,29 @@
 
 
 {% block content %}
-    <iframe id="galaxyIframe" name="galaxy" style="width: 1663px; height: 435px; top: 64px; left: 257px; display: block;" class="visible"
-            src="https://ga-dev-tools.appspot.com/embed-api/basic-dashboard/"></iframe>
-
-    <div class="Dashboard">
-        <div id="embed-api-auth-container"></div>
-        <div class="Chart">
-            <header class="Titles">
-                <h1 class="Titles-main">Sessions</h1>
-                <p class="Titles-sub">Last 30 days</p>
-            </header>
-            <figure id="chart-container"></figure>
-        </div>
-        <div class="ViewSelector" id="view-selector-container"></div>
+    <div class='nav nav-tabs d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
+        <a class='nav-item nav-link active' id='nav-audience-tab' data-bs-toggle='tab' href='#nav-audience' role='tab' aria-controls='nav-audience' aria-selected='true'>
+            <i class='fa fa-user'></i> Audience Overview
+        </a>
+        <a class='nav-item nav-link' id='nav-table-tab' data-bs-toggle='tab' href='#nav-table' role='tab' aria-controls='nav-table' aria-selected='true'>
+            <i class='fa fa-warning'></i> Behaviour Overview
+        </a>
     </div>
+
+    <div class='tab-content border border-top-0 container-fluid py-4' id='nav-tabContent'>
+        <iframe class='tab-pane fade show active container-fluid h-100' id='nav-audience' name='galaxy' sandbox='allow-forms allow-scripts allow-same-origin allow-modals'
+                src='https://datastudio.google.com/reporting?params=%7B%22templateId%22:%222a7058e9-eec1-4ec3-a300-ce3b4538ee04%22,%22ds0.connector%22:%22GOOGLE_ANALYTICS%22,%22ds0.accountId%22:%22188561512%22,%22ds0.viewId%22:%22237994931%22,%22ds0.propertyId%22:%22263226478%22,%22ds0.datasourceName%22:%22All%20Web%20Site%20Data%22%7D'></iframe>
+
+        <iframe class='tab-pane fade container-fluid h-100' id='nav-table' name='galaxy' sandbox='allow-forms allow-scripts allow-same-origin allow-modals'
+                src='https://datastudio.google.com/reporting?params=%7B%22templateId%22:%226af699aa-328a-49dd-b507-268fe82ad2a6%22,%22ds0.connector%22:%22GOOGLE_ANALYTICS%22,%22ds0.accountId%22:%22188561512%22,%22ds0.viewId%22:%22237994931%22,%22ds0.propertyId%22:%22263226478%22,%22ds0.datasourceName%22:%22All%20Web%20Site%20Data%22%7D'></iframe>
+    </div>
+    <!--
+
+    -->
 {% endblock %}`
 
 
 {% block script %}
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script>
-        load_ajax('#chart-container', 'https://ga-dev-tools.appspot.com/embed-api/basic-dashboard/', get_text);
-
-        gapi.analytics.ready(function () {
-
-            /**
-             * Authorize the user immediately if the user has already granted access.
-             * If no access has been created, render an authorize button inside the
-             * element with the ID "embed-api-auth-container".
-             */
-            gapi.analytics.auth.authorize({
-                container: 'embed-api-auth-container',
-                clientid: '695f5147402731611741'
-            });
-
-
-            /**
-             * Create a new ViewSelector instance to be rendered inside of an
-             * element with the id "view-selector-container".
-             */
-            var viewSelector = new gapi.analytics.ViewSelector({
-                container: 'view-selector-container'
-            });
-
-            // Render the view selector to the page.
-            viewSelector.execute();
-
-
-            /**
-             * Create a new DataChart instance with the given query parameters
-             * and Google chart options. It will be rendered inside an element
-             * with the id "chart-container".
-             */
-            var dataChart = new gapi.analytics.googleCharts.DataChart({
-                query: {
-                    metrics: 'ga:sessions',
-                    dimensions: 'ga:date',
-                    'start-date': '30daysAgo',
-                    'end-date': 'yesterday'
-                },
-                chart: {
-                    container: 'chart-container',
-                    type: 'LINE',
-                    options: {
-                        width: '100%'
-                    }
-                }
-            });
-
-
-            /**
-             * Render the dataChart on the page whenever a new view is selected.
-             */
-            viewSelector.on('change', function (ids) {
-                dataChart.set({query: {ids: ids}}).execute();
-            });
-
-        });
-    </script>
+    <script src='https://apis.google.com/js/api.js'></script>
 {% endblock %}
