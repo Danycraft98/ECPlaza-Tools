@@ -7,29 +7,22 @@
 
 
 {% block content %}
-    <div class='nav nav-tabs d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
-        <a class='nav-item nav-link active' id='nav-audience-tab' data-bs-toggle='tab' href='#nav-audience' role='tab' aria-controls='nav-audience' aria-selected='true'>
-            <i class='fa fa-user'></i> Audience Overview
-        </a>
-        <a class='nav-item nav-link' id='nav-table-tab' data-bs-toggle='tab' href='#nav-table' role='tab' aria-controls='nav-table' aria-selected='true'>
-            <i class='fa fa-warning'></i> Behaviour Overview
-        </a>
+    <div class='card-body'>
+        <div class='nav nav-tabs d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
+            <a class='nav-item nav-link active' id='nav-audience-tab' data-bs-toggle='tab' href='#nav-audience' role='tab' aria-controls='nav-audience' aria-selected='true'>
+                <i class='fa fa-user'></i> Audience Overview
+            </a>
+            <a class='nav-item nav-link' id='nav-table-tab' data-bs-toggle='tab' href='#nav-table' role='tab' aria-controls='nav-table' aria-selected='true'>
+                <i class='fa fa-warning'></i> Behaviour Overview
+            </a>
+        </div>
+
+        <div class='tab-content border border-top-0 container-fluid py-4' id='nav-tabContent'>
+            <iframe class='tab-pane fade show active container-fluid h-100' id='nav-audience' name='galaxy' sandbox='allow-forms allow-scripts allow-same-origin allow-modals'
+                    src='https://datastudio.google.com/reporting?params=%7B%22templateId%22:%222a7058e9-eec1-4ec3-a300-ce3b4538ee04%22,%22ds0.connector%22:%22GOOGLE_ANALYTICS%22,%22ds0.accountId%22:%22188561512%22,%22ds0.viewId%22:%22237994931%22,%22ds0.propertyId%22:%22263226478%22,%22ds0.datasourceName%22:%22All%20Web%20Site%20Data%22%7D'></iframe>
+
+            <iframe class='tab-pane fade container-fluid h-100' id='nav-table' name='galaxy' sandbox='allow-forms allow-scripts allow-same-origin allow-modals'
+                    src='https://datastudio.google.com/reporting?params=%7B%22templateId%22:%226af699aa-328a-49dd-b507-268fe82ad2a6%22,%22ds0.connector%22:%22GOOGLE_ANALYTICS%22,%22ds0.accountId%22:%22188561512%22,%22ds0.viewId%22:%22237994931%22,%22ds0.propertyId%22:%22263226478%22,%22ds0.datasourceName%22:%22All%20Web%20Site%20Data%22%7D'></iframe>
+        </div>
     </div>
-
-    <div class='tab-content border border-top-0 container-fluid py-4' id='nav-tabContent'>
-        <iframe class='tab-pane fade show active container-fluid h-100' id='nav-audience' name='galaxy' sandbox='allow-forms allow-scripts allow-same-origin allow-modals'
-                src='https://datastudio.google.com/reporting?params=%7B%22templateId%22:%222a7058e9-eec1-4ec3-a300-ce3b4538ee04%22,%22ds0.connector%22:%22GOOGLE_ANALYTICS%22,%22ds0.accountId%22:%22188561512%22,%22ds0.viewId%22:%22237994931%22,%22ds0.propertyId%22:%22263226478%22,%22ds0.datasourceName%22:%22All%20Web%20Site%20Data%22%7D'></iframe>
-
-        <iframe class='tab-pane fade container-fluid h-100' id='nav-table' name='galaxy' sandbox='allow-forms allow-scripts allow-same-origin allow-modals'
-                src='https://datastudio.google.com/reporting?params=%7B%22templateId%22:%226af699aa-328a-49dd-b507-268fe82ad2a6%22,%22ds0.connector%22:%22GOOGLE_ANALYTICS%22,%22ds0.accountId%22:%22188561512%22,%22ds0.viewId%22:%22237994931%22,%22ds0.propertyId%22:%22263226478%22,%22ds0.datasourceName%22:%22All%20Web%20Site%20Data%22%7D'></iframe>
-    </div>
-    <!--
-
-    -->
-{% endblock %}`
-
-
-{% block script %}
-    <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
-    <script src='https://apis.google.com/js/api.js'></script>
 {% endblock %}

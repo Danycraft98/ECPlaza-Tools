@@ -22,6 +22,7 @@ from ECPlazaTools.views import ChatterBotAppView, ChatterBotApiView
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('token/', views.token, name='token'),
     path('terms/', views.terms, name='terms'),
     path('policy/', views.policy, name='policy'),
 

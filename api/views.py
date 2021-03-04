@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from .forms import TourAPIForm
-from .functions import get_access_token
 
 sep = os.path.sep
 
@@ -23,6 +22,4 @@ TITLE2 = ('pe-7s-rocket', '트래픽 분석 애플리케이션', '파일 내역�
 
 @login_required
 def traffic(request):
-    google_access_token = get_access_token()
-    google_userid = os.environ.get('GOOGLE_USER_ID', None)
-    return render(request, 'api/traffic.html', {'google_access_token': google_access_token, 'google_userid': google_userid, 'title': TITLE2, 'user': request.user})
+    return render(request, 'api/traffic.html', {'title': TITLE2, 'user': request.user})

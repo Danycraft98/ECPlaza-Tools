@@ -1,3 +1,21 @@
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+    scrollFunction();
+};
+
+function scrollFunction() {
+    const btn = $('#myBtn');
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) btn.attr('style', 'display: block;');
+    else btn.attr('style', 'display: none;');
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+
 function set_required() {
     $(":input[name='value']").prop('required', function () {
         return $(this).is(':visible');
@@ -10,10 +28,10 @@ function load_ajax(container, details, return_func) {
         url: details.url, method: details.request,
         async: true, crossDomain: true,
         data: details.data, credentials: 'include',
-        /*headers: {
-            'cache-control': 'no-cache',
-            'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',
-        },*/
+        headers: {
+            //'cache-control': 'no-cache',
+            //'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',
+        },
         beforeSend: function () {
             $(container).html('Loading...');
         },

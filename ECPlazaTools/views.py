@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.views.generic import View
 from django.views.generic.base import TemplateView
+from oauth2client.service_account import ServiceAccountCredentials
 
 TITLE = ('pe-7s-rocket', 'ECPlaza Tools', '모든 도구를 사용할수있어요.')
 
@@ -55,6 +56,13 @@ class ChatterBotApiView(View):
         return JsonResponse({
             'name': self.chat_bot.name
         })
+
+
+@login_required
+def token(request):
+    SCOPE = 'https://www.googleapis.com/auth/analytics.readonly'
+    KEY_FILEPATH = 'ecplaza-67f2563cb042.json'
+    return render(request, 'main/token.html', {'token': ServiceAccountCredentials.from_json_keyfile_name(KEY_FILEPATH, SCOPE).get_access_token().access_token})
 
 
 @login_required
