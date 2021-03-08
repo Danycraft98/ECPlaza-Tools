@@ -1,111 +1,46 @@
 function load_data(resp) {
     gapi.analytics.ready(function () {
 
-        /* Authorize the user with an access token obtained server side.*/
+        /* Authorize the user with an access token obtained server side and set default query object.*/
         gapi.analytics.auth.authorize({'serverAuth': {'access_token': resp}});
+        let query = {'access_token': resp, 'ids': 'ga:237994931', 'start-date': 'yesterday', 'end-date': 'yesterday'}
 
-
-        const report = new gapi.analytics.report.Data({
-            query: {
-                access_token: resp,
-                ids: 'ga:237994931',
-                metrics: 'ga:1dayUsers,ga:transactionRevenue,ga:goalCompletionsAll,ga:pageviews',
-                dimensions: 'ga:date'
-            }
-        });
-        report.on('success', function handleCoreAPIResponse(resp) {
-            const result_dict = resp.totalsForAllResults;
-            $('#active-number').text(result_dict['ga:1dayUsers']);
+        /* Retrieve numerical data for the right table on top.*/
+        let rt_query = $.extend(query, {metrics: 'ga:transactionRevenue,ga:goalCompletionsAll,ga:pageviews', dimensions: 'ga:date',})
+        gapi.client.analytics.data.ga.get(rt_query).then(function handleCoreAPIResponse(resp) {
+            const result_dict = resp.result.totalsForAllResults;
             $('#trans-number').text(result_dict['ga:transactionRevenue']);
             $('#goal-number').text(result_dict['ga:goalCompletionsAll']);
             $('#view-number').text(result_dict['ga:pageviews']);
-        })
-        report.execute();
-
-        const userChart = new gapi.analytics.googleCharts.DataChart({
-            query: {
-                'access_token': resp,
-                'ids': 'ga:237994931',
-                'start-date': '30daysAgo',
-                'end-date': 'yesterday',
-                'metrics': 'ga:sessions,ga:users,ga:newUsers',
-                'dimensions': 'ga:date'
-            },
-            chart: {
-                'container': 'user-chart',
-                'type': 'LINE',
-                'options': {
-                    'width': '100%'
-                }
-            }
         });
-        userChart.execute();
-
-
-        const activeUserChart = new gapi.analytics.googleCharts.DataChart({
-            query: {
-                access_token: resp,
-                ids: 'ga:237994931',
-                'start-date': '30daysAgo',
-                'end-date': 'yesterday',
-                metrics: 'ga:7dayUsers',
-                dimensions: 'ga:date'
-            },
-            chart: {
-                'container': 'active-user-chart',
-                'type': 'LINE',
-                'options': {
-                    'width': '100%'
-                }
-            }
+        rt_query.metrics = 'rt:activeUsers'; rt_query.dimensions = 'rt:userType';
+        gapi.client.analytics.data.realtime.get(rt_query).then(function handleCoreAPIResponse(resp) {
+            $('#active-number').text(resp.result.totalsForAllResults['rt:activeUsers'])
         });
-        activeUserChart.execute();
 
-        const viewChart = new gapi.analytics.googleCharts.DataChart({
-            query: {
-                'access_token': resp,
-                'ids': 'ga:237994931',
-                'start-date': '30daysAgo',
-                'end-date': 'yesterday',
-                'metrics': 'ga:pageviews',
-                'dimensions': 'ga:pagePathLevel1',
-                'sort': '-ga:pageviews',
-                'filters': 'ga:pagePathLevel1!=/',
-                'max-results': 7
-            },
-            chart: {
-                'container': 'view-chart',
-                'type': 'TABLE',
-                'options': {
-                    'width': '100%',
-                }
-            }
-        });
-        viewChart.execute();
-
-        //ga:deviceCategory
-
-        const deviceChart = new gapi.analytics.googleCharts.DataChart({
-            query: {
-                'access_token': resp,
-                'ids': 'ga:237994931', // <-- Replace with the ids value for your view.
-                'start-date': '30daysAgo',
-                'end-date': 'yesterday',
-                'metrics': 'ga:sessions',
-                'dimensions': 'ga:deviceCategory',
-                //'sort': '-ga:pageviews',
-                //'filters': 'ga:pagePathLevel1!=/',
-                'max-results': 7
-            },
-            chart: {
-                'container': 'device-chart',
-                'type': 'PIE',
-                'options': {
-                    'width': '100%',
-                    'pieHole': 4 / 9,
-                }
-            }
-        });
-        deviceChart.execute();
+        /* Retrieve chart data.*/
+        query['start-date'] = '8daysAgo';
+        create_chart($.extend(query, {'metrics': 'ga:sessions,ga:users,ga:newUsers', 'dimensions': 'ga:date'}), 'user-chart', 'LINE', {'width': '100%'});
+        create_chart($.extend(query, {'metrics': 'ga:7dayUsers', 'dimensions': 'ga:date'}), 'active-user-chart', 'LINE', {'width': '100%'});
+        create_chart($.extend(query, {
+            'metrics': 'ga:pageviews',
+            'dimensions': 'ga:pagePathLevel1',
+            //'sort': '-ga:pageviews',
+            'filters': 'ga:pagePathLevel1!=/',
+            'max-results': 7
+        }), 'view-chart', 'TABLE', {'width': '100%'});
+        //create_chart($.extend(query, {'metrics': 'ga:sessions', 'dimensions': 'ga:deviceCategory', 'max-results': 7}), 'device-chart', 'PIE', {'width': '100%', 'pieHole': 4 / 9,});
+        create_chart($.extend(query, {'metrics': 'ga:sessions', 'dimensions': 'ga:country,ga:region', 'max-results': 100}), 'device-chart', 'PIE', {'width': '100%', 'pieHole': 4 / 9,}); //GEO
     });
+}
+
+
+function create_chart(query, container, type, options) {
+    let chart = new gapi.analytics.googleCharts.DataChart({
+        query: query,
+        chart: {
+            'container': container, 'type': type, 'options': options
+        }
+    });
+    chart.execute();
 }
