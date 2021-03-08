@@ -62,6 +62,8 @@
                         <div class='mb-3 card container-fluid'>
                             {% block content %}{% endblock %}
                         </div>
+
+                        {% block extra-content %}{% endblock %}
                     </div>
                 </div>
                 {% include 'partials/_footer.html' %}
