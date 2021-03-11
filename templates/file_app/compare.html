@@ -10,7 +10,7 @@
 {% endblock %}
 
 
-{% block content %}
+{% block main-content %}
     <form action="{% if step == 'finished' %}{% url 'export' %}{% else %}{% url 'compare' %}{% endif %}" method='POST'>
         <div class='card-header d-flex align-items-center justify-content-between'>
             <h5 class='my-2'>

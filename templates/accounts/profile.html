@@ -7,7 +7,7 @@
 {% endblock %}
 
 
-{% block content %}
+{% block main-content %}
     <form id='curl_form' method='POST' enctype='multipart/form-data' action='{% url 'url_parse' %}'>
         <div class='card-body container-fluid'>
             {% csrf_token %}

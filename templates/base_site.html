@@ -9,10 +9,12 @@
     <meta name="google-signin-client_id" content="15932304901613974284.apps.googleusercontent.com">
 
     <!-- Bootstrap CSS -->
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1'
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet'
+          integrity='sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1'
           crossorigin='anonymous'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css'>
+    <link rel='stylesheet'
+          href='https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css'>
 
     <link rel='shortcut icon' href='{% static 'images/favicon.ico' %}'/>
     <link type='text/css' rel='stylesheet' href='{% static 'css/style.min.css' %}'>
@@ -31,7 +33,6 @@
         {% include 'partials/_navbar.html' %}
 
         <div class='app-main'>
-
             {% include 'partials/_sidebar.html' %}
             <div class='app-main__outer'>
                 <div class='app-main__inner'>
@@ -40,15 +41,28 @@
                             <div class='page-title-wrapper'>
                                 <div class='page-title-heading'>
                                     <div class='page-title-icon'>
-                                        <i class='{{ title.0 }}'></i>
+                                        <i class='{% if 'admin' in request.path %}pe-7s-rocket{% else %}{{ title.0 }}{% endif %}'></i>
                                     </div>
 
                                     <div>
-                                        <h1>{{ title.1 }}</h1>
+                                        <h1>
+                                            {% if 'admin' in request.path %}
+                                                {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+                                            {% else %}
+                                                {{ title.1 }}
+                                            {% endif %}
+                                        </h1>
 
-                                        <div class='page-title-subheading'>{{ title.2 }}</div>
+                                        <div class='page-title-subheading'>
+                                            {% if 'admin' in request.path %}
+                                                {% block breadcrumbs %}{% endblock %}
+                                            {% else %}
+                                                {{ title.0 }}
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class='page-title-actions'>
                                     <button type='button' data-toggle='tooltip' title='' data-placement='bottom' class='btn-shadow mr-3 btn btn-dark' data-original-title='Example Tooltip'>
                                         <i class='fa fa-star'></i>
@@ -60,7 +74,7 @@
 
                     <div class='tabs-animation'>
                         <div class='mb-3 card container-fluid'>
-                            {% block content %}{% endblock %}
+                            {% block main-content %}{% endblock %}
                         </div>
 
                         {% block extra-content %}{% endblock %}
@@ -69,7 +83,8 @@
                 {% include 'partials/_footer.html' %}
 
                 <div class='chat-box position-fixed bottom-0 end-0'>
-                    <a class='chat-head card-header d-flex justify-content-between' data-bs-toggle='collapse' href='#chat-content' onclick='chat_click()' role='button' aria-expanded='false'
+                    <a class='chat-head card-header d-flex justify-content-between' data-bs-toggle='collapse'
+                       href='#chat-content' onclick='chat_click()' role='button' aria-expanded='false'
                        aria-controls='collapseExample'>
                         <h4 class='card-title'><strong>Live Chat</strong></h4>
                         <i class='fa fa-chevron-up'></i>
@@ -78,7 +93,8 @@
                     <div class='chat-body collapse ps-container ps-theme-default ps-active-y' id='chat-content'>
                         <div class='card-footer position-fixed bottom-0 end-0 chat-text publisher bt-1 border-light d-flex justify-content-between'>
                             <img class='avatar' src="{% static 'images/user.png' %}" alt='...' width='42'>
-                            <input class='publisher-input' type='text' placeholder='Write something' aria-label='Chat Input' onkeypress='add_msg(this, "{% url 'chatterbot' %}");'>
+                            <input class='publisher-input' type='text' placeholder='Write something'
+                                   aria-label='Chat Input' onkeypress='add_msg(this, "{% url 'chatterbot' %}");'>
 
                             <div class='my-2'>
                                 <span class='publisher-btn file-group mr-1'>
@@ -104,8 +120,10 @@
     {% endif %}
 </div>
 
-<script src='https://code.jquery.com/jquery-3.5.1.min.js' integrity='sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=' crossorigin='anonymous'></script>
-<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js' integrity='sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW'
+<script src='https://code.jquery.com/jquery-3.5.1.min.js'
+        integrity='sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=' crossorigin='anonymous'></script>
+<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'
+        integrity='sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW'
         crossorigin='anonymous'></script>
 <script async src='https://www.googletagmanager.com/gtag/js?id=UA-188561512-2'></script>
 <script src='https://apis.google.com/js/api.js'></script>
@@ -116,6 +134,16 @@
 <script src='{% static 'js/traffic.js' %}'></script>
 <script>
     $(document).ready(function () {
+        {% if 'admin' in request.path %}
+            $('table').addClass('table table-responsive')
+            const div = $('#changelist-filter');
+            $('li').attr('style', 'list-style-type: none;')
+            div.find('ul').addClass('row')
+                .find('li').addClass('col-1');
+            $('label').attr('style', 'color: #000000 !important; visibility: initial !important;')
+            $('.breadcrumbs').removeClass('breadcrumbs')
+        {% endif %}
+
         $.ajax("{% url 'token' %}").done(function (resp) {
             let access_token = resp,
                 types = ['users', 'newUsers', 'sessions', 'bounces', 'transactions'],
@@ -130,7 +158,6 @@
     });
 </script>
 {% block script %}{% endblock %}
-
 
 {% block modal %}{% endblock %}
 </body>

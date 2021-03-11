@@ -1,9 +1,13 @@
+{% load log i18n %}
+
+
 <div class='app-sidebar sidebar-shadow'>
     <div class='app-header__logo'>
         <div class='logo-src'></div>
         <div class='header__pane ml-auto'>
             <div>
-                <button type='button' class='hamburger close-sidebar-btn hamburger--elastic' data-class='closed-sidebar'>
+                <button type='button' class='hamburger close-sidebar-btn hamburger--elastic'
+                        data-class='closed-sidebar'>
                     <span class='hamburger-box'>
                         <span class='hamburger-inner'></span>
                     </span>
@@ -115,8 +119,38 @@
                 </li>
             </ul>
 
-
             {% block sidebar %}{% endblock %}
+
+            {% if 'admin' in request.path %}
+                <ul class='vertical-nav-menu metismenu actionlist'>
+                    <li class='app-sidebar__heading'>{% translate 'Recent actions' %}</li>
+                    <li class='app-sidebar__sub_heading'>{% translate 'My actions' %}</li>
+
+                    {% get_admin_log 10 as admin_log for_user user %}
+                    {% if not admin_log %}
+                        <li>
+                            <a class='disabled' href='#' aria-expanded='true'>{% translate 'None available' %}</a>
+                        </li>
+                    {% else %}
+                        {% for entry in admin_log %}
+                            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                                <a {% if entry.is_deletion or not entry.get_admin_url %}class='disabled' href='#'
+                                   {% else %}href="{{ entry.get_admin_url }}" {% endif %}aria-expanded='true'>
+                                    <i class='metismenu-icon pe-7s-bell'></i>{{ entry.object_repr }}
+
+                                    <i class='metismenu-state-icon'>
+                                        {% if entry.content_type %}
+                                            {% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}
+                                        {% else %}
+                                            {% translate 'Unknown content' %}
+                                        {% endif %}
+                                    </i>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            {% endif %}
         </div>
     </div>
 </div>
