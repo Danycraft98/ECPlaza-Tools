@@ -62,7 +62,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://repository-images.githubusercontent.com/337784703/ce9f1180-825e-11eb-8bcc-04a652fb8f1e)
 
 The following repository contains all files required to spin up the ECPlaza Tools web-app on Heroku server. As of writing this readme, currently ECPlaza is currently using the web-app. The web-app helps retrieve relevant information for the company to use. The web-app is python-based (python 3.9.1) and uses Django as the main framework. You can view the demo link is available above. Here are the list of applications:
 
