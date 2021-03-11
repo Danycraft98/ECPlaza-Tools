@@ -3,12 +3,7 @@
 *** that would make this better, please fork the repo and create a pull request
 *** or simply open an issue with the tag "enhancement".
 *** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
+***
 *** I'm using markdown "reference style" links for readability.
 *** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
 *** See the bottom of this document for the declaration of the reference variables
@@ -22,8 +17,6 @@
 [![LGPL License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-
-
 <br />
 <p align="center">
   <a href="https://github.com/Danycraft98/ecplaza-tools">
@@ -35,7 +28,8 @@
   <p align="center">
     Web Application that contains multiple tool applications.
     <br />
-    <a href="https://github.com/Danycraft98/ecplaza-tools/wiki"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Danycraft98/ecplaza-tools/wiki"><strong>Explore the docs</strong></a> | 
+    <a href="https://danycraft98.github.io/ECPlaza-Tools/"><strong>Read Me Website</strong></a>
     <br />
     <br />
     <a href="https://ecplaza-tools.herokuapp.com/">View Demo</a>
