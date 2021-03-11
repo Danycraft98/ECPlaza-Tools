@@ -19,25 +19,23 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/Danycraft98/ecplaza-tools">
-    <img src="static/images/logo.png" alt="Logo">
-  </a>
-
-  <h3 align="center">ECPlaza Tools</h3>
-
-  <p align="center">
-    Web Application that contains multiple tool applications.
-    <br />
-    <a href="https://github.com/Danycraft98/ecplaza-tools/wiki"><strong>Explore the docs</strong></a> | 
-    <a href="https://danycraft98.github.io/ECPlaza-Tools/"><strong>Read Me Website</strong></a>
-    <br />
-    <br />
-    <a href="https://ecplaza-tools.herokuapp.com/">View Demo</a>
-    ·
-    <a href="https://github.com/Danycraft98/ecplaza-tools/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/Danycraft98/ecplaza-tools/issues">Request Feature</a>
-  </p>
+    <a href="https://github.com/Danycraft98/ECPlaza-Tools">
+        <img src="static/images/logo.png" alt="Logo">
+    </a>
+    <h3 align="center">ECPlaza Tools</h3>
+    <p align="center">
+        Web Application that contains multiple tool applications.
+        <br />
+        <a href="https://github.com/Danycraft98/ECPlaza-Tools/wiki"><strong>Explore the docs</strong></a> | 
+        <a href="https://danycraft98.github.io/ECPlaza-Tools/"><strong>Read Me Website</strong></a>
+        <br />
+        <br />
+        <a href="https://ecplaza-tools.herokuapp.com/">View Demo</a>
+        ·
+        <a href="https://github.com/Danycraft98/ECPlaza-Tools/issues">Report Bug</a>
+        ·
+        <a href="https://github.com/Danycraft98/ECPlaza-Tools/issues">Request Feature</a>
+    </p>
 </p>
 
 <!-- TABLE OF CONTENTS -->
@@ -88,12 +86,12 @@ Make sure you have Python 3.9.1 and mysql installed.
 
 1. Clone the repo
 ```sh
-$ git clone https://github.com/Danycraft98/ecplaza-tools.git
-$ cd ecplaza-tools
+$ git clone https://github.com/Danycraft98/ECPlaza-Tools.git
+$ cd ECPlaza-Tools
 ```
 2. Create the virtual environment and install requirements from requirements.txt.
 ```sh
-$ python3 -m venv ecplaza-tools
+$ python3 -m venv ECPlaza-Tools
 $ pip install -r requirements.txt
 ```
 3. Make migrations and migrate them.
@@ -121,7 +119,7 @@ $ heroku open
 
 Or
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Danycraft98/ecplaza-tools)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Danycraft98/ECPlaza-Tools)
 #### Useful Commands
 ##### Python Commands
 Create Migration files<br/>
@@ -152,7 +150,7 @@ release: python manage.py createuser staff --email staff@email.com --password pa
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://github.com/Danycraft98/ecplaza-tools/wiki)_
+_For more examples, please refer to the [Documentation](https://github.com/Danycraft98/ECPlaza-Tools/wiki)_
 
 
 
@@ -181,7 +179,7 @@ Distributed under the LGPL License. See `LICENSE` for more information.
 
 Daniel Lee - [@Daniel Lee](https://www.linkedin.com/in/daniel-lee-jhl/) - lee.daniel.jhl@gmail.com
 
-Project Link: [https://github.com/Danycraft98/ecplaza-tools](https://github.com/Danycraft98/ecplaza-tools)
+Project Link: [https://github.com/Danycraft98/ECPlaza-Tools](https://github.com/Danycraft98/ECPlaza-Tools)
 
 
 
@@ -206,16 +204,16 @@ Project Link: [https://github.com/Danycraft98/ecplaza-tools](https://github.com/
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [logo-uri]: static/images/logo.png
-[contributors-shield]: https://img.shields.io/github/contributors/Danycraft98/ecplaza-tools.svg?style=for-the-badge
-[contributors-url]: https://github.com/Danycraft98/ecplaza-tools/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Danycraft98/ecplaza-tools.svg?style=for-the-badge
-[forks-url]: https://github.com/Danycraft98/ecplaza-tools/network/members
-[stars-shield]: https://img.shields.io/github/stars/Danycraft98/ecplaza-tools.svg?style=for-the-badge
-[stars-url]: https://github.com/Danycraft98/ecplaza-tools/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Danycraft98/ecplaza-tools.svg?style=for-the-badge
-[issues-url]: https://github.com/Danycraft98/ecplaza-tools/issues
-[license-shield]: https://img.shields.io/github/license/Danycraft98/ecplaza-tools.svg?style=for-the-badge
-[license-url]: https://github.com/Danycraft98/ecplaza-tools/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/Danycraft98/ECPlaza-Tools.svg?style=for-the-badge
+[contributors-url]: https://github.com/Danycraft98/ECPlaza-Tools/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Danycraft98/ECPlaza-Tools.svg?style=for-the-badge
+[forks-url]: https://github.com/Danycraft98/ECPlaza-Tools/network/members
+[stars-shield]: https://img.shields.io/github/stars/Danycraft98/ECPlaza-Tools.svg?style=for-the-badge
+[stars-url]: https://github.com/Danycraft98/ECPlaza-Tools/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Danycraft98/ECPlaza-Tools.svg?style=for-the-badge
+[issues-url]: https://github.com/Danycraft98/ECPlaza-Tools/issues
+[license-shield]: https://img.shields.io/github/license/Danycraft98/ECPlaza-Tools.svg?style=for-the-badge
+[license-url]: https://github.com/Danycraft98/ECPlaza-Tools/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/daniel-lee-jhl/
 [product-screenshot]: https://repository-images.githubusercontent.com/337784703/ce9f1180-825e-11eb-8bcc-04a652fb8f1e
