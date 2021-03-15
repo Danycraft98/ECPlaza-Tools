@@ -30,9 +30,10 @@ function load_ajax(container, details, return_func) {
         data: details.data,  mode: 'cors',
         credentials: 'include', origin: "*",
         headers: {
+            'content-type': 'application/json',
             // 'Access-Control-Allow-Origin': '*',
             // 'Access-Control-Allow-Headers': "*"
-            // 'cache-control': 'no-cache',
+            'cache-control': 'no-cache',
             // 'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',
         },
         beforeSend: function () {

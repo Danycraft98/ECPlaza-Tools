@@ -40,7 +40,7 @@ function get_app_values(app_name, node) {
 
         'Coupang Detail': ["div[class*='product']", ["h2[class*='prod-buy-header__title']", "img[class='prod-image__detail']", "label[class*='select-option__text']", "table[class*='prod-delivery-return-policy'], div[class*='detail-item']"]],
 
-        'Hot Tracks List': ["li", ["p[class*='tit']", 'img', 'a', "span[class*='discount'],p[class*='price']", "span[class*='discount'],p[class*='price']"], "div[class*='location_nav_wrap']"],
+        'Hot Tracks List': ["li", ["p[class*='tit']", 'img', 'a', "span[class*='discount']", "span[class*='discount']"], "div[class*='location_nav_wrap']"], //,p[class*='price']
 
         'Hot Tracks Detail': ["div[class*='content']", ["h2[class*='tit']", "div[class*='slide_pannels']", "span[class*='discount']", 'option', "div[id*='detail_cont01']"]],
     };
@@ -55,15 +55,15 @@ function get_app_values(app_name, node) {
         if (sub_node.find(config[1][0]).length) {
             config[1].forEach(function (value, i) {
                 let tags = sub_node.find(value);
-                if (i === 1 || i === header.length - 1) row[header[i]] = (tags.attr('src')) ? tags.attr('src') : tags;
+                if (i === 1) row[header[i]] = (tags.attr('src')) ? tags.attr('src') : tags;
                 else if (type === 'List' && i === 2) {
                     const item_url = tags.attr('href');
-                    row = $.extend(row, {'it_origin': app_name, 'ca_id_extra': cat_url.match(/\d\d+/g), 'it_id_extra': item_url.match(/\d\d+/g)});  //.match(/d[2:]/g)
+                    row = $.extend(row, {'it_origin': app_name, 'ca_id_extra': cat_url.match(/\d\d+/g)[0], 'it_id_extra': item_url.match(/\d\d+/g)[0]});  //.match(/d[2:]/g)
                     row[header[i]] = item_url; // const a_tag = $(document.createElement('a')).attr('href', tags.attr('href')).text('Link to Product'); a_tag.prop('outerHTML');
                 } else if (value.includes('textarea')) {
                     if (tags.attr('placeholder')) row[header[i]] = tags.attr('placeholder');
-                    else row[header[i]] = tags.text().replace('/[\n\r\\[\\]]+/g', '');
-                } else row[header[i]] = tags.text().replace('/[\r\\[\\]]+/g', '').replace('/\n+/g', '<br/>');
+                    else row[header[i]] = tags.text().replace(/([\n\r\[\]]+|[ ]{2,})/g, '');
+                } else row[header[i]] = tags.text().replace(/([\n\r\[\]]+|[ ]{2,})/g, '').replace(/(\d),(\d)/g, function(match, $1, $2,) { return $1 + $2; });
             });
         }
         if (row.hasOwnProperty('it_name')) data.push(row);
@@ -80,21 +80,13 @@ function get_app_values(app_name, node) {
 
 
 function to_database() {
-    let details = {
-        url: 'http://api-test.eckorea.net:7272/hottracks/product/',
-        request: 'POST', data: JSON.parse($('#json_data').val())
-    };
-    load_ajax(document.createElement('div'), details, console.log)
-    /*table.rows.forEach(function (row) {
-        console.log('row in progress...');
-        console.log(row)
-        data.sql = 'INSERT INTO file_app_product (images, name, options, details, image_details) VALUES ('
-        $.each(row, function (_, col) {
-            data.sql += col
-        });
-        data.sql += ')';
-        data.url = url;
-        data.request = 'POST';
-        load_ajax(document.createElement('div'), data, console.log);
-    });*/
+    let details = {url: 'http://api-test.eckorea.net:7272/hottracks/product/50', request: 'POST'},
+        data = $(JSON.parse($('#json_data').val()));
+
+    let item = $.extend(details, {data:  JSON.stringify({total_count: 1, crawling_time: '2021-03-15 13:45:050', product: data.toArray()})});
+    load_ajax(document.createElement('div'), item, tester);
+}
+
+function tester(_respText, details, method) {
+    console.log(details, method)
 }
