@@ -27,7 +27,6 @@ chatterbot
 cymem
 google-api-python-client
 httplib2
-lims
 lxml
 murmurhash
 numpy

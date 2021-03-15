@@ -7,13 +7,15 @@ from django.contrib.auth.decorators import login_required
 from django.forms import forms
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from rest_framework import viewsets
 
 from ECPlazaTools import settings
 from ECPlazaTools.settings import STATICFILES_DIRS
+
 from .forms import *
 from .functions import *
-from .models import Document
-
+from .models import *
+from .serializers import *
 
 TITLE1 = ('pe-7s-copy-file', '파일비교 애플리케이션', '파일 내역을 비교하는 애플리케이션')
 sep = os.path.sep
@@ -84,3 +86,14 @@ def url_parse(request):
     database = json.dumps(settings.DATABASES.get('default'))
     form = PostmanAPIForm(request.POST or None, request.FILES or None)
     return render(request, 'file_app/html_parse.html', {'title': TITLE2, 'form': form, 'user': request.user, 'database': database})
+
+
+# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all().order_by('name')
+    serializer_class = ProductSerializer
+
+
+class CatalogViewSet(viewsets.ModelViewSet):
+    queryset = Catalog.objects.all().order_by('app_name')
+    serializer_class = CatalogSerializer

@@ -32,9 +32,8 @@ class Migration(migrations.Migration):
                 ('images', models.CharField(max_length=150)),
                 ('name', models.CharField(max_length=150, unique=True)),
                 ('options', models.CharField(max_length=150)),
-                ('details', models.CharField(max_length=150)),
+                ('details', models.CharField(max_length=300)),
                 ('catalog', models.ForeignKey(on_delete=models.deletion.CASCADE, to='file_app.catalog')),
-                ('image_details', models.CharField(max_length=150)),
             ],
         ),
     ]

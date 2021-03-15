@@ -26,7 +26,7 @@
             </div>
 
             <div class='nav nav-tabs col-6 d-flex justify-content-end p-0 mb-0' id='nav-tab' role='tablist'>
-                <a class='nav-item nav-link hidden' href='#' onclick="to_database({{ database }}, '{% static 'database.php' %}')">
+                <a class='nav-item nav-link hidden' href='#' onclick="to_database()">
                     <i class='fa fa-upload'></i> DB 업로드
                 </a>
                 <a class='nav-item nav-link hidden' href='#' onclick='print();'>
@@ -157,7 +157,10 @@
                 </pre>
             </div>
 
-            <div class='tab-pane fade row col mx-0' id='nav-table'>Result Table here!</div>
+            <input type='hidden' id='json_data'>
+            <div class='tab-pane fade row col mx-0 table-responsive' id='nav-table'>
+                Result Table here!
+            </div>
         </div>
     </form>
 {% endblock %}

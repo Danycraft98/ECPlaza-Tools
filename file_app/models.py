@@ -1,5 +1,7 @@
 from django.db import models
 
+__all__ = ['Document', 'Catalog', 'Product']
+
 
 class Document(models.Model):
     document = models.FileField(verbose_name='file', upload_to='static/uploads/')
@@ -29,8 +31,7 @@ class Product(models.Model):
     images = models.CharField(max_length=150)  # models.FileField(verbose_name='images', upload_to='static/uploads/')
     name = models.CharField(max_length=150, unique=True)
     options = models.CharField(max_length=150)
-    details = models.CharField(max_length=150)
-    image_details = models.CharField(max_length=150)  # models.FileField(verbose_name='images', upload_to='static/uploads/')
+    details = models.CharField(max_length=300)
 
     def __str__(self):
         """

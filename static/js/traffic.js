@@ -1,8 +1,10 @@
 function get_analytic_values(respText, details, _) {
-    details.types.forEach(function (type, i) {
-        let text = respText.rows[0][i];
-        $('#' + type).text(text);
-    });
+    if (respText.rows) {
+        details.types.forEach(function (type, i) {
+            let text = respText.rows[0][i];
+            $('#' + type).text(text);
+        });
+    }
 }
 
 

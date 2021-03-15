@@ -27,10 +27,13 @@ function load_ajax(container, details, return_func) {
     const request_item = {
         url: details.url, method: details.request,
         async: true, crossDomain: true,
-        data: details.data, credentials: 'include',
+        data: details.data,  mode: 'cors',
+        credentials: 'include', origin: "*",
         headers: {
-            //'cache-control': 'no-cache',
-            //'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',
+            // 'Access-Control-Allow-Origin': '*',
+            // 'Access-Control-Allow-Headers': "*"
+            // 'cache-control': 'no-cache',
+            // 'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',
         },
         beforeSend: function () {
             $(container).html('Loading...');
@@ -85,7 +88,7 @@ function write_result(respText, details, method) {
 
 function create_table(app_name, data, header) {
     let html = $(document.createElement('table')), head_row = $(document.createElement('tr'));
-    html.attr('class', 'table table-striped table table-hover')
+    html.attr('class', 'table table-striped table-hover')
     header.forEach(function (value) {
         let head_item = $(document.createElement('th'));
         head_item.text(value);
@@ -103,33 +106,8 @@ function create_table(app_name, data, header) {
         });
         html.append(body_row)
     });
-    if (app_name.includes('Detail')) html.addClass('transpose');
+    //if (app_name.includes('Detail')) html.addClass('transpose');
     return html;
-}
-
-
-function create_json(data) {
-    const rows = [],
-        headersText = [],
-        $headers = data.find("th");
-
-    // Loop through grabbing everything
-    data.find('tr').each(function (index) {
-        let $cells = $(this).find("td");
-        rows[index] = {};
-
-        $cells.each(function (cellIndex) {
-            // Set the header text
-            if (headersText[cellIndex] === undefined) {
-                headersText[cellIndex] = $($headers[cellIndex]).text();
-            }
-            // Update the row object with the header/cell combo
-            rows[index][headersText[cellIndex]] = $(this).text();
-        });
-    });
-
-    // Let's put this in the object like you want and convert to JSON (Note: jQuery will also do this for you on the Ajax request)
-    return {"rows": rows};
 }
 
 
