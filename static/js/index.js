@@ -31,8 +31,6 @@ function load_ajax(container, details, return_func) {
         credentials: 'include', origin: "*",
         headers: {
             'content-type': 'application/json',
-            // 'Access-Control-Allow-Origin': '*',
-            // 'Access-Control-Allow-Headers': "*"
             'cache-control': 'no-cache',
             // 'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',
         },
@@ -61,6 +59,7 @@ function write_result(respText, details, method) {
     const result_div = $('#resultML'), table_div = $('#nav-table');
     let html = $(document.createElement('html')), url;
     if (!respText) result_div.text('None');
+
     if (typeof respText.trim === "function") html.html(respText.trim());
     else html = $(respText.documentElement);
 

@@ -27,6 +27,8 @@
     <orderEntry type="library" name="pixeden-stroke-7-icon" level="application" />
     <orderEntry type="library" name="analytics" level="application" />
     <orderEntry type="library" name="bootstrap-datepicker" level="application" />
+    <orderEntry type="library" name="jquery-3.6.0" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

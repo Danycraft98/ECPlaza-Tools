@@ -32,7 +32,7 @@ function get_app_values(app_name, node) {
     const app_prop = {
         'Shopify': ["div[class*='next-input-wrapper translation']", ['label', 'content'], ['label', 'textarea']],
 
-        '1688 List': ["div[class*='cardListItem']", ['span', 'img', "div[class*='salePrice']", "div[class*='iteRep']", "div[class*='itemAdr']"]],
+        '1688 List': ["div[class*='cardListItem']", ['span', 'img', 'a', "div[class*='salePrice']", "div[class*='salePrice']"]],
 
         '1688 Detail': ["div[class*='wp-content-fold-out']", ["h1[class='d-title']", "div[class*='gallery']", "div[class*='price-original-sku']", "span[class*='area-detail-feature']", "div[class*='obj-sku']", "div[class*='area-detail-feature']"]],
 
@@ -58,12 +58,16 @@ function get_app_values(app_name, node) {
                 if (i === 1) row[header[i]] = (tags.attr('src')) ? tags.attr('src') : tags;
                 else if (type === 'List' && i === 2) {
                     const item_url = tags.attr('href');
-                    row = $.extend(row, {'it_origin': app_name, 'ca_id_extra': cat_url.match(/\d\d+/g)[0], 'it_id_extra': item_url.match(/\d\d+/g)[0]});  //.match(/d[2:]/g)
+                    row = $.extend(row, {'it_origin': app_name, 'ca_id_extra': get_id(cat_url), 'it_id_extra': get_id(item_url)});  //.match(/d[2:]/g)
                     row[header[i]] = item_url; // const a_tag = $(document.createElement('a')).attr('href', tags.attr('href')).text('Link to Product'); a_tag.prop('outerHTML');
+
                 } else if (value.includes('textarea')) {
                     if (tags.attr('placeholder')) row[header[i]] = tags.attr('placeholder');
                     else row[header[i]] = tags.text().replace(/([\n\r\[\]]+|[ ]{2,})/g, '');
-                } else row[header[i]] = tags.text().replace(/([\n\r\[\]]+|[ ]{2,})/g, '').replace(/(\d),(\d)/g, function(match, $1, $2,) { return $1 + $2; });
+
+                } else row[header[i]] = tags.text().replace(/([\n\r\[\]]+|[ ]{2,})/g, '').replace(/(\d),(\d)/g, function (match, $1, $2,) {
+                    return $1 + $2;
+                });
             });
         }
         if (row.hasOwnProperty('it_name')) data.push(row);
@@ -79,11 +83,17 @@ function get_app_values(app_name, node) {
 }
 
 
+function get_id(url) {
+    const match_pat = /[=|/]\d\d+/g;
+    return (url && url.match(match_pat)) ? url.match(match_pat)[0].replace(/[=|/]/g, '') : '';
+}
+
+
 function to_database() {
     let details = {url: 'http://api-test.eckorea.net:7272/hottracks/product/50', request: 'POST'},
         data = $(JSON.parse($('#json_data').val()));
 
-    let item = $.extend(details, {data:  JSON.stringify({total_count: 1, crawling_time: '2021-03-15 13:45:050', product: data.toArray()})});
+    let item = $.extend(details, {data: JSON.stringify({total_count: 1, crawling_time: '2021-03-15 13:45:050', product: data.toArray()})});
     load_ajax(document.createElement('div'), item, tester);
 }
 
