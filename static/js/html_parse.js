@@ -66,7 +66,7 @@ function get_app_values(app_name, node) {
                 } else row[header[i]] = tags.text().replace('/[\r\\[\\]]+/g', '').replace('/\n+/g', '<br/>');
             });
         }
-        data.push(row);
+        if (row.hasOwnProperty('it_name')) data.push(row);
     });
 
     if (app_name.includes('List'))

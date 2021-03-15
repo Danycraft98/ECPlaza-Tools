@@ -104,7 +104,7 @@ function create_table(app_name, data, header) {
             body_item.html(value);
             body_row.append(body_item);
         });
-        html.append(body_row)
+        if (body_row.children().length > 0) html.append(body_row)
     });
     //if (app_name.includes('Detail')) html.addClass('transpose');
     return html;
