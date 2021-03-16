@@ -13,7 +13,7 @@ TITLE1 = ('pe-7s-plane', '투어 API Demo', '')
 @login_required
 def tour_api(request):
     form = TourAPIForm()
-    return render(request, 'api/tour_api.html', {'title': TITLE1, 'form': form, 'api_key': os.environ.get('TOUR_API_KEY'), 'user': request.user})
+    return render(request, 'api/tour_api.html', {'title': TITLE1, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user})
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

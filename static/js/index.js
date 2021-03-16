@@ -16,14 +16,7 @@ function topFunction() {
 }
 
 
-function set_required() {
-    $(":input[name='value']").prop('required', function () {
-        return $(this).is(':visible');
-    });
-}
-
-
-function load_ajax(container, details, return_func) {
+function loadAjax(container, details, returnFunc) {
     const request_item = {
         url: details.url, method: details.request,
         async: true, crossDomain: true,
@@ -40,22 +33,22 @@ function load_ajax(container, details, return_func) {
         fail: resp => console.log(resp, details.request, details.url)
     }
     $.ajax(request_item).done(function (resp) {
-        return_func(resp, details, details.request);
+        returnFunc(resp, details, details.request);
     });
 }
 
 
-function parse_file(respText, details, method) {
+function parseFile(respText, details, method) {
     const reader = new FileReader();
     reader.readAsText(respText)
     reader.onload = function () {
         respText = reader.result
-        write_result(respText, details, method);
+        writeResult(respText, details, method);
     }
 }
 
 
-function write_result(respText, details, method) {
+function writeResult(respText, details, method) {
     const result_div = $('#resultML'), table_div = $('#nav-table');
     let html = $(document.createElement('html')), url;
     if (!respText) result_div.text('None');
@@ -68,7 +61,7 @@ function write_result(respText, details, method) {
 
     $('#url').text(method + ' ' + url);
     result_div.text(formatML(html.get(0), 0).outerHTML);
-    if (details.hasOwnProperty('app_name')) table_div.html(get_app_values(details.app_name, html));
+    if (details.hasOwnProperty('app_name')) table_div.html(getAppValues(details.app_name, html));
     else {
         const header = [], data = [];
         html.find('item').each(function (i) {
@@ -81,12 +74,12 @@ function write_result(respText, details, method) {
             })
             data.push(row);
         })
-        table_div.html(create_table('', data, header));
+        table_div.html(createTable('', data, header));
     }
 }
 
 
-function create_table(app_name, data, header) {
+function createTable(app_name, data, header) {
     let html = $(document.createElement('table')), head_row = $(document.createElement('tr'));
     html.attr('class', 'table table-striped table-hover')
     header.forEach(function (value) {

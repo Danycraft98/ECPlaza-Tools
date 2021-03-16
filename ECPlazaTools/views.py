@@ -1,4 +1,5 @@
 import json
+import os
 
 from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
@@ -10,6 +11,8 @@ from django.views.generic import View
 from django.views.generic.base import TemplateView
 from oauth2client.service_account import ServiceAccountCredentials
 
+from ECPlazaTools.settings import GOOGLE_VIEW_ID, KEY_FILEPATH, SCOPE
+
 TITLE = ('pe-7s-rocket', 'ECPlaza Tools', '모든 도구를 사용할수있어요.')
 
 
@@ -18,9 +21,7 @@ class ChatterBotAppView(TemplateView):
 
 
 class ChatterBotApiView(View):
-    """
-    Provide an API endpoint to interact with ChatterBot.
-    """
+    """ Provide an API endpoint to interact with ChatterBot. """
     chat_bot = ChatBot(**settings.CHATTERBOT)
     """trainer = ChatterBotCorpusTrainer(chatbot)
     trainer.train(
@@ -50,9 +51,7 @@ class ChatterBotApiView(View):
         return JsonResponse(response_data, status=200)
 
     def get(self, request, *args, **kwargs):
-        """
-        Return data corresponding to the current conversation.
-        """
+        """ Return data corresponding to the current conversation. """
         return JsonResponse({
             'name': self.chat_bot.name
         })
@@ -60,14 +59,12 @@ class ChatterBotApiView(View):
 
 @login_required
 def token(request):
-    SCOPE = 'https://www.googleapis.com/auth/analytics.readonly'
-    KEY_FILEPATH = 'ecplaza-67f2563cb042.json'
     return render(request, 'main/token.html', {'token': ServiceAccountCredentials.from_json_keyfile_name(KEY_FILEPATH, SCOPE).get_access_token().access_token})
 
 
 @login_required
 def index(request):
-    return render(request, 'main/index.html', {'title': TITLE})
+    return render(request, 'main/index.html', {'title': TITLE, 'google_view_id': GOOGLE_VIEW_ID})
 
 
 def terms(request):

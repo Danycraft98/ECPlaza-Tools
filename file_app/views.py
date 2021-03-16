@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect
 from rest_framework import viewsets
 
 from ECPlazaTools import settings
-from ECPlazaTools.settings import STATICFILES_DIRS
+from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL
 
 from .forms import *
 from .functions import *
@@ -83,9 +83,9 @@ TITLE2 = ('pe-7s-browser', '링크 투 파일 애플리케이션', '링크 컬�
 
 @login_required
 def url_parse(request):
-    database = json.dumps(settings.DATABASES.get('default'))
+    urls = [ECP_API_URL + ECP_HT_URL, ECP_API_URL + ECP_TOUR_URL]
     form = PostmanAPIForm(request.POST or None, request.FILES or None)
-    return render(request, 'file_app/html_parse.html', {'title': TITLE2, 'form': form, 'user': request.user, 'database': database})
+    return render(request, 'file_app/html_parse.html', {'title': TITLE2, 'form': form, 'user': request.user, 'urls': urls})
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

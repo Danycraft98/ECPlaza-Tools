@@ -1,8 +1,6 @@
 from itertools import repeat
 
-from django.forms import (
-    URLField, Form, CharField, URLInput, TextInput, PasswordInput, FileInput, FileField, Textarea, ChoiceField, Select, ModelForm, modelformset_factory, IntegerField, NumberInput, HiddenInput
-)
+from django.forms import *
 
 from .models import Document
 
@@ -13,9 +11,9 @@ __all__ = [
 APP_LIST = [
     list(repeat('Shopify', 2)),
     list(repeat('SAM.GOV', 2)),
-    list(repeat('1688 List', 2)), list(repeat('1688 Detail', 2)),
-    list(repeat('Coupang List', 2)), list(repeat('Coupang Detail', 2)),
-    list(repeat('Hot Tracks List', 2)), list(repeat('Hot Tracks Detail', 2)),
+    ('1688_L', '1688 List'), list(repeat('1688 Detail', 2)),
+    ('Coupang_L', 'Coupang List'), list(repeat('Coupang Detail', 2)),
+    ('HT_L', 'Hot Tracks List'), list(repeat('Hot Tracks Detail', 2)),
 ]
 
 REQUEST_LIST = [list(repeat('GET', 2)), list(repeat('POST', 2))]
@@ -131,8 +129,8 @@ class PostmanAPIForm(Form):
         'placeholder': 'value'
     }))
 
-    app_name = ChoiceField(label='앱이름', choices=APP_LIST, widget=Select(attrs={
-        'class': 'form-select',
+    app_name = ChoiceField(label='앱이름', choices=APP_LIST, widget=RadioSelect(attrs={
+        'class': 'form-check form-check-inline mr-2',
         'required': ''
     }))
 

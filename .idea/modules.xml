@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/laboratory-information-management-system.iml" filepath="$PROJECT_DIR$/.idea/laboratory-information-management-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ECPlaza Tools.iml" filepath="$PROJECT_DIR$/.idea/ECPlaza Tools.iml" />
     </modules>
   </component>
 </project>

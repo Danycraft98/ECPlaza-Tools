@@ -57,15 +57,15 @@
                                             {% if 'admin' in request.path %}
                                                 {% block breadcrumbs %}{% endblock %}
                                             {% else %}
-                                                {{ title.0 }}
+                                                {{ title.2 }}
                                             {% endif %}
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class='page-title-actions'>
-                                    <button type='button' data-toggle='tooltip' title='' data-placement='bottom' class='btn-shadow mr-3 btn btn-dark' data-original-title='Example Tooltip'>
-                                        <i class='fa fa-star'></i>
+                                    <button type='button' data-toggle='tooltip' title='' data-placement='bottom' class='btn-shadow mr-3 btn btn-dark' {% if request.path == '/' %}onclick='location.reload(true);'{% endif %}>
+                                        <i class='fa {% if request.path == '/' %}fa-refresh{% else %}fa-star{% endif %}'></i>
                                     </button>
                                 </div>
                             </div>
@@ -128,29 +128,27 @@
 <script type='text/javascript' src='{% static 'js/index.js' %}'></script>
 <script type='text/javascript' src='{% static 'js/main.js' %}'></script>
 <script type='text/javascript' src='{% static 'js/chat.js' %}'></script>
-<script src='{% static 'js/traffic.js' %}'></script>
+<script id='traffic_js' src='{% static 'js/traffic.js' %}'></script>
 <script>
     $(document).ready(function () {
-        {% if 'admin' in request.path %}
-            $('table').addClass('table table-responsive')
-            const div = $('#changelist-filter');
-            $('li').attr('style', 'list-style-type: none;')
-            div.find('ul').addClass('row')
-                .find('li').addClass('col-1');
-            $('label').attr('style', 'color: #000000 !important; visibility: initial !important;')
-            $('.breadcrumbs').removeClass('breadcrumbs')
-        {% endif %}
+        $('table').addClass('table table-responsive');
+        $('li').attr('style', 'list-style-type: none;');
+        $('#changelist-filter').find('ul').addClass('row')
+            .find('li').addClass('col-1');
+        $('label').attr('style', 'color: #000000 !important; visibility: initial !important;')
+        $('.breadcrumbs').removeClass('breadcrumbs');
+        $('input:radio').removeClass('form-check form-check-inline');
 
         $.ajax("{% url 'token' %}").done(function (resp) {
             let access_token = resp,
                 types = ['users', 'newUsers', 'sessions', 'bounces', 'transactions'],
                 url = 'https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A237994931&start-date=yesterday&end-date=yesterday&metrics=ga%3A',
                 final_url = url + types.join('%2Cga%3A') + "&access_token=" + access_token;
-            load_ajax('', {url: final_url, method: 'GET', types: types}, get_analytic_values);
+            loadAjax('', {url: final_url, method: 'GET', types: types}, get_analytic_values);
 
             types = ['productAddsToCart', 'productCheckouts', 'itemRevenue', 'productRefunds', 'transactionShipping', 'transactionTax'];
             final_url = url + types.join('%2Cga%3A') + "&access_token=" + access_token;
-            load_ajax('', {url: final_url, method: 'GET', types: types}, get_analytic_values);
+            loadAjax('', {url: final_url, method: 'GET', types: types}, get_analytic_values);
         })
     });
 </script>

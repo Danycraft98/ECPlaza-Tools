@@ -12,6 +12,7 @@ class Document(models.Model):
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# TODO: remove all the models below
 class Catalog(models.Model):
     """ A class used to represent a User object """
     app_name = models.CharField(max_length=30)

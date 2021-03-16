@@ -18,7 +18,7 @@ $('#search').submit(function (e) {
             else tail += '&' + tag.attr('name') + '=' + tag.val();
         }
     })
-    get_tour_info(key, details, tail, write_result);
+    get_tour_info(key, details, tail, writeResult);
 });
 
 $('.input-date input').each(function () {
@@ -30,10 +30,10 @@ $('.input-date input').each(function () {
 });
 
 
-function get_tour_info(key, details, tail, return_func) {
+function get_tour_info(key, details, tail, returnFunc) {
     details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
         '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest' + tail;
-    load_ajax('#result', details, return_func);
+    loadAjax('#result', details, returnFunc);
 }
 
 
