@@ -40,12 +40,12 @@ class TourAPIForm(Form):
     cat1 = ChoiceField(label='대분류', widget=Select(attrs={
         'class': 'form-select',
         'size': '4',
-        'onchange': "get_tour_info(key, details, '&cat1=' + $(this).val(), get_cat);"
+        'onchange': "getTourInfo(key, details, '&cat1=' + $(this).val(), getCat);"
     }))
     cat2 = ChoiceField(label='중분류', widget=Select(attrs={
         'class': 'form-select',
         'size': '4',
-        'onchange': "get_tour_info(key, details, '&cat1=' + $('#id_cat1').val() + '&cat2=' + $(this).val(), get_cat);"
+        'onchange': "getTourInfo(key, details, '&cat1=' + $('#id_cat1').val() + '&cat2=' + $(this).val(), getCat);"
     }))
     cat3 = ChoiceField(label='소분류', widget=Select(attrs={
         'class': 'form-select',

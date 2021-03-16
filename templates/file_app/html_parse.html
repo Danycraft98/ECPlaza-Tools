@@ -169,4 +169,12 @@
 {% block script %}
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
     <script src="{% static 'js/html_parse.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON("../../static/HT_to_ECK_id.json", (json) => {
+                HT_to_ECK_id = json;
+            });
+            $('.dataTable').DataTable();
+        });
+    </script>
 {% endblock %}

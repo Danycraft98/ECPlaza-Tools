@@ -35,7 +35,7 @@
                         {{ form.service }}
                     </div>
 
-                    <div class='col-6' onclick="change_last_div($(this).find('select'))">
+                    <div class='col-6' onclick="changeLastDiv($(this).find('select'))">
                         <label for='{{ form.area.id_for_label }}'>{{ form.area.label }}</label>
                         {{ form.area }}
                     </div>
@@ -110,4 +110,14 @@
             integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
     <script>let key = '{{ api_key }}', details = {'service': '', 'area': '', 'numOfRows': '', 'pageNo': ''}, tail = '';</script>
     <script src="{% static 'js/tour.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            details['service'] = 'KorService';
+            details['area'] = 'categoryCode';
+            details['numOfRows'] = '10';
+            details['pageNo'] = '1';
+            getTourInfo(key, details, '', getCat);
+            getTourInfo(key, {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1'}, '', getContentId);
+        });
+    </script>
 {% endblock %}

@@ -17,21 +17,22 @@ function topFunction() {
 
 
 function loadAjax(container, details, returnFunc) {
-    const request_item = {
-        url: details.url, method: details.request,
+    const request_item = $.extend({
         async: true, crossDomain: true,
-        data: details.data,  mode: 'cors',
-        credentials: 'include', origin: "*",
+        mode: 'cors', credentials: 'include', origin: "*",
         headers: {
+            /*'Access-Control-Allow-Origin':  '*',
+            'Access-Control-Request-Method': details.method,
+            'Access-Control-Request-Headers': 'Content-Type, Authorization',
+            'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',*/
             'content-type': 'application/json',
             'cache-control': 'no-cache',
-            // 'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',
         },
         beforeSend: function () {
             $(container).html('Loading...');
         },
         fail: resp => console.log(resp, details.request, details.url)
-    }
+    }, details)
     $.ajax(request_item).done(function (resp) {
         returnFunc(resp, details, details.request);
     });
@@ -49,19 +50,17 @@ function parseFile(respText, details, method) {
 
 
 function writeResult(respText, details, method) {
-    const result_div = $('#resultML'), table_div = $('#nav-table');
-    let html = $(document.createElement('html')), url;
+    let result_div = $('#resultML'), table_div = $('#nav-table'), html = '', url;
     if (!respText) result_div.text('None');
-
-    if (typeof respText.trim === "function") html.html(respText.trim());
-    else html = $(respText.documentElement);
+    else if (typeof respText.trim === "function") html = $(document.createElement('html')).attr('id', 'temp').html($(respText.trim())).get(0);
+    else html = respText.documentElement;
 
     if (details.hasOwnProperty('html_file')) url = details.html_file;
     else url = details.url;
 
     $('#url').text(method + ' ' + url);
-    result_div.text(formatML(html.get(0), 0).outerHTML);
-    if (details.hasOwnProperty('app_name')) table_div.html(getAppValues(details.app_name, html));
+    result_div.text(formatML(html).outerHTML);
+    if (details.hasOwnProperty('app_name')) table_div.html(getAppValues(details.app_name, $(html)));
     else {
         const header = [], data = [];
         html.find('item').each(function (i) {
@@ -74,12 +73,13 @@ function writeResult(respText, details, method) {
             })
             data.push(row);
         })
-        table_div.html(createTable('', data, header));
+        table_div.html(createTable(data, header));
     }
+    //document.getElementById('temp').remove();
 }
 
 
-function createTable(app_name, data, header) {
+function createTable(data, header) {
     let html = $(document.createElement('table')), head_row = $(document.createElement('tr'));
     html.attr('class', 'table table-striped table-hover')
     header.forEach(function (value) {
@@ -90,21 +90,20 @@ function createTable(app_name, data, header) {
     html.append(head_row);
 
     let body_row = $(document.createElement('tr'));
-    data.forEach(function (row) {
+    data.map(function (row) {
         body_row = $(document.createElement('tr'));
-        Object.values(row).forEach(function (value) {
+        $.each(row, function(_, col) {
             let body_item = $(document.createElement('td'));
-            body_item.html(value);
+            body_item.html(col);
             body_row.append(body_item);
         });
         if (body_row.children().length > 0) html.append(body_row)
     });
-    //if (app_name.includes('Detail')) html.addClass('transpose');
     return html;
 }
 
 
-function formatML(node, level) {
+function formatML(node, level = 0) {
     let indentBefore = new Array(level++ + 1).join('    '),
         indentAfter = new Array(level - 1).join('    '),
         textNode;

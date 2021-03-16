@@ -1,13 +1,3 @@
-$(document).ready(function () {
-    details['service'] = 'KorService';
-    details['area'] = 'categoryCode';
-    details['numOfRows'] = '10';
-    details['pageNo'] = '1';
-    get_tour_info(key, details, '', get_cat);
-    get_tour_info(key, {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1'}, '', get_content_id);
-});
-
-
 $('#search').submit(function (e) {
     e.preventDefault();
     tail = '';
@@ -18,7 +8,7 @@ $('#search').submit(function (e) {
             else tail += '&' + tag.attr('name') + '=' + tag.val();
         }
     })
-    get_tour_info(key, details, tail, writeResult);
+    getTourInfo(key, details, tail, writeResult);
 });
 
 $('.input-date input').each(function () {
@@ -30,14 +20,14 @@ $('.input-date input').each(function () {
 });
 
 
-function get_tour_info(key, details, tail, returnFunc) {
+function getTourInfo(key, details, tail, returnFunc) {
     details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
         '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest' + tail;
     loadAjax('#result', details, returnFunc);
 }
 
 
-function get_cat(respText, details) {
+function getCat(respText, details) {
     const url = details.url;
     let container = $(respText.documentElement), div_selection = [$('#id_cat1'), $('#id_cat2'), $('#id_cat3')], div;
     const switch_val = url.includes('cat2') ? 2 : (url.includes('cat1') ? 1 : 0)
@@ -61,7 +51,7 @@ function get_cat(respText, details) {
 }
 
 
-function change_last_div(elem) {
+function changeLastDiv(elem) {
     let key = elem.val();
     if (key === 'areaBasedList') key = 'categoryCode'
     const select_div = $('#' + key);
@@ -72,7 +62,7 @@ function change_last_div(elem) {
 }
 
 
-function get_content_id(respText, _url) {
+function getContentId(respText, _url) {
     let container = $(respText.documentElement), div = $('#id_contentId');
     div.html('');
     container.find('item').each(function () {

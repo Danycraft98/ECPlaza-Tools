@@ -113,7 +113,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://ecplaza-tools.herokuapp.com",
     "http://localhost:8000",
     "http://127.0.0.1:9000",
-    "http://api-test.eckorea.net:7272"
+    "http://api-test.eckorea.net:7272",
+    "https://google.ca"
 ]
 
 

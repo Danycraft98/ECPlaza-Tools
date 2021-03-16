@@ -1,4 +1,4 @@
-function get_analytic_values(respText, details, _) {
+function getAnalyticValues(respText, details, _) {
     if (respText.rows) {
         details.types.forEach(function (type, i) {
             let text = respText.rows[0][i];

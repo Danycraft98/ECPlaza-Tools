@@ -1,4 +1,4 @@
-function chat_click() {
+function chatClick() {
     const head = $('.chat-head'), arrow = head.find('i');
     if (arrow.hasClass('fa-chevron-down')) {
         arrow.addClass('fa-chevron-up');
@@ -10,7 +10,7 @@ function chat_click() {
 }
 
 
-function auto_scroll(div) {
+function autoScroll(div) {
     setInterval(function () {
         let pos = div.scrollTop();
         div.scrollTop(++pos);
@@ -18,7 +18,7 @@ function auto_scroll(div) {
 }
 
 
-function add_msg(input, url) {
+function addMsg(input, url) {
     const chat_div = $('#chat-content'), $this = $(input);
     if (event.keyCode === 13) {
         const msg = '<p>' + $this.val() + '</p>', last_div = chat_div.find("div[class*='media-chat']").last();
@@ -28,7 +28,7 @@ function add_msg(input, url) {
             chat_div.append(text);
         } else last_div.find("div[class*='media-body']").append(msg);
         $this.val('');
-        auto_scroll(chat_div)
+        autoScroll(chat_div)
     }
 }
 

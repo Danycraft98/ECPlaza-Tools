@@ -11,9 +11,9 @@ __all__ = [
 APP_LIST = [
     list(repeat('Shopify', 2)),
     list(repeat('SAM.GOV', 2)),
-    ('1688_L', '1688 List'), list(repeat('1688 Detail', 2)),
-    ('Coupang_L', 'Coupang List'), list(repeat('Coupang Detail', 2)),
-    ('HT_L', 'Hot Tracks List'), list(repeat('Hot Tracks Detail', 2)),
+    ('1688_L', '1688 List'), ('1688_D', '1688 Detail'),
+    ('Coupang_L', 'Coupang List'), ('Coupang_D', 'Coupang Detail'),
+    ('HT_L', 'Hot Tracks List'), ('HT_D', 'Hot Tracks Detail')
 ]
 
 REQUEST_LIST = [list(repeat('GET', 2)), list(repeat('POST', 2))]
@@ -113,11 +113,13 @@ class PostmanAPIForm(Form):
     }))
     username = CharField(label='사용자 이름', required=False, widget=TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'username'
+        'placeholder': 'username',
+        'autocomplete': 'username'
     }))
     password = CharField(label='비밀번호', required=False, widget=PasswordInput(attrs={
         'class': 'form-control',
-        'placeholder': 'password'
+        'placeholder': 'password',
+        'autocomplete': 'current-password'
     }))
 
     key = CharField(required=False, widget=TextInput(attrs={
