@@ -115,11 +115,12 @@ LOGIN_REDIRECT_URL = '/'
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    "https://ecplaza-tools.herokuapp.com",
-    "http://localhost:8000",
-    "http://127.0.0.1:9000",
-    "http://api-test.eckorea.net:7272",
-    "https://google.ca"
+    'https://ecplaza-tools.herokuapp.com',
+    'http://ecplaza-tools.herokuapp.com',
+    'http://localhost:8000',
+    'http://api-test.eckorea.net:7272',
+    'https://google.ca',
+    'http://api.visitkorea.or.kr/'
 ]
 
 
