@@ -112,10 +112,6 @@ function getID(url) {
     return (match_result) ? match_result.groups.id : '';
 }
 
-function toDatabase(urls) {
-    let details = {url: urls[0], method: 'POST'}, data = $(JSON.parse($('#json_data').val()));
-    loadAjax(document.createElement('div'), $.extend(details, {data: JSON.stringify({total_count: 1, crawling_time: '2021-03-15 13:45:050', product: data.toArray()})}), tester);
-}
 
 function tester(_respText, details, method) {
     alert(JSON.stringify(details) + ' ' + method.toString())

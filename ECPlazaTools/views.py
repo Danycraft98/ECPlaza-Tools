@@ -19,6 +19,10 @@ TITLE = ('pe-7s-rocket', 'ECPlaza Tools', '모든 도구를 사용할수있어�
 class ChatterBotAppView(TemplateView):
     template_name = 'main/index.html'
 
+    @classmethod
+    def get_extra_actions(cls):
+        return []
+
 
 '''
 class ChatterBotApiView(View):
@@ -55,7 +59,11 @@ class ChatterBotApiView(View):
         """ Return data corresponding to the current conversation. """
         return JsonResponse({
             'name': self.chat_bot.name
-        })'''
+        })
+    
+    @classmethod
+    def get_extra_actions(cls):
+        return []'''
 
 
 @login_required

@@ -1,6 +1,7 @@
 $('#search').submit(function (e) {
     e.preventDefault();
-    tail = '';
+    $('.hidden').removeClass('hidden');
+    let tail = '';
     $(this).find(":input:visible:not('button')").each(function (i) {
         let tag = $(this);
         if (tag.val()) {
@@ -10,6 +11,7 @@ $('#search').submit(function (e) {
     })
     getTourInfo(key, details, tail, writeResult);
 });
+
 
 $('.input-date input').each(function () {
     $(this).datepicker({

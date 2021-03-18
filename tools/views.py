@@ -1,4 +1,3 @@
-import json
 from datetime import datetime
 import os
 
@@ -86,6 +85,17 @@ def url_parse(request):
     urls = [ECP_API_URL + ECP_HT_URL, ECP_API_URL + ECP_TOUR_URL]
     form = PostmanAPIForm(request.POST or None, request.FILES or None)
     return render(request, 'file_app/html_parse.html', {'title': TITLE2, 'form': form, 'user': request.user, 'urls': urls})
+
+
+# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TITLE3 = ('pe-7s-plane', '투어 API Demo', '')
+
+
+@login_required
+def tour_api(request):
+    form = TourAPIForm()
+    return render(request, 'api/tour_api.html', {'title': TITLE3, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user})
+
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

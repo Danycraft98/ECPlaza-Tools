@@ -39,6 +39,12 @@ function loadAjax(container, details, returnFunc) {
 }
 
 
+function toDatabase(urls) {
+    let details = {url: urls[0], method: 'POST'}, data = $(JSON.parse($('#json_data').val()));
+    loadAjax(document.createElement('div'), $.extend(details, {data: JSON.stringify({total_count: 1, crawling_time: '2021-03-15 13:45:050', product: data.toArray()})}), tester);
+}
+
+
 function parseFile(respText, details, method) {
     const reader = new FileReader();
     reader.readAsText(respText)

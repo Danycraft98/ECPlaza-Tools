@@ -38,8 +38,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
     'scout_apm.django',
     'accounts.apps.AccountsConfig',
-    'file_app.apps.FileAppConfig',
-    'api.apps.APIConfig',
+    'tools.apps.FileAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -86,9 +85,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            # 'libraries': {
-            #     'custom_tags': 'api.templatetags.custom_tags',
-            # }
+            'libraries': {
+                'custom_tags': 'tools.templatetags.custom_tags',
+            }
         },
     }
 ]
@@ -98,13 +97,9 @@ WSGI_APPLICATION = 'ECPlazaTools.wsgi.application'
 # Database =========================================================================================
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-if not DEBUG:
-    db_url = os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
-else:
-    db_url = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')
-
+DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3') if DEBUG else os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
 DATABASES = {
-    'default': dj_database_url.config(default=db_url),
+    'default': dj_database_url.config(default=DATABASE_URL),
 }
 
 
@@ -163,7 +158,7 @@ CHATTERBOT = {
     ],
 
     'storage_adapter': 'chatterbot.storage.SQLStorageAdapter',
-    'database_uri': db_url
+    'database_uri': DATABASE_URL
 }
 
 # Password validation ==============================================================================
