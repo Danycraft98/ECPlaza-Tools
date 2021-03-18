@@ -93,8 +93,13 @@ WSGI_APPLICATION = 'ECPlazaTools.wsgi.application'
 # Database -----------------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+if not DEBUG:
+    db_url = os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
+else:
+    db_url = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')
+
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL', os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3'))),
+    'default': dj_database_url.config(default=db_url),
 }
 
 
