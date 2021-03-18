@@ -20,6 +20,7 @@ class ChatterBotAppView(TemplateView):
     template_name = 'main/index.html'
 
 
+'''
 class ChatterBotApiView(View):
     """ Provide an API endpoint to interact with ChatterBot. """
     chat_bot = ChatBot(**settings.CHATTERBOT)
@@ -54,7 +55,7 @@ class ChatterBotApiView(View):
         """ Return data corresponding to the current conversation. """
         return JsonResponse({
             'name': self.chat_bot.name
-        })
+        })'''
 
 
 @login_required
