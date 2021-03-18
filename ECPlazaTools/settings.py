@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chatterbot.ext.django_chatterbot',
+    # 'chatterbot.ext.django_chatterbot',
     'corsheaders',
     'django_createuser',
     'django_extensions',
@@ -160,7 +160,7 @@ CHATTERBOT = {
     ],
 
     'storage_adapter': 'chatterbot.storage.SQLStorageAdapter',
-    'database_uri': os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
+    'database_uri': db_url
 }
 
 

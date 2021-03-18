@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from ECPlazaTools import views
-# from ECPlazaTools.views import ChatterBotAppView, ChatterBotApiView
+from ECPlazaTools.views import ChatterBotAppView, ChatterBotApiView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -31,8 +31,8 @@ urlpatterns = [
     path('file_app/', include('file_app.urls')),
     path('api/', include('api.urls')),
 
-    # url(r'^$', ChatterBotAppView.as_view(), name='main'),
-    # url(r'^api/chatterbot/', ChatterBotApiView.as_view(), name='chatterbot'),
+    url(r'^$', ChatterBotAppView.as_view(), name='main'),
+    url(r'^api/chatterbot/', ChatterBotApiView.as_view(), name='chatterbot'),
 ]
 
 handler403 = 'ECPlazaTools.views.handler403'

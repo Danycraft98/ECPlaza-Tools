@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.template import RequestContext
-# from django.views.generic import View
+from django.views.generic import View
 from django.views.generic.base import TemplateView
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -20,9 +20,8 @@ class ChatterBotAppView(TemplateView):
     template_name = 'main/index.html'
 
 
-"""
 class ChatterBotApiView(View):
-    "" " Provide an API endpoint to interact with ChatterBot. "" "
+    """ Provide an API endpoint to interact with ChatterBot. """
     chat_bot = ChatBot(**settings.CHATTERBOT)
     # trainer = ChatterBotCorpusTrainer(chatbot)
     # trainer.train(
@@ -32,10 +31,10 @@ class ChatterBotApiView(View):
     # )
 
     def post(self, request, *args, **kwargs):
-        "" "
+        """
         Return a response to the statement in the posted data.
         * The JSON data should contain a 'text' attribute.
-        "" "
+        """
         input_data = json.loads(request.body.decode('utf-8'))
 
         if 'text' not in input_data:
@@ -52,10 +51,10 @@ class ChatterBotApiView(View):
         return JsonResponse(response_data, status=200)
 
     def get(self, request, *args, **kwargs):
-        "" " Return data corresponding to the current conversation. "" "
+        """ Return data corresponding to the current conversation. """
         return JsonResponse({
             'name': self.chat_bot.name
-        })"""
+        })
 
 
 @login_required
