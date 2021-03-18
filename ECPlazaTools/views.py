@@ -1,13 +1,13 @@
-import json
-import os
+# import json
+# import os
 
-from chatterbot import ChatBot
-from chatterbot.ext.django_chatterbot import settings
+# from chatterbot import ChatBot
+# from chatterbot.ext.django_chatterbot import settings
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+# from django.http import JsonResponse
 from django.shortcuts import render
 from django.template import RequestContext
-from django.views.generic import View
+# from django.views.generic import View
 from django.views.generic.base import TemplateView
 from oauth2client.service_account import ServiceAccountCredentials
 
