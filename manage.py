@@ -5,7 +5,6 @@ import sys
 
 
 def main():
-    # python -m spacy info
     os.system('chmod a=rwx exists.sh')
     os.system('exists.sh en')
     # os.system('python -m spacy download en')

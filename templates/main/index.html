@@ -281,6 +281,6 @@
             $('.dataTable').DataTable();
         });
 
-        $.ajax("{% url 'token' %}").done((resp) => loadGoogleData(resp, {{ google_view_id }}));
+        $.ajax("{% url 'token' %}").done((resp) => loadGoogleData(resp, '{{ google_view_id }}'));
     </script>
 {% endblock %}
