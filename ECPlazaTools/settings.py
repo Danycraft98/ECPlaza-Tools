@@ -15,6 +15,7 @@ import dj_database_url
 import dotenv as env
 import django_heroku
 from django.contrib.admin import AdminSite
+from corsheaders.defaults import default_headers
 
 
 # Quick-start Settings
@@ -24,10 +25,14 @@ env.load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', True)
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'http://localhost:8000',
+    'https://ecplaza-tools.herokuapp.com',
+    'http://ecplaza-tools.herokuapp.com',
+]
 
 
-# Application definition ---------------------------------------------------------------------------
+# Application definition ===========================================================================
 
 CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
@@ -90,7 +95,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ECPlazaTools.wsgi.application'
 
 
-# Database -----------------------------------------------------------------------------------------
+# Database =========================================================================================
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 if not DEBUG:
@@ -103,49 +108,46 @@ DATABASES = {
 }
 
 
-# Admin Site Settings ------------------------------------------------------------------------------
+# Admin Site Settings ==============================================================================
 
 AdminSite.login_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'accounts', 'login.html')
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/'
 
 
-# CORS Settings
+# CORS Settings  ===================================================================================
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_ORIGINS = [
-    'https://ecplaza-tools.herokuapp.com',
-    'http://ecplaza-tools.herokuapp.com',
-    'http://localhost:8000',
-    'http://api-test.eckorea.net:7272',
-    'https://google.ca',
-    'http://api.visitkorea.or.kr/'
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"https?://ecplaza-tools.herokuapp.com",
+    r"http://api(?:-test)?.(?:ec|visit)korea.(?:net|or.kr)(?::7272)?",
+    r"http://localhost:8000"
 ]
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
+CORS_ALLOW_HEADERS = list(default_headers) + ['Access-Control-Allow-Origin']
 
-
-# Google Settings ----------------------------------------------------------------------------------
+# Google Settings ==================================================================================
 
 SCOPE = os.getenv('SCOPE')
 KEY_FILEPATH = os.getenv('KEY_FILEPATH')
 GOOGLE_VIEW_ID = os.getenv('GOOGLE_VIEW_ID')
 
 
-# Google Settings ----------------------------------------------------------------------------------
+# Google Settings ==================================================================================
 
 ECP_API_URL = os.getenv('ECP_API_URL')
 ECP_HT_URL = os.getenv('ECP_HT_URL')
 ECP_TOUR_URL = os.getenv('ECP_TOUR_URL')
 
 
-# Scout Settings -----------------------------------------------------------------------------------
+# Scout Settings ===================================================================================
 
 SCOUT_MONITOR = True
 SCOUT_KEY = os.getenv('SCOUT_KEY')
 SCOUT_NAME = 'A FRIENDLY NAME FOR YOUR APP'
 
 
-# ChatterBot Settings ------------------------------------------------------------------------------
+# ChatterBot Settings ==============================================================================
 
 CHATTERBOT = {
     'name': 'Tech Support Bot',
@@ -164,8 +166,7 @@ CHATTERBOT = {
     'database_uri': db_url
 }
 
-
-# Password validation ------------------------------------------------------------------------------
+# Password validation ==============================================================================
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -183,8 +184,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization -----------------------------------------------------------------------------
+# Internationalization =============================================================================
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = os.getenv('LANGUAGE_CODE')
@@ -193,8 +193,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images) -----------------------------------------------------------
+# Static files (CSS, JavaScript, Images) ===========================================================
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -204,7 +203,7 @@ STATICFILES_DIRS = (
 )
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Upload Settings ----------------------------------------------------------------------------------
+# Upload Settings ==================================================================================
 FILE_UPLOAD_MAX_MEMORY_SIZE = 3000000
 UPLOADS_PATH = os.path.join(BASE_DIR, os.path.join('static', 'uploads'))
 FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, os.path.join('static', 'tmp-uploads'))

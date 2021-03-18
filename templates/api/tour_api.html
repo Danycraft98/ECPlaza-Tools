@@ -9,21 +9,22 @@
 
 
 {% block main-content %}
-    <div class='card-header d-flex align-items-center justify-content-between'>
-        <h5 class='my-2'>
-            <i class='header-icon lnr-charts icon-gradient bg-happy-green'> </i>
-            API: API endpoint that represents ...
-        </h5>
+    <form id='search' method='POST'>
+        <div class='card-header d-flex align-items-center justify-content-between'>
+            <h5 class='my-2'>
+                <i class='header-icon lnr-charts icon-gradient bg-happy-green'> </i>
+                API: API endpoint that represents ...
+            </h5>
 
-        <div class='align-items-right my-2'>
-            <div class='navbar-nav ml-auto'>
-                <button class='btn btn-primary' type='button'>View All</button>
+            <div class='align-items-right my-2'>
+                <div class='navbar-nav ml-auto'>
+                    <button class='btn btn-primary' type='submit'>찾기</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class='card-body'>
-        <form id='search' method='POST' class='container'>
+        <div class='card-body container'>
+
             <pre class='row col well mx-0'>
                 <code>GET http://api.visitkorea.or.kr/openapi/service/rest/</code>
             </pre>
@@ -100,14 +101,14 @@
 
                 <div class='tab-pane fade row col mx-0' id='nav-table' style='overflow-x: auto;'>Result Table here!</div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 {% endblock %}
 
 
 {% block script %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
-            integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+            crossorigin="anonymous"></script>
     <script>let key = '{{ api_key }}', details = {'service': '', 'area': '', 'numOfRows': '', 'pageNo': ''}, tail = '';</script>
     <script src="{% static 'js/tour.js' %}"></script>
     <script>
