@@ -8,7 +8,7 @@
 
 
 {% block main-content %}
-    <form id='postman' method='POST' enctype='multipart/form-data' class='card-body container'>
+    <form id='postman' method='POST' enctype='multipart/form-data' class='card-body container' onsubmit='submitForm(event)'>
         <div class='row mt-4 mx-0'>
             <div class='nav nav-tabs col-6 d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
                 <a class='nav-item nav-link active' id='nav-text-tab' data-bs-toggle='tab' href='#nav-text' role='tab' aria-controls='nav-text' aria-selected='true'>
@@ -23,7 +23,7 @@
             </div>
 
             <div class='nav nav-tabs col-6 d-flex justify-content-end p-0 mb-0' id='nav-tab' role='tablist'>
-                <a class='nav-item nav-link hidden' href='#' onclick="toDatabase({{ urls }})">
+                <a class='nav-item nav-link hidden' href='#' onclick="toDatabase('{{ url }}')">
                     <i class='fa fa-upload'></i> DB 업로드
                 </a>
                 <a class='nav-item nav-link hidden' href='#' onclick='print();'>
@@ -165,10 +165,10 @@
 
 {% block script %}
     <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
-    <script src="{% static 'js/html_parse.js' %}"></script>
+    <script src="{% static 'js/tools.js' %}"></script>
     <script>
         $(document).ready(function () {
-            $.getJSON("../../static/HT_to_ECK_id.json", (json) => {
+            $.getJSON("{% static 'HT_to_ECK_id.json' %}", (json) => {
                 HT_to_ECK_id = json;
             });
             $('.dataTable').DataTable();

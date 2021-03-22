@@ -32,6 +32,7 @@ urlpatterns = [
     path('token/', views.token, name='token'),
 
     # Official Document URL
+    path('instructions/', views.instructions, name='instructions'),
     path('terms/', views.terms, name='terms'),
     path('policy/', views.policy, name='policy'),
 

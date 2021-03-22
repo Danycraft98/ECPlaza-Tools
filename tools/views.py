@@ -8,8 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from rest_framework import viewsets
 
-from ECPlazaTools import settings
-from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL
+from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL, FILE_UPLOAD_MAX_MEMORY_SIZE
 
 from .forms import *
 from .functions import *
@@ -48,8 +47,8 @@ def compare(request):
             step, values = 'progress', {}
             for i, docForm in enumerate(doc_forms):
                 file = docForm.cleaned_data.get('document')
-                if file.size > settings.FILE_UPLOAD_MAX_MEMORY_SIZE:
-                    raise forms.ValidationError('Please keep filesize under' + filesizeformat(settings.FILE_UPLOAD_MAX_MEMORY_SIZE) + '. Current filesize' + filesizeformat(file.size))
+                if file.size > FILE_UPLOAD_MAX_MEMORY_SIZE:
+                    raise forms.ValidationError('Please keep filesize under' + filesizeformat(FILE_UPLOAD_MAX_MEMORY_SIZE) + '. Current filesize' + filesizeformat(file.size))
                 doc_query = Document.objects.filter(document=file)
                 if doc_query.exists():
                     doc = doc_query.first()
@@ -82,9 +81,9 @@ TITLE2 = ('pe-7s-browser', '링크 투 파일 애플리케이션', '링크 컬�
 
 @login_required
 def url_parse(request):
-    urls = [ECP_API_URL + ECP_HT_URL, ECP_API_URL + ECP_TOUR_URL]
+    url = ECP_API_URL + ECP_HT_URL
     form = PostmanAPIForm(request.POST or None, request.FILES or None)
-    return render(request, 'file_app/html_parse.html', {'title': TITLE2, 'form': form, 'user': request.user, 'urls': urls})
+    return render(request, 'file_app/html_parse.html', {'title': TITLE2, 'form': form, 'user': request.user, 'url': url})
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -93,9 +92,9 @@ TITLE3 = ('pe-7s-plane', '투어 API Demo', '')
 
 @login_required
 def tour_api(request):
+    url = ECP_API_URL + ECP_TOUR_URL
     form = TourAPIForm()
-    return render(request, 'api/tour_api.html', {'title': TITLE3, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user})
-
+    return render(request, 'api/tour_api.html', {'title': TITLE3, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user, 'url': url})
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

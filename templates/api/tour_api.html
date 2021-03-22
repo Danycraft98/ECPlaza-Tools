@@ -9,7 +9,7 @@
 
 
 {% block main-content %}
-    <form id='search' method='POST'>
+    <form id='search' method='POST' onsubmit='submitForm(event)'>
         <div class='card-header d-flex align-items-center justify-content-between'>
             <h5 class='my-2'>
                 <i class='header-icon lnr-charts icon-gradient bg-happy-green'> </i>
@@ -18,7 +18,7 @@
 
             <div class='align-items-right my-2'>
                 <div class='ml-auto'>
-                    <a class='btn btn-primary hidden' href='#' onclick="toDatabase({{ urls }})">
+                    <a class='btn btn-primary hidden' href='#' onclick="toDatabase('{{ url }}')">
                         <i class='fa fa-upload'></i> DB 업로드
                     </a>
                     <a class='btn btn-primary hidden' href='#' onclick='print();'>
@@ -81,12 +81,6 @@
                 </div>
             </div>
 
-            <div class='row mt-2'>
-                <div class='col'>
-                    <button class='btn btn-primary btn-block' type='submit'>찾기</button>
-                </div>
-            </div>
-
             <pre class='row col mt-4 well mx-0'>
                 <code id='url'>Result URL here!</code>
             </pre>
@@ -107,6 +101,7 @@
                     </pre>
                 </div>
 
+                <input type='hidden' id='json_data'>
                 <div class='tab-pane fade row col mx-0' id='nav-table' style='overflow-x: auto;'>Result Table here!</div>
             </div>
         </div>
@@ -118,9 +113,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
             crossorigin="anonymous"></script>
     <script>let key = '{{ api_key }}', details = {'service': '', 'area': '', 'numOfRows': '', 'pageNo': ''}, tail = '';</script>
-    <script src="{% static 'js/tour.js' %}"></script>
+    <script src="{% static 'js/tools.js' %}"></script>
     <script>
         $(document).ready(function () {
+            $('.input-date input').each(function () {
+                $(this).datepicker({
+                    format: 'yyyymmdd', endDate: 'today',
+                    startView: 2, todayBtn: 'linked',
+                    clearBtn: true, orientation: 'bottom auto'
+                });
+            });
+
             details['service'] = 'KorService';
             details['area'] = 'categoryCode';
             details['numOfRows'] = '10';

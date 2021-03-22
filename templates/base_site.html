@@ -132,7 +132,7 @@
 <script>
     $(document).ready(function () {
         $('table').addClass('table table-responsive');
-        $('li').attr('style', 'list-style-type: none;');
+        $("li:not('.keep')").attr('style', 'list-style-type: none;');
         $('#changelist-filter').find('ul').addClass('row')
             .find('li').addClass('col-1');
         $('label').attr('style', 'color: #000000 !important; visibility: initial !important;')

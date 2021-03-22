@@ -76,6 +76,11 @@ def index(request):
     return render(request, 'main/index.html', {'title': TITLE, 'google_view_id': GOOGLE_VIEW_ID})
 
 
+@login_required
+def instructions(request):
+    return render(request, 'main/instructions.html', {'title': TITLE})
+
+
 def terms(request):
     return render(request, 'main/terms+conditions.html', {'title': TITLE})
 
