@@ -131,11 +131,9 @@ legend {
 /* TODO: fix */
 .reset {
     all: initial;
-
-* {
-    all: unset;
-}
-
+    * {
+        all: unset;
+    }
 }
 
 .table > :not(caption) > tr > td {

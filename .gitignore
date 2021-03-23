@@ -8,7 +8,8 @@ static-server/media-root/status/cfe/
 
 # Django related 
 # src/<yourproject>/settings/local.py
-# static-cdn/  # any collected static files 
+# static-cdn/  # any collected static files
+*.sqlite3
 
 
 # Byte-compiled / optimized / DLL files

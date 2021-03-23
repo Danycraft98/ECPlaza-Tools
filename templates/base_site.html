@@ -14,11 +14,9 @@
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css'>
 
     <link rel='shortcut icon' href='{% static 'images/favicon.ico' %}'/>
-    <link type='text/css' rel='stylesheet' href='{% static 'css/style.min.css' %}'>
+    <link type='text/css' rel='stylesheet' href='{% static 'css/style.css' %}'>
     <link type='text/css' rel='stylesheet' href='{% static 'css/main.css' %}'>
     {% block style %}{% endblock %}
-
-    <meta name='google-site-verification' content='xVVd_aR6yaFsP1f8avoPEnkkPcjZoKDXLgJkK4MhNHw'/>
 
     <title>ECPlaza Tools{% if title %} - {{ title.1 }}{% endif %}</title>
 </head>
@@ -61,8 +59,9 @@
                                 </div>
 
                                 <div class='page-title-actions'>
-                                    <button type='button' data-toggle='tooltip' title='' data-placement='bottom' class='btn-shadow mr-3 btn btn-dark' {% if request.path == '/' %}onclick='location.reload(true);'{% endif %}>
-                                        <i class='fa {% if request.path == '/' %}fa-refresh{% else %}fa-star{% endif %}'></i>
+                                    {% block button %}{% endblock %}
+                                    <button type='button' data-toggle='tooltip' title='' data-placement='bottom' class='btn-shadow mr-3 btn btn-dark' onclick="alert('start clicked')">
+                                        <i class='fa fa-star'></i>
                                     </button>
                                 </div>
                             </div>

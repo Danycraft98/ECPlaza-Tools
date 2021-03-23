@@ -9,7 +9,7 @@
 
 {% block main-content %}
     <div class='card-body row'>
-        <div id='nav' class="col-2 nav nav-pills flex-column">
+        <div id='nav' class='col-2 nav nav-pills flex-column'>
             <a class='nav-item nav-link active' id='intro_tab' data-bs-toggle='pill' href='#intro' role='presentation'>소개</a>
             <a class='nav-item nav-link' id='traffic_tab' data-bs-toggle='pill' href='#traffic' role='presentation'>트래픽 분석 자료 앱</a>
             <a class='nav-item nav-link' id='traffic_tab' data-bs-toggle='pill' href='#compare' role='presentation'>파일비교 앱</a>
@@ -31,19 +31,19 @@
                     <br/>
 
                     <div class='row mb-3'>
-                        <a href="#" class="pop col-6">
+                        <a href='#' class='pop col-6' data-bs-toggle='modal' data-bs-target='#img_modal'>
                             <img class='img-thumbnail' src="{% static 'images/demo_screen.PNG' %}" alt='메인 화면에는 트래픽 분석을 볼수 있습니다.'/>
                         </a>
-                        <a href="#" class="pop col-6">
+                        <a href='#' class='pop col-6' data-bs-toggle='modal' data-bs-target='#img_modal'>
                             <img class='img-thumbnail' src="{% static 'images/demo_screen_comp.PNG' %}" alt='파일비교 앱 화면'/>
                         </a>
                     </div>
 
                     <div class='row mb-3'>
-                        <a href="#" class="pop col-6">
+                        <a href='#' class='pop col-6' data-bs-toggle='modal' data-bs-target='#img_modal'>
                             <img class='img-thumbnail' src="{% static 'images/demo_screen_url.PNG' %}" alt='링크 투 파일 앱 화면'/>
                         </a>
-                        <a href="#" class="pop col-6">
+                        <a href='#' class='pop col-6' data-bs-toggle='modal' data-bs-target='#img_modal'>
                             <img class='img-thumbnail' src="{% static 'images/demo_screen_tour.PNG' %}" alt='투어 API 앱 화면'/>
                         </a>
                     </div>
@@ -67,19 +67,19 @@
                     <p>이 앱에는 현재 총 4가지 도구 앱이 있습니다. 자세한 내용과 사용 방법은 및에 있는 링크로 가시면 됩니다:</p>
                     <ol>
                         <li class='keep'>
-                            <a id="traffic_link" href='#traffic'>트래픽 분석 자료 앱</a> <br/>
+                            <a id='traffic_link' href='#traffic'>트래픽 분석 자료 앱</a> <br/>
                             <i class='pe-7s-angle-right pb-3'></i> <a href="{% url 'index' %}">실제 페이지로 가기</a>
                         </li>
                         <li class='keep'>
-                            <a id="compare_link" href="#compare">파일비교 앱</a> <br/>
+                            <a id='compare_link' href='#compare'>파일비교 앱</a> <br/>
                             <i class='pe-7s-angle-right pb-3'></i> <a href="{% url 'compare' %}">실제 페이지로 가기</a>
                         </li>
                         <li class='keep'>
-                            <a id="url_parse_link" href="#url_parse">링크 투 파일 앱</a> <br/>
+                            <a id='url_parse_link' href='#url_parse'>링크 투 파일 앱</a> <br/>
                             <i class='pe-7s-angle-right pb-3'></i> <a href="{% url 'url_parse' %}">실제 페이지로 가기</a>
                         </li>
                         <li class='keep'>
-                            <a id="tour_api_link" href="#tour_api">투어 API 앱</a> <br/>
+                            <a id='tour_api_link' href='#tour_api'>투어 API 앱</a> <br/>
                             <i class='pe-7s-angle-right pb-3'></i> <a href="{% url 'tour_api' %}">실제 페이지로 가기</a>
                         </li>
                     </ol>
@@ -95,7 +95,7 @@
                 <p>트래픽 분석 자료 애플리캐이션은 ECKorea 웹 애플리케이션을 분석하기 위한 앱입니다. 오직 시각적인 통계자료로 만들었기에 다른 기능은 없습니다.
                     아래에 있는 이미지들은 현재 트래픽 분석 자료 앱 화면입니다.</p>
 
-                <a href="#" class="pop row col-12">
+                <a href='#' class='pop row col-12' data-bs-toggle='modal' data-bs-target='#img_modal'>
                     <img class='img-thumbnail' src="{% static 'images/demo_screen.PNG' %}" alt='메인 화면에는 트래픽 분석을 볼수 있습니다.'/>
                 </a>
             </div>
@@ -116,7 +116,7 @@
 
                 <p>아래에 있는 이미지들은 현재 파일비교 앱 화면에 두번째 과정입니다.</p>
 
-                <a href="#" class="pop row col-12">
+                <a href='#' class='pop row col-12' data-bs-toggle='modal' data-bs-target='#img_modal'>
                     <img class='img-thumbnail' src="{% static 'images/demo_screen_comp.PNG' %}" alt='파일비교 앱 화면'/>
                 </a>
             </div>
@@ -162,9 +162,15 @@
 
                         <p>파일 형식은 아래 이미지를 참조하세요.</p>
 
-                        <a href="#" class="pop row offset-md-2 col-8">
-                            <img class='img-thumbnail' src="{% static 'images/demo_screen_url_excel.PNG' %}" alt='파일비교 앱 화면'/>
-                        </a>
+                        <div class='row'>
+                            <a href='#' class='pop col-6' data-bs-toggle='modal' data-bs-target='#img_modal'>
+                                <img class='img-thumbnail' src="{% static 'images/demo_screen_url_html.PNG' %}" alt='파일비교 앱 화면'/>
+
+                            </a>
+                            <a href='#' class='pop col-6' data-bs-toggle='modal' data-bs-target='#img_modal'>
+                                <img class='img-thumbnail' src="{% static 'images/demo_screen_url_excel.PNG' %}" alt='파일비교 앱 화면'/>
+                            </a>
+                        </div>
                     </li>
                 </ol>
 
@@ -193,7 +199,7 @@
 
                 <p>아래에 있는 이미지들은 현재 링크 투 파일 앱 화면에 구문 분석 결과입니다.</p>
 
-                <a href="#" class="pop row col-12">
+                <a href='#' class='pop row col-12' data-bs-toggle='modal' data-bs-target='#img_modal'>
                     <img class='img-thumbnail' src="{% static 'images/demo_screen_url.PNG' %}" alt='링크 투 파일 앱 화면'/>
                 </a>
             </div>
@@ -219,7 +225,7 @@
 
                 <p>아래에 있는 이미지들은 현재 투어 API 앱 화면에서 찾기 결과입니다.</p>
 
-                <a href="#" class="pop row col-12">
+                <a href='#' class='pop row col-12' data-bs-toggle='modal' data-bs-target='#img_modal'>
                     <img class='img-thumbnail' src="{% static 'images/demo_screen_tour.PNG' %}" alt='투어 API 앱 화면'/>
                 </a>
             </div>
@@ -229,16 +235,16 @@
 
 
 {% block modal %}
-    <div class="modal fade" id="img_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" data-dismiss="modal">
-            <div class="modal-content ">
-                <div class="modal-header col-12">
-                    <button type="button" class="close" data-bs-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
+    <div class='modal fade' id='img_modal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog modal-xl' data-dismiss='modal'>
+            <div class='modal-content '>
+                <div class='modal-header col-12' data-bs-toggle='modal' data-bs-target='#img_modal'>
+                    <button type='button' class='close' data-bs-dismiss='modal'>
+                        <span aria-hidden='true'>&times;</span>
                     </button>
                 </div>
-                <img id='img_preview' src="" class="modal-body img-thumbnail col-12" alt="">
-                <div class="modal-footer col-12 text-left" id='desc' style='display: initial'></div>
+                <img id='img_preview' src='' class='modal-body img-thumbnail col-12' alt=''>
+                <div class='modal-footer col-12 text-left' id='desc' style='display: initial'></div>
             </div>
         </div>
     </div>
@@ -247,7 +253,7 @@
 
 {% block script %}
     <script>
-        $("a[id*='_tab'],a[id*='_link']").on("click", function () {
+        $("a[id*='_tab'],a[id*='_link']").on('click', function () {
             $('.tab-pane').addClass('active show');
             const div_id = $(this).attr('href');
             $('html, body').animate({
@@ -255,12 +261,9 @@
             }, 1000);
         });
 
-        $(function () {
-            $('.pop').on('click', function () {
-                $('#img_preview').attr('src', $(this).find('img').attr('src'));
-                $('#desc').text($(this).find('img').attr('alt'));
-                $('#img_modal').modal('show');
-            });
+        $('.pop').on('click', function () {
+            $('#img_preview').attr('src', $(this).find('img').attr('src'));
+            $('#desc').text($(this).find('img').attr('alt'));
         });
     </script>
 {% endblock %}
