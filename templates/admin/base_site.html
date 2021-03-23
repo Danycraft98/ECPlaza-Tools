@@ -43,3 +43,17 @@
     </div>
     <link type='text/css' rel='stylesheet' href='{% static 'css/style.min.css' %}'>
 {% endblock %}
+
+
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            // Format Admin
+            $('#changelist-filter').find('ul').addClass('row')
+                .find('li').addClass('col-1');
+            $('label').attr('style', 'color: #000000 !important; visibility: initial !important;')
+            $('.breadcrumbs').removeClass('breadcrumbs');
+            $('input:radio').removeClass('form-check form-check-inline');
+        });
+    </script>
+{% endblock %}

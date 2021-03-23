@@ -66,28 +66,22 @@ DocumentFormSet = modelformset_factory(
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class PostmanAPIForm(Form):
-    request = ChoiceField(required=False, choices=REQUEST_LIST, widget=Select(attrs={'class': 'form-select col-2'}))
+    request = ChoiceField(required=False, choices=REQUEST_LIST, widget=Select(attrs={'class': 'col-2'}))
 
-    url = URLField(label='URL 링크', required=False, widget=URLInput(attrs={'class': 'form-control'}))
-    text = CharField(
-        label='HTML 텍스트', required=False,
-        widget=Textarea(attrs={'aria-label': 'Text Input', 'class': 'form-control'})
-    )
+    url = URLField(label='URL 링크', required=False, widget=URLInput())
     html_file = FileField(label='파일 (이름 형식: app.<store_name>.<other>.html; 예: app.hottracks.detail.html 또는 app.hottracks.list.html)', required=False, widget=FileInput(attrs={
-        'accept': '.html,.json,.xml',
-        'aria-label': 'File Upload',
-        'class': 'form-control'
+        'accept': 'text/html', 'aria-label': 'File Upload'
+    }))
+
+    excel_file = FileField(label='파일 (이름 형식: app.<store_name>.<other>.csv; 예: app.hottracks.detail.csv 또는 app.hottracks.list.csv)', required=False, widget=FileInput(attrs={
+        'accept': '.csv', 'aria-label': 'File Upload'
     }))
 
     username = CharField(label='사용자 이름', required=False, widget=TextInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'username',
-        'autocomplete': 'username'
+        'placeholder': 'username', 'autocomplete': 'username'
     }))
     password = CharField(label='비밀번호', required=False, widget=PasswordInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'password',
-        'autocomplete': 'current-password'
+        'placeholder': 'password', 'autocomplete': 'current-password'
     }))
 
     key = CharField(required=False, widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'key'}))
@@ -131,18 +125,18 @@ class TourAPIForm(Form):
             'value': 1
         })
     )
-    numOfRows = IntegerField(label='열 No.', widget=ListTextWidget(data_list=NUM_ROW_LIST, name='numOfRows', attrs={'min': 1, 'class': 'form-select'}))
+    numOfRows = IntegerField(label='열 No.', widget=ListTextWidget(data_list=NUM_ROW_LIST, name='numOfRows', attrs={'min': 2, 'class': 'form-select'}))
     eventStartDate = CharField(required=False, label='행사 날짜 범위', widget=TextInput(attrs={'class': 'form-control'}))
     eventEndDate = CharField(required=False, label='행사 종료일', widget=TextInput(attrs={'class': 'form-control'}))
     cat1 = ChoiceField(label='대분류', widget=Select(attrs={
         'class': 'form-select',
         'size': '4',
-        'onchange': "getTourInfo(key, details, '&cat1=' + $(this).val(), getCat);"
+        'onchange': "getTourInfoXML(key, details, '&cat1=' + $(this).val(), getCat);"
     }))
     cat2 = ChoiceField(label='중분류', widget=Select(attrs={
         'class': 'form-select',
         'size': '4',
-        'onchange': "getTourInfo(key, details, '&cat1=' + $('#id_cat1').val() + '&cat2=' + $(this).val(), getCat);"
+        'onchange': "getTourInfoXML(key, details, '&cat1=' + $('#id_cat1').val() + '&cat2=' + $(this).val(), getCat);"
     }))
     cat3 = ChoiceField(label='소분류', widget=Select(attrs={
         'class': 'form-select',

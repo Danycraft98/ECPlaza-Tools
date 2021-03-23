@@ -113,17 +113,17 @@
     <script>let key = '{{ api_key }}', details = {'service': '', 'area': '', 'numOfRows': '', 'pageNo': ''}, tail = '';</script>
     <script>
         $(document).ready(function () {
+            $.getJSON("{% static 'data/TOUR_to_ECK_id.json' %}", (json) => {
+                TOUR_to_ECK_id = json;
+            });
+
             $('.input-date input').each(function () {
-                $(this).datepicker({
-                    format: 'yyyymmdd', endDate: 'today',
-                    startView: 2, todayBtn: 'linked',
-                    clearBtn: true, orientation: 'bottom auto'
-                });
+                $(this).datepicker({format: 'yyyymmdd', startView: 2, todayBtn: 'linked', clearBtn: true, orientation: 'bottom auto'});
             });
 
             $.extend(details, {'service': 'KorService', 'area': 'categoryCode', 'numOfRows': '10', 'pageNo': '1'})
-            getTourInfo(key, details, '', getCat);
-            getTourInfo(key, {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1'}, '', getContentId);
+            getTourInfoXML(key, details, '', getCat);
+            getTourInfoXML(key, {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1'}, '', getContentId);
         });
     </script>
 {% endblock %}

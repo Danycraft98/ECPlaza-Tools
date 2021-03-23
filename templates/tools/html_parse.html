@@ -15,10 +15,10 @@
                     <i class='fa fa-link'></i> 링크 분석
                 </a>
                 <a class='nav-item nav-link' id='nav-text-tab' data-bs-toggle='tab' href='#nav-text' role='tab' aria-controls='nav-text' aria-selected='true'>
-                    <i class='fa fa-file-text'></i> 택스트 분석
+                    <i class='fa fa-file-text'></i> EXCEL 파일 분석
                 </a>
                 <a class='nav-item nav-link' id='nav-file-tab' data-bs-toggle='tab' href='#nav-file' role='tab' aria-controls='nav-file' aria-selected='false'>
-                    <i class='fa fa-file'></i> 파일 분석
+                    <i class='fa fa-file'></i> HTML 파일 분석
                 </a>
             </div>
 
@@ -101,8 +101,8 @@
             <div class='tab-pane fade' id='nav-text' role='tabpanel' aria-labelledby='nav-text-tab'>
                 <div class='row'>
                     <div class='col'>
-                        <label>{{ form.text.label }}:</label>
-                        {{ form.text }}
+                        <label>{{ form.excel_file.label }}:</label>
+                        {{ form.excel_file }}
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                 </pre>
             </div>
 
-            <input type='hidden' id='json_data'>
+            <input type='hidden' id='json_data' value='{}'>
             <div class='tab-pane fade row col mx-0 table-responsive' id='nav-table'>Result Table here!</div>
         </div>
     </form>
@@ -146,9 +146,10 @@
 
 
 {% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js" integrity="sha512-rKFvwjvE4liWPlFnvH4ZhRDfNZ9FOpdkD/BU5gAIA3VS3vOQrQ5BjKgbO3kxebKhHdHcNUHLqxQYSoxee9UwgA==" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
-            $.getJSON("{% static 'HT_to_ECK_id.json' %}", (json) => {
+            $.getJSON("{% static 'data/HT_to_ECK_id.json' %}", (json) => {
                 HT_to_ECK_id = json;
             });
         });

@@ -22,7 +22,8 @@ let url_to_app = {
         'HT_D': ["div[class*='content']", ["h2[class*='tit']", "div[class*='slide_pannels']", '', "a[class*='location']", "div[class='btn_wrap'] a", "div[class='btn_wrap'] a",
             "div[class*='price']", "div[class*='price']", 'select', "table[class*='table'],div[class*='detail_product_img']"]], //"div[id*='detail_cont01']"
     },
-    HT_to_ECK_id = {}
+    HT_to_ECK_id = {},
+    TOUR_to_ECK_id = {};
 
 
 /*** Main Javascript ***
@@ -60,7 +61,7 @@ function topFunction() {
  * */
 
 //*** Ajax Request Function ***
-function loadAjax(container, details, returnFunc) {
+function loadAjax(details, returnFunc, container) {
     const request_item = $.extend({
         async: true, crossDomain: true,
         mode: 'cors', credentials: 'include', origin: "*",
@@ -73,12 +74,13 @@ function loadAjax(container, details, returnFunc) {
             'cache-control': 'no-cache',
         },
         beforeSend: function () {
-            $(container).html('Loading...');
+            if (container) $(container).html('Loading...');
+            else console.log('Loading...')
         },
-        fail: resp => console.log(resp, details.request, details.url)
+        fail: resp => console.log(resp, details)
     }, details)
     $.ajax(request_item).done(function (resp) {
-        returnFunc(resp, details, details.request);
+        returnFunc(resp, details);
     });
 }
 
@@ -91,61 +93,66 @@ function submitForm(e) {
         let tag = $(this);
         if (is_postman_form) {
             if (tag.attr('name').includes('html_file')) file = tag.get(0).files[0];
+            else if (tag.attr('name').includes('excel_file')) file = tag.get(0).files[0];
             if (tag.val()) details[tag.attr('name')] = tag.val();
-        } else {
-            if (tag.val()) {
-                if (i < 4) details[tag.attr('name')] = tag.val();
-                else tail += '&' + tag.attr('name') + '=' + tag.val();
-            }
+
+        } else if (tag.val()) {
+            if (i < 4) details[tag.attr('name')] = tag.val();
+            else tail += '&' + tag.attr('name') + '=' + tag.val();
         }
     });
 
     if (is_postman_form) {
-        if (details.hasOwnProperty('url')) loadAjax('#result', details, writeResult);
-        else if (details.hasOwnProperty('html_file')) parseFile(file, details, 'GET')
-        else {
-            writeResult(details.text, details, 'GET');
-        }
+        $('#resultML').text('');
+        $('#nav-table').text('');
+        if (details.hasOwnProperty('url')) loadAjax(details, writeResult, '#result');
+        else parseFile(file, details);
     } else getTourInfo(key, details, tail, writeResult);
 
 }
 
-function APIPostResult(respText, _details, _method) {
+function APIPostResult(respText, _) {
     alert(JSON.stringify(respText))
 }
 
-function parseFile(respText, details, method) {
+function parseFile(respText, details) {
     const reader = new FileReader();
-    reader.readAsText(respText)
+    reader.readAsText(respText);
     reader.onload = function () {
-        respText = reader.result
-        writeResult(respText, details, method);
+        details.method = 'GET';
+        respText = reader.result;
+        if (details.hasOwnProperty('html_file'))
+            writeResult(respText, details);
+        else {
+            $.each(respText.split('\n'), function (_, url) {
+                if (url === '') return;
+                details = $.extend(details, {url: url});
+                loadAjax(details, writeResult, '#result');
+            })
+        }
     }
 }
 
 function writeResult(respText, details) {
-    let result_div = $('#resultML'), table_div = $('#nav-table'), raw_data, refined_data;
+    let result_div = $('#resultML'), table_div = $('#nav-table'), hidden_data = $('#json_data'), raw_data, refined_data;
     if (!respText) {
         result_div.text('None');
         table_div.text('None');
         return;
-    } else if (details.hasOwnProperty('text')) {
-        result_div.text(details.text);
-        respText = $(details.text)
     }
 
-    let url = !details.hasOwnProperty('html_file') ? (details.url ? details.url :
-        respText.find("meta[property='og:url']") ? respText.find("meta[property*='og:url']").attr('content') : respText.find("a[rel='nofollow']").attr('href')) :
-        details.html_file;
-    raw_data = typeof respText.trim === "function" ? $(document.createElement('html')).attr('id', 'temp').html($(respText.trim())) : $(respText);
-    refined_data = /http|app/g.exec(url) ? getAppValues(url, raw_data) : raw_data;
+    let url = details.hasOwnProperty('html_file') ? details.html_file : details.url;
+    raw_data = typeof respText.trim === "function" ? $(document.createElement('html')).html($(respText.trim())) : $(respText);
+    refined_data = /visitkorea/g.exec(url) ? getTourValues(url, raw_data) : /(?:http|app)/g.exec(url) ? getAppValues(url, raw_data) : raw_data;
 
+    hidden_data.val(JSON.stringify($.extend(JSON.parse(hidden_data.val()), refined_data)));
     if (details.hasOwnProperty('service')) table_div.html(createTable($(refined_data[0].response.body.items.item)));
-    else table_div.html(createTable(refined_data));
+    else {
+        table_div.append(createTable(refined_data));
+    }
 
-    details.method = details.hasOwnProperty('service') ? 'GET' : details.method;
-    $('#url').text(details.method + ' ' + url);
-    result_div.text(formatCode(refined_data));
+    $('#url').text((details.method ? details.method : 'GET') + ' ' + url);
+    result_div.text(result_div.text() + '-Next Link------------------------\n' + formatCode(refined_data));
 }
 
 function toDatabase(url) {
@@ -155,9 +162,8 @@ function toDatabase(url) {
 
     let data = $(JSON.parse($('#json_data').val()));
     const details = {url: url, method: 'POST'}
-    loadAjax(document.createElement('div'), $.extend(details, {data: JSON.stringify({total_count: 1, crawling_time: datetime, product: data.toArray()})}), APIPostResult);
+    loadAjax($.extend(details, {data: JSON.stringify({total_count: 1, crawling_time: datetime, product: data.toArray()})}), APIPostResult);
 }
-
 
 
 /*** Data Organizing Functions ***
@@ -202,9 +208,7 @@ function getAppValues(url, node) {
 
                     case 8:
                     case 9: // it_intro + it_desc
-                        console.log(tags)
                         tags = i === 9 ? tags.find('th,td') : tags.find('option');
-                        console.log(tags)
                         row[hdr_title] = '';
                         tags.each(() => {
                             text = text.replace(/([\n\r\[\]]+|[ ]{2,})/g, '');
@@ -228,6 +232,18 @@ function getAppValues(url, node) {
     return $(data);
 }
 
+function getTourValues(url, node) {
+    const values = node[0].response.body.items.item;
+    $.each(values, function (_, val) {
+        if (val.hasOwnProperty('cat2') && TOUR_to_ECK_id.hasOwnProperty(val.cat2)) {
+            val.cat3 = TOUR_to_ECK_id[val.cat2];
+            val.cat2 = val.cat3.slice(0, 4);
+            val.cat1 = val.cat3.slice(0, 2);
+        }
+    })
+    return node;
+}
+
 function formatCode(node, level = 0) {
     let indentBefore = new Array(level++ + 1).join('    '),
         indentAfter = new Array(level - 1).join('    '),
@@ -241,8 +257,6 @@ function formatCode(node, level = 0) {
 }
 
 function createTable(data) {
-    $('#json_data').val(JSON.stringify(data));
-
     let html = $('<table></table>'), head_row = $('<tr></tr>');
     html.attr('class', 'table table-striped table-hover')
 
@@ -261,7 +275,6 @@ function createTable(data) {
         });
         if (body_row.children().length > 0) html.append(body_row)
     })
-    console.log(html)
     return html;
 }
 
@@ -272,12 +285,17 @@ function createTable(data) {
 function getTourInfo(key, details, tail, returnFunc) {
     details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
         '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest&_type=json' + tail;
-    loadAjax('#result', details, returnFunc);
+    loadAjax(details, returnFunc, '#result');
+}
+
+function getTourInfoXML(key, details, tail, returnFunc) {
+    details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
+        '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest&_type=xml' + tail;
+    loadAjax(details, returnFunc, '#result');
 }
 
 function getCat(respText, details) {
     const url = details.url;
-    console.log(respText)
     let container = $(respText.documentElement), div_selection = [$('#id_cat1'), $('#id_cat2'), $('#id_cat3')], div;
     const switch_val = url.includes('cat2') ? 2 : (url.includes('cat1') ? 1 : 0)
     div = div_selection[switch_val];
