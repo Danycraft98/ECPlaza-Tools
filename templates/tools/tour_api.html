@@ -73,9 +73,7 @@
                     <fieldset id='categoryCode' class='col-6 last' hidden>
                         <label for='{{ form.cat1.id_for_label }}'>{{ form.cat1.label }} / {{ form.cat2.label }} / {{ form.cat3.label }}</label>
                         <div class="input-group">
-                            {{ form.cat1 }}
-                            {{ form.cat2 }}
-                            {{ form.cat3 }}
+                            {{ form.cat1 }} {{ form.cat2 }} {{ form.cat3 }}
                         </div>
                     </fieldset>
                 </div>
@@ -124,10 +122,7 @@
                 });
             });
 
-            details['service'] = 'KorService';
-            details['area'] = 'categoryCode';
-            details['numOfRows'] = '10';
-            details['pageNo'] = '1';
+            $.extend(details, {'service': 'KorService', 'area': 'categoryCode', 'numOfRows': '10', 'pageNo': '1'})
             getTourInfo(key, details, '', getCat);
             getTourInfo(key, {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1'}, '', getContentId);
         });

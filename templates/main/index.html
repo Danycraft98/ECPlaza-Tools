@@ -228,7 +228,6 @@
                 </div>
                 <div class="p-0 card-body">
                     <div id="active-user-chart" class="container-fluid scrollbar-container ps ps--active-y"></div>
-
                 </div>
             </div>
         </div>
@@ -244,6 +243,7 @@
                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link">
                                 <i class="pe-7s-menu btn-icon-wrapper"></i>
                             </button>
+
                             <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
                                 <h6 tabindex="-1" class="dropdown-header">Header</h6>
                                 <button type="button" tabindex="0" class="dropdown-item">
@@ -274,13 +274,6 @@
 
 
 {% block script %}
-    <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
     <script src="{% static 'js/dashboard.js' %}"></script>
-    <script>
-        $(document).ready(function () {
-            $('.dataTable').DataTable();
-        });
-
-        $.ajax("{% url 'token' %}").done((resp) => loadGoogleData(resp, '{{ google_view_id }}'));
-    </script>
+    <script>$.ajax("{% url 'token' %}").done((resp) => loadGoogleData(resp, '{{ google_view_id }}'));</script>
 {% endblock %}

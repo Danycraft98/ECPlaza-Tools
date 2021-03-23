@@ -39,19 +39,9 @@
                         <dd class='col-9'>{{ user.userprofile.bio }}</dd>
                     {% endautoescape %}
                 {% else %}
-                    <dd class='col-9'>Add biography by clicking <a href="#edit_button">edit button</a> below.</dd>
+                    <dd class='col-9'>Add biography by clicking <a href="#">edit button</a>.</dd>
                 {% endif %}
             </dl>
         </div>
     </form>
-{% endblock %}
-
-
-{% block script %}
-    <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
-    <script>
-        $(ddcument).ready(function () {
-            $('.dataTable').DataTable();
-        });
-    </script>
 {% endblock %}

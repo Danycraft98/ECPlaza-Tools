@@ -18,6 +18,7 @@
         </div>
 
         <div class='col-10 container-fluid tab-content'>
+            <!-- 소개 -->
             <div class='tab-pane active show' id='intro'>
                 <div>
                     <h2>소개</h2>
@@ -86,6 +87,8 @@
             </div>
             <hr/>
 
+
+            <!-- 트래픽 분석 자료 앱 -->
             <div class='tab-pane active show' id='traffic'>
                 <h2>트래픽 분석 자료 앱</h2>
 
@@ -98,6 +101,8 @@
             </div>
             <hr/>
 
+
+            <!-- 파일비교 앱 -->
             <div class='tab-pane active show' id='compare'>
                 <h2>파일비교 앱</h2>
 
@@ -112,44 +117,107 @@
                 <p>및에 있는 이미지들은 현재 파일비교 앱 화면에 두번째 과정입니다.</p>
 
                 <a href="#" class="pop row col-12">
-                    <img class='img-thumbnail' src="{% static 'images/demo_screen_comp.PNG' %}" alt='메인 화면에는 트래픽 분석을 볼수 있습니다.'/>
+                    <img class='img-thumbnail' src="{% static 'images/demo_screen_comp.PNG' %}" alt='파일비교 앱 화면'/>
                 </a>
             </div>
             <hr/>
 
+
+            <!-- 링크 투 파일 앱 -->
             <div class='tab-pane active show' id='url_parse'>
                 <h2>링크 투 파일 앱</h2>
 
-                <p>링크 투 파일 애플리캐이션은 링크또는 HTML 파일을 읽고 Web Crawling을 하기 위한 앱입니다. 및에 있는 사용 설명서를 꼭 읽어주세요!!</p>
+                <p>링크 투 파일 애플리캐이션은 링크또는 HTML 파일을 읽고 Web Crawling을 하기 위한 앱입니다. 및에 있는 사용 설명서를 꼭 읽어주세요!!
+                    시작하시기 전에 꼭 원하시는 Web Crawling 형식을 선택해주세요!! 가능한 형식은: 택스트 HTML 코드, HTML 파일 또는 링크 (링크는 현재 수리중입니다).</p>
+                <br/>
 
-
-
+                <h5>링크가 아닐 경우</h5>
+                <ol>
+                    <li class='keep'>첫째, 원하는 웹에서 CTRL-SHIFT-I를 (Macbook은 CMD-OPT-I입니다) 순서대로 눌르면 검사 박스가 보일 것 입니다.
+                        만약에 안되실 경우에는 마우스 오른쪽 버튼으로 클릭해서 검사를 클릭하면 됩니다.
+                    </li>
+                    <li class='keep'>둘째, 검사 박스에 ELEMENT 탭으로 가서 HTML 태그를 클릭하고 CTRL-C를 (Macbook은 CMD-C입니다) 눌르면 HTML이 복사됩니다.</li>
+                    <li class='keep'>다음은 및에 있는 선택한 형식에 대한 설명을 읽으시면 됩니다.</li>
+                </ol>
+                <br/>
 
                 <ol>
-                    <li class='keep'>첫째, 파일을 업로드 하실때는 꼭 <u class='font-weight-bold'>XLSB</u> 형식으로 저장한 후에만 가능합니다.</li>
-                    <li class='keep'>둘째, 업로드 버튼을 누르신 다음에 열 이름들이 및 이미지와 같이 모일 것입니다. 꼭 비교 대상인 <u class='font-weight-bold'>열들을</u> 선택하고 비교하기 버튼을 클릭해주세요.</li>
-                    <li class='keep'>마지막으로 비교 결과가 나옵니다. 확인하시고 나중어 보시고 싶으시다면, 파일 내보내기 버튼을 클릭해주세요.</li>
+                    <li class='keep'>택스트 HTML 코드 형식:
+                        <ol>
+                            <li class='keep'>셋째, ECPlaza Tools 웹에 돌아와서 택스트 분석 탭을 선택하시고, 복사한 코드를 바로 및에 있는 택스트 박스에
+                                붙여 넣으세요.
+                            </li>
+                            <li class='keep'>넷째, 입력하신 코드의 앱에 따라 및에 앱이름을 선택한 후에 구문 분석 버튼을 누르시면 됩니다.</li>
+                        </ol>
+                        <br/>
+                    </li>
+
+
+                    <li class='keep'>HTML 파일 형식:
+                        <ol>
+                            <li class='keep'>셋째, 원하시는 코드 편집 소프트웨어에 복사한 코드를 붙여 넣고 저장하세요.</li>
+                            <li class='keep'>넷째, ECPlaza Tools 웹에 돌아와서 파일 분석 탭을 선택하시고, 바로 및에 있는 파일 선택을 클릭하여 저장하신
+                                파일을 업로드 하세요.
+                            </li>
+                            <li class='keep'>넷째, 업로드한 파일의 앱에 따라 및에 앱이름을 선택한 후에 구문 분석 버튼을 누르시면 됩니다.</li>
+                        </ol>
+                        <br/>
+                    </li>
                 </ol>
 
-                <p>및에 있는 이미지들은 현재 파일비교 앱 화면에 두번째 과정입니다.</p>
+                <h5>링크일 경우 (링크는 현재 수리중입니다)</h5>
+
+                <ol>
+                    <li>링크 형식:
+                        <ol>
+                            <li class='keep'>첫째, 원하는 웹에서 링크를 CTRL-C를 물러서 복사하세요.</li>
+                            <li class='keep'>둘째, ECPlaza Tools 웹에 돌아와서 링크 분석 탭을 선택하시고, 바로 및에 있는 링크 박스에 복사하신 링크를 붙이면 됩니다.
+                                민약에 사용자 이름과 비밀버호가 있을 경우에는 그 및에 입력해주세요.
+                            </li>
+                            <li class='keep'>셋째, 다 작성한후에 링크의 앱에 따라 및에 앱이름을 선택한 후에 구문 분석 버튼을 누르시면 됩니다.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <br/>
+
+                <h5>구문 분석한 후</h5>
+
+                <ol>
+                    <li class='keep'>마지막으로 Web Crawling 결과가 나옵니다. 확인하시고 나중어 보시고 싶으시다면, 파일 내보내기 버튼을 클릭해주세요.
+                        만약에 ECKorea에 정보를 보내고 싶은 결과면 DB 업로드 버튼을 클릭해주세요.
+                    </li>
+                </ol>
+
+                <p>및에 있는 이미지들은 현재 링크 투 파일 앱 화면에 구문 분석 결과입니다.</p>
 
                 <a href="#" class="pop row col-12">
-                    <img class='img-thumbnail' src="{% static 'images/demo_screen_url.PNG' %}" alt='메인 화면에는 트래픽 분석을 볼수 있습니다.'/>
+                    <img class='img-thumbnail' src="{% static 'images/demo_screen_url.PNG' %}" alt='링크 투 파일 앱 화면'/>
                 </a>
             </div>
             <hr/>
 
+
+            <!-- 투어 API 앱 -->
             <div class='tab-pane active show' id='tour_api'>
                 <h2>투어 API 앱</h2>
 
-                <p>asdgfdasf<br/>
-                    asdfasdf<br/>
-                    asdgfdasf<br/>
-                    asdfasdf<br/>
-                    asdgfdasf<br/>
-                    asdfasdf<br/>
-                    asdgfdasf<br/>
-                    asdfasdf</p>
+                <p>링크 투 파일 애플리캐이션은 한국관광공사가 저공하는 Tour API를 사요해서 지역 축제와 맛집정보를 긁기 하기 위한 앱입니다. 및에 있는 사용 설명서를 꼭 읽어주세요!!</p>
+
+                <ol>
+                    <li class='keep'>첫째, 원하시는 언어 서비스를 선택해주세요. 현재 가능한 언어는 한국어/국어, 영어 또는 러시아어/노어입니다.</li>
+                    <li class='keep'>둘째, 찾고 싶은 문야를 선택해주시고 몇개의 결과를 원하는지 열 No.에 꼭 입력해주세요.
+                        만약에 자세한 결과를 보고 싶을 경우에 열 No. 오른쪽에 있는 사항들을 선택 또는 입력해주세요.</li>
+                    <li class='keep'>셋째, 다 작성한후에 찾기 버튼을 누르시면 됩니다.</li>
+                    <li class='keep'>마지막으로 Tour API 결과가 나옵니다. 확인하시고 나중어 보시고 싶으시다면, 파일 내보내기 버튼을 클릭해주세요.
+                        만약에 ECKorea에 정보를 보내고 싶은 결과면 DB 업로드 버튼을 클릭해주세요.
+                    </li>
+                </ol>
+
+                <p>및에 있는 이미지들은 현재 투어 API 앱 화면에 찾 결과입니다.</p>
+
+                <a href="#" class="pop row col-12">
+                    <img class='img-thumbnail' src="{% static 'images/demo_screen_tour.PNG' %}" alt='투어 API 앱 화면'/>
+                </a>
             </div>
         </div>
     </div>

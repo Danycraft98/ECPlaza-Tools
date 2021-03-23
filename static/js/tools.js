@@ -74,7 +74,7 @@ function getAppValues(app_name, node) {
     node.find(config[0]).each(function () {
         let sub_node = $(this), row = {};
         if (sub_node.find(config[1][0]).length) {
-            console.log(sub_node.find(config[1][0]).text())
+            // console.log(sub_node.find(config[1][0]).text());
             config[1].map(function (val, i) {
                 let hdr_title = headers[i], tags = sub_node.find(val), temp = '';
                 if (val[0] === 'a' && i === 3) tags = node.find(val).eq(1);
@@ -124,7 +124,7 @@ function getAppValues(app_name, node) {
         }
         if (row.it_name) data.push(row);
     });
-    return data;
+    return $(data);
 }
 
 /*data.push({
@@ -148,7 +148,6 @@ function createTable(data) {
 
     let body_row = $(document.createElement('tr'));
     $.each(data, function (_, row) {
-        console.log('row', row)
         body_row = $(document.createElement('tr'));
         $.each(row, function (_, col) {
             let body_item = $(document.createElement('td'));

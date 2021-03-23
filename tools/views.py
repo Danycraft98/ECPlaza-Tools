@@ -40,7 +40,7 @@ def compare(request):
             comp_results = out_dataframe.to_html(classes='table table-bordered table-hover table-striped', index=False)
             [doc_obj.document.delete() for doc_obj in doc_objs]
             [doc_obj.delete() for doc_obj in doc_objs]
-            return render(request, 'file_app/compare.html', {'comp_results': comp_results, 'out_filename': out_filename, 'step': step, 'values': values, 'title': TITLE1, 'user': request.user})
+            return render(request, 'tools/compare.html', {'comp_results': comp_results, 'out_filename': out_filename, 'step': step, 'values': values, 'title': TITLE1, 'user': request.user})
 
         all_valid = all(docForm.is_valid() for docForm in doc_forms)
         if all_valid:
@@ -61,7 +61,7 @@ def compare(request):
                     'header_num' + str(i + 1): docForm.cleaned_data.get('header')
                 })
                 header_dict.append(read_file(file, file.name, skiprows=values.get('header_num' + str(i + 1)), nrows=values.get('header_num' + str(i + 1)) + 1)[1])
-    return render(request, 'file_app/compare.html', {'formset': doc_forms, 'hs_form': hs_form, 'header_dict': header_dict, 'step': step, 'values': values, 'title': TITLE1, 'user': request.user})
+    return render(request, 'tools/compare.html', {'formset': doc_forms, 'hs_form': hs_form, 'header_dict': header_dict, 'step': step, 'values': values, 'title': TITLE1, 'user': request.user})
 
 
 @login_required
@@ -83,7 +83,7 @@ TITLE2 = ('pe-7s-browser', '링크 투 파일 애플리케이션', '링크 컬�
 def url_parse(request):
     url = ECP_API_URL + ECP_HT_URL
     form = PostmanAPIForm(request.POST or None, request.FILES or None)
-    return render(request, 'file_app/html_parse.html', {'title': TITLE2, 'form': form, 'user': request.user, 'url': url})
+    return render(request, 'tools/html_parse.html', {'title': TITLE2, 'form': form, 'user': request.user, 'url': url})
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ TITLE3 = ('pe-7s-plane', '투어 API Demo', '')
 def tour_api(request):
     url = ECP_API_URL + ECP_TOUR_URL
     form = TourAPIForm()
-    return render(request, 'api/tour_api.html', {'title': TITLE3, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user, 'url': url})
+    return render(request, 'tools/tour_api.html', {'title': TITLE3, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user, 'url': url})
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

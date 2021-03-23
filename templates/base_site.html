@@ -122,6 +122,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js' integrity='sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW' crossorigin='anonymous'></script>
+<script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
+
 <script async src='https://www.googletagmanager.com/gtag/js?id=UA-188561512-2'></script>
 <script src='https://apis.google.com/js/api.js'></script>
 
@@ -131,6 +133,7 @@
 <script id='traffic_js' src='{% static 'js/traffic.js' %}'></script>
 <script>
     $(document).ready(function () {
+        // Format tags with bootstrap
         $('table').addClass('table table-responsive');
         $("li:not('.keep')").attr('style', 'list-style-type: none;');
         $('#changelist-filter').find('ul').addClass('row')
@@ -139,6 +142,7 @@
         $('.breadcrumbs').removeClass('breadcrumbs');
         $('input:radio').removeClass('form-check form-check-inline');
 
+        $('.dataTable').DataTable();
         $.ajax("{% url 'token' %}").done(function (resp) {
             let access_token = resp,
                 types = ['users', 'newUsers', 'sessions', 'bounces', 'transactions'],

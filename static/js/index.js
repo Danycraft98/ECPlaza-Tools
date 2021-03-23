@@ -1,4 +1,4 @@
-// When the user scrolls down 20px from the top of the document, show the button
+//*** Scroll to Top Functions **
 window.onscroll = function () {
     scrollFunction();
 };
@@ -9,13 +9,13 @@ function scrollFunction() {
     else btn.attr('style', 'display: none;');
 }
 
-// When the user clicks on the button, scroll to the top of the document
 function topFunction() {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
 
+//*** Ajax Request Function ***
 function loadAjax(container, details, returnFunc) {
     const request_item = $.extend({
         async: true, crossDomain: true,
@@ -50,31 +50,33 @@ function parseFile(respText, details, method) {
 
 
 function writeResult(respText, details, _) {
-    let result_div = $('#resultML'), table_div = $('#nav-table'), url;
-    if (!respText) result_div.text('None');
-    else if (typeof respText.trim === "function") respText = $(document.createElement('html')).attr('id', 'temp').html($(respText.trim()));
+    let result_div = $('#resultML'), table_div = $('#nav-table'), raw_data, refined_data;
+    if (!respText) {
+        result_div.text('None');
+        table_div.text('None');
+        return;
+    }
 
-    if (details.hasOwnProperty('html_file')) url = details.html_file;
-    else url = details.url;
+    let url = details.hasOwnProperty('html_file') ? details.html_file : details.url;
+    raw_data = typeof respText.trim === "function" ? $(document.createElement('html')).attr('id', 'temp').html($(respText.trim())) : $(respText);
+    refined_data = details.hasOwnProperty('app_name') ? getAppValues(details.app_name, raw_data) : raw_data;
 
-    if (details.hasOwnProperty('app_name')) respText = getAppValues(details.app_name, respText);
-    table_div.html(createTable($(respText)));
+    if (details.hasOwnProperty('service')) table_div.html(createTable($(refined_data[0].response.body.items.item)));
+    else table_div.html(createTable(refined_data));
 
+    details.method = details.hasOwnProperty('service') ? 'GET' : details.method;
     $('#url').text(details.method + ' ' + url);
-    result_div.text(formatCode(respText));
+    result_div.text(formatCode(refined_data));
 }
 
 
 function formatCode(node, level = 0) {
     let indentBefore = new Array(level++ + 1).join('    '),
         indentAfter = new Array(level - 1).join('    '),
-        textNode;
+        textNode = '';
 
     $.each(node, function (key, val) {
-        textNode += '\n' + indentBefore + '<' + key + '>';
-
-        if (val.constructor === ({}).constructor || val.constructor === ([]).constructor) textNode += formatCode(val, level);
-        else textNode += val;
+        textNode += '\n' + indentBefore + '<' + key + '>' + ((val.constructor === ({}).constructor || val.constructor === ([]).constructor) ? formatCode(val, level) : val);
         textNode += '</' + key + '>\n' + indentAfter;
     })
     return textNode;
