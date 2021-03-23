@@ -11,14 +11,14 @@
     <form id='postman' method='POST' enctype='multipart/form-data' class='card-body container' onsubmit='submitForm(event)'>
         <div class='row mt-4 mx-0'>
             <div class='nav nav-tabs col-6 d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
-                <a class='nav-item nav-link active' id='nav-text-tab' data-bs-toggle='tab' href='#nav-text' role='tab' aria-controls='nav-text' aria-selected='true'>
+                <a class='nav-item nav-link active' id='nav-link-tab' data-bs-toggle='tab' href='#nav-link' role='tab' aria-controls='nav-link' aria-selected='false'>
+                    <i class='fa fa-link'></i> 링크 분석
+                </a>
+                <a class='nav-item nav-link' id='nav-text-tab' data-bs-toggle='tab' href='#nav-text' role='tab' aria-controls='nav-text' aria-selected='true'>
                     <i class='fa fa-file-text'></i> 택스트 분석
                 </a>
                 <a class='nav-item nav-link' id='nav-file-tab' data-bs-toggle='tab' href='#nav-file' role='tab' aria-controls='nav-file' aria-selected='false'>
                     <i class='fa fa-file'></i> 파일 분석
-                </a>
-                <a class='nav-item nav-link' id='nav-link-tab' data-bs-toggle='tab' href='#nav-link' role='tab' aria-controls='nav-link' aria-selected='false'>
-                    <i class='fa fa-link'></i> 링크 분석
                 </a>
             </div>
 
@@ -36,25 +36,7 @@
         </div>
 
         <div class='tab-content border border-top-0 container-fluid py-4' id='nav-tabContent'>
-            <div class='tab-pane fade show active' id='nav-text' role='tabpanel' aria-labelledby='nav-text-tab'>
-                <div class='row'>
-                    <div class='col'>
-                        <label>{{ form.text.label }}:</label>
-                        {{ form.text }}
-                    </div>
-                </div>
-            </div>
-
-            <div class='tab-pane fade' id='nav-file' role='tabpanel' aria-labelledby='nav-file-tab'>
-                <div class='row'>
-                    <div class='col'>
-                        <label>{{ form.html_file.label }}:</label>
-                        {{ form.html_file }}
-                    </div>
-                </div>
-            </div>
-
-            <div class='tab-pane fade' id='nav-link' role='tabpanel' aria-labelledby='nav-link-tab'>
+            <div class='tab-pane fade show active' id='nav-link' role='tabpanel' aria-labelledby='nav-link-tab'>
                 <div class='row col-12'>If you use chrome please check out: <a target='_blank' href='https://alfilatov.com/posts/run-chrome-without-cors/'>Chrome CORS Policy Fix</a></div>
 
                 <div class='row'>
@@ -77,13 +59,6 @@
                     </div>
                     <div class='tab-content' id='myTabContent'>
                         <div class='tab-pane fade container-fluid show active' id='auth' role='tabpanel' aria-labelledby='auth-tab'>
-                            <div class='row m-2'>
-                                <div class='col input-group'>
-                                    <label class='col-form-label' for='{{ form.auth.id_for_label }}'>{{ form.auth.label }}</label>
-                                    {{ form.auth }}
-                                </div>
-                            </div>
-
                             <div class='row m-2'>
                                 <div class='col input-group'>
                                     <label class='col-form-label' for='{{ form.username.id_for_label }}'>{{ form.username.label }} & {{ form.password.label }}</label>
@@ -123,11 +98,20 @@
                 </div>
             </div>
 
-            <div class='tab-pane fade show active'>
-                <div class='row mt-4'>
+            <div class='tab-pane fade' id='nav-text' role='tabpanel' aria-labelledby='nav-text-tab'>
+                <div class='row'>
                     <div class='col'>
-                        <label for='{{ form.app_name.id_for_label }}'>{{ form.app_name.label }}:</label>
-                        {{ form.app_name }}
+                        <label>{{ form.text.label }}:</label>
+                        {{ form.text }}
+                    </div>
+                </div>
+            </div>
+
+            <div class='tab-pane fade' id='nav-file' role='tabpanel' aria-labelledby='nav-file-tab'>
+                <div class='row'>
+                    <div class='col'>
+                        <label>{{ form.html_file.label }}:</label>
+                        {{ form.html_file }}
                     </div>
                 </div>
             </div>
@@ -155,17 +139,13 @@
             </div>
 
             <input type='hidden' id='json_data'>
-            <div class='tab-pane fade row col mx-0 table-responsive' id='nav-table'>
-                Result Table here!
-            </div>
+            <div class='tab-pane fade row col mx-0 table-responsive' id='nav-table'>Result Table here!</div>
         </div>
     </form>
 {% endblock %}
 
 
 {% block script %}
-
-    <script src="{% static 'js/tools.js' %}"></script>
     <script>
         $(document).ready(function () {
             $.getJSON("{% static 'HT_to_ECK_id.json' %}", (json) => {

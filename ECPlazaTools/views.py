@@ -73,20 +73,20 @@ def token(request):
 
 @login_required
 def index(request):
-    return render(request, 'main/index.html', {'title': TITLE, 'google_view_id': GOOGLE_VIEW_ID})
+    return render(request, 'main/index.html', {'title': ('pe-7s-rocket', 'ECPlaza Tools', '모든 도구를 사용할수있어요.'), 'google_view_id': GOOGLE_VIEW_ID})
 
 
 @login_required
 def instructions(request):
-    return render(request, 'main/instructions.html', {'title': TITLE})
+    return render(request, 'main/instructions.html', {'title': ('pe-7s-rocket', 'ECPlaza Tools 사용 설명서', '모든 도구에 대한 사용 설명서를 읽으면 쉽게 이용을 할 수 있습니다.')})
 
 
 def terms(request):
-    return render(request, 'main/terms+conditions.html', {'title': TITLE})
+    return render(request, 'main/terms+conditions.html', {'title': ('pe-7s-rocket', 'ECPlaza Tools 이용약관', '')})
 
 
 def policy(request):
-    return render(request, 'main/policy.html', {'title': TITLE})
+    return render(request, 'main/policy.html', {'title': ('pe-7s-rocket', 'ECPlaza Tool 정책', '')})
 
 
 def handler403(request, *args):

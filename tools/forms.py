@@ -1,12 +1,11 @@
 from itertools import repeat
 
 from django.forms import *
-from django.forms.widgets import Input
 
 from .models import Document
 
 __all__ = [
-    'DocumentFormSet', 'HeaderSelectForm', 'CurlForm', 'APP_LIST', 'CatalogForm', 'ProductForm', 'PostmanAPIForm', 'TourAPIForm'
+    'DocumentFormSet', 'HeaderSelectForm', 'APP_LIST', 'PostmanAPIForm', 'TourAPIForm'
 ]
 
 APP_LIST = [
@@ -18,7 +17,6 @@ APP_LIST = [
 ]
 
 REQUEST_LIST = [list(repeat('GET', 2)), list(repeat('POST', 2))]
-AUTH_LIST = [list(repeat('No Auth', 2)), list(repeat('Basic Auth', 2)), list(repeat('OAuth', 2))]
 LANG_LIST = [('KorService', '한국어/국문 서비스'), ('EngService', '영어 서비스'), ('RusService', '러시아어/노어 서비스')]
 CAT_LIST = [('searchFestival', '행사 정보 조회'), ('categoryCode', '서비스 분류 코드 조회'), ('areaBasedList', '지역기반 관광정보 조회')]
 NUM_ROW_LIST = [list(repeat(10, 2)), list(repeat(20, 2)), list(repeat(30, 2))]
@@ -67,37 +65,20 @@ DocumentFormSet = modelformset_factory(
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-class CatalogForm(ModelForm):
-    pass
-
-
-class ProductForm(ModelForm):
-    pass
-
-
-class CurlForm(Form):
-    username = CharField(required=False, widget=TextInput(attrs={'class': 'form-control'}))
-    password = CharField(required=False, widget=PasswordInput(attrs={'class': 'form-control'}))
-
-    class Meta:
-        fields = '__all__'
-
-
 class PostmanAPIForm(Form):
     request = ChoiceField(required=False, choices=REQUEST_LIST, widget=Select(attrs={'class': 'form-select col-2'}))
 
-    url = CharField(label='URL 링크', required=False, widget=TextInput(attrs={'class': 'form-control'}))
+    url = URLField(label='URL 링크', required=False, widget=URLInput(attrs={'class': 'form-control'}))
     text = CharField(
         label='HTML 텍스트', required=False,
         widget=Textarea(attrs={'aria-label': 'Text Input', 'class': 'form-control'})
     )
-    html_file = FileField(label='파일', required=False, widget=FileInput(attrs={
+    html_file = FileField(label='파일 (이름 형식: app.<store_name>.<other>.html; 예: app.hottracks.detail.html 또는 app.hottracks.list.html)', required=False, widget=FileInput(attrs={
         'accept': '.html,.json,.xml',
         'aria-label': 'File Upload',
         'class': 'form-control'
     }))
 
-    auth = ChoiceField(required=False, choices=AUTH_LIST, widget=Select(attrs={'class': 'form-select col-2'}))
     username = CharField(label='사용자 이름', required=False, widget=TextInput(attrs={
         'class': 'form-control',
         'placeholder': 'username',
@@ -111,7 +92,6 @@ class PostmanAPIForm(Form):
 
     key = CharField(required=False, widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'key'}))
     value = CharField(required=False, widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'value'}))
-    app_name = ChoiceField(label='앱이름', choices=APP_LIST, widget=RadioSelect(attrs={'class': 'form-check form-check-inline mr-2', 'required': ''}))
 
     class Meta:
         fields = '__all__'

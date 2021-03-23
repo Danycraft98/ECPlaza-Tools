@@ -9,12 +9,9 @@
     <meta name="google-signin-client_id" content="15932304901613974284.apps.googleusercontent.com">
 
     <!-- Bootstrap CSS -->
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet'
-          integrity='sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1'
-          crossorigin='anonymous'>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1' crossorigin='anonymous'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <link rel='stylesheet'
-          href='https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css'>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css'>
 
     <link rel='shortcut icon' href='{% static 'images/favicon.ico' %}'/>
     <link type='text/css' rel='stylesheet' href='{% static 'css/style.min.css' %}'>
@@ -23,7 +20,7 @@
 
     <meta name='google-site-verification' content='xVVd_aR6yaFsP1f8avoPEnkkPcjZoKDXLgJkK4MhNHw'/>
 
-    <title>ECPlaza Tools</title>
+    <title>ECPlaza Tools{% if title %} - {{ title.1 }}{% endif %}</title>
 </head>
 
 
@@ -120,17 +117,18 @@
     {% endif %}
 </div>
 
+<!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js' integrity='sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW' crossorigin='anonymous'></script>
 <script src='//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js'></script>
 
+<!-- Google Analytics JS -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=UA-188561512-2'></script>
 <script src='https://apis.google.com/js/api.js'></script>
 
+<!-- Custom JS -->
 <script type='text/javascript' src='{% static 'js/index.js' %}'></script>
 <script type='text/javascript' src='{% static 'js/main.js' %}'></script>
-<script type='text/javascript' src='{% static 'js/chat.js' %}'></script>
-<script id='traffic_js' src='{% static 'js/traffic.js' %}'></script>
 <script>
     $(document).ready(function () {
         // Format tags with bootstrap
