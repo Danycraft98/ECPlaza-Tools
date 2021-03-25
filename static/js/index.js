@@ -20,7 +20,7 @@ let url_to_app = {
 
         'HT_L': ["li", ["p[class*='tit']", 'img', '', "a[title]", 'a[title]', 'a[title]', "p[class*='price'] span", "p[class*='price'] span"]], //,p[class*='price']
         'HT_D': ["div[class*='content']", ["h2[class*='tit']", "div[class*='slide_pannels']", '', "a[class*='location']", "div[class='btn_wrap'] a", "div[class='btn_wrap'] a",
-            "div[class*='price']", "div[class*='price']", 'select', "table[class*='table'],div[class*='detail_product_img']"]], //"div[id*='detail_cont01']"
+            "div[class*='price']", "div[class*='price']", "div[id*='detail_cont']", "div[id*='detail_cont']"]], //"div[id*='detail_cont01']"
     },
     HT_to_ECK_id = {},
     TOUR_to_ECK_id = {};
@@ -157,12 +157,14 @@ function writeResult(respText, details) {
 
 function toDatabase(url) {
     let datetime_obj = new Date();
-    let datetime = datetime_obj.toLocaleString('fr-CA', {year: 'numeric', month: '2-digit', day: '2-digit'})
+    let datetime = datetime_obj.toLocaleString('fr-CA', {year: 'numeric', month: '2-digit', day: '2-digit'}) + ' '
         + datetime_obj.toLocaleString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'});
 
-    let data = $(JSON.parse($('#json_data').val()));
-    const details = {url: url, method: 'POST'}
-    loadAjax($.extend(details, {data: JSON.stringify({total_count: 1, crawling_time: datetime, product: data.toArray()})}), APIPostResult);
+    let data = $(JSON.parse($('#json_data').val())),
+        list = data.toArray(),
+        details = {url: url, method: 'POST'}
+    console.log($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}))
+    // loadAjax($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), APIPostResult);
 }
 
 
@@ -179,7 +181,6 @@ function getAppValues(url, node) {
         let sub_node = $(this), row = {}, text;
         if (sub_node.find(config[1][0]).length) {
             if (type === 'D' && index > 0) return;
-            // console.log(sub_node.find(config[1][0]).text());
             config[1].map(function (val, i) {
                 let hdr_title = headers[i], tags = sub_node.find(val), temp = '';
                 if (val[0] === 'a' && i === 3) tags = node.find(val).eq(1);
@@ -208,11 +209,13 @@ function getAppValues(url, node) {
 
                     case 8:
                     case 9: // it_intro + it_desc
-                        tags = i === 9 ? tags.find('th,td') : tags.find('option');
+                        let found_tags = (i === 8) ? tags.find('th, td') : tags.find('th, td, img');
                         row[hdr_title] = '';
-                        tags.each(() => {
-                            text = text.replace(/([\n\r\[\]]+|[ ]{2,})/g, '');
-                            row[hdr_title] += ($(this).prop('tagName') === 'TH') ? text + ':' : text + '\n';
+                        $.each(found_tags, (_, item) => {
+                            item = $(item);
+                            //if (item.prop('tagName') === 'IMG') return;
+                            row[hdr_title] += item.prop('tagName')[0] === 'T' ? item.text().replace(/([\n\r\[\]]+|[ ]{2,})/g, '') : '';
+                            row[hdr_title] += item.prop('tagName') === 'IMG' ? item.attr('src') + '\n': item.prop('tagName') === 'TH' ? ':' : '\n';
                         });
                         break;
 

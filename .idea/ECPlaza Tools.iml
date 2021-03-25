@@ -17,7 +17,7 @@
       <sourceFolder url="file://$MODULE_DIR$/static" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (ECPlaza Tools)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (ecplaza-tools)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jquery.dataTables" level="application" />
     <orderEntry type="library" name="jquery-3.5.1" level="application" />

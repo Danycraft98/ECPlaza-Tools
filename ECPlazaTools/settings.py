@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 import dj_database_url
 import dotenv as env
-import django_heroku
+# import django_heroku
 from django.contrib.admin import AdminSite
 from corsheaders.defaults import default_headers
 
@@ -26,6 +26,7 @@ env.load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', True)
 ALLOWED_HOSTS = [
+    '*',
     'http://localhost:8000',
     'https://ecplaza-tools.herokuapp.com',
     'http://ecplaza-tools.herokuapp.com',
@@ -207,4 +208,4 @@ FILE_UPLOAD_HANDLERS = (
     'ECPlazaTools.handlers.CustomTempFileUploadHandler'
 )
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
