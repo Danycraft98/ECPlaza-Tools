@@ -262,9 +262,9 @@ function createTable(data) {
     let html = $('<table></table>'), head_row = $('<tr></tr>');
     html.attr('class', 'table table-striped table-hover')
 
+    head_row.append($('<th>index</th>'));
     $.each(data.first()[0], function (value) {
-        let head_item = $('<th></th>').text(value);
-        head_row.append(head_item);
+        head_row.append($('<th></th>').text(value));
     })
     html.append(head_row);
 
@@ -272,10 +272,9 @@ function createTable(data) {
         let body_row = $('<tr></tr>');
         if (row.nodeType !== 1 && row.nodeType !== 9 && row.hasOwnProperty('nodeType')) return;
 
-        body_row.append($('<td></td>').text(i + 1));
+        body_row.append($('<td>' + (i + 1).toString() + '</td>'));
         $.each(row, function (_, col) {
-            let body_item = $('<td></td>').html(col);
-            body_row.append(body_item);
+            body_row.append($('<td></td>').html(col));
         });
         if (body_row.children().length > 0) html.append(body_row)
     })
