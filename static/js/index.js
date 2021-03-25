@@ -162,9 +162,8 @@ function toDatabase(url) {
 
     let data = $(JSON.parse($('#json_data').val())),
         list = data.toArray(),
-        details = {url: url, method: 'POST'}
-    console.log($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}))
-    // loadAjax($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), APIPostResult);
+        details = {url: url, method: 'POST'};
+    loadAjax($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), APIPostResult);
 }
 
 
@@ -269,9 +268,11 @@ function createTable(data) {
     })
     html.append(head_row);
 
-    $.each(data, function (_, row) {
+    $.each(data, function (i, row) {
         let body_row = $('<tr></tr>');
         if (row.nodeType !== 1 && row.nodeType !== 9 && row.hasOwnProperty('nodeType')) return;
+
+        body_row.append($('<td></td>').text(i + 1));
         $.each(row, function (_, col) {
             let body_item = $('<td></td>').html(col);
             body_row.append(body_item);
