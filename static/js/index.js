@@ -2,7 +2,7 @@
  * Store name: [outer div, content tags, category tag]
  *
  * List: [Name, Image, Origin Store, Category ID, Item ID, Link, Price, Wholesale Price]
- * Detail: [Name, Image, Origin Store, Category ID, Item ID, Link, Price, Wholesale Price, Options, Details]
+ * Detail: [Name, Image, Origin Store, Category ID, Item ID, Link, Price, Wholesale Price, Intro, Details]
  */
 let url_to_app = {
         '1688': ['1688_L', '1688_D'],
@@ -22,8 +22,7 @@ let url_to_app = {
         'HT_D': ["div[class*='content']", ["h2[class*='tit']", "div[class*='slide_pannels']", '', "a[class*='location']", "div[class='btn_wrap'] a", "div[class='btn_wrap'] a",
             "div[class*='price']", "div[class*='price']", "div[id*='detail_cont']", "div[id*='detail_cont']"]], //"div[id*='detail_cont01']"
     },
-    HT_to_ECK_id = {},
-    TOUR_to_ECK_id = {};
+    HT_to_ECK_id = {}, TOUR_to_ECK_id = {};
 
 
 /*** Main Javascript ***
@@ -147,20 +146,18 @@ function writeResult(respText, details) {
 
     hidden_data.val(JSON.stringify($.extend(JSON.parse(hidden_data.val()), refined_data)));
     if (details.hasOwnProperty('service')) table_div.html(createTable($(refined_data[0].response.body.items.item)));
-    else {
-        table_div.append(createTable(refined_data));
-    }
+    else table_div.append(createTable(refined_data));
 
     $('#url').text((details.method ? details.method : 'GET') + ' ' + url);
     result_div.text(result_div.text() + '-Next Link------------------------\n' + formatCode(refined_data));
 }
 
 function toDatabase(url) {
-    let datetime_obj = new Date();
-    let datetime = datetime_obj.toLocaleString('fr-CA', {year: 'numeric', month: '2-digit', day: '2-digit'}) + ' '
-        + datetime_obj.toLocaleString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'});
+    let datetime_obj = new Date(),
+        datetime = datetime_obj.toLocaleString('fr-CA', {year: 'numeric', month: '2-digit', day: '2-digit'}) + ' '
+            + datetime_obj.toLocaleString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'}),
 
-    let data = $(JSON.parse($('#json_data').val())),
+        data = $(JSON.parse($('#json_data').val())),
         list = data.toArray(),
         details = {url: url, method: 'POST'};
     loadAjax($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), APIPostResult);
@@ -176,8 +173,9 @@ function getAppValues(url, node) {
         headers = ['it_name', 'it_img_json', 'it_origin', 'ca_id_extra', 'it_id_extra', 'it_url', 'it_price', 'it_whole_price'];
 
     if (type === 'D') headers = headers.concat(['it_intro', 'it_desc']);
-    node.find(config[0]).each(function (index) {
-        let sub_node = $(this), row = {}, text;
+    $.each(node.find(config[0]), function (index, sub_node) {
+        sub_node = $(sub_node);
+        let row = {}, text;
         if (sub_node.find(config[1][0]).length) {
             if (type === 'D' && index > 0) return;
             config[1].map(function (val, i) {
@@ -214,7 +212,7 @@ function getAppValues(url, node) {
                             item = $(item);
                             //if (item.prop('tagName') === 'IMG') return;
                             row[hdr_title] += item.prop('tagName')[0] === 'T' ? item.text().replace(/([\n\r\[\]]+|[ ]{2,})/g, '') : '';
-                            row[hdr_title] += item.prop('tagName') === 'IMG' ? item.attr('src') + '\n': item.prop('tagName') === 'TH' ? ':' : '\n';
+                            row[hdr_title] += item.prop('tagName') === 'IMG' ? item.attr('src') + '\n' : item.prop('tagName') === 'TH' ? ':' : '\n';
                         });
                         break;
 
@@ -229,7 +227,7 @@ function getAppValues(url, node) {
                 }
             });
         }
-        if (row.it_name) data.push(row);
+        if (row.hasOwnProperty('it_name') && row.it_name) data.push(row);
     });
     return $(data);
 }
@@ -249,11 +247,14 @@ function getTourValues(url, node) {
 function formatCode(node, level = 0) {
     let indentBefore = new Array(level++ + 1).join('    '),
         indentAfter = new Array(level - 1).join('    '),
-        textNode = '';
+        textNode = '', xmlSerializer = new XMLSerializer()
 
     $.each(node, function (key, val) {
-        textNode += '\n' + indentBefore + '<' + key + '>' + ((val.constructor === ({}).constructor || val.constructor === ([]).constructor) ? formatCode(val, level) : val);
-        textNode += '</' + key + '>\n' + indentAfter;
+        if (/^\d+/.exec(key)) key = 'ItemNo' + key;
+        textNode += '\n' + indentBefore + xmlSerializer.serializeToString(
+            $.parseXML('<' + key + '>' + ((val.constructor === ({}).constructor || val.constructor === ([]).constructor) ? formatCode(val, level) :
+                val.replace(/&/g, "&amp;")) + '</' + key + '>')
+        ) + '\n' + indentAfter;
     })
     return textNode;
 }
@@ -307,14 +308,14 @@ function getCat(respText, details) {
 
     if (!is_equal) {
         div.html(document.createElement('option'));
-        container.find('item').each(function () {
-            let item = $(this).find('code,name'), opt = $(document.createElement('option'))
+        $.each(container.find('item'), function (_, ite) {
+            let item = ite.find('code,name'), opt = $(document.createElement('option'))
             let row = item.map(function () {
-                return $(this).text();
+                return ite.text();
             }).get();
             opt.val(row[0]).text(row[1]);
             div.append(opt);
-        });
+        })
     } else {
         div.html('');
     }
@@ -381,9 +382,10 @@ function getAnalyticValues(respText, details, _) {
     i['GoogleAnalyticsObject'] = r;
     i[r] = i[r] || function () {
         (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date();
-    a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
+    };
+    i[r].l = 1 * new Date();
+    a = s.createElement(o);
+    m = s.getElementsByTagName(o)[0];
     a.async = 1;
     a.src = g;
     m.parentNode.insertBefore(a, m)
