@@ -108,12 +108,8 @@ function submitForm(e) {
     if (is_postman_form) {
         if (details.hasOwnProperty('url')) loadAjax(details, writeResult, '#result');
         else parseFile(file, details);
-    } else getTourInfo(key, details, tail, writeResult);
+    } else getTourValues(key, details, tail, writeResult);
 
-}
-
-function APIPostResult(respText, _) {
-    alert(JSON.stringify(respText))
 }
 
 function parseFile(respText, details) {
@@ -136,7 +132,8 @@ function parseFile(respText, details) {
 
 function writeResult(respText, details) {
     let result_div = $('#resultML'), table_div = $('#nav-table'),
-        hidden_data = $('#json_data'), raw_data, refined_data, final_data = {};
+        hidden_data = $('#json_data'), raw_data, refined_data, final_data = [],
+        first_item = JSON.parse(hidden_data.val() ? hidden_data.val() : '{}');
 
     if (!respText) {
         result_div.text('None');
@@ -144,15 +141,30 @@ function writeResult(respText, details) {
         return;
     }
 
-    let url = details.hasOwnProperty('html_file') ? details.html_file : details.url;
-    raw_data = typeof respText.trim === "function" ? $(document.createElement('html')).html($(respText.trim())) : $(respText);
-    refined_data = /visitkorea/g.exec(url) ? getTourValues(url, raw_data) : /(?:http|app)/g.exec(url) ? getAppValues(url, raw_data) : raw_data;
+    details.url = details.hasOwnProperty('html_file') ? details.html_file : details.url;
+    raw_data = getMethods(respText).includes('trim') ? $(respText.trim()) : $(respText);
+    refined_data = /visitkorea/g.exec(details.url) ? getTourItems(details.url, raw_data) : /(?:http|app)/g.exec(details.url) ? getAppValues(details.url, raw_data) : raw_data;
 
-    hidden_data.val(JSON.stringify($.extend(JSON.parse(hidden_data.val()), refined_data)));
-    if (details.hasOwnProperty('service')) table_div.html(createTable($(refined_data[0].response.body.items.item)));
+    if (/visitkorea/g.exec(details.url))
+        $(refined_data).each(function (i, list) {
+            $.each($(list), function (j, item) {
+                if (!details.area.includes('detailInfo') && !details.area.includes('detailImage')) {
+                    if (first_item.length) final_data = final_data.concat(first_item);
+                    $('#url').text((details.method ? details.method : 'GET') + ' ' + details.url);
+                    getTourValues(key, $.extend(details, {area: 'detailInfo'}), `&contentTypeId=${item.contenttypeid}&contentId=${item.contentid}`, writeResult);
+                    getTourValues(key, $.extend(details, {area: 'detailImage'}), `&contentTypeId=${item.contenttypeid}&contentId=${item.contentid}`, writeResult);
+                }
+                if (j < final_data.length) final_data[j] = $.extend(final_data[j], item);
+                else final_data.push(item);
+            });
+            //.length > 1 ? elem.response.body.items.item[i] : elem.response.body.items.item);
+            //if (/detailImage/g.exec(url))
+        });
+    else final_data[final_data.length] = refined_data;
+
+    hidden_data.val(JSON.stringify(final_data));
+    if (details.hasOwnProperty('service')) table_div.html(createTable($(final_data)));
     else table_div.append(createTable(refined_data));
-
-    $('#url').text((details.method ? details.method : 'GET') + ' ' + url);
     result_div.text(result_div.text() + '-Next Link------------------------\n' + formatCode(refined_data));
 }
 
@@ -161,10 +173,13 @@ function toDatabase(url) {
         datetime = datetime_obj.toLocaleString('fr-CA', {year: 'numeric', month: '2-digit', day: '2-digit'}) + ' '
             + datetime_obj.toLocaleString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'}),
 
-        data = $(JSON.parse($('#json_data').val())),
+        data = $(JSON.parse($('#json_data').val())).map(function (_, item) {
+            return item.response.body.items.item;
+        }),
         list = data.toArray(),
         details = {url: url, method: 'POST'};
-    loadAjax($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), APIPostResult);
+    console.log($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), alert);
+    //loadAjax($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), alert);
 }
 
 
@@ -237,35 +252,28 @@ function getAppValues(url, node) {
     return $(data);
 }
 
+function getTourValues(key, details, tail, returnFunc) {
+    details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
+        '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest&_type=json' + tail;
+    loadAjax(details, returnFunc, '#result');
+}
+
 function getID(url, i) {
     const match_result = (i ? /(?:(?:(?:ctgr|item)I[dD])=|[/])(?<id>\d+)/g : /(?:(?:barcode|(?:ctgr|item)I[dD])=|[/])(?<id>\d+)/g).exec(url);
     return (match_result) ? match_result.groups.id : '';
 }
 
-function getTourValues(url, node) {
-    const values = node[0].response.body.items.item;
-    $.each(values, function (_, val) {
-        if (val.hasOwnProperty('cat2') && TOUR_to_ECK_id.hasOwnProperty(val.cat2)) {
-            val.cat3 = TOUR_to_ECK_id[val.cat2];
-            val.cat2 = val.cat3.slice(0, 4);
-            val.cat1 = val.cat3.slice(0, 2);
-        }
-    })
-    return node;
-}
-
 function formatCode(node, level = 0) {
     let indentBefore = new Array(level++ + 1).join('    '),
         indentAfter = new Array(level - 1).join('    '),
-        textNode = '', xmlSerializer = new XMLSerializer()
+        textNode = '', xmlSerializer = new XMLSerializer();
 
     $.each(node, function (key, val) {
         if (/^\d+/.exec(key)) key = 'ItemNo' + key;
-        let value = ((val.constructor === ({}).constructor || val.constructor === ([]).constructor) ? formatCode(val, level) :
-            val.toString().replace(/&/g, "&amp;"));
-        value = typeof value === 'string' && value.includes('<img') ? value.replace(/>/g, "/>") : value;
-        console.log(key, value)
-        let item = $.parseXML(value ? '<' + key + '>' + value + '</' + key + '>' : '<' + key + '/>');
+        let is_string = !(val.constructor === ({}).constructor || val.constructor === ([]).constructor),
+            value = (is_string) ? val.toString().replace(/([&<>])/g, escape('$1')).replace(/(^<img [^>]+)>/g, '$1/>') : formatCode(val, level);
+
+        let item = $.parseXML(value.length ? '<' + key + '>' + value + '</' + key + '>' : '<' + key + '/>');
         textNode += '\n' + indentBefore + xmlSerializer.serializeToString(item) + '\n' + indentAfter;
     })
     return textNode;
@@ -277,7 +285,7 @@ function createTable(data) {
 
     head_row.append($('<th>index</th>'));
     $.each(data.first()[0], function (value) {
-        head_row.append($('<th></th>').text(value));
+        head_row.append($(`<th>${value}</th>`));
     })
     html.append(head_row);
 
@@ -285,9 +293,9 @@ function createTable(data) {
         let body_row = $('<tr></tr>');
         if (row.nodeType !== 1 && row.nodeType !== 9 && row.hasOwnProperty('nodeType')) return;
 
-        body_row.append($('<td>' + (i + 1).toString() + '</td>'));
+        body_row.append($(`<td>${i + 1}</td>`));
         $.each(row, function (_, col) {
-            body_row.append($('<td></td>').html(col));
+            body_row.append($(`<td>${col}</td>`));
         });
         if (body_row.children().length > 0) html.append(body_row)
     })
@@ -298,26 +306,19 @@ function createTable(data) {
 /*** Tour API Functions ***
  * Other Tour API Specific Functions
  * */
-function getTourInfo(key, details, tail, returnFunc) {
-    details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
-        '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest&_type=json' + tail;
-    if (details.url.includes('detailIntro') || details.url.includes('searchFestival')) {
-        let urls = [
-            details.url,
-            details.url.replace(/detailIntro|searchFestival/g, 'detailInfo'),
-            details.url.replace(/detailIntro|searchFestival/g, 'detailImage')
-        ]
-        $.each(urls, function (_, url) {
-            console.log(url);
-            details = $.extend(details, {url: url});
-            loadAjax(details, returnFunc, '#result');
-        })
-        return;
-    }
-    loadAjax(details, returnFunc, '#result');
+function getTourItems(url, node) {
+    const values = node[0].response.body.items.item;
+    $.each(values, function (_, val) {
+        if (val.hasOwnProperty('cat2') && TOUR_to_ECK_id.hasOwnProperty(val.cat2)) {
+            val.cat3 = TOUR_to_ECK_id[val.cat2];
+            val.cat2 = val.cat3.slice(0, 4);
+            val.cat1 = val.cat3.slice(0, 2);
+        }
+    })
+    return values;
 }
 
-function getTourInfoXML(key, details, tail, returnFunc) {
+function getTourValuesXML(key, details, tail, returnFunc) {
     details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
         '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest&_type=xml' + tail;
     loadAjax(details, returnFunc, '#result');
@@ -404,7 +405,7 @@ function getAnalyticValues(respText, details, _) {
     i[r].l = 1 * new Date();
     a = s.createElement(o);
     m = s.getElementsByTagName(o)[0];
-    a.async = 1;
+    a.async = true;
     a.src = g;
     m.parentNode.insertBefore(a, m)
 })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');

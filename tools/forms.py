@@ -109,13 +109,13 @@ class TourAPIForm(Form):
     eventStartDate = CharField(required=False, label='행사 날짜 범위', widget=TextInput())
     eventEndDate = CharField(required=False, label='행사 종료일', widget=TextInput())
 
-    cat1 = ChoiceField(label='대분류', widget=Select(attrs={'size': '4', 'onchange': "getTourInfoXML(key, details, '&cat1=' + $(this).val(), getCat);"}))
-    cat2 = ChoiceField(label='중분류', widget=Select(attrs={'size': '4', 'onchange': "getTourInfoXML(key, details, '&cat1=' + $('#id_cat1').val() + '&cat2=' + $(this).val(), getCat);"}))
+    cat1 = ChoiceField(label='대분류', widget=Select(attrs={'size': '4', 'onchange': "getTourValuesXML(key, details, '&cat1=' + $(this).val(), getCat);"}))
+    cat2 = ChoiceField(label='중분류', widget=Select(attrs={'size': '4', 'onchange': "getTourValuesXML(key, details, '&cat1=' + $('#id_cat1').val() + '&cat2=' + $(this).val(), getCat);"}))
     cat3 = ChoiceField(label='소분류', widget=Select(attrs={'size': '4'}))
 
     contentTypeId = ChoiceField(
         label='콘텐츠 타입 ID', choices=CONTENT_TYPE_LIST,
         widget=Select(attrs={
-            'size': '4', 'onchange': "getTourInfoXML('" + os.getenv('TOUR_API_KEY') + "', {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1', contentTypeId: this}, '', getContentId);"
+            'size': '4', 'onchange': "getTourValuesXML('" + os.getenv('TOUR_API_KEY') + "', {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1', contentTypeId: this}, '', getContentId);"
         }))
     contentId = ChoiceField(label='콘텐츠 ID', widget=Select(attrs={'size': '4'}))
