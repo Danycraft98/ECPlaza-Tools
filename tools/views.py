@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 from rest_framework import viewsets
 
 from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL, FILE_UPLOAD_MAX_MEMORY_SIZE
+from .constants import CAT_LIST, CAT_DETAIL_LIST
 
 from .forms import *
 from .functions import *
@@ -94,7 +95,7 @@ TITLE3 = ('pe-7s-plane', '투어 API Demo', '')
 def tour_api(request):
     url = ECP_API_URL + ECP_TOUR_URL
     form = TourAPIForm()
-    return render(request, 'tools/tour_api.html', {'title': TITLE3, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user, 'url': url})
+    return render(request, 'tools/tour_api.html', {'title': TITLE3, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user, 'url': url, 'others': CAT_LIST, 'details': CAT_DETAIL_LIST})
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

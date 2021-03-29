@@ -1,5 +1,5 @@
 {% extends 'base_site.html' %}
-{% load static %}
+{% load static custom_tags %}
 
 
 {% block style %}
@@ -32,51 +32,74 @@
         </div>
 
         <div class='card-body container'>
-
             <pre class='row col well mx-0'>
                 <code>GET http://api.visitkorea.or.kr/openapi/service/rest/</code>
             </pre>
 
             <div class='card card-body shadow-none border-1'>
                 <div class='row'>
-                    <div class='col-6'>
+                    <div class='col-4'>
                         <label for='{{ form.service.id_for_label }}'>{{ form.service.label }}</label>
                         {{ form.service }}
                     </div>
 
-                    <div class='col-6' onclick="changeLastDiv($(this).find('select'))">
+                    <div class='col-4' onclick="changeLastDiv($(this).find('select'))">
                         <label for='{{ form.area.id_for_label }}'>{{ form.area.label }}</label>
                         {{ form.area }}
                     </div>
-                </div>
 
-                <div class='row'>
-                    <div class='col-3'>
+                    <div class='col-2'>
                         <label for='{{ form.pageNo.id_for_label }}'>{{ form.pageNo.label }}</label>
                         {{ form.pageNo }}
                     </div>
 
-                    <div class='col-3'>
+                    <div class='col-2'>
                         <label for='{{ form.numOfRows.id_for_label }}'>{{ form.numOfRows.label }}</label>
                         {{ form.numOfRows }}
                     </div>
-
-                    <fieldset id='searchFestival' class='col-6 last'>
-                        <label for='{{ form.eventStartDate.id_for_label }}'>{{ form.eventStartDate.label }}</label>
-                        <div class="input-group input-date">
-                            {{ form.eventStartDate }}
-                            <span class="input-group-text">to</span>
-                            {{ form.eventEndDate }}
-                        </div>
-                    </fieldset>
-
-                    <fieldset id='categoryCode' class='col-6 last' hidden>
-                        <label for='{{ form.cat1.id_for_label }}'>{{ form.cat1.label }} / {{ form.cat2.label }} / {{ form.cat3.label }}</label>
-                        <div class="input-group">
-                            {{ form.cat1 }} {{ form.cat2 }} {{ form.cat3 }}
-                        </div>
-                    </fieldset>
                 </div>
+
+                {% for item, detail in others|zip:details %}
+                    <fieldset id='{{ item.0 }}' class='row mt-2 last' {% if not forloop.first %}hidden{% endif %}>
+                        <div class='col-6'>
+                            {% if forloop.first %}
+
+                                <label for='{{ form.eventStartDate.id_for_label }}'>{{ form.eventStartDate.label }}</label>
+                                <div class="input-group input-date">
+                                    {{ form.eventStartDate }}
+                                    <span class="input-group-text">to</span>
+                                    {{ form.eventEndDate }}
+                                </div>
+
+                            {% elif forloop.last %}
+
+                                <label for='{{ form.contentTypeId.id_for_label }}'>{{ form.contentTypeId.label }} / {{ form.contentId.label }}</label>
+                                <div class="input-group">{{ form.contentTypeId }} {{ form.contentId }}</div>
+
+                            {% else %}
+
+                                <label for='{{ form.cat1.id_for_label }}'>{{ form.cat1.label }} / {{ form.cat2.label }} / {{ form.cat3.label }}</label>
+                                <div class="input-group">
+                                    {{ form.cat1 }} {{ form.cat2 }} {{ form.cat3 }}
+                                </div>
+
+                            {% endif %}
+                        </div>
+                        <div class='col-6'>
+                            <label>{{ item.1 }} 설명서</label>
+                            <div>
+                                {{ detail }}
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endfor %}
+
+                <fieldset id='detailIntro' class='row last' hidden>
+                    <div class='col-6'>
+
+                    </div>
+                    <div class='col-6'>test3</div>
+                </fieldset>
             </div>
 
             <pre class='row col mt-4 well mx-0'>
@@ -123,7 +146,6 @@
 
             $.extend(details, {'service': 'KorService', 'area': 'categoryCode', 'numOfRows': '10', 'pageNo': '1'})
             getTourInfoXML(key, details, '', getCat);
-            getTourInfoXML(key, {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1'}, '', getContentId);
         });
     </script>
 {% endblock %}

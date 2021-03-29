@@ -85,9 +85,13 @@ function loadAjax(details, returnFunc, container) {
 
 //*** Basic Functions in submitting form and returning result. ***
 function submitForm(e) {
+    $('#resultML').text('');
+    $('#nav-table').text('');
+    $('#json_data').text('');
+
     e.preventDefault();
     $('.hidden').removeClass('hidden');
-    let is_postman_form = e.target.id === 'postman', file = null, details = {};
+    let is_postman_form = e.target.id === 'postman', file = null, details = {}, tail = '';
     $(e.target).find(":input:visible:not('button,:radio,[id*=json_data]')").each(function (i) {
         let tag = $(this);
         if (is_postman_form) {
@@ -102,8 +106,6 @@ function submitForm(e) {
     });
 
     if (is_postman_form) {
-        $('#resultML').text('');
-        $('#nav-table').text('');
         if (details.hasOwnProperty('url')) loadAjax(details, writeResult, '#result');
         else parseFile(file, details);
     } else getTourInfo(key, details, tail, writeResult);
@@ -133,7 +135,9 @@ function parseFile(respText, details) {
 }
 
 function writeResult(respText, details) {
-    let result_div = $('#resultML'), table_div = $('#nav-table'), hidden_data = $('#json_data'), raw_data, refined_data;
+    let result_div = $('#resultML'), table_div = $('#nav-table'),
+        hidden_data = $('#json_data'), raw_data, refined_data, final_data = {};
+
     if (!respText) {
         result_div.text('None');
         table_div.text('None');
@@ -179,17 +183,18 @@ function getAppValues(url, node) {
         if (sub_node.find(config[1][0]).length) {
             if (type === 'D' && index > 0) return;
             config[1].map(function (val, i) {
-                let hdr_title = headers[i], tags = sub_node.find(val), temp = '';
+                let hdr_title = headers[i], tags = sub_node.find(val);
                 if (val[0] === 'a' && i === 3) tags = node.find(val).eq(1);
                 let item_url = tags.attr('href') ? ((tags.attr('href') === '#' && tags.attr('onclick')) ? tags.attr('onclick').split("'")[3] : tags.attr('href')) :
-                    (tags.attr('src') ? tags.attr('src') : tags.find('img').each(function () {
-                        temp += $(this).attr('src') + ',\n';
-                    }));
+                    (tags.attr('src') ? tags.prop('outerHTML') : tags.find('img').prop('outerHTML'));
+
                 switch (i | type) {
                     case 1 | ('D' | 'L'):
                     case 5: // it_image_json + it_url
                         let header = '';
-                        if (i === 1) item_url = (temp.length) ? '[' + temp + ']' : '[' + item_url + ']';
+                        if (i === 1) item_url = $(item_url.split('> ')).each(function () {
+                            return this + '>';
+                        }).get(0);
                         if (i === 5) header = app_name === 'HT_L' ? 'http://www.hottracks.co.kr' : app_name === 'Coupang_L' ? 'https://www.coupang.com/' : ''
                         row[hdr_title] = header + item_url;
                         break;
@@ -232,6 +237,11 @@ function getAppValues(url, node) {
     return $(data);
 }
 
+function getID(url, i) {
+    const match_result = (i ? /(?:(?:(?:ctgr|item)I[dD])=|[/])(?<id>\d+)/g : /(?:(?:barcode|(?:ctgr|item)I[dD])=|[/])(?<id>\d+)/g).exec(url);
+    return (match_result) ? match_result.groups.id : '';
+}
+
 function getTourValues(url, node) {
     const values = node[0].response.body.items.item;
     $.each(values, function (_, val) {
@@ -251,10 +261,12 @@ function formatCode(node, level = 0) {
 
     $.each(node, function (key, val) {
         if (/^\d+/.exec(key)) key = 'ItemNo' + key;
-        textNode += '\n' + indentBefore + xmlSerializer.serializeToString(
-            $.parseXML('<' + key + '>' + ((val.constructor === ({}).constructor || val.constructor === ([]).constructor) ? formatCode(val, level) :
-                val.replace(/&/g, "&amp;")) + '</' + key + '>')
-        ) + '\n' + indentAfter;
+        let value = ((val.constructor === ({}).constructor || val.constructor === ([]).constructor) ? formatCode(val, level) :
+            val.toString().replace(/&/g, "&amp;"));
+        value = typeof value === 'string' && value.includes('<img') ? value.replace(/>/g, "/>") : value;
+        console.log(key, value)
+        let item = $.parseXML(value ? '<' + key + '>' + value + '</' + key + '>' : '<' + key + '/>');
+        textNode += '\n' + indentBefore + xmlSerializer.serializeToString(item) + '\n' + indentAfter;
     })
     return textNode;
 }
@@ -284,11 +296,24 @@ function createTable(data) {
 
 
 /*** Tour API Functions ***
- * All Tour API Specific Functions
+ * Other Tour API Specific Functions
  * */
 function getTourInfo(key, details, tail, returnFunc) {
     details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
         '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest&_type=json' + tail;
+    if (details.url.includes('detailIntro') || details.url.includes('searchFestival')) {
+        let urls = [
+            details.url,
+            details.url.replace(/detailIntro|searchFestival/g, 'detailInfo'),
+            details.url.replace(/detailIntro|searchFestival/g, 'detailImage')
+        ]
+        $.each(urls, function (_, url) {
+            console.log(url);
+            details = $.extend(details, {url: url});
+            loadAjax(details, returnFunc, '#result');
+        })
+        return;
+    }
     loadAjax(details, returnFunc, '#result');
 }
 
@@ -308,12 +333,11 @@ function getCat(respText, details) {
 
     if (!is_equal) {
         div.html(document.createElement('option'));
-        $.each(container.find('item'), function (_, ite) {
-            let item = ite.find('code,name'), opt = $(document.createElement('option'))
-            let row = item.map(function () {
-                return ite.text();
-            }).get();
-            opt.val(row[0]).text(row[1]);
+        $.map(container.find('item'), function (elem, _i) {
+            elem = $(elem)
+            let opt = $(document.createElement('option'));
+            opt.val(elem.find('code').text())
+                .text(elem.find('name').text());
             div.append(opt);
         })
     } else {
@@ -327,25 +351,19 @@ function getContentId(respText, _url) {
     container.find('item').each(function () {
         let item = $(this).find('contentid');
         let opt = $(document.createElement('option'));
-        opt.val(item.text());
-        opt.text(item.text());
+        opt.val(item.text())
+            .text(item.text());
         div.append(opt);
     });
 }
 
 function changeLastDiv(elem) {
     let key = elem.val();
-    if (key === 'areaBasedList') key = 'categoryCode'
     const select_div = $('#' + key);
     if (select_div) {
         $('.last').attr('hidden', '');
         select_div.removeAttr('hidden');
     }
-}
-
-function getID(url, i) {
-    const match_result = (i ? /(?:(?:(?:ctgr|item)I[dD])=|[/])(?<id>\d+)/g : /(?:(?:barcode|(?:ctgr|item)I[dD])=|[/])(?<id>\d+)/g).exec(url);
-    return (match_result) ? match_result.groups.id : '';
 }
 
 

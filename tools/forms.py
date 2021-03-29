@@ -1,25 +1,33 @@
-from itertools import repeat
+import os
 
 from django.forms import *
 
 from .models import Document
+from .constants import *
 
 __all__ = [
-    'DocumentFormSet', 'HeaderSelectForm', 'APP_LIST', 'PostmanAPIForm', 'TourAPIForm'
+    'DocumentFormSet', 'HeaderSelectForm', 'PostmanAPIForm', 'TourAPIForm'
 ]
 
-APP_LIST = [
-    list(repeat('Shopify', 2)),
-    list(repeat('SAM.GOV', 2)),
-    ('1688_L', '1688 List'), ('1688_D', '1688 Detail'),
-    ('Coupang_L', 'Coupang List'), ('Coupang_D', 'Coupang Detail'),
-    ('HT_L', 'Hot Tracks List'), ('HT_D', 'Hot Tracks Detail')
-]
 
-REQUEST_LIST = [list(repeat('GET', 2)), list(repeat('POST', 2))]
-LANG_LIST = [('KorService', '한국어/국문 서비스'), ('EngService', '영어 서비스'), ('RusService', '러시아어/노어 서비스')]
-CAT_LIST = [('searchFestival', '행사 정보 조회'), ('categoryCode', '서비스 분류 코드 조회'), ('areaBasedList', '지역기반 관광정보 조회')]
-NUM_ROW_LIST = [list(repeat(10, 2)), list(repeat(20, 2)), list(repeat(30, 2))]
+class ListTextWidget(NumberInput):
+    def __init__(self, data_list, name, *args, **kwargs):
+        super(ListTextWidget, self).__init__(*args, **kwargs)
+        self._name = name
+        self._list = data_list
+        self.attrs.update({'list': 'list__%s' % self._name})
+
+    def render(self, name, value, attrs=None, renderer=None):
+        text_html = super(ListTextWidget, self).render(name, value, attrs=attrs)
+        data_list = '<datalist id="list__%s">' % self._name
+        for item in self._list:
+            data_list += '<option value="%s">%s</option>' % (item[0], item[1])
+        data_list += '</datalist>'
+
+        return text_html + data_list
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 class DocumentForm(ModelForm):
@@ -64,7 +72,7 @@ DocumentFormSet = modelformset_factory(
 )
 
 
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 class PostmanAPIForm(Form):
     request = ChoiceField(required=False, choices=REQUEST_LIST, widget=Select(attrs={'class': 'col-2'}))
 
@@ -91,62 +99,23 @@ class PostmanAPIForm(Form):
         fields = '__all__'
 
 
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-class ListTextWidget(NumberInput):
-    def __init__(self, data_list, name, *args, **kwargs):
-        super(ListTextWidget, self).__init__(*args, **kwargs)
-        self._name = name
-        self._list = data_list
-        self.attrs.update({'list': 'list__%s' % self._name})
-
-    def render(self, name, value, attrs=None, renderer=None):
-        text_html = super(ListTextWidget, self).render(name, value, attrs=attrs)
-        data_list = '<datalist id="list__%s">' % self._name
-        for item in self._list:
-            data_list += '<option value="%s">%s</option>' % (item[0], item[1])
-        data_list += '</datalist>'
-
-        return text_html + data_list
-
-
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
 class TourAPIForm(Form):
-    service = ChoiceField(label='언어 서비스', choices=LANG_LIST, widget=Select(attrs={
-        'class': 'form-select'
-    }))
-    area = ChoiceField(label='분야', choices=CAT_LIST, widget=Select(attrs={
-        'class': 'form-select'
-    }))
-    pageNo = IntegerField(
-        required=False, label='페이지 No.',
-        widget=NumberInput(attrs={
-            'class': 'form-control',
-            'min': 1,
-            'value': 1
-        })
-    )
-    numOfRows = IntegerField(label='열 No.', widget=ListTextWidget(data_list=NUM_ROW_LIST, name='numOfRows', attrs={'min': 2, 'class': 'form-select'}))
-    eventStartDate = CharField(required=False, label='행사 날짜 범위', widget=TextInput(attrs={'class': 'form-control'}))
-    eventEndDate = CharField(required=False, label='행사 종료일', widget=TextInput(attrs={'class': 'form-control'}))
-    cat1 = ChoiceField(label='대분류', widget=Select(attrs={
-        'class': 'form-select',
-        'size': '4',
-        'onchange': "getTourInfoXML(key, details, '&cat1=' + $(this).val(), getCat);"
-    }))
-    cat2 = ChoiceField(label='중분류', widget=Select(attrs={
-        'class': 'form-select',
-        'size': '4',
-        'onchange': "getTourInfoXML(key, details, '&cat1=' + $('#id_cat1').val() + '&cat2=' + $(this).val(), getCat);"
-    }))
-    cat3 = ChoiceField(label='소분류', widget=Select(attrs={
-        'class': 'form-select',
-        'size': '4',
-        'onchange': ''
-    }))
-    contentId = ChoiceField(label='콘텐츠 ID', widget=Select(attrs={
-        'class': 'form-select',
-        'size': '4',
-    }))
+    service = ChoiceField(label='언어 서비스', choices=LANG_LIST, widget=Select())
+    area = ChoiceField(label='분야', choices=CAT_LIST, widget=Select())
+    pageNo = IntegerField(required=False, label='페이지 No.', widget=NumberInput(attrs={'min': 1, 'value': 1}))
+    numOfRows = IntegerField(label='열 No.', widget=ListTextWidget(data_list=NUM_ROW_LIST, name='numOfRows', attrs={'min': 2}))
 
-    class Meta:
-        fields = '__all__'
+    eventStartDate = CharField(required=False, label='행사 날짜 범위', widget=TextInput())
+    eventEndDate = CharField(required=False, label='행사 종료일', widget=TextInput())
+
+    cat1 = ChoiceField(label='대분류', widget=Select(attrs={'size': '4', 'onchange': "getTourInfoXML(key, details, '&cat1=' + $(this).val(), getCat);"}))
+    cat2 = ChoiceField(label='중분류', widget=Select(attrs={'size': '4', 'onchange': "getTourInfoXML(key, details, '&cat1=' + $('#id_cat1').val() + '&cat2=' + $(this).val(), getCat);"}))
+    cat3 = ChoiceField(label='소분류', widget=Select(attrs={'size': '4'}))
+
+    contentTypeId = ChoiceField(
+        label='콘텐츠 타입 ID', choices=CONTENT_TYPE_LIST,
+        widget=Select(attrs={
+            'size': '4', 'onchange': "getTourInfoXML('" + os.getenv('TOUR_API_KEY') + "', {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1', contentTypeId: this}, '', getContentId);"
+        }))
+    contentId = ChoiceField(label='콘텐츠 ID', widget=Select(attrs={'size': '4'}))
