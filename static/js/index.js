@@ -54,32 +54,38 @@ function topFunction() {
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
-
 /*** GET and POST Functions Javascript ***
  * All Request Functions
  * */
 
 //*** Ajax Request Function ***
-function loadAjax(details, returnFunc, container) {
-    const request_item = $.extend({
-        async: true, crossDomain: true,
-        mode: 'cors', credentials: 'include', origin: "*",
-        headers: {
-            /*'Access-Control-Allow-Origin':  '*',
-            'Access-Control-Request-Method': details.method,
-            'Access-Control-Request-Headers': 'Content-Type, Authorization',
-            'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',*/
-            'content-type': 'application/json',
-            'cache-control': 'no-cache',
-        },
-        beforeSend: function () {
-            if (container) $(container).html('Loading...');
-            else console.log('Loading...')
-        },
-        fail: resp => console.log(resp, details)
-    }, details)
-    $.ajax(request_item).done(function (resp) {
-        returnFunc(resp, details);
+function loadAjax(details, returnFunc, container, async = true) {
+    details.promise = new Promise((resolve, reject) => {
+        $.ajax($.extend({
+            async: async, crossDomain: true,
+            mode: 'cors', credentials: 'include', origin: "*",
+            headers: {
+                /*'Access-Control-Allow-Origin':  '*',
+                'Access-Control-Request-Method': details.method,
+                'Access-Control-Request-Headers': 'Content-Type, Authorization',
+                'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',*/
+
+                'content-type': 'application/json',
+                'cache-control': 'no-cache',
+            },
+            beforeSend: function () {
+                if (container) $(container).html('Loading...');
+                else console.log('Loading...')
+            },
+            success: (resp) => {
+                returnFunc(resp, details);
+                resolve(resp);
+            },
+            error: (resp) => {
+                console.log(resp, details);
+                reject(resp);
+            },
+        }, details))
     });
 }
 
@@ -93,22 +99,17 @@ function submitForm(e) {
     $('.hidden').removeClass('hidden');
     let is_postman_form = e.target.id === 'postman', file = null, details = {}, tail = '';
     $(e.target).find(":input:visible:not('button,:radio,[id*=json_data]')").each(function (i) {
-        let tag = $(this);
-        if (is_postman_form) {
-            if (tag.attr('name').includes('html_file')) file = tag.get(0).files[0];
-            else if (tag.attr('name').includes('excel_file')) file = tag.get(0).files[0];
-            if (tag.val()) details[tag.attr('name')] = tag.val();
-
-        } else if (tag.val()) {
-            if (i < 4) details[tag.attr('name')] = tag.val();
-            else tail += '&' + tag.attr('name') + '=' + tag.val();
-        }
+        let tag = $(this), name = tag.attr('name');
+        file = name.includes('_file') ? tag.get(0).files[0] : '';
+        if (tag.val()) details[tag.attr('name')] = tag.val();
     });
 
     if (is_postman_form) {
         if (details.hasOwnProperty('url')) loadAjax(details, writeResult, '#result');
         else parseFile(file, details);
-    } else getTourValues(key, details, tail, writeResult);
+    } else {
+        getTourValues(details, writeResult, true);
+    }
 
 }
 
@@ -131,8 +132,8 @@ function parseFile(respText, details) {
 }
 
 function writeResult(respText, details) {
-    let result_div = $('#resultML'), table_div = $('#nav-table'),
-        hidden_data = $('#json_data'), raw_data, refined_data, final_data = [],
+    let result_div = $('#resultML'), table_div = $('#nav-table'), url_div = $('#url'),
+        hidden_data = $('#json_data'), raw_data, refined_data, final_data = [], sub_data,
         first_item = JSON.parse(hidden_data.val() ? hidden_data.val() : '{}');
 
     if (!respText) {
@@ -140,27 +141,32 @@ function writeResult(respText, details) {
         table_div.text('None');
         return;
     }
-
     details.url = details.hasOwnProperty('html_file') ? details.html_file : details.url;
     raw_data = getMethods(respText).includes('trim') ? $(respText.trim()) : $(respText);
     refined_data = /visitkorea/g.exec(details.url) ? getTourItems(details.url, raw_data) : /(?:http|app)/g.exec(details.url) ? getAppValues(details.url, raw_data) : raw_data;
 
-    if (/visitkorea/g.exec(details.url))
-        $(refined_data).each(function (i, list) {
-            $.each($(list), function (j, item) {
-                if (!details.area.includes('detailInfo') && !details.area.includes('detailImage')) {
-                    if (first_item.length) final_data = final_data.concat(first_item);
-                    $('#url').text((details.method ? details.method : 'GET') + ' ' + details.url);
-                    getTourValues(key, $.extend(details, {area: 'detailInfo'}), `&contentTypeId=${item.contenttypeid}&contentId=${item.contentid}`, writeResult);
-                    getTourValues(key, $.extend(details, {area: 'detailImage'}), `&contentTypeId=${item.contenttypeid}&contentId=${item.contentid}`, writeResult);
-                }
-                if (j < final_data.length) final_data[j] = $.extend(final_data[j], item);
-                else final_data.push(item);
+    if (first_item.length) final_data = final_data.concat(first_item);
+    if (/visitkorea/g.exec(details.url)) {
+        if (details.area.includes('detail')) {
+            url_div.text(url_div.text() + '\n' + (details.method ? details.method : 'GET') + ' ' + details.url);
+            let extra = details.area.includes('Info') ? {info: [refined_data]} : {images: [refined_data]}
+            final_data[details.index] = $.extend(final_data[details.index], extra);
+            console.log('at index:', details.index, '; url:', details.url, '; values:', final_data[details.index])
+        } else {
+            url_div.text((details.method ? details.method : 'GET') + ' ' + details.url + '\n');
+            $(refined_data).each(function (i, list) {
+                $.map($(list), async function (item) {
+                    final_data.push(item);
+
+                    sub_data = {contentTypeId: item.contenttypeid, contentId: item.contentid, url: ''}
+                    await details.promise;
+
+                    getTourValues($.extend(details, sub_data, {index: i, area: 'detailInfo', firstImageYN: 'N', areacodeYN: 'N', catcodeYN: 'N', mapinfoYN: 'N'}), writeResult, false);
+                    getTourValues($.extend(details, sub_data, {index: i, area: 'detailImage'}), writeResult, false)
+                });
             });
-            //.length > 1 ? elem.response.body.items.item[i] : elem.response.body.items.item);
-            //if (/detailImage/g.exec(url))
-        });
-    else final_data[final_data.length] = refined_data;
+        }
+    } else final_data[final_data.length] = refined_data;
 
     hidden_data.val(JSON.stringify(final_data));
     if (details.hasOwnProperty('service')) table_div.html(createTable($(final_data)));
@@ -174,7 +180,7 @@ function toDatabase(url) {
             + datetime_obj.toLocaleString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'}),
 
         data = $(JSON.parse($('#json_data').val())).map(function (_, item) {
-            return item.response.body.items.item;
+            return item;
         }),
         list = data.toArray(),
         details = {url: url, method: 'POST'};
@@ -252,10 +258,12 @@ function getAppValues(url, node) {
     return $(data);
 }
 
-function getTourValues(key, details, tail, returnFunc) {
-    details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
-        '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest&_type=json' + tail;
-    loadAjax(details, returnFunc, '#result');
+function getTourValues(details, returnFunc, asnyc) {
+    details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&MobileOS=ETC&MobileApp=AppTest&_type=json';
+    $.map(details, function (val, key) {
+        if (!['service', 'area', 'url'].includes(key)) details.url += `&${key}=${val}`;
+    });
+    loadAjax(details, returnFunc, '#result', asnyc);
 }
 
 function getID(url, i) {
@@ -280,24 +288,31 @@ function formatCode(node, level = 0) {
 }
 
 function createTable(data) {
-    let html = $('<table></table>'), head_row = $('<tr></tr>');
-    html.attr('class', 'table table-striped table-hover')
+    let html = $('<table><thead><tr></tr></thead><tbody></tbody></table>'),
+        headers = Object.keys(data[0]);
 
-    head_row.append($('<th>index</th>'));
-    $.each(data.first()[0], function (value) {
-        head_row.append($(`<th>${value}</th>`));
+    headers.splice(0, 0, 'Index');
+    if (headers.includes('addr1') && !headers.includes('addr2')) headers.splice(headers.indexOf('addr1') + 1, 0, 'addr2');
+    html.attr('class', 'table table-striped table-hover');
+
+    $.map(headers, function (key) {
+        html.find('tr').append($(`<th>${key}</th>`));
     })
-    html.append(head_row);
 
     $.each(data, function (i, row) {
         let body_row = $('<tr></tr>');
         if (row.nodeType !== 1 && row.nodeType !== 9 && row.hasOwnProperty('nodeType')) return;
-
-        body_row.append($(`<td>${i + 1}</td>`));
-        $.each(row, function (_, col) {
-            body_row.append($(`<td>${col}</td>`));
+        $.map(headers, function (key) {
+            if (row.hasOwnProperty(key)) {
+                if (row[key].constructor === ({}).constructor || row[key].constructor === ([]).constructor) {
+                    row[key] = formatCode(row[key])
+                }
+            }
+            let item = row.hasOwnProperty(key) ? $(`<td>${row[key]}</td>`) : key === 'Index' ? $(`<td>${i + 1}</td>`) : $('<td></td>');
+            //if (item.text().length > 50) item.text(item.text().substring(0, Math.min(50, item.text().length)) + '...');
+            body_row.append(item);
         });
-        if (body_row.children().length > 0) html.append(body_row)
+        if (body_row.children().length > 0) html.find('tbody').append(body_row)
     })
     return html;
 }
@@ -308,7 +323,7 @@ function createTable(data) {
  * */
 function getTourItems(url, node) {
     const values = node[0].response.body.items.item;
-    $.each(values, function (_, val) {
+    $.map(values, function (val) {
         if (val.hasOwnProperty('cat2') && TOUR_to_ECK_id.hasOwnProperty(val.cat2)) {
             val.cat3 = TOUR_to_ECK_id[val.cat2];
             val.cat2 = val.cat3.slice(0, 4);
