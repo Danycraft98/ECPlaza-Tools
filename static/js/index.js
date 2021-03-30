@@ -241,14 +241,20 @@ function getAppValues(url, node) {
 
                     case 8:
                     case 9: // it_intro + it_desc
-                        let found_tags = (i === 8) ? tags.find('th, td') : tags.find('th, td, img');
-                        row[hdr_title] = '';
+                        let found_tags = (i === 8) ? tags.find('th, td') : tags.find('th, td, img'),
+                            images = [], key;
+                        row[hdr_title] = {};
                         $.each(found_tags, (_, item) => {
                             item = $(item);
-                            //if (item.prop('tagName') === 'IMG') return;
-                            row[hdr_title] += item.prop('tagName')[0] === 'T' ? item.text().replace(/([\n\r\[\]]+|[ ]{2,})/g, '') : '';
-                            row[hdr_title] += item.prop('tagName') === 'IMG' ? item.attr('src') + '\n' : item.prop('tagName') === 'TH' ? ':' : '\n';
+                            let tagName = item.prop('tagName');
+                            if (tagName === 'IMG') images.push(item.prop('outerHTML'));
+                            else if (tagName === 'TH') {
+                                key = item.text();
+                                row[hdr_title][key] = '';
+                            } else row[hdr_title][key] = item.text();
                         });
+                        if (images.length) row[hdr_title].images = images.toString();
+
                         break;
 
                     default: // it_name + it_price + it_whole_price + Shopify textbox
@@ -290,11 +296,14 @@ function formatCode(node, level = 0) {
 
         val = typeof val === 'string' && val.includes('{') && val.includes('}') ? JSON.parse(val) : val
         let value = (typeof val !== 'object') ? (typeof val === 'string' && val.includes('{') && val.includes('}') ? JSON.parse(val) :
-            val.toString().replace(/([&<])[^a-z/](>)?/g, escape('$1$2')).replace(/(^<img [^>]+)>/g, '$1/>')) : formatCode(val, level);
+            val.toString().replace(/([&<])[^a-z/>]*(>)?/g, escape('$1$2')).replace(/(<img [^>]+)>/g, '$1/>')) : formatCode(val, level);
 
-        console.log(value)
-        let item = $.parseXML(value.length ? `<${key}>${value}</${key}>` : `<${key}/>`);
-        textNode += `\n${indentBefore}${xmlSerializer.serializeToString(item)}\n${indentAfter}`;
+        try {
+            let item = $.parseXML(value.length ? `<${key}>${value}</${key}>` : `<${key}/>`);
+            textNode += `\n${indentBefore}${xmlSerializer.serializeToString(item)}\n${indentAfter}`;
+        } catch (e) {
+            textNode += `\n${indentBefore}<${key}/>\n${indentAfter}`;
+        }
     })
     return textNode;
 }
