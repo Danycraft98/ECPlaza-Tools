@@ -101,21 +101,22 @@ class PostmanAPIForm(Form):
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------------
 class TourAPIForm(Form):
+    serviceKey = CharField(initial=os.getenv('TOUR_API_KEY'), widget=HiddenInput())
     service = ChoiceField(label='언어 서비스', choices=LANG_LIST, widget=Select())
     area = ChoiceField(label='분야', choices=CAT_LIST, widget=Select())
     pageNo = IntegerField(required=False, label='페이지 No.', widget=NumberInput(attrs={'min': 1, 'value': 1}))
     numOfRows = IntegerField(label='열 No.', widget=ListTextWidget(data_list=NUM_ROW_LIST, name='numOfRows', attrs={'min': 2}))
 
     eventStartDate = CharField(required=False, label='행사 날짜 범위', widget=TextInput())
-    eventEndDate = CharField(required=False, label='행사 종료일', widget=TextInput())
+    eventEndDate = CharField(required=False, label='행사 종료일', widget=TextInput())  # details, returnFunc, asnyc, rtype='json'
 
-    cat1 = ChoiceField(label='대분류', widget=Select(attrs={'size': '4', 'onchange': "getTourValuesXML(key, details, '&cat1=' + $(this).val(), getCat);"}))
-    cat2 = ChoiceField(label='중분류', widget=Select(attrs={'size': '4', 'onchange': "getTourValuesXML(key, details, '&cat1=' + $('#id_cat1').val() + '&cat2=' + $(this).val(), getCat);"}))
+    cat1 = ChoiceField(label='대분류', widget=Select(attrs={'size': '4', 'onchange': "getTourValues($.extend{details, {cat1: $(this).val()}, getCat, true, 'xml');"}))
+    cat2 = ChoiceField(label='중분류', widget=Select(attrs={'size': '4', 'onchange': "getTourValues($.extend{details, {cat1: $('#id_cat1').val(), cat1: $(this).val()}, getCat, true, 'xml');"}))
     cat3 = ChoiceField(label='소분류', widget=Select(attrs={'size': '4'}))
 
     contentTypeId = ChoiceField(
         label='콘텐츠 타입 ID', choices=CONTENT_TYPE_LIST,
         widget=Select(attrs={
-            'size': '4', 'onchange': "getTourValuesXML('" + os.getenv('TOUR_API_KEY') + "', {service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1', contentTypeId: this}, '', getContentId);"
+            'size': '4', 'onchange': "getTourValues({service: 'KorService', area: 'areaBasedList', numOfRows: '100', pageNo: '1', contentTypeId: this, serviceKey: '{{ api_key }}'}, getContentId, true, 'xml');"
         }))
     contentId = ChoiceField(label='콘텐츠 ID', widget=Select(attrs={'size': '4'}))

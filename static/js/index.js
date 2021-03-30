@@ -98,7 +98,7 @@ function submitForm(e) {
     e.preventDefault();
     $('.hidden').removeClass('hidden');
     let is_postman_form = e.target.id === 'postman', file = null, details = {}, tail = '';
-    $(e.target).find(":input:visible:not('button,:radio,[id*=json_data]')").each(function (i) {
+    $(e.target).find(":input:visible:not('button,:radio,[id*=json_data]'),#id_serviceKey").each(function (i) {
         let tag = $(this), name = tag.attr('name');
         file = name.includes('_file') ? tag.get(0).files[0] : '';
         if (tag.val()) details[tag.attr('name')] = tag.val();
@@ -144,34 +144,44 @@ function writeResult(respText, details) {
     details.url = details.hasOwnProperty('html_file') ? details.html_file : details.url;
     raw_data = getMethods(respText).includes('trim') ? $(respText.trim()) : $(respText);
     refined_data = /visitkorea/g.exec(details.url) ? getTourItems(details.url, raw_data) : /(?:http|app)/g.exec(details.url) ? getAppValues(details.url, raw_data) : raw_data;
+    details.method = details.method ? details.method : 'GET';
 
     if (first_item.length) final_data = final_data.concat(first_item);
     if (/visitkorea/g.exec(details.url)) {
-        if (details.area.includes('detail')) {
-            url_div.text(url_div.text() + '\n' + (details.method ? details.method : 'GET') + ' ' + details.url);
-            let extra = details.area.includes('Info') ? {info: [refined_data]} : {images: [refined_data]}
-            final_data[details.index] = $.extend(final_data[details.index], extra);
-            console.log('at index:', details.index, '; url:', details.url, '; values:', final_data[details.index])
-        } else {
-            url_div.text((details.method ? details.method : 'GET') + ' ' + details.url + '\n');
-            $(refined_data).each(function (i, list) {
+        $(refined_data).each(function (i, list) {
+            if (details.area.includes('detail')) {
+                if (!i) {
+                    url_div.text(`${url_div.text()}\n${details.method} ${details.url}`);
+                    if (/Image|Info/g.exec(details.area)) final_data[details.index][details.area] = [];
+                }
+
+                console.log(typeof list, list)
+                if (/Common|Intro/g.exec(details.area)) $.extend(final_data[details.index], list)
+                else final_data[details.index][details.area].push(list);
+            } else {
+                if (!i) url_div.text(`${details.method} ${details.url}\n`);
                 $.map($(list), async function (item) {
                     final_data.push(item);
 
-                    sub_data = {contentTypeId: item.contenttypeid, contentId: item.contentid, url: ''}
                     await details.promise;
+                    delete details.promise;
 
-                    getTourValues($.extend(details, sub_data, {index: i, area: 'detailInfo', firstImageYN: 'N', areacodeYN: 'N', catcodeYN: 'N', mapinfoYN: 'N'}), writeResult, false);
-                    getTourValues($.extend(details, sub_data, {index: i, area: 'detailImage'}), writeResult, false)
+                    sub_data = {contentTypeId: item.contenttypeid, contentId: item.contentid, index: i}
+                    getTourValues($.extend(details, sub_data, {area: 'detailCommon', defaultYN: 'Y', addrinfoYN: 'Y', overviewYN: 'Y'}), writeResult, false);
+                    getTourValues($.extend(details, sub_data, {area: 'detailIntro'}), writeResult, false)
+                    getTourValues($.extend(details, sub_data, {area: 'detailInfo'}), writeResult, false)
+                    getTourValues($.extend(details, sub_data, {area: 'detailImage'}), writeResult, false)
                 });
-            });
-        }
-    } else final_data[final_data.length] = refined_data;
 
+            }
+        });
+    } else final_data[final_data.length] = refined_data;
     hidden_data.val(JSON.stringify(final_data));
+
     if (details.hasOwnProperty('service')) table_div.html(createTable($(final_data)));
     else table_div.append(createTable(refined_data));
-    result_div.text(result_div.text() + '-Next Link------------------------\n' + formatCode(refined_data));
+
+    result_div.text(`${formatCode(final_data)}`);
 }
 
 function toDatabase(url) {
@@ -184,8 +194,7 @@ function toDatabase(url) {
         }),
         list = data.toArray(),
         details = {url: url, method: 'POST'};
-    console.log($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), alert);
-    //loadAjax($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), alert);
+    loadAjax($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), alert);
 }
 
 
@@ -258,10 +267,10 @@ function getAppValues(url, node) {
     return $(data);
 }
 
-function getTourValues(details, returnFunc, asnyc) {
-    details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&MobileOS=ETC&MobileApp=AppTest&_type=json';
+function getTourValues(details, returnFunc, asnyc, rtype = 'json') {
+    details.url = `http://api.visitkorea.or.kr/openapi/service/rest/${details.service}/${details.area}?MobileOS=ETC&MobileApp=ECPlaza Tools&_type=${rtype}`;
     $.map(details, function (val, key) {
-        if (!['service', 'area', 'url'].includes(key)) details.url += `&${key}=${val}`;
+        if (!['service', 'area', 'url', 'promise', 'method'].includes(key)) details.url += `&${key}=${val}`;
     });
     loadAjax(details, returnFunc, '#result', asnyc);
 }
@@ -276,27 +285,30 @@ function formatCode(node, level = 0) {
         indentAfter = new Array(level - 1).join('    '),
         textNode = '', xmlSerializer = new XMLSerializer();
 
-    $.each(node, function (key, val) {
+    $.map(node, function (val, key) {
         if (/^\d+/.exec(key)) key = 'ItemNo' + key;
-        let is_string = !(val.constructor === ({}).constructor || val.constructor === ([]).constructor),
-            value = (is_string) ? val.toString().replace(/([&<>])/g, escape('$1')).replace(/(^<img [^>]+)>/g, '$1/>') : formatCode(val, level);
 
-        let item = $.parseXML(value.length ? '<' + key + '>' + value + '</' + key + '>' : '<' + key + '/>');
-        textNode += '\n' + indentBefore + xmlSerializer.serializeToString(item) + '\n' + indentAfter;
+        val = typeof val === 'string' && val.includes('{') && val.includes('}') ? JSON.parse(val) : val
+        let value = (typeof val !== 'object') ? (typeof val === 'string' && val.includes('{') && val.includes('}') ? JSON.parse(val) :
+            val.toString().replace(/([&<])[^a-z/](>)?/g, escape('$1$2')).replace(/(^<img [^>]+)>/g, '$1/>')) : formatCode(val, level);
+
+        console.log(value)
+        let item = $.parseXML(value.length ? `<${key}>${value}</${key}>` : `<${key}/>`);
+        textNode += `\n${indentBefore}${xmlSerializer.serializeToString(item)}\n${indentAfter}`;
     })
     return textNode;
 }
 
 function createTable(data) {
-    let html = $('<table><thead><tr></tr></thead><tbody></tbody></table>'),
+    let table = $('<table><thead><tr></tr></thead><tbody></tbody></table>'),
         headers = Object.keys(data[0]);
 
     headers.splice(0, 0, 'Index');
     if (headers.includes('addr1') && !headers.includes('addr2')) headers.splice(headers.indexOf('addr1') + 1, 0, 'addr2');
-    html.attr('class', 'table table-striped table-hover');
+    table.attr('class', 'table table-striped table-hover');
 
     $.map(headers, function (key) {
-        html.find('tr').append($(`<th>${key}</th>`));
+        table.find('tr').append($(`<th>${key}</th>`));
     })
 
     $.each(data, function (i, row) {
@@ -304,17 +316,17 @@ function createTable(data) {
         if (row.nodeType !== 1 && row.nodeType !== 9 && row.hasOwnProperty('nodeType')) return;
         $.map(headers, function (key) {
             if (row.hasOwnProperty(key)) {
-                if (row[key].constructor === ({}).constructor || row[key].constructor === ([]).constructor) {
-                    row[key] = formatCode(row[key])
+                if (typeof row[key] === 'object') {
+                    row[key] = JSON.stringify(row[key])
                 }
             }
             let item = row.hasOwnProperty(key) ? $(`<td>${row[key]}</td>`) : key === 'Index' ? $(`<td>${i + 1}</td>`) : $('<td></td>');
             //if (item.text().length > 50) item.text(item.text().substring(0, Math.min(50, item.text().length)) + '...');
             body_row.append(item);
         });
-        if (body_row.children().length > 0) html.find('tbody').append(body_row)
+        if (body_row.children().length > 0) table.find('tbody').append(body_row)
     })
-    return html;
+    return table;
 }
 
 
@@ -322,7 +334,9 @@ function createTable(data) {
  * Other Tour API Specific Functions
  * */
 function getTourItems(url, node) {
-    const values = node[0].response.body.items.item;
+    const body = node[0].response.body;
+    if (!body) return [{}];
+    const values = body.items.item;
     $.map(values, function (val) {
         if (val.hasOwnProperty('cat2') && TOUR_to_ECK_id.hasOwnProperty(val.cat2)) {
             val.cat3 = TOUR_to_ECK_id[val.cat2];
@@ -331,12 +345,6 @@ function getTourItems(url, node) {
         }
     })
     return values;
-}
-
-function getTourValuesXML(key, details, tail, returnFunc) {
-    details.url = 'http://api.visitkorea.or.kr/openapi/service/rest/' + details.service + '/' + details.area + '?serviceKey=' + key + '&numOfRows=' + details.numOfRows +
-        '&pageNo=' + details.pageNo + '&MobileOS=ETC&MobileApp=AppTest&_type=xml' + tail;
-    loadAjax(details, returnFunc, '#result');
 }
 
 function getCat(respText, details) {

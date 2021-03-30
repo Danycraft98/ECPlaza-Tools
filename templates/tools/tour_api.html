@@ -40,7 +40,7 @@
                 <div class='row'>
                     <div class='col-4'>
                         <label for='{{ form.service.id_for_label }}'>{{ form.service.label }}</label>
-                        {{ form.service }}
+                        {{ form.service }} {{ form.serviceKey }}
                     </div>
 
                     <div class='col-4' onclick="changeLastDiv($(this).find('select'))">
@@ -103,7 +103,7 @@
             </div>
 
             <pre class='row col mt-4 well mx-0'>
-                <code id='url'>Result URL here!</code>
+                <code id='url' style='max-height: 20px'>Result URL here!</code>
             </pre>
 
             <div class='nav nav-tabs d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
@@ -133,7 +133,6 @@
 {% block script %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
             crossorigin="anonymous"></script>
-    <script>let key = '{{ api_key }}', details = {'service': '', 'area': '', 'numOfRows': '', 'pageNo': ''}, tail = '';</script>
     <script>
         $(document).ready(function () {
             $.getJSON("{% static 'data/TOUR_to_ECK_id.json' %}", (json) => {
@@ -143,9 +142,7 @@
             $('.input-date input').each(function () {
                 $(this).datepicker({format: 'yyyymmdd', startView: 2, todayBtn: 'linked', clearBtn: true, orientation: 'bottom auto'});
             });
-
-            $.extend(details, {'service': 'KorService', 'area': 'categoryCode', 'numOfRows': '10', 'pageNo': '1'})
-            getTourValuesXML(key, details, '', getCat);
+            getTourValues({service: 'KorService', area: 'categoryCode', numOfRows: '10', pageNo: '1', serviceKey: '{{ api_key }}'}, getCat, true, 'xml');
         });
     </script>
 {% endblock %}
