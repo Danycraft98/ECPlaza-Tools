@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from rest_framework import viewsets
 
-from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL, FILE_UPLOAD_MAX_MEMORY_SIZE
+from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL, FILE_UPLOAD_MAX_MEMORY_SIZE, UPLOADS_PATH
 from .constants import CAT_LIST, CAT_DETAIL_LIST
 
 from .forms import *
@@ -95,7 +95,9 @@ TITLE3 = ('pe-7s-plane', '투어 API Demo', '')
 def tour_api(request):
     url = ECP_API_URL + ECP_TOUR_URL
     form = TourAPIForm()
-    return render(request, 'tools/tour_api.html', {'title': TITLE3, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user, 'url': url, 'others': CAT_LIST, 'details': CAT_DETAIL_LIST})
+    return render(request, 'tools/tour_api.html', {
+        'title': TITLE3, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user, 'url': url, 'others': CAT_LIST, 'details': CAT_DETAIL_LIST
+    })
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -107,3 +109,19 @@ class ProductViewSet(viewsets.ModelViewSet):
 class CatalogViewSet(viewsets.ModelViewSet):
     queryset = Catalog.objects.all().order_by('app_name')
     serializer_class = CatalogSerializer
+
+
+def upload_file(request):
+    query = request.POST if request.method == "POST" else request.GET
+    if query.get('data', False):
+        with open(os.path.join(UPLOADS_PATH, 'data.json'), 'w+') as file:
+            file.write(query.get('data', '{}'))
+    return redirect('index')
+
+
+def read_file(request):
+    path, dirs, files = next(os.walk(UPLOADS_PATH))
+    with open(os.path.join(UPLOADS_PATH, files[-1]), 'r+') as file:
+        data = file.read()
+    os.unlink(os.path.join(UPLOADS_PATH, 'data.json'))
+    return render(request, 'main/get_data.html', {'data': data})

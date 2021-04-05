@@ -78,7 +78,8 @@ function loadAjax(details, returnFunc, container, async = true) {
                 else console.log('Loading...')
             },
             success: (resp) => {
-                returnFunc(resp, details);
+                if (returnFunc === alert) alert(JSON.stringify(resp))
+                else returnFunc(resp, details);
                 resolve(resp);
             },
             error: (resp) => {
@@ -97,11 +98,12 @@ function submitForm(e) {
 
     e.preventDefault();
     $('.hidden').removeClass('hidden');
-    let is_postman_form = e.target.id === 'postman', file = null, details = {}, tail = '';
-    $(e.target).find(":input:visible:not('button,:radio,[id*=json_data]'),#id_serviceKey").each(function (i) {
-        let tag = $(this), name = tag.attr('name');
+    let is_postman_form = e.target.id === 'postman', file = null, details = {};
+    $.map($(e.target).find(":input:visible:not('button,:radio'),#id_serviceKey"), function (raw_tag) {
+        let tag= $(raw_tag), name = tag.attr('name');
         file = name.includes('_file') ? tag.get(0).files[0] : '';
         if (tag.val()) details[tag.attr('name')] = tag.val();
+        if (tag.text().includes('맛집')) details.contentTypeId = 39;
     });
 
     if (is_postman_form) {
@@ -116,7 +118,7 @@ function submitForm(e) {
 function parseFile(respText, details) {
     const reader = new FileReader();
     reader.readAsText(respText);
-    reader.onload = function () {
+    reader.onload = () =>{
         details.method = 'GET';
         respText = reader.result;
         if (details.hasOwnProperty('html_file'))
@@ -133,8 +135,10 @@ function parseFile(respText, details) {
 
 function writeResult(respText, details) {
     let result_div = $('#resultML'), table_div = $('#nav-table'), url_div = $('#url'),
-        hidden_data = $('#json_data'), raw_data, refined_data, final_data = [], sub_data,
-        first_item = JSON.parse(hidden_data.val() ? hidden_data.val() : '{}');
+        raw_data, refined_data, final_data = [], sub_data;
+    loadAjax({url: '/data/', method: 'GET', type: 'data'}, function (respText, _details) {
+        final_data = final_data.concat(JSON.parse(respText ? respText : '{}'));
+    }, '', false);
 
     if (!respText) {
         result_div.text('None');
@@ -146,7 +150,6 @@ function writeResult(respText, details) {
     refined_data = /visitkorea/g.exec(details.url) ? getTourItems(details.url, raw_data) : /(?:http|app)/g.exec(details.url) ? getAppValues(details.url, raw_data) : raw_data;
     details.method = details.method ? details.method : 'GET';
 
-    if (first_item.length) final_data = final_data.concat(first_item);
     if (/visitkorea/g.exec(details.url)) {
         $(refined_data).each(function (i, list) {
             if (details.area.includes('detail')) {
@@ -154,8 +157,6 @@ function writeResult(respText, details) {
                     url_div.text(`${url_div.text()}\n${details.method} ${details.url}`);
                     if (/Image|Info/g.exec(details.area)) final_data[details.index][details.area] = [];
                 }
-
-                console.log(typeof list, list)
                 if (/Common|Intro/g.exec(details.area)) $.extend(final_data[details.index], list)
                 else final_data[details.index][details.area].push(list);
             } else {
@@ -176,7 +177,7 @@ function writeResult(respText, details) {
             }
         });
     } else final_data[final_data.length] = refined_data;
-    hidden_data.val(JSON.stringify(final_data));
+    $.ajax({type: "POST", url: '/upload/', data: {data: JSON.stringify(final_data)}, dataType: 'json'});
 
     if (details.hasOwnProperty('service')) table_div.html(createTable($(final_data)));
     else table_div.append(createTable(refined_data));
@@ -185,16 +186,22 @@ function writeResult(respText, details) {
 }
 
 function toDatabase(url) {
+    let data = $({}), is_tour = url.includes('kculture'), is_food = false;
+    loadAjax({url: '/data/', method: 'GET', type: 'data'}, function (respText, _details) {
+        data = $.extend(data, JSON.parse(respText ? respText : '{}'));
+        is_food = data[0].contenttypeid === 39;
+    }, '', false);
+    url += is_tour ? (is_food ? '70' : '60') : '';
+
     let datetime_obj = new Date(),
         datetime = datetime_obj.toLocaleString('fr-CA', {year: 'numeric', month: '2-digit', day: '2-digit'}) + ' '
             + datetime_obj.toLocaleString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'}),
-
-        data = $(JSON.parse($('#json_data').val())).map(function (_, item) {
-            return item;
-        }),
         list = data.toArray(),
-        details = {url: url, method: 'POST'};
-    loadAjax($.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})}), alert);
+        details = {url: url, method: 'POST'},
+        final_data = is_tour ? $.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, kculture: list})}) :
+            $.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})});
+    console.log(final_data);
+    loadAjax(final_data, alert);
 }
 
 
@@ -222,7 +229,7 @@ function getAppValues(url, node) {
                     case 1 | ('D' | 'L'):
                     case 5: // it_image_json + it_url
                         let header = '';
-                        if (i === 1) item_url = $(item_url.split('> ')).each(function () {
+                        if (i === 1) item_url = $(item_url.split('> ')).each(() =>{
                             return this + '>';
                         }).get(0);
                         if (i === 5) header = app_name === 'HT_L' ? 'http://www.hottracks.co.kr' : app_name === 'Coupang_L' ? 'https://www.coupang.com/' : ''
@@ -330,7 +337,7 @@ function createTable(data) {
                 }
             }
             let item = row.hasOwnProperty(key) ? $(`<td>${row[key]}</td>`) : key === 'Index' ? $(`<td>${i + 1}</td>`) : $('<td></td>');
-            //if (item.text().length > 50) item.text(item.text().substring(0, Math.min(50, item.text().length)) + '...');
+            if (item.text().length > 50) item.text(item.text().substring(0, Math.min(50, item.text().length)) + '...');
             body_row.append(item);
         });
         if (body_row.children().length > 0) table.find('tbody').append(body_row)
@@ -340,7 +347,7 @@ function createTable(data) {
 
 
 /*** Tour API Functions ***
- * Other Tour API Specific Functions
+ * Other Tour API Specific Functions1
  * */
 function getTourItems(url, node) {
     const body = node[0].response.body;
@@ -381,7 +388,7 @@ function getCat(respText, details) {
 function getContentId(respText, _url) {
     let container = $(respText.documentElement), div = $('#id_contentId');
     div.html('');
-    container.find('item').each(function () {
+    container.find('item').each(() =>{
         let item = $(this).find('contentid');
         let opt = $(document.createElement('option'));
         opt.val(item.text())
@@ -391,10 +398,10 @@ function getContentId(respText, _url) {
 }
 
 function changeLastDiv(elem) {
-    let key = elem.val();
-    const select_div = $('#' + key);
+    let key = elem.val(), select_div = $('.' + key).first(), all_div = $('.last');
     if (select_div) {
-        $('.last').attr('hidden', '');
+        all_div.attr('hidden', '');
+        if (elem.text().includes('지역')) select_div = all_div.last();
         select_div.removeAttr('hidden');
     }
 }
@@ -424,7 +431,7 @@ function getAnalyticValues(respText, details, _) {
     fs = d.getElementsByTagName(s)[0];
     js.src = 'https://apis.google.com/js/platform.js';
     fs.parentNode.insertBefore(js, fs);
-    js.onload = function () {
+    js.onload = () =>{
         g.load('analytics');
     };
 }(window, document, 'script'));
@@ -458,7 +465,7 @@ function chatClick() {
 }
 
 function autoScroll(div) {
-    setInterval(function () {
+    setInterval(() =>{
         let pos = div.scrollTop();
         div.scrollTop(++pos);
     }, 100);
@@ -481,7 +488,7 @@ function addMsg(input, url) {
 function msgSend(elem, url) {
     const chat_div = $('#chat-content'), xhttp = new XMLHttpRequest();
     xhttp.open('POST', url);
-    xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange = () => {
         if (this.readyState === 4 && this.status === 200) {
             const resp = JSON.parse(this.response);
             const text = "<div class='media media-chat media-chat-reverse'><div class='media-body'><p>" + resp.text + "</p></div></div>";
