@@ -123,6 +123,7 @@ def read_file(request):
     path, dirs, files = next(os.walk(UPLOADS_PATH))
     with open(os.path.join(UPLOADS_PATH, files[-1]), 'r+') as file:
         data = file.read()
+    # open(UPLOADS_PATH, 'data.json', 'w').close()
     if request.method == 'POST':
         os.unlink(os.path.join(UPLOADS_PATH, 'data.json'))
     return render(request, 'main/get_data.html', {'data': data})

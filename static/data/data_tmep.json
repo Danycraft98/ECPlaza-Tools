@@ -1,0 +1,27 @@
+{
+  "total_count": 1,
+  "crawling_time": "2021-04-16 17:33:31",
+  "kculture": [
+    {
+      "addr1": "온라인개최",
+      "areacode": 1,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 2676393,
+      "contenttypeid": 15,
+      "createdtime": 20201014165040,
+      "eventenddate": 20201017,
+      "eventstartdate": 20201017,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/92/2676392_image2_1.jpg",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/92/2676392_image2_1.jpg",
+      "modifiedtime": 20201014165040,
+      "readcount": 0,
+      "sigungucode": 2,
+      "title": "강동구 청소년 민주주의 축제 \"놀면 뭐하니? 한 번 더 민주!\" 2020",
+      "homepage": "강동구청 공식 유튜브 채널<a href=\"https://www.youtube.com/channel/UCP_ihLNtkaqXmJ9QmAkTqvw\" target=\"_blank\" title=\"새창: 홈페이지로 이동\">https://www.youtube.com</a>",
+      "overview": "2018년 1회를 첫시작으로 청소년의 참여권과 표현권을 위해 마련된 축제의 장",
+      "telname": "강동구청"
+    }
+  ]
+}
