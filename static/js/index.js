@@ -202,6 +202,8 @@ function toDatabase(url) {
             $.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: list})});
     console.log(final_data);
     loadAjax(final_data, alert);
+
+    $.post({url: '/data/', method: 'POST', type: 'data'})
 }
 
 

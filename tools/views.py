@@ -114,7 +114,7 @@ class CatalogViewSet(viewsets.ModelViewSet):
 def upload_file(request):
     query = request.POST if request.method == "POST" else request.GET
     if query.get('data', False):
-        with open(os.path.join(UPLOADS_PATH, 'data.json'), 'w+') as file:
+        with open(os.path.join(UPLOADS_PATH, 'data.json'), 'w') as file:
             file.write(query.get('data', '{}'))
     return redirect('index')
 
@@ -123,5 +123,6 @@ def read_file(request):
     path, dirs, files = next(os.walk(UPLOADS_PATH))
     with open(os.path.join(UPLOADS_PATH, files[-1]), 'r+') as file:
         data = file.read()
-    os.unlink(os.path.join(UPLOADS_PATH, 'data.json'))
+    if request.method == 'POST':
+        os.unlink(os.path.join(UPLOADS_PATH, 'data.json'))
     return render(request, 'main/get_data.html', {'data': data})

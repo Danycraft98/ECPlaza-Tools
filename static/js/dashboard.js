@@ -29,6 +29,11 @@ function loadGoogleData(resp, google_view_id) {
             'filters': 'ga:pagePathLevel1!=/',
             'max-results': 7
         }), 'view-chart', 'TABLE', {'width': '100%'});
+        createChart($.extend(query, {
+            'metrics': 'ga:organicSearches',
+            'dimensions': 'ga:source',
+            'max-results': 7
+        }), 'view-referral-chart', 'TABLE', {'width': '100%'});
         //createChart($.extend(query, {'metrics': 'ga:sessions', 'dimensions': 'ga:deviceCategory', 'max-results': 7}), 'device-chart', 'PIE', {'width': '100%', 'pieHole': 4 / 9,});
         createChart($.extend(query, {'metrics': 'ga:sessions', 'dimensions': 'ga:country,ga:region', 'max-results': 100}), 'device-chart', 'PIE', {'width': '100%', 'pieHole': 4 / 9,}); //GEO
     });
