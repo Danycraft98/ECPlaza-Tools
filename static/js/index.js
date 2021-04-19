@@ -167,7 +167,8 @@ function writeResult(respText, details) {
                     await details.promise;
                     delete details.promise;
 
-                    sub_data = {contentTypeId: item.contenttypeid, contentId: item.contentid, index: i}
+                    sub_data = {contentTypeId: item.contenttypeid, contentId: item.contentid, index: i, pageNo: 1, numOfRows: 10}
+
                     getTourValues($.extend(details, sub_data, {area: 'detailCommon', defaultYN: 'Y', addrinfoYN: 'Y', overviewYN: 'Y'}), writeResult, false);
                     getTourValues($.extend(details, sub_data, {area: 'detailIntro'}), writeResult, false)
                     getTourValues($.extend(details, sub_data, {area: 'detailInfo'}), writeResult, false)

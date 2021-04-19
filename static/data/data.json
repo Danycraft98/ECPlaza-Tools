@@ -1,32 +1,689 @@
 {
-  "total_count": 1,
-  "crawling_time": "2021-04-16 17:48:26",
+  "total_count": 11,
+  "crawling_time": "2021-04-19 12:27:15",
   "kculture": [
     {
-      "addr1": "강원도 강릉시 임영로131번길 6",
+      "addr1": "충청남도 부여군 규암면 백제문로 388",
+      "areacode": 34,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 1258353,
+      "contenttypeid": 15,
+      "createdtime": 20110418095420,
+      "eventenddate": 20211030,
+      "eventstartdate": 20210306,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/54/2483454_image2_1.JPG",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/54/2483454_image2_1.JPG",
+      "mapx": 126.8997016069,
+      "mapy": 36.3048428766,
+      "mlevel": 6,
+      "modifiedtime": 20210226112411,
+      "readcount": 56458,
+      "sigungucode": 6,
+      "tel": "041-832-5765",
+      "title": "가무악극으로 만나는 토요 상설공연",
+      "homepage": "부여군청 <a href=\"http://www.buyeo.go.kr/html/kr/intro/intro_05110201.html\" target=\"_blank\" title=\"새창: 부여군충남국악단 홈페이지로 이동\">http://www.buyeo.go.kr</a>",
+      "overview": "한국의 멋과 문화를 알리는 충남의 대표적인 전통공립예술단인 부여군충남국악단의 토요상설국악공연은 우리 악기소리를 좀 더 깊게 들어볼 수 있는 기악독주 그리고 특별 기획창극과 춤을 애호하는 분들을 위한 우리의 춤 등으로 구성되어 있다.",
+      "telname": "부여군",
+      "zipcode": 33115,
+      "agelimit": "전연령 가능",
+      "bookingplace": "문화장터<a href=\"http://www.asiamunhwa.com\" target=\"_blank\" title=\"새창: 부여상설문화관광 예매 홈페이지로 이동\">http://www.asiamunhwa.com</a>",
+      "discountinfofestival": "충남도민 1,000원 할인",
+      "eventplace": "부여군 국악의 전당",
+      "placeinfo": "",
+      "playtime": "",
+      "program": "",
+      "spendtimefestival": "60분",
+      "sponsor1": "부여군",
+      "sponsor1tel": "041-832-5765",
+      "sponsor2": "부여군충남국악단",
+      "sponsor2tel": "041-832-5765",
+      "subevent": "",
+      "usetimefestival": "2,000원",
+      "detailInfo": [
+        {
+          "contentid": 1258353,
+          "contenttypeid": 15,
+          "fldgubun": 1,
+          "infoname": "행사소개",
+          "infotext": "한국의 멋과 문화를 알리는 충남의 대표적인 전통공립예술단인 부여군충남국악단의 토요상설국악공연은 우리 악기소리를 좀 더 깊게 들어볼 수 있는 기악독주 그리고 특별 기획창극과 춤을 애호하는 분들을 위한 우리의 춤 등으로 구성되어 있다. ",
+          "serialnum": 0
+        }
+      ],
+      "detailImage": [
+        {
+          "contentid": 1258353,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/51/2483451_image2_1.jpg",
+          "serialnum": "2483451_1",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/51/2483451_image2_1.jpg"
+        },
+        {
+          "contentid": 1258353,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/52/2483452_image2_1.jpg",
+          "serialnum": "2483452_2",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/52/2483452_image2_1.jpg"
+        },
+        {
+          "contentid": 1258353,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/53/2483453_image2_1.JPG",
+          "serialnum": "2483453_4",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/53/2483453_image2_1.JPG"
+        },
+        {
+          "contentid": 1258353,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/55/2483455_image2_1.JPG",
+          "serialnum": "2483455_3",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/55/2483455_image2_1.JPG"
+        }
+      ]
+    },
+    {
+      "addr1": "경상북도 칠곡군 가산면 학하들안2길 105",
+      "areacode": 35,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 2709958,
+      "contenttypeid": 15,
+      "createdtime": 20210316170348,
+      "eventenddate": 20210630,
+      "eventstartdate": 20210320,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/89/2713489_image2_1.jpg",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/89/2713489_image2_1.jpg",
+      "mapx": 128.4850691574,
+      "mapy": 36.0861545517,
+      "mlevel": 6,
+      "modifiedtime": 20210409093816,
+      "readcount": 0,
+      "sigungucode": 22,
+      "tel": "054-971-9861",
+      "title": "가산수피아 '봄의 정원'",
+      "homepage": "<a href=\"http://gasansupia.com\" target=\"_blank\" title=\"새창: 홈페이지로 이동\">http://gasansupia.com</a>",
+      "overview": "사계절 내내 아름다운 자연이 가득한 숲과 정원 가산수피아!!\n설레는 봄, 봄꽃 향기 가득한 정원과 레일썰매, 수피아미술관, 배틀그라운드 등  감성지수를 높이고 스트레스를 낮출 체험이 이 곳엔 가득하다.\n3월 중순부터 4월 중순까지 한달간 진행되는 '봄의 정원'은 벚꽃, 꽃잔디, 연산홍, 목련 등 다양한 꽃들의 향기가 봄을 전하고,  공룡뜰, 벚꽃길, 천년솔숲 황토길, 이끼정원, 테마정원 등 잊고 살던 감성의 소리를 색, 향, 촉감으로 만끽할 수 있는 시간이 될 것이다.",
+      "telname": "가산수피아",
+      "zipcode": 39849,
+      "bookingplace": "",
+      "discountinfofestival": "",
+      "eventplace": "가산수피아",
+      "placeinfo": "",
+      "playtime": "10:00~18:00",
+      "program": "",
+      "sponsor1": "가산수피아",
+      "sponsor1tel": "054-971-9861",
+      "sponsor2": "가산수피아",
+      "sponsor2tel": "054-971-9861",
+      "subevent": "",
+      "usetimefestival": "홈페이지 참고",
+      "detailInfo": [
+        {
+          "contentid": 2709958,
+          "contenttypeid": 15,
+          "fldgubun": 1,
+          "infoname": "행사소개",
+          "infotext": "사계절 내내 아름다운 자연이 가득한 숲과 정원 가산수피아!!\n설레는 봄, 봄꽃 향기 가득한 정원과 레일썰매, 수피아미술관, 배틀그라운드 등  감성지수를 높이고 스트레스를 낮출 체험이 이 곳엔 가득하다.\n3월 중순부터 4월 중순까지 한달간 진행되는 '봄의 정원'은 벚꽃, 꽃잔디, 연산홍, 목련 등 다양한 꽃들의 향기가 봄을 전하고,  공룡뜰, 벚꽃길, 천년솔숲 황토길, 이끼정원, 테마정원 등 잊고 살던 감성의 소리를 색, 향, 촉감으로 만끽할 수 있는 시간이 될 것이다.",
+          "serialnum": 0
+        },
+        {
+          "contentid": 2709958,
+          "contenttypeid": 15,
+          "fldgubun": 2,
+          "infoname": "행사내용",
+          "infotext": "공룡뜰,벚꽃길,천년솔숲 황토길, 이끼정원, 테마정원 등",
+          "serialnum": 1
+        }
+      ],
+      "detailImage": [
+        {
+          "contentid": 2709958,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/48/2709948_image2_1.jpg",
+          "serialnum": "2709948_8",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/48/2709948_image2_1.jpg"
+        },
+        {
+          "contentid": 2709958,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/49/2709949_image2_1.jpg",
+          "serialnum": "2709949_3",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/49/2709949_image2_1.jpg"
+        },
+        {
+          "contentid": 2709958,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/50/2709950_image2_1.JPG",
+          "serialnum": "2709950_4",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/50/2709950_image2_1.JPG"
+        },
+        {
+          "contentid": 2709958,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/51/2709951_image2_1.jpg",
+          "serialnum": "2709951_6",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/51/2709951_image2_1.jpg"
+        },
+        {
+          "contentid": 2709958,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/52/2709952_image2_1.jpg",
+          "serialnum": "2709952_7",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/52/2709952_image2_1.jpg"
+        },
+        {
+          "contentid": 2709958,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/53/2709953_image2_1.jpg",
+          "serialnum": "2709953_5",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/53/2709953_image2_1.jpg"
+        },
+        {
+          "contentid": 2709958,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/54/2709954_image2_1.jpg",
+          "serialnum": "2709954_1",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/54/2709954_image2_1.jpg"
+        },
+        {
+          "contentid": 2709958,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/57/2709957_image2_1.JPG",
+          "serialnum": "2709957_2",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/57/2709957_image2_1.JPG"
+        }
+      ]
+    },
+    {
+      "addr1": "경기도 양평군 단월면 곱다니길 55-2 수미마을 방문객센터",
+      "areacode": 31,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 2704330,
+      "contenttypeid": 15,
+      "createdtime": 20210119152643,
+      "eventenddate": 20211231,
+      "eventstartdate": 20210116,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/26/2704326_image2_1.JPG",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/26/2704326_image2_1.JPG",
+      "mapx": 127.6574135888,
+      "mapy": "37.5145504080",
+      "mlevel": 6,
+      "modifiedtime": 20210119152643,
+      "readcount": 0,
+      "sigungucode": 19,
+      "tel": "031-775-5205",
+      "title": "가족끼리 빙어체험 2021",
+      "homepage": "<a href=\"https://soomyland.com/reserve/sub01.php\" target=\"_blank\" title=\"새창: 홈페이지로 이동\">https://soomyland.com/reserve/sub01.php</a>",
+      "overview": "수미마을은 맑은 물로 대한민국에서 손꼽히는 양평에서 365일 사계절 다양한 주제로 가족끼리 함께 당일 캠핑과 소풍을 즐기면서 체험활동을 하는 곳이다. \n봄(송어딸기캠피닉), 여름(메기수염캠피닉), 가을(몽땅구이캠피닉), 겨울(빙어체험 캠피닉)가 진행된다.\n가족끼리 캠피닉을 통해 더 많은 추억을 남기시길 바란다.",
+      "telname": "수미마을운영위원회",
+      "zipcode": 12529,
+      "bookingplace": "",
+      "discountinfofestival": "",
+      "eventplace": "경기 양평군 단월면 봉상리 일대",
+      "placeinfo": "",
+      "playtime": "10:00~17:00",
+      "program": "",
+      "sponsor1": "수미마을운영위원회",
+      "sponsor1tel": "031-775-5205",
+      "sponsor2": "수미마을운영위원회",
+      "sponsor2tel": "031-775-5205",
+      "subevent": "",
+      "usetimefestival": "피크닉 공간을 포함한 겨울 체험 패키지 9만원대",
+      "detailInfo": [
+        {
+          "contentid": 2704330,
+          "contenttypeid": 15,
+          "fldgubun": 1,
+          "infoname": "행사소개",
+          "infotext": "수미마을은 맑은 물로 대한민국에서 손꼽히는 양평에서 365일 사계절 다양한 주제로 가족끼리 함께 당일 캠핑과 소풍을 즐기면서 체험활동을 하는 곳이다. \n봄(송어딸기캠피닉), 여름(메기수염캠피닉), 가을(몽땅구이캠피닉), 겨울(빙어체험 캠피닉)가 진행된다.\n가족끼리 캠피닉을 통해 더 많은 추억을 남기시길 바란다.",
+          "serialnum": 0
+        },
+        {
+          "contentid": 2704330,
+          "contenttypeid": 15,
+          "fldgubun": 2,
+          "infoname": "행사내용",
+          "infotext": "겨울 체험 공간(빙어 낚시, 얼음 썰매), 4륜ATV, 찐빵만들기체험, 피자만들기 체험, 바비큐체험, 민속놀이",
+          "serialnum": 1
+        }
+      ],
+      "detailImage": [
+        {
+          "contentid": 2704330,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/24/2704324_image2_1.JPG",
+          "serialnum": "2704324_4",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/24/2704324_image2_1.JPG"
+        },
+        {
+          "contentid": 2704330,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/25/2704325_image2_1.JPG",
+          "serialnum": "2704325_3",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/25/2704325_image2_1.JPG"
+        },
+        {
+          "contentid": 2704330,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/27/2704327_image2_1.jpg",
+          "serialnum": "2704327_2",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/27/2704327_image2_1.jpg"
+        },
+        {
+          "contentid": 2704330,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/28/2704328_image2_1.jpg",
+          "serialnum": "2704328_1",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/28/2704328_image2_1.jpg"
+        },
+        {
+          "contentid": 2704330,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/29/2704329_image2_1.JPG",
+          "serialnum": "2704329_5",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/29/2704329_image2_1.JPG"
+        }
+      ]
+    },
+    {
+      "addr1": "경기도 양평군 단월면 곱다니길 55-2",
+      "areacode": 31,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 1820268,
+      "contenttypeid": 15,
+      "createdtime": 20130617093258,
+      "eventenddate": 20210606,
+      "eventstartdate": 20210301,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/96/2707496_image2_1.jpg",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/96/2707496_image2_1.jpg",
+      "mapx": "127.6573663730",
+      "mapy": 37.5144948588,
+      "mlevel": 6,
+      "modifiedtime": 20210308133050,
+      "readcount": 94324,
+      "sigungucode": 19,
+      "tel": "031-775-5205",
+      "title": "가족끼리딸기 캠피닉",
+      "homepage": "<a href=\"https://soomyland.com/reserve/sub01.php\" target=\"_blank\" title=\"새창:양평메기수염축제 홈페이지로 이동\">https://soomyland.com</a>",
+      "overview": "수미마을은 맑은 물로 대한민국에서 손꼽히는 곳으로 365일 사계절 다양한 주제로 가족끼리 함께 당일 캠핑과 소풍을 즐기면서 체험활동을 하는 곳이다.\n봄(송어딸기 캠피닉), 여름(메기수염 캠피닉), 가을(몽땅구이 캠피닉), 겨울(김장보쌈 캠피닉 및 빙어딸기 캠피닉)이 진행 된다.\n가족끼리 캠피닉을 통해 더 많은 추억을 남기시길 바란다.",
+      "telname": "수미마을",
+      "zipcode": 12529,
+      "agelimit": "전연령가능",
+      "bookingplace": "",
+      "discountinfofestival": "",
+      "eventplace": "수미마을  일원",
+      "placeinfo": "",
+      "playtime": "10:00~17:00",
+      "program": "",
+      "spendtimefestival": "기간내자유",
+      "sponsor1": "수미마을",
+      "sponsor1tel": "031-775-5205",
+      "sponsor2": "수미마을",
+      "sponsor2tel": "031-775-5205",
+      "subevent": "",
+      "usetimefestival": "체험 1종 7천원대, 피크닉 공간을 포함한 체험 패키지 8만원대~10만원대",
+      "detailInfo": [
+        {
+          "contentid": 1820268,
+          "contenttypeid": 15,
+          "fldgubun": 1,
+          "infoname": "행사소개",
+          "infotext": "수미마을은 맑은 물로 대한민국에서 손꼽히는 곳으로 365일 사계절 다양한 주제로 가족끼리 함께 당일 캠핑과 소풍을 즐기면서 체험활동을 하는 곳이다.\n봄(송어딸기 캠피닉), 여름(메기수염 캠피닉), 가을(몽땅구이 캠피닉), 겨울(김장보쌈 캠피닉 및 빙어딸기 캠피닉)이 진행 된다.\n가족끼리 캠피닉을 통해 더 많은 추억을 남기시길 바란다.",
+          "serialnum": 0
+        },
+        {
+          "contentid": 1820268,
+          "contenttypeid": 15,
+          "fldgubun": 2,
+          "infoname": "행사내용",
+          "infotext": "피크닉 공간, 물놀이(탈의장, 샤워장, 화장실 포함), 메기 사냥 체험, 메기 구이, 메기 매운탕, 4륜 ATV, 찐빵 만들기 체험, 피자 만들기 체험, 허브 모종 만들기 체험, 바비큐 체험, 카누 타기 체험, 민속놀이",
+          "serialnum": 1
+        }
+      ]
+    },
+    {
+      "addr1": "대구광역시 북구 호암로 15",
+      "addr2": "(칠성동2가)",
+      "areacode": 4,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 2705052,
+      "contenttypeid": 15,
+      "createdtime": 20210201172200,
+      "eventenddate": 20210228,
+      "eventstartdate": 20210225,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/60/2705060_image2_1.jpg",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/60/2705060_image2_1.jpg",
+      "mapx": "128.5922570230",
+      "mapy": 35.8835072863,
+      "mlevel": 6,
+      "modifiedtime": 20210201173042,
+      "readcount": 0,
+      "sigungucode": 5,
+      "tel": "053-666-6170",
+      "title": "가족오페라 <마술피리> 2021",
+      "homepage": "<a href=\"http://www.daeguoperahouse.org\" target=\"_blank\" title=\"새창: 홈페이지로 이동\">http://www.daeguoperahouse.org</a>",
+      "overview": "대구오페라하우스 인기 가족오페라 <마술피리>는 전체 공연시간은 70분 정도로 맞추고 주요곡은 원어로, 노래 중간에 들어있는 대사는 한국어로 바꾸어 처음 오페라를 접하는 이들도 쉽게 감상할 수 있도록 구성되었으며 여기에 반원 모양의 슬라이딩 무대가 작품의 재미를 더해준다. 평소 연령 제한으로 오페라 공연을 볼 수 없었던 6~7세 어린이들도 관람할 수 있게 준비했으며, 대구시민주간을 기념하여 전석 만원으로 저렴하게 공연을 관람할 수 있다.",
+      "telname": "대구오페라하우스",
+      "zipcode": 41585,
+      "agelimit": "6세 이상",
+      "bookingplace": "",
+      "discountinfofestival": "",
+      "eventplace": "대구오페라하우스",
+      "placeinfo": "",
+      "playtime": "2월 25일(목) ~ 26일(금) 7:30pm<br>\n2월 27일(토) ~ 28일(일) 5pm",
+      "program": "",
+      "spendtimefestival": "70분",
+      "sponsor1": "대구오페라하우스",
+      "sponsor1tel": "053-666-6170",
+      "sponsor2": "대구오페라하우스",
+      "subevent": "",
+      "usetimefestival": "전석 10,000원",
+      "detailInfo": [
+        {
+          "contentid": 2705052,
+          "contenttypeid": 15,
+          "fldgubun": 1,
+          "infoname": "행사소개",
+          "infotext": "대구오페라하우스 인기 가족오페라 <마술피리>는 전체 공연시간은 70분 정도로 맞추고 주요곡은 원어로, 노래 중간에 들어있는 대사는 한국어로 바꾸어 처음 오페라를 접하는 이들도 쉽게 감상할 수 있도록 구성되었으며 여기에 반원 모양의 슬라이딩 무대가 작품의 재미를 더해준다. 평소 연령 제한으로 오페라 공연을 볼 수 없었던 6~7세 어린이들도 관람할 수 있게 준비했으며, 대구시민주간을 기념하여 전석 만원으로 저렴하게 공연을 관람할 수 있다.",
+          "serialnum": 0
+        },
+        {
+          "contentid": 2705052,
+          "contenttypeid": 15,
+          "fldgubun": 2,
+          "infoname": "출     연",
+          "infotext": "밤의 여왕 Sop. 윤성회, 김현정 / 파미나 Sop. 신은혜 이지혜 / 타미노 Ten. 김동녘, 노성훈\n파파게노 Bar. 김만수, 강민성 / 자라스트로 Bass. 홍순포, 윤성우 / 파파게나 Sop. 최은혜, 문선영\n모노스타토스 Ten. 양요한 / 다메1 Sop. 이소명, 다메2 Sop. 정다은, 다메3 M.Sop. 주혜진",
+          "serialnum": 1
+        }
+      ]
+    },
+    {
+      "addr1": "제주특별자치도 서귀포시 표선면 민속해안로 631-34",
+      "areacode": 39,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 2664434,
+      "contenttypeid": 15,
+      "createdtime": 20200721164918,
+      "eventenddate": 20200802,
+      "eventstartdate": 20200724,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/32/2664432_image2_1.jpg",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/32/2664432_image2_1.jpg",
+      "mapx": 126.8431022619,
+      "mapy": 33.3213162956,
+      "mlevel": 6,
+      "modifiedtime": 20200721164918,
+      "readcount": 0,
+      "sigungucode": 3,
+      "tel": "064-787-4501",
+      "title": "감물 및 봉숭아 물들이기 체험행사 2020",
+      "homepage": "<a href=\"https://jejufolk.com\" target=\"_blank\" title=\"새창: 홈페이지로 이동\">https://jejufolk.com</a>",
+      "overview": "제주민속촌은 본격적인 피서철을 맞이하여 민속촌을 찾아주신 관람객을 대상으로 7월 24일(금)부터 8월 2일(일)까지 ‘과랑과랑한 벳듸 감물들염수다’ 체험 행사를 개최한다. \n\n감물 들이기는 풋감의 즙이 가장 많은 7~8월에 풋감을 따서 빻아 생긴 즙을 이용하여 물을 들이는 천연 염색이다. 이 시기에는 날씨가 무더워 감즙을 먹인 옷감의 색깔이 곱게 물들여진다. 감즙을 먹인 옷감은 물에 적셔 햇빛에 말리는 과정을 몇 일 동안 반복하면 색이 점점 짙어져 갈색으로 물들여진다. 그렇게 물들여진 갈옷은 땀을 잘 흡수하여 몸에 달라붙지 않아 제주에서는 노동복이자 일상복으로 여름철에 즐겨 입었고 오랫동안 입을 수 있다.\n\n제주에서는 ‘도고리(물건 담는 도구)’에 풋감을 담아 ‘마께(나무방망이)’로 빻아낸 즙으로 갈옷을 만들었다. 도고리와 마께를 이용한 전통방식과 제주민속촌에서 직접 재배하고 수확한 토종감을 사용한 천연 염색 과정을 볼 수 있고 손수건에 감물을 들이는 체험을 진행한다.",
+      "telname": "제주민속촌",
+      "zipcode": 63629,
+      "bookingplace": "",
+      "discountinfofestival": "",
+      "eventplace": "제주민속촌",
+      "placeinfo": "",
+      "playtime": "11:00 ~ 16:00",
+      "program": "",
+      "sponsor1": "제주민속촌",
+      "sponsor1tel": "064-787-4501",
+      "subevent": "",
+      "usetimefestival": "성인 11,000원, 청소년 8,000원, 어린이 7,000원",
+      "detailImage": [
+        {
+          "contentid": 2664434,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/28/2664428_image2_1.jpg",
+          "serialnum": "2664428_4",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/28/2664428_image2_1.jpg"
+        },
+        {
+          "contentid": 2664434,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/29/2664429_image2_1.jpg",
+          "serialnum": "2664429_2",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/29/2664429_image2_1.jpg"
+        },
+        {
+          "contentid": 2664434,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/30/2664430_image2_1.jpg",
+          "serialnum": "2664430_1",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/30/2664430_image2_1.jpg"
+        },
+        {
+          "contentid": 2664434,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/31/2664431_image2_1.jpg",
+          "serialnum": "2664431_3",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/31/2664431_image2_1.jpg"
+        }
+      ]
+    },
+    {
+      "addr1": "온라인개최",
+      "areacode": 1,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 2676393,
+      "contenttypeid": 15,
+      "createdtime": 20201014165040,
+      "eventenddate": 20201017,
+      "eventstartdate": 20201017,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/92/2676392_image2_1.jpg",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/92/2676392_image2_1.jpg",
+      "modifiedtime": 20201014165040,
+      "readcount": 0,
+      "sigungucode": 2,
+      "title": "강동구 청소년 민주주의 축제 \"놀면 뭐하니? 한 번 더 민주!\" 2020",
+      "bookingplace": "",
+      "discountinfofestival": "",
+      "eventplace": "강동구청 공식 유튜브 채널",
+      "placeinfo": "",
+      "playtime": "",
+      "program": "",
+      "sponsor1": "강동구청",
+      "sponsor2": "서울특별시 강동구 청소년의회/서울특별시립 강동청소년센터",
+      "subevent": "",
+      "usetimefestival": "무료"
+    },
+    {
+      "addr1": "온라인개최",
+      "addr2": "(상일동)",
+      "areacode": 1,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 1806376,
+      "contenttypeid": 15,
+      "createdtime": 20130422102127,
+      "eventenddate": 20200927,
+      "eventstartdate": 20200921,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/69/2670569_image2_1.png",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/69/2670569_image2_1.png",
+      "mapx": 127.1573829418,
+      "mapy": 37.5512675743,
+      "mlevel": 6,
+      "modifiedtime": 20201005171130,
+      "readcount": 21828,
+      "sigungucode": 2,
+      "tel": "강일 427-4004, 성내 471-0044, 해공 478-9656, 암사 429-0476, 천호 488-7223",
+      "title": "강동북페스티벌2020",
+      "agelimit": "전연령 가능",
+      "bookingplace": "",
+      "discountinfofestival": "",
+      "eventplace": "온라인개최",
+      "placeinfo": "",
+      "playtime": "",
+      "program": "",
+      "spendtimefestival": "기간내 자유",
+      "sponsor1": "강동구립도서관",
+      "sponsor1tel": "강일 427-4004, 성내 471-0044, 해공 478-9656, 암사 429-0476, 천호 488-7223",
+      "sponsor2": "강동문화재단",
+      "sponsor2tel": "강일 427-4004, 성내 471-0044, 해공 478-9656, 암사 429-0476, 천호 488-7223",
+      "subevent": "",
+      "usetimefestival": "무료"
+    },
+    {
+      "addr1": "온라인개최",
+      "areacode": 1,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 1307813,
+      "contenttypeid": 15,
+      "createdtime": 20110614164707,
+      "eventenddate": 20201011,
+      "eventstartdate": 20201005,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/34/2674234_image2_1.jpg",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/34/2674234_image2_1.jpg",
+      "modifiedtime": 20201006161346,
+      "readcount": 66461,
+      "sigungucode": 2,
+      "tel": "02-3425-5245",
+      "title": "강동선사문화축제 2020",
+      "agelimit": "전연령 관람 및 참가가능",
+      "bookingplace": "",
+      "discountinfofestival": "",
+      "eventplace": "강동구청 공식 유튜브",
+      "placeinfo": "",
+      "playtime": "",
+      "program": "",
+      "spendtimefestival": "기간내자유",
+      "sponsor1": "강동구",
+      "sponsor1tel": "02-3425-5245",
+      "sponsor2": "강동구",
+      "sponsor2tel": "02-3425-5245",
+      "subevent": "",
+      "usetimefestival": "무료",
+      "detailImage": [
+        {
+          "contentid": 1307813,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/85/2674585_image2_1.jpg",
+          "serialnum": "2674585_1",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/85/2674585_image2_1.jpg"
+        },
+        {
+          "contentid": 1307813,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/86/2674586_image2_1.JPG",
+          "serialnum": "2674586_6",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/86/2674586_image2_1.JPG"
+        },
+        {
+          "contentid": 1307813,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/87/2674587_image2_1.JPG",
+          "serialnum": "2674587_4",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/87/2674587_image2_1.JPG"
+        },
+        {
+          "contentid": 1307813,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/88/2674588_image2_1.jpg",
+          "serialnum": "2674588_5",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/88/2674588_image2_1.jpg"
+        },
+        {
+          "contentid": 1307813,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/89/2674589_image2_1.jpg",
+          "serialnum": "2674589_3",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/89/2674589_image2_1.jpg"
+        },
+        {
+          "contentid": 1307813,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/90/2674590_image2_1.JPG",
+          "serialnum": "2674590_2",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/90/2674590_image2_1.JPG"
+        }
+      ]
+    },
+    {
+      "addr1": "강원도 강릉시 단오장길 1",
       "areacode": 32,
       "cat1": "08",
       "cat2": "0801",
       "cat3": "080105",
-      "contentid": 2541883,
+      "contentid": 531391,
       "contenttypeid": 15,
-      "createdtime": 20180406094032,
-      "eventenddate": 20201114,
-      "eventstartdate": 20201112,
-      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/65/2650165_image2_1.jpg",
-      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/65/2650165_image2_1.jpg",
-      "mapx": "128.8920698750",
-      "mapy": 37.7532267491,
+      "createdtime": 20080414154012,
+      "eventenddate": 20200628,
+      "eventstartdate": 20200621,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/95/2543695_image2_1.jpg",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/95/2543695_image2_1.jpg",
+      "mapx": 128.8950169869,
+      "mapy": 37.7482134974,
       "mlevel": 6,
-      "modifiedtime": 20201026164953,
-      "readcount": 7305,
+      "modifiedtime": 20200521155909,
+      "readcount": 143108,
       "sigungucode": 1,
-      "tel": "033-823-3213",
-      "title": "강릉 문화재야행 2020",
-      "homepage": "<a href=\"http://www.gncn.or.kr\" target=\"_blank\" title=\"새창: 강릉야행 홈페이지로 이동\">http://www.gncn.or.kr</a>",
-      "overview": "강릉의 야간 문화재 향유 프로그램으로 야간에 보고 즐기는 문화재 및 공연, 전시 프로그램이 진행된다.\n야행은 강릉대도호부 관아 일원에서 펼쳐진다.",
-      "telname": "강릉문화원, 강릉시청",
-      "zipcode": 25534
-    }
+      "tel": "033-641-1593",
+      "title": "강릉 단오제 2020",
+      "agelimit": "전연령 가능함",
+      "bookingplace": "",
+      "discountinfofestival": "",
+      "eventplace": "강릉시 남대천 단오장(온라인 중계)",
+      "placeinfo": "[고속버스]<br />\n강릉고속버스터미널 하차<br />\nKOBUS<a href=\"http://www.kobus.co.kr\"target=\"_blank\"title=\"kobus 사이트로 이동\">http://www.kobus.co.kr </a><br /><br />\n\n[버스]<br />\n단오문화관 하차<br />\n211(강릉고.폴리텍대학)<br />\n211-1(안목.폴리텍대학)<br />\n227-1(남향진.교통택지)",
+      "playtime": "",
+      "program": "",
+      "spendtimefestival": "기간내 자유",
+      "sponsor1": "(사)강릉단오제위원회",
+      "sponsor1tel": "033-641-1593",
+      "sponsor2": "(사)강릉단오제보존회",
+      "sponsor2tel": "033-641-1593",
+      "subevent": "",
+      "usetimefestival": "무료",
+      "detailImage": [
+        {
+          "contentid": 531391,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/96/2543696_image2_1.jpg",
+          "serialnum": "2543696_10",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/96/2543696_image2_1.jpg"
+        },
+        {
+          "contentid": 531391,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/97/2543697_image2_1.JPG",
+          "serialnum": "2543697_9",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/97/2543697_image2_1.JPG"
+        },
+        {
+          "contentid": 531391,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/98/2543698_image2_1.jpg",
+          "serialnum": "2543698_7",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/98/2543698_image2_1.jpg"
+        },
+        {
+          "contentid": 531391,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/99/2543699_image2_1.jpg",
+          "serialnum": "2543699_6",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/99/2543699_image2_1.jpg"
+        },
+        {
+          "contentid": 531391,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/00/2543700_image2_1.JPG",
+          "serialnum": "2543700_8",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/00/2543700_image2_1.JPG"
+        },
+        {
+          "contentid": 531391,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/01/2543701_image2_1.jpg",
+          "serialnum": "2543701_5",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/01/2543701_image2_1.jpg"
+        },
+        {
+          "contentid": 531391,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/02/2543702_image2_1.jpg",
+          "serialnum": "2543702_3",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/02/2543702_image2_1.jpg"
+        },
+        {
+          "contentid": 531391,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/03/2543703_image2_1.jpg",
+          "serialnum": "2543703_4",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/03/2543703_image2_1.jpg"
+        },
+        {
+          "contentid": 531391,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/04/2543704_image2_1.jpg",
+          "serialnum": "2543704_2",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/04/2543704_image2_1.jpg"
+        },
+        {
+          "contentid": 531391,
+          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/05/2543705_image2_1.jpg",
+          "serialnum": "2543705_1",
+          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/05/2543705_image2_1.jpg"
+        }
+      ]
+    },
+    1
   ]
 }
