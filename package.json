@@ -1,5 +1,5 @@
 {
-    "name": "ECPlaza Tools",
+    "name": "ecplaza-tools",
     "logo": "https://github.com/Danycraft98/ecplaza-tools/tree/master/static/images/logo.png",
     "description": "A barebones Python app, which can easily be deployed to Heroku.",
     "image": "heroku/python",
@@ -24,7 +24,10 @@
         }
     },
     "scripts": {
-        "postdeploy": "python -m spacy download en && python manage.py makemigrations && python manage.py migrate"
+        "postdeploy": "python -m spacy download en && python manage.py makemigrations && python manage.py migrate",
+        "lint": "eslint ",
+        "test": "mocha ./test/test*.js --reporter spec",
+        "test-coverage": "istanbul cover ./node_modules/.bin/_mocha -- test/test.js test/test-ratelimit.js --reporter spec"
     },
     "environments": {
         "test": {
@@ -33,5 +36,29 @@
                 "test": "python manage.py test"
             }
         }
+    },
+    "main": "lib/cors-anywhere.js",
+    "files": [
+        "lib/",
+        "test/",
+        "Procfile",
+        "demo.html",
+        "server.js"
+    ],
+    "dependencies": {
+        "http-proxy": "1.11.1",
+        "proxy-from-env": "0.0.1"
+    },
+    "devDependencies": {
+        "coveralls": "^2.11.6",
+        "eslint": "^2.2.0",
+        "istanbul": "^0.4.2",
+        "lolex": "^1.5.0",
+        "mocha": "^3.4.2",
+        "nock": "^8.2.1",
+        "supertest": "^2.0.1"
+    },
+    "engines": {
+        "node": ">=0.10.0"
     }
 }
