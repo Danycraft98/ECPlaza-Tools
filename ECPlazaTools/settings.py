@@ -14,6 +14,7 @@ import os
 import dj_database_url
 import dotenv as env
 # import django_heroku
+from npm.finders import NpmFinder, npm_install
 from django.contrib.admin import AdminSite
 from corsheaders.defaults import default_headers
 
@@ -122,6 +123,12 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
 CORS_ALLOW_HEADERS = list(default_headers) + ['Access-Control-Allow-Origin']
 
+NPM_FILE_PATTERNS = {
+    'react': ['react.js'],
+    'express': ['lib/*.js', 'index.js']
+}
+
+
 # Google Settings ==================================================================================
 
 SCOPE = os.getenv('SCOPE')
@@ -197,7 +204,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+STATICFILES_FINDERS = [NpmFinder]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+npm_install()
 
 # Upload Settings ==================================================================================
 FILE_UPLOAD_MAX_MEMORY_SIZE = 3000000
