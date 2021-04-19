@@ -60,34 +60,23 @@ function topFunction() {
 
 //*** Ajax Request Function ***
 function loadAjax(details, returnFunc, container, async = true) {
-    details.promise = new Promise((resolve, reject) => {
-        $.ajax($.extend({
-            async: async, crossDomain: true,
-            mode: 'cors', credentials: 'include', origin: "*",
-            headers: {
-                /*'Access-Control-Allow-Origin':  '*',
-                'Access-Control-Request-Method': details.method,
-                'Access-Control-Request-Headers': 'Content-Type, Authorization',
-                'postman-token': 'e044290e-4cb5-3056-fbc3-de2c26cecb79',*/
-
-                'content-type': 'application/json',
-                'cache-control': 'no-cache',
-            },
-            beforeSend: function () {
-                if (container) $(container).html('Loading...');
-                else console.log('Loading...')
-            },
-            success: (resp) => {
-                if (returnFunc === alert) alert(JSON.stringify(resp))
-                else returnFunc(resp, details);
-                resolve(resp);
-            },
-            error: (resp) => {
-                console.log(resp, details);
-                reject(resp);
-            },
-        }, details))
-    });
+    //details.dataType = 'jsonp';
+    details.url = 'https://cors-bypass-ecplaza.herokuapp.com/' + details.url;
+    $.ajax($.extend({
+        async: async, crossDomain: true,
+        mode: 'cors', credentials: 'include', origin: "*",
+        beforeSend: function () {
+            if (container) $(container).html('Loading...');
+            else console.log('Loading...')
+        },
+        success: (resp) => {
+            if (returnFunc === alert) alert(JSON.stringify(resp))
+            else returnFunc(resp, details);
+        },
+        error: (resp) => {
+            console.log(`error: ${JSON.stringify($.extend(details, resp))}`);
+        },
+    }, details))
 }
 
 //*** Basic Functions in submitting form and returning result. ***
@@ -100,7 +89,7 @@ function submitForm(e) {
     $('.hidden').removeClass('hidden');
     let is_postman_form = e.target.id === 'postman', file = null, details = {};
     $.map($(e.target).find(":input:visible:not('button,:radio'),#id_serviceKey"), function (raw_tag) {
-        let tag= $(raw_tag), name = tag.attr('name');
+        let tag = $(raw_tag), name = tag.attr('name');
         file = name.includes('_file') ? tag.get(0).files[0] : '';
         if (tag.val()) details[tag.attr('name')] = tag.val();
         if (tag.text().includes('맛집')) details.contentTypeId = 39;
@@ -118,7 +107,7 @@ function submitForm(e) {
 function parseFile(respText, details) {
     const reader = new FileReader();
     reader.readAsText(respText);
-    reader.onload = () =>{
+    reader.onload = () => {
         details.method = 'GET';
         respText = reader.result;
         if (details.hasOwnProperty('html_file'))
@@ -147,7 +136,7 @@ function writeResult(respText, details) {
     }
     details.url = details.hasOwnProperty('html_file') ? details.html_file : details.url;
     raw_data = getMethods(respText).includes('trim') ? $(respText.trim()) : $(respText);
-    refined_data = /visitkorea/g.exec(details.url) ? getTourItems(details.url, raw_data) : /(?:http|app)/g.exec(details.url) ? getAppValues(details.url, raw_data) : raw_data;
+    refined_data = /visitkorea/g.exec(details.url) ? getTourItems(details.url, raw_data) : /(http|app)/g.exec(details.url) ? getAppValues(details.url, raw_data) : raw_data;
     details.method = details.method ? details.method : 'GET';
 
     if (/visitkorea/g.exec(details.url)) {
@@ -231,7 +220,7 @@ function getAppValues(url, node) {
                     case 1 | ('D' | 'L'):
                     case 5: // it_image_json + it_url
                         let header = '';
-                        if (i === 1) item_url = $(item_url.split('> ')).each(() =>{
+                        if (i === 1) item_url = $(item_url.split('> ')).each(() => {
                             return this + '>';
                         }).get(0);
                         if (i === 5) header = app_name === 'HT_L' ? 'http://www.hottracks.co.kr' : app_name === 'Coupang_L' ? 'https://www.coupang.com/' : ''
@@ -283,7 +272,8 @@ function getAppValues(url, node) {
 }
 
 function getTourValues(details, returnFunc, asnyc, rtype = 'json') {
-    details.url = `http://api.visitkorea.or.kr/openapi/service/rest/${details.service}/${details.area}?MobileOS=ETC&MobileApp=ECPlaza Tools&_type=${rtype}`;
+    rtype = 'json'
+    $.extend(details, {url: `http://api.visitkorea.or.kr/openapi/service/rest/${details.service}/${details.area}?MobileOS=ETC&MobileApp=ECPlazaTools&_type=${rtype}`, method: 'GET'})
     $.map(details, function (val, key) {
         if (!['service', 'area', 'url', 'promise', 'method'].includes(key)) details.url += `&${key}=${val}`;
     });
@@ -390,7 +380,7 @@ function getCat(respText, details) {
 function getContentId(respText, _url) {
     let container = $(respText.documentElement), div = $('#id_contentId');
     div.html('');
-    container.find('item').each(() =>{
+    container.find('item').each(() => {
         let item = $(this).find('contentid');
         let opt = $(document.createElement('option'));
         opt.val(item.text())
@@ -433,7 +423,7 @@ function getAnalyticValues(respText, details, _) {
     fs = d.getElementsByTagName(s)[0];
     js.src = 'https://apis.google.com/js/platform.js';
     fs.parentNode.insertBefore(js, fs);
-    js.onload = () =>{
+    js.onload = () => {
         g.load('analytics');
     };
 }(window, document, 'script'));
@@ -467,7 +457,7 @@ function chatClick() {
 }
 
 function autoScroll(div) {
-    setInterval(() =>{
+    setInterval(() => {
         let pos = div.scrollTop();
         div.scrollTop(++pos);
     }, 100);
