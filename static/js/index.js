@@ -196,13 +196,12 @@ function toDatabase(url) {
     let datetime_obj = new Date(),
         datetime = datetime_obj.toLocaleString('fr-CA', {year: 'numeric', month: '2-digit', day: '2-digit'}) + ' '
             + datetime_obj.toLocaleString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'}),
-        list = Object.values(data),
+        list = Array.from(Object.values(data)),
         details = {url: url, method: 'POST'},
         final_data = is_tour ? $.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, kculture: data})}) :
             $.extend(details, {data: JSON.stringify({total_count: list.length, crawling_time: datetime, product: data})});
     console.log(final_data);
     loadAjax(final_data, alert);
-
     $.post({url: '/data/', method: 'POST', type: 'data'})
 }
 
