@@ -61,6 +61,7 @@ function topFunction() {
 //*** Ajax Request Function ***
 function loadAjax(details, returnFunc, container, async = true) {
     //details.dataType = 'jsonp';
+    let temp_url = details.url;
     details.url = 'https://cors-bypass-ecplaza.herokuapp.com/' + details.url;
     $.ajax($.extend({
         async: async, crossDomain: true,
@@ -70,13 +71,15 @@ function loadAjax(details, returnFunc, container, async = true) {
             else console.log('Loading...')
         },
         success: (resp) => {
+            details.url = temp_url;
             if (returnFunc === alert) alert(JSON.stringify(resp))
             else returnFunc(resp, details);
         },
         error: (resp) => {
+            details.url = temp_url;
             console.log(`error: ${JSON.stringify($.extend(details, resp))}`);
         },
-    }, details))
+    }, details));
 }
 
 //*** Basic Functions in submitting form and returning result. ***

@@ -14,7 +14,6 @@ import os
 import dj_database_url
 import dotenv as env
 # import django_heroku
-from npm.finders import NpmFinder, npm_install
 from django.contrib.admin import AdminSite
 from corsheaders.defaults import default_headers
 
@@ -32,7 +31,6 @@ ALLOWED_HOSTS = [
     'https://ecplaza-tools.herokuapp.com',
     'http://ecplaza-tools.herokuapp.com',
 ]
-
 
 # Application definition ===========================================================================
 
@@ -95,7 +93,6 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = 'ECPlazaTools.wsgi.application'
 
-
 # Database =========================================================================================
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -104,13 +101,11 @@ DATABASES = {
     'default': dj_database_url.config(default=DATABASE_URL),
 }
 
-
 # Admin Site Settings ==============================================================================
 
 AdminSite.login_template = os.path.join(TEMPLATES[0].get('DIRS')[0], 'accounts', 'login.html')
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/'
-
 
 # CORS Settings  ===================================================================================
 
@@ -123,18 +118,11 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
 CORS_ALLOW_HEADERS = list(default_headers) + ['Access-Control-Allow-Origin']
 
-NPM_FILE_PATTERNS = {
-    'react': ['react.js'],
-    'express': ['lib/*.js', 'index.js']
-}
-
-
 # Google Settings ==================================================================================
 
 SCOPE = os.getenv('SCOPE')
 KEY_FILEPATH = os.getenv('KEY_FILEPATH')
 GOOGLE_VIEW_ID = os.getenv('GOOGLE_VIEW_ID')
-
 
 # Google Settings ==================================================================================
 
@@ -142,13 +130,11 @@ ECP_API_URL = os.getenv('ECP_API_URL')
 ECP_HT_URL = os.getenv('ECP_HT_URL')
 ECP_TOUR_URL = os.getenv('ECP_TOUR_URL')
 
-
 # Scout Settings ===================================================================================
 
 SCOUT_MONITOR = True
 SCOUT_KEY = os.getenv('SCOUT_KEY')
 SCOUT_NAME = 'A FRIENDLY NAME FOR YOUR APP'
-
 
 # ChatterBot Settings ==============================================================================
 
@@ -204,9 +190,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-STATICFILES_FINDERS = [NpmFinder]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-npm_install()
 
 # Upload Settings ==================================================================================
 FILE_UPLOAD_MAX_MEMORY_SIZE = 3000000
