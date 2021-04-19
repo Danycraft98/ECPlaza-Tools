@@ -1,64 +1,32 @@
 {
   "total_count": 1,
-  "crawling_time": "2021-04-05 13:55:54",
+  "crawling_time": "2021-04-16 17:48:26",
   "kculture": [
     {
-      "addr1": "충청남도 부여군 규암면 백제문로 388",
-      "areacode": 34,
-      "cat1": "A02",
-      "cat2": "A0208",
-      "cat3": "A02080100",
-      "contentid": 1258353,
+      "addr1": "강원도 강릉시 임영로131번길 6",
+      "areacode": 32,
+      "cat1": "08",
+      "cat2": "0801",
+      "cat3": "080105",
+      "contentid": 2541883,
       "contenttypeid": 15,
-      "createdtime": 20110418095420,
-      "eventenddate": 20211030,
-      "eventstartdate": 20210306,
-      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/54/2483454_image2_1.JPG",
-      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/54/2483454_image2_1.JPG",
-      "mapx": 126.8997016069,
-      "mapy": 36.3048428766,
+      "createdtime": 20180406094032,
+      "eventenddate": 20201114,
+      "eventstartdate": 20201112,
+      "firstimage": "http://tong.visitkorea.or.kr/cms/resource/65/2650165_image2_1.jpg",
+      "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/65/2650165_image2_1.jpg",
+      "mapx": "128.8920698750",
+      "mapy": 37.7532267491,
       "mlevel": 6,
-      "modifiedtime": 20210226112411,
-      "readcount": 56458,
-      "sigungucode": 6,
-      "tel": "041-832-5765",
-      "title": "가무악극으로 만나는 토요 상설공연",
-      "homepage": "부여군청 <a href=\"http://www.buyeo.go.kr/html/kr/intro/intro_05110201.html\" target=\"_blank\" title=\"새창: 부여군충남국악단 홈페이지로 이동\">http://www.buyeo.go.kr</a>",
-      "overview": "한국의 멋과 문화를 알리는 충남의 대표적인 전통공립예술단인 부여군충남국악단의 토요상설국악공연은 우리 악기소리를 좀 더 깊게 들어볼 수 있는 기악독주 그리고 특별 기획창극과 춤을 애호하는 분들을 위한 우리의 춤 등으로 구성되어 있다.",
-      "telname": "부여군",
-      "zipcode": 33115,
-      "agelimit": "전연령 가능",
-      "bookingplace": "문화장터<a href=\"http://www.asiamunhwa.com\" target=\"_blank\" title=\"새창: 부여상설문화관광 예매 홈페이지로 이동\">http://www.asiamunhwa.com</a>",
-      "discountinfofestival": "충남도민 1,000원 할인",
-      "eventplace": "부여군 국악의 전당",
-      "placeinfo": "",
-      "playtime": "",
-      "program": "",
-      "spendtimefestival": "60분",
-      "sponsor1": "부여군",
-      "sponsor1tel": "041-832-5765",
-      "sponsor2": "부여군충남국악단",
-      "sponsor2tel": "041-832-5765",
-      "subevent": "",
-      "usetimefestival": "2,000원",
-      "detailInfo": [
-        {
-          "contentid": 1258353,
-          "contenttypeid": 15,
-          "fldgubun": 1,
-          "infoname": "행사소개",
-          "infotext": "한국의 멋과 문화를 알리는 충남의 대표적인 전통공립예술단인 부여군충남국악단의 토요상설국악공연은 우리 악기소리를 좀 더 깊게 들어볼 수 있는 기악독주 그리고 특별 기획창극과 춤을 애호하는 분들을 위한 우리의 춤 등으로 구성되어 있다. ",
-          "serialnum": 0
-        }
-      ],
-      "detailImage": [
-        {
-          "contentid": 1258353,
-          "originimgurl": "http://tong.visitkorea.or.kr/cms/resource/51/2483451_image2_1.jpg",
-          "serialnum": "2483451_1",
-          "smallimageurl": "http://tong.visitkorea.or.kr/cms/resource/51/2483451_image2_1.jpg"
-        }
-      ]
+      "modifiedtime": 20201026164953,
+      "readcount": 7305,
+      "sigungucode": 1,
+      "tel": "033-823-3213",
+      "title": "강릉 문화재야행 2020",
+      "homepage": "<a href=\"http://www.gncn.or.kr\" target=\"_blank\" title=\"새창: 강릉야행 홈페이지로 이동\">http://www.gncn.or.kr</a>",
+      "overview": "강릉의 야간 문화재 향유 프로그램으로 야간에 보고 즐기는 문화재 및 공연, 전시 프로그램이 진행된다.\n야행은 강릉대도호부 관아 일원에서 펼쳐진다.",
+      "telname": "강릉문화원, 강릉시청",
+      "zipcode": 25534
     }
   ]
 }
