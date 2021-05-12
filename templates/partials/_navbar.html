@@ -92,11 +92,15 @@
                                         <div class='col-sm-6 col-xl-4'>
                                             <div class='nav flex-column'>
                                                 <div class='nav-item-header nav-item'>
-                                                    <i class='pe-7s-info'></i> Blank
+                                                    <i class='pe-7s-network'></i> 데이터 리스트
                                                 </div>
-                                                <a href='#' class='nav-item nav-link'>
-                                                    <i class='nav-link-icon pe-7s-info'></i>
-                                                    <span> Blank</span>
+                                                <a href="{% url 'collection' 'category' %}" class='nav-item nav-link'>
+                                                    <i class='nav-link-icon pe-7s-photo-gallery'></i>
+                                                    <span> 카테고리 리스트</span>
+                                                </a>
+                                                <a href="{% url 'collection' 'item' %}" class='nav-item nav-link'>
+                                                    <i class='nav-link-icon pe-7s-photo-gallery'></i>
+                                                    <span> 수집 리스트</span>
                                                 </a>
                                             </div>
                                         </div>

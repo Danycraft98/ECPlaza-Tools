@@ -1,0 +1,39 @@
+{% extends 'base_site.html' %}
+{% load custom_tags %}
+
+
+{% block style %}
+    <style>
+        .table tr {
+            text-align: left !important;
+        }
+    </style>
+{% endblock %}
+
+
+{% block main-content %}
+    <div class='card-header d-flex align-items-center justify-content-between'>
+        <h5 class='my-2'>{{ item }}</h5>
+
+        <div class='align-items-right my-2'>
+            <div class='navbar-nav ml-auto'>
+                <a class='btn btn-primary' href="{% url 'collection_form' item.id %}">수정</a>
+            </div>
+        </div>
+    </div>
+
+    <div class='card-body'>
+        <div class='container-fluid'>
+            <dl class='row'>
+                {% for instance in item_dict %}
+                    {% for field, value in instance.fields.items %}
+                        <dt class='col-3'>{{ field|get_verbose }}</dt>
+                        <dd class='col-9'>
+                            {% if 'http' in value %}<a href='{{ value }}'>{% endif %}{{ value }}{% if 'http' in value %}</a>{% endif %}
+                        </dd>
+                    {% endfor %}
+                {% endfor %}
+            </dl>
+        </div>
+    </div>
+{% endblock %}

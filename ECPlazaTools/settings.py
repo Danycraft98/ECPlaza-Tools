@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_createuser',
     'django_extensions',
     'django_filters',
+    'django_tables2',
     'rest_framework',
     'rest_framework.authtoken'
 ]
@@ -67,7 +68,7 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }

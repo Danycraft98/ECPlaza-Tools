@@ -2,12 +2,10 @@ import os
 
 from django.forms import *
 
-from .models import Document
+from .models import *
 from .constants import *
 
-__all__ = [
-    'DocumentFormSet', 'HeaderSelectForm', 'PostmanAPIForm', 'TourAPIForm'
-]
+__all__ = ['DocumentFormset', 'DocumentForm', 'HeaderSelectForm', 'PostmanAPIForm', 'TourAPIForm', 'CategoryForm', 'ItemForm']
 
 
 class ListTextWidget(NumberInput):
@@ -27,9 +25,7 @@ class ListTextWidget(NumberInput):
         return text_html + data_list
 
 
-# ---------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+# File --------------------------------------------------------------------------------------
 class DocumentForm(ModelForm):
     prefix = 'document'
     document = FileField(
@@ -66,13 +62,13 @@ class HeaderSelectForm(Form):
         fields = '__all__'
 
 
-DocumentFormSet = modelformset_factory(
+DocumentFormset = modelformset_factory(
     Document, form=DocumentForm, fields='__all__',
     min_num=2, max_num=2, extra=1
 )
 
 
-# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+# HTML Parser -------------------------------------------------------------------------------
 class PostmanAPIForm(Form):
     request = ChoiceField(required=False, choices=REQUEST_LIST, widget=Select(attrs={'class': 'col-2'}))
 
@@ -99,14 +95,27 @@ class PostmanAPIForm(Form):
         fields = '__all__'
 
 
-# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+# Tour API ----------------------------------------------------------------------------------
 class TourAPIForm(Form):
     serviceKey = CharField(initial=os.getenv('TOUR_API_KEY'), widget=HiddenInput())
     service = ChoiceField(label='언어 서비스', choices=LANG_LIST, widget=Select())
     area = ChoiceField(label='분야', choices=CAT_LIST, widget=Select())
     pageNo = IntegerField(required=False, label='페이지 No.', widget=NumberInput(attrs={'min': 1, 'value': 1}))
-    numOfRows = IntegerField(label='행 갯수', widget=ListTextWidget(data_list=NUM_ROW_LIST, name='numOfRows', attrs={'min': 1}))
+    numOfRows = IntegerField(label='행 갯수', initial=1, widget=ListTextWidget(data_list=NUM_ROW_LIST, name='numOfRows', attrs={'min': 1}))
 
     eventStartDate = CharField(required=False, label='행사 날짜 범위', widget=TextInput())
     eventEndDate = CharField(required=False, label='행사 종료일', widget=TextInput())  # details, returnFunc, asnyc, rtype='json'
     contentTypeId = ChoiceField(label='콘텐츠 타입 ID', choices=CONTENT_TYPE_LIST, widget=Select(attrs={'size': '4'}))
+
+
+# ? -----------------------------------------------------------------------------------------
+class CategoryForm(ModelForm):
+    class Meta:
+        model = Category
+        fields = "__all__"
+
+
+class ItemForm(ModelForm):
+    class Meta:
+        model = Item
+        fields = "__all__"

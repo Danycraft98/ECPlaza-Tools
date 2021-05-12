@@ -8,6 +8,8 @@
 
 
 {% block main-content %}
+    <input type='hidden' name='username' id='username' value='{{ user.username }}'/>
+    <input type='password' name='password' id='password' value='{{ user.password }}' aria-label='Password' hidden/>
     <form id='postman' method='POST' enctype='multipart/form-data' class='card-body container' onsubmit='submitForm(event)'>
         <div class='row mt-4 mx-0'>
             <div class='nav nav-tabs col-6 d-flex justify-content-start mb-0' id='nav-tab' role='tablist'>
@@ -30,7 +32,7 @@
                     <i class='fa fa-download'></i> 파일 내보내기
                 </a>
                 <button class='nav-item nav-link' type='submit'>
-                    <i class='fa fa-exchange '></i> 구문 분석
+                    <i class='fa fa-exchange'></i> 구문 분석
                 </button>
             </div>
         </div>

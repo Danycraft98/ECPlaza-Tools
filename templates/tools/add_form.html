@@ -1,0 +1,56 @@
+{% extends 'base_site.html' %}
+{% load custom_tags %}
+
+
+{% block style %}
+    <style>
+        .table tr {
+            text-align: left !important;
+        }
+    </style>
+{% endblock %}
+
+
+{% block main-content %}
+    <div class='card-header d-flex align-items-center justify-content-between'>
+        <h5 class='my-2'>
+            {{ subtitle }}
+        </h5>
+
+        <div class='align-items-right my-2'>
+            <div class='navbar-nav ml-auto'>
+                right
+            </div>
+        </div>
+    </div>
+
+    <div class='card-body'>
+        <form method='post' class='container-fluid'>
+            {% csrf_token %}
+            {{ form.id }}
+            <div class='row'>
+                <table class='table'>
+                    {{ form.as_table }}
+                </table>
+            </div>
+            <div class='row'>
+                <button class='offset-md-4 col-2 btn btn-primary' type='submit'>저장</button>
+                <button class='col-2 btn btn-outline-primary' type='submit'>취소</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        {% with cat=subtitle|get_cat %}
+            {% if cat %}
+                $('#id_category').val('{{ cat.cat_id }}');
+            {% endif %}
+        {% endwith %}
+    </script>
+{% endblock %}
+
+
+

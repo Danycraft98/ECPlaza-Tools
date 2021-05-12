@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Product, Catalog
+from .models import Item, Category, Product, TourInfo
 
-__all__ = ['ProductSerializer', 'CatalogSerializer']
+__all__ = ['ProductSerializer', 'TourInfoSerializer', 'ItemSerializer', 'CategorySerializer']
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -10,7 +10,19 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CatalogSerializer(serializers.ModelSerializer):
+class TourInfoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Catalog
+        model = TourInfo
+        fields = '__all__'
+
+
+class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = '__all__'
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
         fields = '__all__'

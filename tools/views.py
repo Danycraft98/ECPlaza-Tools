@@ -1,11 +1,13 @@
 from datetime import datetime
 import os
 
+from django.core import serializers
 from django.template.defaultfilters import filesizeformat
 from django.contrib.auth.decorators import login_required
 from django.forms import forms
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from rest_framework import viewsets
 
 from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL, FILE_UPLOAD_MAX_MEMORY_SIZE, UPLOADS_PATH
@@ -15,15 +17,35 @@ from .forms import *
 from .functions import *
 from .models import *
 from .serializers import *
+from .tables import *
 
 TITLE1 = ('pe-7s-copy-file', '파일비교 애플리케이션', '파일 내역을 비교하는 애플리케이션')
 sep = os.path.sep
 
 
+def upload_file(request):
+    query = request.POST if request.method == "POST" else request.GET
+    if query.get('data', False):
+        with open(os.path.join(UPLOADS_PATH, 'data.json'), 'w') as file:
+            file.write(query.get('data', '{}'))
+    return redirect('index')
+
+
+def read_data_file(request):
+    path, dirs, files = next(os.walk(UPLOADS_PATH))
+    with open(os.path.join(UPLOADS_PATH, files[-1]), 'r+') as file:
+        data = file.read()
+    # open(UPLOADS_PATH, 'data.json', 'w').close()
+    if request.method == 'POST':
+        os.unlink(os.path.join(UPLOADS_PATH, 'data.json'))
+    return render(request, 'main/get_data.html', {'data': data})
+
+
+# Compare -----------------------------------------------------------------------------------
 @login_required
 def compare(request):
     step, header_dict, values = 'start', [], {}
-    doc_forms = DocumentFormSet(request.POST or None, request.FILES or None, queryset=Document.objects.none())
+    doc_forms = DocumentFormset(request.POST or None, request.FILES or None, queryset=Document.objects.none())
     hs_form = HeaderSelectForm(request.POST or None, request.FILES or None)
     if request.method == 'POST':
         if hs_form.is_valid():
@@ -51,11 +73,7 @@ def compare(request):
                 if file.size > FILE_UPLOAD_MAX_MEMORY_SIZE:
                     raise forms.ValidationError('Please keep filesize under' + filesizeformat(FILE_UPLOAD_MAX_MEMORY_SIZE) + '. Current filesize' + filesizeformat(file.size))
                 doc_query = Document.objects.filter(document=file)
-                if doc_query.exists():
-                    doc = doc_query.first()
-                else:
-                    doc = docForm.save()
-
+                doc = doc_query.first() if doc_query.exists() else docForm.save()
                 values.update({
                     'filename' + str(i + 1): str(doc),
                     'file' + str(i + 1): doc,
@@ -76,8 +94,13 @@ def export(request):
     return redirect(None)
 
 
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# HTML Parser -------------------------------------------------------------------------------
 TITLE2 = ('pe-7s-browser', '링크 투 파일 애플리케이션', '링크 컬링해주는 애플리케이션')
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 
 @login_required
@@ -87,43 +110,82 @@ def url_parse(request):
     return render(request, 'tools/html_parse.html', {'title': TITLE2, 'form': form, 'user': request.user, 'url': url})
 
 
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Tour API ----------------------------------------------------------------------------------
 TITLE3 = ('pe-7s-plane', '투어 API Demo', '')
+
+
+class TourInfoViewSet(viewsets.ModelViewSet):
+    queryset = TourInfo.objects.all()
+    serializer_class = TourInfoSerializer
 
 
 @login_required
 def tour_api(request):
     url = ECP_API_URL + ECP_TOUR_URL
-    form = TourAPIForm()
+    form = TourAPIForm(request.POST or None, request.FILES or None)
     return render(request, 'tools/tour_api.html', {
         'title': TITLE3, 'form': form, 'api_key': os.getenv('TOUR_API_KEY'), 'user': request.user, 'url': url, 'others': CAT_LIST, 'details': CAT_DETAIL_LIST
     })
 
 
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all().order_by('name')
-    serializer_class = ProductSerializer
+# Collection --------------------------------------------------------------------------------
+TITLE4 = ('pe-7s-photo-gallery', 'MALL 수집', '')
 
 
-class CatalogViewSet(viewsets.ModelViewSet):
-    queryset = Catalog.objects.all().order_by('app_name')
-    serializer_class = CatalogSerializer
+class ItemViewSet(viewsets.ModelViewSet):
+    queryset = Item.objects.all().order_by('date_updated')
+    serializer_class = ItemSerializer
 
 
-def upload_file(request):
-    query = request.POST if request.method == "POST" else request.GET
-    if query.get('data', False):
-        with open(os.path.join(UPLOADS_PATH, 'data.json'), 'w') as file:
-            file.write(query.get('data', '{}'))
-    return redirect('index')
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all().order_by('name')
+    serializer_class = CategorySerializer
 
 
-def read_file(request):
-    path, dirs, files = next(os.walk(UPLOADS_PATH))
-    with open(os.path.join(UPLOADS_PATH, files[-1]), 'r+') as file:
-        data = file.read()
-    # open(UPLOADS_PATH, 'data.json', 'w').close()
-    if request.method == 'POST':
-        os.unlink(os.path.join(UPLOADS_PATH, 'data.json'))
-    return render(request, 'main/get_data.html', {'data': data})
+@login_required
+def collection(request, col_type):
+    try:
+        item_dict = serializers.serialize("python", queryset=Item.objects.filter(id=col_type))
+        return render(request, 'tools/item.html', {'title': TITLE4, 'item_dict': item_dict, 'item': Item.objects.get(id=col_type)})
+    except (Item.DoesNotExist, ValueError):
+        doc_form = DocumentForm(request.POST or None, request.FILES or None)
+        table = CategoryTable(Category.objects.all()) if col_type == 'category' else ItemTable(Item.objects.all()) if col_type == 'item' else ItemTable(Item.objects.filter(category__cat_id=col_type))
+        if request.method == 'POST' and doc_form.is_valid():
+            data_file = doc_form.cleaned_data.get('document', None)
+            header_num = doc_form.cleaned_data.get('header')
+            dataframe, _ = read_file(data_file, data_file.name, header=header_num)
+            for index, row in dataframe.iterrows():
+                cat, exists = Category.objects.get_or_create(cat_id=row['eck_category'])
+                if not exists:
+                    cat.name = row['category']
+                    cat.save()
+                new_item, exists = Item.objects.update_or_create(category=cat, url=row['URL'])
+                if exists:
+                    new_item.date_updated = timezone.now()
+                new_item.ss_id = row['ss_id']
+                new_item.mall_id = row['mall_id']
+                new_item.notes = row['notes']
+                new_item.save()
+        col_type = col_type if col_type in ['item', 'category'] else Category.objects.get(cat_id=col_type)
+    return render(request, 'tools/collection.html', {'title': TITLE4, 'table': table, 'subtitle': col_type, 'formset': doc_form})
+
+
+@login_required
+def collection_form(request, col_type):
+    try:
+        form = ItemForm(request.POST or None, request.FILES or None, instance=Item.objects.get(id=col_type))
+    except (Item.DoesNotExist, ValueError):
+        form = CategoryForm(request.POST or None, request.FILES or None) if col_type == 'category' else ItemForm(request.POST or None, request.FILES or None)
+    if request.method == 'POST' and form.is_valid():
+        rtn_item = form.save()
+        return redirect('collection', rtn_item.id if hasattr(rtn_item, 'id') else rtn_item.cat_id)
+    return render(request, 'tools/add_form.html', {'title': TITLE4, 'form': form, 'subtitle': col_type})
+
+
+@login_required
+def delete_collection(request, item_id):
+    try:
+        Item.objects.filter(id=item_id).update(delete=True)
+    except Item.DoesNotExist:
+        Http404('No Such Item found.')
+    return redirect('collection', 'item')
