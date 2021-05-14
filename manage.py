@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.system('chmod a=rwx exists.sh')
+    # os.system('chmod a=rwx exists.sh')
     os.system('exists.sh en')
     # os.system('python -m spacy download en')
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ECPlazaTools.settings')

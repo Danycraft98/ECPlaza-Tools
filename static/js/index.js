@@ -78,9 +78,8 @@ function loadAjax(details, returnFunc, container, is_external = true) {
 
 function loadAPIData(details) {
     $.ajax($.extend(details, {
-        username: $('#username').val(), password: $('#password').val(), dataType: 'json',
+        username: $('#username').val(), password: $('#password').val(), dataType: 'json', //, contentType: "application/json",
         error: (resp, err) => {
-            console.log(details)
             if (resp.responseText.includes('ID already exists')) {
                 let data = details.data, pk = data.hasOwnProperty('it_id_extra') ? data.it_id_extra : data.hasOwnProperty('contentid') ? data.contentid : ''
                 loadAPIData($.extend(details, {url: `${details.url}${pk}/`, method: 'PUT'}))
@@ -126,18 +125,19 @@ function compileResult(respText, details) {
     let result_div = $('#resultML'), table_div = $('#nav-table'), url_div = $('#url'), is_tour = /visitkorea/g.exec(details.url),
         raw_data = getMethods(respText).includes('trim') ? $(respText.trim()) : $(respText), final_data = [],
         refined_data = is_tour ? getTourItems(details.url, raw_data) : /(http|app)/g.exec(details.url) ? getAppValues(details, raw_data) : raw_data,
-        api_url = `/api/v1/${is_tour ? 'tour_infos' : 'products'}/`;
+        api_url = `/api/v1/${is_tour ? (details.contenttypeid === 39 ? 'restaurants' : 'events') : 'products'}/`;
     $(refined_data).each(async function (i, item) {
-        if (!i) url_div.text(`${details.method} ${details.url}\n`);
+        if (!i) url_div.text(`${url_div.text()} ${details.method} ${details.url}\n`);
         if (/detail|itemid/g.exec(details.url.toLowerCase()) || details.area && details.area.includes('detail')) {
             // Detail Zone
+            let sub_api_url = `${api_url}${details.contentId}/`;
             loadAPIData({
-                method: "GET", url: api_url, success: (resp) => {
+                method: "GET", url: sub_api_url , success: (resp) => {
                     if (is_tour) {
-                        if (/Image|Info/g.exec(details.area)) resp[details.index][details.area] = [];
-                        if (/Common|Intro/g.exec(details.area)) $.extend(resp[details.index], item)
-                        else resp[details.index][details.area].push(item);
-                        console.log(resp[details.index])
+                        if (/Image|Info/g.exec(details.area) && !resp.hasOwnProperty(details.area)) resp[details.area] = [];
+                        if (/Common|Intro/g.exec(details.area)) $.extend(resp, item)
+                        else resp[details.area].push(item);
+                        loadAPIData({method: "PUT", data: JSON.stringify(resp), url: sub_api_url, contentType: "application/json"});
                     } else {
                         // HTML Parser Detail Zone
                     }
@@ -146,20 +146,16 @@ function compileResult(respText, details) {
         } else {
             // List Zone
             final_data.push(item);
-            loadAPIData({
-                method: "POST", data: item, url: api_url, success: () => {
-                    console.log('done')
-                }
-            });
+            loadAPIData({method: "POST", data: item, url: api_url});
             await details.promise;
             delete details.promise;
 
             if (is_tour) {
-                let sub_data = {contentTypeId: item.contenttypeid, contentId: item.contentid, index: i, pageNo: 1, numOfRows: 10}
-                getTourValues($.extend(details, sub_data, {area: 'detailCommon', defaultYN: 'Y', addrinfoYN: 'Y', overviewYN: 'Y'}), compileResult, false);
-                getTourValues($.extend(details, sub_data, {area: 'detailIntro'}), compileResult, false)
-                getTourValues($.extend(details, sub_data, {area: 'detailInfo'}), compileResult, false)
-                getTourValues($.extend(details, sub_data, {area: 'detailImage'}), compileResult, false)
+                let sub_data = $.extend(details, {contentTypeId: item.contenttypeid, contentId: item.contentid, index: i, pageNo: 1, numOfRows: 10})
+                getTourValues($.extend(JSON.parse(JSON.stringify(sub_data)), {area: 'detailCommon', defaultYN: 'Y', addrinfoYN: 'Y', overviewYN: 'Y'}), compileResult, false);
+                getTourValues($.extend(JSON.parse(JSON.stringify(sub_data)), {area: 'detailIntro'}), compileResult, false)
+                getTourValues($.extend(JSON.parse(JSON.stringify(sub_data)), {area: 'detailInfo'}), compileResult, false)
+                getTourValues($.extend(JSON.parse(JSON.stringify(sub_data)), {area: 'detailImage'}), compileResult, false)
             } else {
                 /* loadAjax($.extend(details, {url: item.url}), compileResult); */
             }
@@ -173,7 +169,7 @@ function compileResult(respText, details) {
 function toDatabase(url) {
     let is_tour = url.includes('kculture'), is_food = false;
     loadAPIData({
-        method: "GET", url: `/api/v1/${is_tour ? 'tour_infos' : 'products'}/`, success: (data) => {
+        method: "GET", url: `/api/v1/${is_tour ? 'events' : 'products'}/`, success: (data) => {
             url += is_tour ? (is_food ? '70' : '60') : '';
             delete data.entered_date;
             let datetime_obj = new Date(), details = {url: url, method: 'POST'},

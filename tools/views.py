@@ -117,9 +117,14 @@ def url_parse(request):
 TITLE3 = ('pe-7s-plane', '투어 API Demo', '')
 
 
-class TourInfoViewSet(viewsets.ModelViewSet):
-    queryset = TourInfo.objects.all()
-    serializer_class = TourInfoSerializer
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+
+class RestaurantViewSet(viewsets.ModelViewSet):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
 
 
 @login_required

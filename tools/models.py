@@ -1,6 +1,6 @@
 from django.db import models
 
-__all__ = ['Document', 'Product', 'TourInfo', 'Category', 'Item']
+__all__ = ['Document', 'Product', 'Restaurant', 'Event', 'DetailInfo', 'DetailImage', 'Category', 'Item']
 
 
 # File Models -------------------------------------------------------------------------------
@@ -36,23 +36,58 @@ class TourInfo(models.Model):
     cat1 = models.CharField(verbose_name='대분류 카테고리', max_length=3)
     cat2 = models.CharField(verbose_name='중분류 카테고리', max_length=5)
     cat3 = models.CharField(verbose_name='소분류 카테고리', max_length=10)
+    overview = models.TextField(verbose_name='정보', null=True, blank=True)
+    homepage = models.CharField(verbose_name='홈페이지', max_length=200, null=True, blank=True)
 
-    createdtime = models.IntegerField(verbose_name='Created Time')
-    modifiedtime = models.IntegerField(verbose_name='Modified Time')
-    eventstartdate = models.IntegerField(verbose_name='시작 날짜')
-    eventenddate = models.IntegerField(verbose_name='끝 날짜')
+    createdtime = models.IntegerField(verbose_name='Created Time', null=True, blank=True)
+    modifiedtime = models.IntegerField(verbose_name='Modified Time', null=True, blank=True)
 
-    firstimage = models.URLField(verbose_name='First Image', max_length=150)
-    firstimage2 = models.URLField(verbose_name='Second Image', max_length=150)
-    readcount = models.IntegerField(verbose_name='조회수')
-    tel = models.CharField(verbose_name='전화번호', max_length=15)
+    firstimage = models.URLField(verbose_name='First Image', max_length=150, null=True, blank=True)
+    firstimage2 = models.URLField(verbose_name='Second Image', max_length=150, null=True, blank=True)
+    readcount = models.IntegerField(verbose_name='조회수', null=True, blank=True)
+    telname = models.CharField(verbose_name='전화번호 Name', max_length=15, null=True, blank=True)
+    tel = models.CharField(verbose_name='전화번호', max_length=15, null=True, blank=True)
 
-    addr1 = models.CharField(verbose_name='주소', max_length=100)
-    areacode = models.IntegerField(verbose_name='Area Code')
-    sigungucode = models.IntegerField(verbose_name='시군구 코드')
-    mapx = models.FloatField(verbose_name='X Coordinate')
-    mapy = models.FloatField(verbose_name='Y Coordinate')
-    mlevel = models.IntegerField(verbose_name='M Level')
+    addr1 = models.CharField(verbose_name='주소', max_length=100, null=True, blank=True)
+    areacode = models.IntegerField(verbose_name='Area Code', null=True, blank=True)
+    sigungucode = models.IntegerField(verbose_name='시군구 코드', null=True, blank=True)
+    zipcode = models.IntegerField(verbose_name='Zip 코드', null=True, blank=True)
+    mapx = models.FloatField(verbose_name='X Coordinate', null=True, blank=True)
+    mapy = models.FloatField(verbose_name='Y Coordinate', null=True, blank=True)
+    mlevel = models.IntegerField(verbose_name='M Level', null=True, blank=True)
+
+
+class Restaurant(TourInfo):
+    lcnsno = models.IntegerField(verbose_name='LSNS No.', null=True, blank=True)
+    infocenterfood = models.CharField(verbose_name='문의 전화번호', max_length=15)
+
+    chkcreditcardfood = models.CharField(verbose_name='체크/신용카드', max_length=15)
+    discountinfofood = models.CharField(verbose_name='할인 정보', max_length=15)
+    firstmenu = models.CharField(verbose_name='메인 음식', max_length=15)
+    treatmenu = models.CharField(verbose_name='사이드 음식', max_length=15)
+
+    kidsfacility = models.BooleanField(verbose_name='아동시설', default=False)
+    parkingfood = models.CharField(verbose_name='주차 가능', max_length=15)
+
+    opentimefood = models.CharField(verbose_name='운영 시간', max_length=50)
+    restdatefood = models.CharField(verbose_name='휴일 정보', max_length=50)
+
+
+class Event(TourInfo):
+    eventstartdate = models.IntegerField(verbose_name='시작 날짜', null=True, blank=True)
+    eventenddate = models.IntegerField(verbose_name='끝 날짜', null=True, blank=True)
+
+
+class DetailInfo(models.Model):
+    infoname = models.CharField(verbose_name='정보 이름', max_length=100, null=True, blank=True)
+    infotext = models.TextField(verbose_name='정보 내용', null=True, blank=True)
+    item = models.ForeignKey(TourInfo, verbose_name='아이템', related_name='detailInfo', on_delete=models.CASCADE, null=True, blank=True)
+
+
+class DetailImage(models.Model):
+    originimgurl = models.URLField(verbose_name='원본 Image', null=True, blank=True)
+    smallimageurl = models.URLField(verbose_name='Thumbnail Image', null=True, blank=True)
+    item = models.ForeignKey(TourInfo, verbose_name='아이템', related_name='detailImage', on_delete=models.CASCADE, null=True, blank=True)
 
 
 # Collection Models -------------------------------------------------------------------------
