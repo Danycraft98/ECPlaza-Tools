@@ -125,9 +125,9 @@ function compileResult(respText, details) {
     let result_div = $('#resultML'), table_div = $('#nav-table'), url_div = $('#url'), is_tour = /visitkorea/g.exec(details.url),
         raw_data = getMethods(respText).includes('trim') ? $(respText.trim()) : $(respText), final_data = [],
         refined_data = is_tour ? getTourItems(details.url, raw_data) : /(http|app)/g.exec(details.url) ? getAppValues(details, raw_data) : raw_data,
-        api_url = `/api/v1/${is_tour ? (details.contenttypeid === 39 ? 'restaurants' : 'events') : 'products'}/`;
+        api_url = `/api/v1/${is_tour ? (url_div.text().includes('searchFestival') ? 'events' : 'restaurants') : 'products'}/`;
     $(refined_data).each(async function (i, item) {
-        if (!i) url_div.text(`${url_div.text()} ${details.method} ${details.url}\n`);
+        if (!i) url_div.text(`${details.method} ${details.url}\n`);
         if (/detail|itemid/g.exec(details.url.toLowerCase()) || details.area && details.area.includes('detail')) {
             // Detail Zone
             let sub_api_url = `${api_url}${details.contentId}/`;
@@ -167,9 +167,9 @@ function compileResult(respText, details) {
 }
 
 function toDatabase(url) {
-    let is_tour = url.includes('kculture'), is_food = false;
+    let is_tour = url.includes('kculture'), is_food = $('code#url').text().includes('searchFestival');
     loadAPIData({
-        method: "GET", url: `/api/v1/${is_tour ? 'events' : 'products'}/`, success: (data) => {
+        method: "GET", url: `/api/v1/${is_tour ? (is_food ? 'events' : 'restaurants') : 'products'}/`, success: (data) => {
             url += is_tour ? (is_food ? '70' : '60') : '';
             delete data.entered_date;
             let datetime_obj = new Date(), details = {url: url, method: 'POST'},

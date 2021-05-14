@@ -59,18 +59,18 @@ class TourInfo(models.Model):
 
 class Restaurant(TourInfo):
     lcnsno = models.IntegerField(verbose_name='LSNS No.', null=True, blank=True)
-    infocenterfood = models.CharField(verbose_name='문의 전화번호', max_length=15)
+    infocenterfood = models.CharField(verbose_name='문의 전화번호', max_length=15, null=True, blank=True)
 
-    chkcreditcardfood = models.CharField(verbose_name='체크/신용카드', max_length=15)
-    discountinfofood = models.CharField(verbose_name='할인 정보', max_length=15)
-    firstmenu = models.CharField(verbose_name='메인 음식', max_length=15)
-    treatmenu = models.CharField(verbose_name='사이드 음식', max_length=15)
+    chkcreditcardfood = models.CharField(verbose_name='체크/신용카드', max_length=15, null=True, blank=True)
+    discountinfofood = models.CharField(verbose_name='할인 정보', max_length=15, null=True, blank=True)
+    firstmenu = models.CharField(verbose_name='메인 음식', max_length=30, null=True, blank=True)
+    treatmenu = models.CharField(verbose_name='사이드 음식', max_length=30, null=True, blank=True)
 
-    kidsfacility = models.BooleanField(verbose_name='아동시설', default=False)
-    parkingfood = models.CharField(verbose_name='주차 가능', max_length=15)
+    kidsfacility = models.BooleanField(verbose_name='아동시설', default=False, null=True, blank=True)
+    parkingfood = models.CharField(verbose_name='주차 가능', max_length=15, null=True, blank=True)
 
-    opentimefood = models.CharField(verbose_name='운영 시간', max_length=50)
-    restdatefood = models.CharField(verbose_name='휴일 정보', max_length=50)
+    opentimefood = models.CharField(verbose_name='운영 시간', max_length=100, null=True, blank=True)
+    restdatefood = models.CharField(verbose_name='휴일 정보', max_length=50, null=True, blank=True)
 
 
 class Event(TourInfo):
