@@ -195,11 +195,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Upload Settings ==================================================================================
 FILE_UPLOAD_MAX_MEMORY_SIZE = 3000000
-UPLOADS_PATH = os.path.join(BASE_DIR, os.path.join('static', 'uploads'))
+UPLOADS_PATH = os.path.join(BASE_DIR, 'static', 'uploads')
 FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, os.path.join('static', 'tmp-uploads'))
 FILE_UPLOAD_HANDLERS = (
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
     'ECPlazaTools.handlers.CustomTempFileUploadHandler'
 )
+# DEFAULT_CHARSET = 'cp949'
 
 # django_heroku.settings(locals())

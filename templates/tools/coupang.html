@@ -18,12 +18,6 @@
 
             <div class='align-items-right my-2'>
                 <div class='ml-auto btn-group'>
-                    <a class='btn btn-primary' href='{% url 'export_collection' %}'>파일 내보내기</a>
-                    {% if subtitle == 'item' or subtitle == 'category' %}
-                        <a class='btn btn-primary' href='{% url 'collection_form' subtitle %}'>추가</a>
-                    {% else %}
-                        <a class='btn btn-primary' href='{% url 'collection_form' subtitle.cat_id %}'>추가</a>
-                    {% endif %}
                     <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#uploadModal'>업로드</button>
                 </div>
             </div>

@@ -1,4 +1,7 @@
 from datetime import datetime
+from io import BytesIO
+
+import pandas as pd
 import os
 
 from django.core import serializers
@@ -10,7 +13,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from rest_framework import viewsets
 
-from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL, FILE_UPLOAD_MAX_MEMORY_SIZE, UPLOADS_PATH
+from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL, FILE_UPLOAD_MAX_MEMORY_SIZE, UPLOADS_PATH, BASE_DIR
 from .constants import CAT_LIST, CAT_DETAIL_LIST
 
 from .forms import *
@@ -155,19 +158,23 @@ def collection(request, col_type):
             header_num = doc_form.cleaned_data.get('header')
             dataframe, _ = read_file(data_file, data_file.name, header=header_num)
             for index, row in dataframe.iterrows():
-                cat, exists = Category.objects.get_or_create(cat_id=row['eck_category'])
-                if not exists:
-                    cat.name = row['category']
-                    cat.save()
-                new_item, exists = Item.objects.update_or_create(category=cat, url=row['URL'])
-                if exists:
-                    new_item.date_updated = timezone.now()
-                new_item.ss_id = row['ss_id']
-                new_item.mall_id = row['mall_id']
-                new_item.notes = row['notes']
-                new_item.save()
+                cat, exists = Category.objects.get_or_create(cat_id=row.pop('eck_category'))
+                Category.objects.filter(cat_id=cat.cat_id).update(name=row.pop('category'))
+                new_item, exists = Item.objects.update_or_create(category=cat, url=row['url'])
+                try:
+                    row['quantity'] = int(row['quantity'])
+                except ValueError:
+                    row['quantity'] = 0
+                Item.objects.filter(id=new_item.id).update(**row, date_updated=timezone.now())
         col_type = col_type if col_type in ['item', 'category'] else Category.objects.get(cat_id=col_type)
     return render(request, 'tools/collection.html', {'title': TITLE4, 'table': table, 'subtitle': col_type, 'formset': doc_form})
+
+
+@login_required
+def collection_coupang(request):
+    col_type = 1
+    table = CategoryTable(Category.objects.all()) if col_type == 'category' else ItemTable(Item.objects.all()) if col_type == 'item' else ItemTable(Item.objects.filter(category__cat_id=col_type))
+    return render(request, 'tools/coupang.html', {'title': TITLE4, 'table': table, 'subtitle': col_type})
 
 
 @login_required
@@ -189,3 +196,20 @@ def delete_collection(request, item_id):
     except Item.DoesNotExist:
         Http404('No Such Item found.')
     return redirect('collection', 'item')
+
+
+@login_required
+def export_collection(request):
+    filepath = os.path.join(BASE_DIR, 'static', 'exports', 'test.xlsx')
+    data_list = [item.__dict__ for item in Item.objects.all()]
+    for row in data_list:
+        keys = list(row.keys())
+        [row.pop(key, None) for key in keys if 'date' in key or key == '_state']
+        row['category_id'] = '{mall_id};;{cat_id}'.format(mall_id=row.pop('mall_id'), cat_id=row.get('category_id'))
+    df = pd.DataFrame(data_list)
+    df.to_excel(filepath, encoding='utf8', index=False)
+    file = open(filepath, 'rb+')
+    resp = HttpResponse(file.read(), content_type='applications/upload')
+    resp['Content-Disposition'] = 'inline;filename=' + os.path.basename(file.name)
+    # resp['Content-Type'] = 'cp949'
+    return resp

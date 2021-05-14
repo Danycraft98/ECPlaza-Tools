@@ -178,9 +178,13 @@ function toDatabase(url) {
             delete data.entered_date;
             let datetime_obj = new Date(), details = {url: url, method: 'POST'},
                 datetime = `${datetime_obj.toLocaleString('fr-CA', {year: 'numeric', month: '2-digit', day: '2-digit'})} ${datetime_obj.toLocaleString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'})}`,
-                final_data = $.extend(details, {data: JSON.stringify($.extend({total_count: data.length, crawling_time: datetime}, is_tour ? {kculture: data} : {product: data}), null)});
+                final_data = $.extend(details, {
+                    headers: {
+                        "content-type": "application/json"
+                    }, data: JSON.stringify($.extend({total_count: data.length, crawling_time: datetime}, is_tour ? {kculture: data} : {product: data}), null)
+                });
             console.log(final_data)
-            loadAjax(final_data, alert);
+            loadAjax(final_data, alert); //, '',false);
         }
     });
 }
@@ -274,7 +278,7 @@ function getAppDetailValues(headers, node, raw_node, app_name, index) {
 function getTourValues(details, returnFunc, asnyc, rtype = 'json') {
     $.extend(details, {url: `http://api.visitkorea.or.kr/openapi/service/rest/${details.service}/${details.area}?MobileOS=ETC&MobileApp=ECPlazaTools&_type=${rtype}`, method: 'GET', asnyc: asnyc})
     $.map(details, function (val, key) {
-        if (!['service', 'area', 'url', 'promise', 'method'].includes(key)) details.url += `&${key}=${val}`;
+        if (!['service', 'area', 'url', 'promise', 'method', 'beforeSend', 'success', 'error'].includes(key)) details.url += `&${key}=${val}`;
     });
     loadAjax(details, returnFunc, '#result');
 }

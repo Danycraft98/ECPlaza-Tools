@@ -16,8 +16,10 @@ urlpatterns = [
     path('url_parse/', views.url_parse, name='url_parse'),
     path('tour/', views.tour_api, name='tour_api'),
     path('collection/<col_type>', views.collection, name='collection'),
+    path('collection-coupang', views.collection_coupang, name='collection_coupang'),
     path('collection/<col_type>/form', views.collection_form, name='collection_form'),
     path('collection/<item_id>/delete', views.delete_collection, name='delete_collection'),
+    path('collection-export', views.export_collection, name='export_collection'),
 
     # Rest API URL
     path('upload/', views.upload_file, name='upload_file'),

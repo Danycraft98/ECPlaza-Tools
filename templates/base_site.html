@@ -154,6 +154,8 @@
             final_url = url + types.join('%2Cga%3A') + "&access_token=" + access_token;
             loadAjax({url: final_url, method: 'GET', types: types}, getAnalyticValues);
         })
+
+        $('.app-container').addClass('closed-sidebar')
     });
 </script>
 {% block script %}{% endblock %}

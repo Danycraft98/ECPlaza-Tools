@@ -73,8 +73,9 @@ class Category(models.Model):
 
 class Item(models.Model):
     """ A class used to represent a Item object """
+    mall_type = models.CharField(verbose_name='Mall 타입', max_length=30)
     category = models.ForeignKey(Category, verbose_name='카테고리', related_name='items', on_delete=models.CASCADE)
-    ss_id = models.CharField(verbose_name='스마트스토어 샵ID', max_length=30, blank=True, null=True)
+    mall_name = models.CharField(verbose_name='MALL 이름', max_length=30, blank=True, null=True)
     mall_id = models.CharField(verbose_name='MALL ID', max_length=30, blank=True, null=True)
     url = models.URLField(verbose_name='URL', max_length=150)
     notes = models.TextField(verbose_name='비고', max_length=150, blank=True, null=True)
@@ -82,7 +83,7 @@ class Item(models.Model):
 
     date_entered = models.DateTimeField(verbose_name='등록일', auto_now=True)
     date_updated = models.DateTimeField(verbose_name='수정일', auto_now=True)
-    edit = models.BooleanField(verbose_name='반영여부', default=False)
+    date_download = models.DateTimeField(verbose_name='다운로드 일', auto_now=True)
     delete = models.BooleanField(verbose_name='삭제여부', default=False)
 
     def __str__(self):
@@ -91,7 +92,7 @@ class Item(models.Model):
 
         Returns: str
         """
-        return '{category}: {name}'.format(category=self.category, name=self.ss_id if self.ss_id else self.url)
+        return '{category}: {name}'.format(category=self.category, name=self.mall_name if self.mall_name else self.url)
 
 
 if __name__ == '__main__':
