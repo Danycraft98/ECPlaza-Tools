@@ -122,10 +122,11 @@ function submitForm(e) {
 }
 
 function compileResult(respText, details) {
+    console.log(details)
     let result_div = $('#resultML'), table_div = $('#nav-table'), url_div = $('#url'), is_tour = /visitkorea/g.exec(details.url),
         raw_data = getMethods(respText).includes('trim') ? $(respText.trim()) : $(respText), final_data = [],
         refined_data = is_tour ? getTourItems(details.url, raw_data) : /(http|app)/g.exec(details.url) ? getAppValues(details, raw_data) : raw_data,
-        api_url = `/api/v1/${is_tour ? (url_div.text().includes('searchFestival') ? 'events' : 'restaurants') : 'products'}/`;
+        api_url = `/api/v1/${is_tour ? (url_div.text().includes('searchFestival') || details.area.includes('searchFestival') ? 'events' : 'restaurants') : 'products'}/`;
     $(refined_data).each(async function (i, item) {
         if (/detail|itemid/g.exec(details.url.toLowerCase()) || details.area && details.area.includes('detail')) {
             // Detail Zone
