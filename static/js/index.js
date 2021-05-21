@@ -127,9 +127,10 @@ function compileResult(respText, details) {
         refined_data = is_tour ? getTourItems(details.url, raw_data) : /(http|app)/g.exec(details.url) ? getAppValues(details, raw_data) : raw_data,
         api_url = `/api/v1/${is_tour ? (url_div.text().includes('searchFestival') ? 'events' : 'restaurants') : 'products'}/`;
     $(refined_data).each(async function (i, item) {
-        if (!i) url_div.text(`${details.method} ${details.url}\n`);
         if (/detail|itemid/g.exec(details.url.toLowerCase()) || details.area && details.area.includes('detail')) {
             // Detail Zone
+            if (!i) url_div.text(`${url_div.text()} ${details.method} ${details.url}\n`);
+
             let sub_api_url = `${api_url}${details.contentId}/`;
             loadAPIData({
                 method: "GET", url: sub_api_url , success: (resp) => {
@@ -145,6 +146,8 @@ function compileResult(respText, details) {
             });
         } else {
             // List Zone
+            if (!i) url_div.text(`${details.method} ${details.url}\n`);
+
             final_data.push(item);
             loadAPIData({method: "POST", data: item, url: api_url});
             await details.promise;
@@ -167,10 +170,10 @@ function compileResult(respText, details) {
 }
 
 function toDatabase(url) {
-    let is_tour = url.includes('kculture'), is_food = $('code#url').text().includes('searchFestival');
+    let is_tour = url.includes('kculture'), is_event = $('code#url').text().includes('searchFestival');
     loadAPIData({
-        method: "GET", url: `/api/v1/${is_tour ? (is_food ? 'events' : 'restaurants') : 'products'}/`, success: (data) => {
-            url += is_tour ? (is_food ? '70' : '60') : '';
+        method: "GET", url: `/api/v1/${is_tour ? (is_event ? 'events' : 'restaurants') : 'products'}/`, success: (data) => {
+            url += is_tour ? (is_event ? '60' : '70') : '';
             delete data.entered_date;
             let datetime_obj = new Date(), details = {url: url, method: 'POST'},
                 datetime = `${datetime_obj.toLocaleString('fr-CA', {year: 'numeric', month: '2-digit', day: '2-digit'})} ${datetime_obj.toLocaleString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'})}`,
