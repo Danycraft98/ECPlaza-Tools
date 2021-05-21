@@ -39,8 +39,8 @@ class TourInfo(models.Model):
     overview = models.TextField(verbose_name='정보', null=True, blank=True)
     homepage = models.CharField(verbose_name='홈페이지', max_length=200, null=True, blank=True)
 
-    createdtime = models.IntegerField(verbose_name='Created Time', null=True, blank=True)
-    modifiedtime = models.IntegerField(verbose_name='Modified Time', null=True, blank=True)
+    createdtime = models.BigIntegerField(verbose_name='Created Time', null=True, blank=True)
+    modifiedtime = models.BigIntegerField(verbose_name='Modified Time', null=True, blank=True)
 
     firstimage = models.URLField(verbose_name='First Image', max_length=150, null=True, blank=True)
     firstimage2 = models.URLField(verbose_name='Second Image', max_length=150, null=True, blank=True)
