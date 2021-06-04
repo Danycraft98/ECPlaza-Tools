@@ -68,7 +68,7 @@ class ChatterBotApiView(View):
 
 @login_required
 def token(request):
-    return render(request, 'main/token.html', {'token': ServiceAccountCredentials.from_json_keyfile_name(KEY_FILEPATH, SCOPE).get_access_token().access_token})
+    return render(request, 'main/get_data.html', {'token': ServiceAccountCredentials.from_json_keyfile_name(KEY_FILEPATH, SCOPE).get_access_token().access_token})
 
 
 @login_required

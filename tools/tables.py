@@ -3,7 +3,7 @@ from django_tables2.utils import A
 
 from .models import *
 
-__all__ = ['CategoryTable', 'ItemTable']
+__all__ = ['CategoryTable', 'ItemTable', 'WordTable']
 
 
 class CategoryTable(tables.Table):
@@ -44,3 +44,12 @@ class ItemTable2(tables.Table):
         orderable = True
         order_by = 'delete'
         attrs = {"class": "collection table table-hover table-border"}
+
+
+class WordTable(tables.Table):
+    count = tables.Column(order_by='count')
+
+    class Meta:
+        model = Word
+        orderable = True
+        attrs = {"class": "table table-hover table-border"}

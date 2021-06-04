@@ -72,9 +72,30 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('mall_type', 'mall_name', 'category')
 
 
+class CompanyAdmin(admin.ModelAdmin):
+    list_display = ('name', 'count')
+    list_filter = ('name',)
+    fieldsets = (
+        (None, {'fields': ('name', 'count')}),
+    )
+    search_fields = ('name',)
+
+
+class WordAdmin(admin.ModelAdmin):
+    list_display = ('word', 'count')
+    list_filter = ('word',)
+    fieldsets = (
+        (None, {'fields': ('word', 'count')}),
+    )
+    search_fields = ('word',)
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Restaurant, RestaurantAdmin)
 
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Category, CategoryAdmin)
+
+admin.site.register(Company, CompanyAdmin)
+admin.site.register(Word, WordAdmin)

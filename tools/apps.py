@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class FileAppConfig(AppConfig):
+class ToolAppConfig(AppConfig):
     name = 'tools'

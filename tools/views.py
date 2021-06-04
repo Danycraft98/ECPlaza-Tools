@@ -1,9 +1,8 @@
+import os
+import re
 from datetime import datetime
-from io import BytesIO
 
 import pandas as pd
-import os
-
 from django.core import serializers
 from django.template.defaultfilters import filesizeformat
 from django.contrib.auth.decorators import login_required
@@ -13,7 +12,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from rest_framework import viewsets
 
-from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL, FILE_UPLOAD_MAX_MEMORY_SIZE, UPLOADS_PATH, BASE_DIR
+from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL, FILE_UPLOAD_MAX_MEMORY_SIZE, BASE_DIR
 from .constants import CAT_LIST, CAT_DETAIL_LIST
 
 from .forms import *
@@ -23,25 +22,6 @@ from .serializers import *
 from .tables import *
 
 TITLE1 = ('pe-7s-copy-file', '파일비교 애플리케이션', '파일 내역을 비교하는 애플리케이션')
-sep = os.path.sep
-
-
-def upload_file(request):
-    query = request.POST if request.method == "POST" else request.GET
-    if query.get('data', False):
-        with open(os.path.join(UPLOADS_PATH, 'data.json'), 'w') as file:
-            file.write(query.get('data', '{}'))
-    return redirect('index')
-
-
-def read_data_file(request):
-    path, dirs, files = next(os.walk(UPLOADS_PATH))
-    with open(os.path.join(UPLOADS_PATH, files[-1]), 'r+') as file:
-        data = file.read()
-    # open(UPLOADS_PATH, 'data.json', 'w').close()
-    if request.method == 'POST':
-        os.unlink(os.path.join(UPLOADS_PATH, 'data.json'))
-    return render(request, 'main/get_data.html', {'data': data})
 
 
 # Compare -----------------------------------------------------------------------------------
@@ -177,7 +157,7 @@ def collection(request, col_type):
 
 @login_required
 def collection_coupang(request):
-    col_type = 1
+    col_type = 1  # TODO: need to change as it is not functional
     table = CategoryTable(Category.objects.all()) if col_type == 'category' else ItemTable(Item.objects.all()) if col_type == 'item' else ItemTable(Item.objects.filter(category__cat_id=col_type))
     return render(request, 'tools/coupang.html', {'title': TITLE4, 'table': table, 'subtitle': col_type})
 
@@ -211,10 +191,38 @@ def export_collection(request):
         keys = list(row.keys())
         [row.pop(key, None) for key in keys if 'date' in key or key == '_state']
         row['category_id'] = '{mall_id};;{cat_id}'.format(mall_id=row.pop('mall_id'), cat_id=row.get('category_id'))
-    df = pd.DataFrame(data_list)
-    df.to_excel(filepath, encoding='utf8', index=False)
-    file = open(filepath, 'rb+')
-    resp = HttpResponse(file.read(), content_type='applications/upload')
-    resp['Content-Disposition'] = 'inline;filename=' + os.path.basename(file.name)
-    # resp['Content-Type'] = 'cp949'
-    return resp
+    return export_to_spreadsheet(data_list, filepath)
+
+
+# Big Data --------------------------------------------------------------------------------
+@login_required
+def big_data(request):
+    doc_form = DocumentForm(request.POST or None, request.FILES or None)
+    if request.method == 'POST' and doc_form.is_valid():
+        data_file = doc_form.cleaned_data.get('document', None)
+        dataframe, _ = read_file(data_file, data_file.name, header=doc_form.cleaned_data.get('header'))
+        dataframe.fillna(method='ffill', inplace=True)
+        for index, row in dataframe.iterrows():
+            print(row['기업명'])
+            new_comp, exists = Company.objects.update_or_create(name=row['기업명'])
+            Company.objects.filter(id=new_comp.id).update(count=new_comp.count + 1 if new_comp.count else 1)
+            words = re.sub(r"[^\\p{L}\w]+|—", ' ', str(row[dataframe.columns[3]])).split(' ')
+            for word in words:
+                new_item, exists = Word.objects.update_or_create(word=word, company_id=new_comp.id)
+                Word.objects.filter(id=new_item.id).update(count=new_item.count + 1 if new_item.count else 1)
+    table = WordTable(Word.objects.all())
+    return render(request, 'tools/data.html', {'title': TITLE4, 'table': table, 'formset': doc_form, 'subtitle': ''})
+
+
+@login_required
+def export_words(request):
+    filepath = os.path.join(BASE_DIR, 'static', 'exports', 'results.xlsx')
+    data_list = [item.__dict__ for item in Word.objects.all()]
+    for row in data_list:
+        keys = list(row.keys())
+        try:
+            row['company'] = Company.objects.get(id=row.pop('company_id'))
+        except Company.DoesNotExist:
+            pass
+        [row.pop(key, None) for key in keys if 'date' in key or key == '_state']
+    return export_to_spreadsheet(data_list, filepath)

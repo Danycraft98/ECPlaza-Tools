@@ -1,10 +1,21 @@
 import itertools
 import os
 import pandas as pd
+from django.http import HttpResponse
 
 from .models import *
 
-__all__ = ['read_file', 'write_file', 'compare_columns']
+__all__ = ['read_file', 'write_file', 'compare_columns', 'export_to_spreadsheet']
+
+
+def export_to_spreadsheet(data_list, filepath):
+    df = pd.DataFrame(data_list)
+    df.to_excel(filepath, encoding='utf8', index=False)
+    file = open(filepath, 'rb+')
+    resp = HttpResponse(file.read(), content_type='applications/upload')
+    resp['Content-Disposition'] = 'inline;filename=' + os.path.basename(file.name)
+    # resp['Content-Type'] = 'cp949'
+    return resp
 
 
 # Compare -----------------------------------------------------------------------------------

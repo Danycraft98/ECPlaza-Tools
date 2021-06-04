@@ -16,15 +16,17 @@ urlpatterns = [
     path('export/', views.export, name='export'),
     path('url_parse/', views.url_parse, name='url_parse'),
     path('tour/', views.tour_api, name='tour_api'),
+    path('data/', views.big_data, name='big_data'),
+
     path('collection/<col_type>', views.collection, name='collection'),
     path('collection-coupang', views.collection_coupang, name='collection_coupang'),
     path('collection/<col_type>/form', views.collection_form, name='collection_form'),
     path('collection/<item_id>/delete', views.delete_collection, name='delete_collection'),
+
     path('collection-export', views.export_collection, name='export_collection'),
+    path('data/export', views.export_words, name='export_words'),
 
     # Rest API URL
-    path('upload/', views.upload_file, name='upload_file'),
-    path('data/', views.read_data_file, name='read_file'),
     path('api/v1/', include((router.urls, 'ecplaza-tools'), namespace='rest_api')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

@@ -11,7 +11,7 @@ whitenoise
 scout-apm
 
 # Django Packages -------------------
-Django~=3.1.7
+Django
 dj-database-url
 django-cors-headers
 django-createuser

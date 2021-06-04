@@ -1,0 +1,68 @@
+{% extends 'base_site.html' %}
+{% load django_tables2 %}
+
+
+{% block style %}
+    <style>
+        .table tr {
+            text-align: left !important;
+        }
+    </style>
+{% endblock %}
+
+
+{% block main-content %}
+    <form action="{% if step == 'finished' %}{% url 'export' %}{% else %}{% url 'compare' %}{% endif %}" method='POST'>
+        <div class='card-header d-flex align-items-center justify-content-between'>
+            <h5 class='my-2'>{{ subtitle }}</h5>
+
+            <div class='align-items-right my-2'>
+                <div class='ml-auto btn-group'>
+                    <a class='btn btn-primary' href='{% url 'export_words' %}'>파일 내보내기</a>
+                    <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#uploadModal'>업로드</button>
+                </div>
+            </div>
+        </div>
+
+        <div class='card-body'>
+            <div class='container-fluid'>
+                {% render_table table %}
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+
+{% block modal %}
+    <div aria-hidden='true' class='modal fade' id='uploadModal' role='dialog' tabindex='-1'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='uploadModalLabel'>파일 찾기 (예시: File.xlsx)</h5>
+
+                    <button aria-label='Close' class='close btn btn-default' data-bs-dismiss='modal' type='button'>
+                        <span aria-hidden='true'>
+                            <i class='fa fa-close'></i>
+                        </span>
+                    </button>
+                </div>
+
+                <form action='' enctype='multipart/form-data' method='post'>
+                    <div class='modal-body px-5'>
+                        {{ formset }}
+                    </div>
+
+                    <div class='modal-footer'>
+                        <button class='btn btn-secondary' data-bs-dismiss='modal' type='button'>닫기</button>
+                        <button class='btn btn-primary' type='submit'><i class='fa fa-upload'></i> 업로드</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>$('.table').DataTable();</script>
+{% endblock %}

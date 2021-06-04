@@ -1,6 +1,8 @@
 from django.db import models
 
-__all__ = ['Document', 'Product', 'Restaurant', 'Event', 'DetailInfo', 'DetailImage', 'Category', 'Item']
+__all__ = [
+    'Document', 'Product', 'Restaurant', 'Event', 'DetailInfo', 'DetailImage', 'Category', 'Item', 'Company', 'Word'
+]
 
 
 # File Models -------------------------------------------------------------------------------
@@ -128,6 +130,21 @@ class Item(models.Model):
         Returns: str
         """
         return '{category}: {name}'.format(category=self.category, name=self.mall_name if self.mall_name else self.url)
+
+
+# Big Data --------------------------------------------------------------------------------
+class Company(models.Model):
+    name = models.CharField(verbose_name='단어', max_length=50)
+    count = models.IntegerField(verbose_name='Word Count', default=0)
+
+    def __str__(self):
+        return self.name
+
+
+class Word(models.Model):
+    word = models.CharField(verbose_name='단어', max_length=50)
+    count = models.IntegerField(verbose_name='Word Count', default=0)
+    company = models.ForeignKey(Company, verbose_name='회사', related_name='words', on_delete=models.CASCADE)
 
 
 if __name__ == '__main__':

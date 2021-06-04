@@ -8,19 +8,7 @@
             <img class='logo' src="{% static '/images/logo.png' %}" alt='Logo'>
         </a>
         <div class='header__pane ml-auto'>
-            <div>
-                <button type='button' class='hamburger close-sidebar-btn hamburger--elastic btn' data-class='closed-sidebar'>
-                    <span class='hamburger-box'>
-                        <span class='hamburger-inner'></span>
-                    </span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class='app-header__mobile-menu'>
-        <div>
-            <button type='button' class='hamburger hamburger--elastic mobile-toggle-nav'>
+            <button type='button' class='hamburger close-sidebar-btn hamburger--elastic btn' data-class='closed-sidebar'>
                 <span class='hamburger-box'>
                     <span class='hamburger-inner'></span>
                 </span>
@@ -28,14 +16,20 @@
         </div>
     </div>
 
+    <div class='app-header__mobile-menu'>
+        <button type='button' class='hamburger hamburger--elastic mobile-toggle-nav'>
+            <span class='hamburger-box'>
+                <span class='hamburger-inner'></span>
+            </span>
+        </button>
+    </div>
+
     <div class='app-header__menu'>
-        <span>
-            <button type='button' class='btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav'>
-                <span class='btn-icon-wrapper'>
-                    <i class='fa fa-ellipsis-v fa-w-6'></i>
-                </span>
-            </button>
-        </span>
+        <button type='button' class='btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav'>
+            <span class='btn-icon-wrapper'>
+                <i class='fa fa-ellipsis-v fa-w-6'></i>
+            </span>
+        </button>
     </div>
 
     <div class='app-header__content'>
@@ -60,46 +54,46 @@
                             <div class='dropdown-mega-menu'>
                                 <div class='grid-menu grid-menu-3col'>
                                     <div class='no-gutters row'>
-                                        <div class='col-sm-6 col-xl-4'>
+                                        <div class='col-4'>
                                             <div class='nav flex-column'>
                                                 <div class='nav-item-header nav-item'>
                                                     <i class='pe-7s-menu'></i> 메인 메뉴
                                                 </div>
                                                 <a class='nav-link' href="{% url 'compare' %}">
-                                                    <i class='nav-link-icon pe-7s-copy-file'></i>
-                                                    <span> 파일비교</span>
+                                                    <i class='nav-link-icon pe-7s-copy-file'></i>파일비교
                                                 </a>
                                                 <a class='nav-link' href="{% url 'url_parse' %}">
-                                                    <i class='nav-link-icon pe-7s-browser'></i>
-                                                    <span> 링크 투 파일</span>
+                                                    <i class='nav-link-icon pe-7s-browser'></i> 링크 투 파일
                                                 </a>
-                                            </div>
-                                        </div>
-
-                                        <div class='col-sm-6 col-xl-4'>
-                                            <div class='nav flex-column'>
-                                                <div class='nav-item-header nav-item'>
-                                                    <i class='pe-7s-graph'></i> API 데모
-                                                </div>
                                                 <a href="{% url 'tour_api' %}" class='nav-item nav-link'>
-                                                    <i class='nav-link-icon pe-7s-plane'></i>
-                                                    <span> 투어 API</span>
+                                                    <i class='nav-link-icon pe-7s-plane'></i> 투어 API
                                                 </a>
                                             </div>
                                         </div>
 
-                                        <div class='col-sm-6 col-xl-4'>
+                                        <div class='col-4'>
                                             <div class='nav flex-column'>
                                                 <div class='nav-item-header nav-item'>
-                                                    <i class='pe-7s-network'></i> 데이터 리스트
+                                                    <i class='pe-7s-network'></i>수집 데이터 리스트
                                                 </div>
                                                 <a href="{% url 'collection' 'category' %}" class='nav-item nav-link'>
-                                                    <i class='nav-link-icon pe-7s-photo-gallery'></i>
-                                                    <span> 카테고리 리스트</span>
+                                                    <i class='nav-link-icon pe-7s-photo-gallery'></i> 카테고리 리스트
                                                 </a>
                                                 <a href="{% url 'collection' 'item' %}" class='nav-item nav-link'>
-                                                    <i class='nav-link-icon pe-7s-photo-gallery'></i>
-                                                    <span> 수집 리스트</span>
+                                                    <i class='nav-link-icon pe-7s-photo-gallery'></i> 수집 리스트
+                                                </a>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class='col-4'>
+                                            <div class='nav flex-column'>
+                                                <div class='nav-item-header nav-item'>
+                                                    <i class='pe-7s-graph'></i> 빅데이터 분석
+                                                </div>
+                                                <a href="{% url 'big_data' %}" class='nav-item nav-link'>
+                                                    <i class='nav-link-icon pe-7s-graph'></i> ???
                                                 </a>
                                             </div>
                                         </div>

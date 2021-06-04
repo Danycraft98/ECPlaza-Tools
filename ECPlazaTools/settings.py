@@ -29,16 +29,15 @@ ALLOWED_HOSTS = [
     '*',
     'http://localhost:8000',
     'https://ecplaza-tools.herokuapp.com',
-    'http://ecplaza-tools.herokuapp.com',
 ]
+SEP = os.path.sep
 
 # Application definition ===========================================================================
 
 CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
-    'scout_apm.django',
     'accounts.apps.AccountsConfig',
-    'tools.apps.FileAppConfig',
+    'tools.apps.ToolAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -97,10 +96,12 @@ WSGI_APPLICATION = 'ECPlazaTools.wsgi.application'
 # Database =========================================================================================
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3') if DEBUG else os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
+
+DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3') if DEBUG else os.getenv('DATABASE_URL', 'mysql://root:password@localhost/ecptools_db')
 DATABASES = {
     'default': dj_database_url.config(default=DATABASE_URL),
 }
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Admin Site Settings ==============================================================================
 
@@ -186,7 +187,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images) ===========================================================
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
