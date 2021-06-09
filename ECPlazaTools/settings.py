@@ -38,7 +38,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'tools.apps.ToolAppConfig',
-    'jet',
+    # 'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
