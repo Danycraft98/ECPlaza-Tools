@@ -34,7 +34,7 @@ class TourInfo(models.Model):
     entered_date = models.DateTimeField(auto_now_add=True)
     contentid = models.IntegerField(verbose_name='컨텐트 ID', primary_key=True)
     contenttypeid = models.IntegerField(verbose_name='컨텐트 타입 ID')
-    title = models.CharField(verbose_name='제목', max_length=50)
+    title = models.CharField(verbose_name='제목', max_length=100)
     cat1 = models.CharField(verbose_name='대분류 카테고리', max_length=3)
     cat2 = models.CharField(verbose_name='중분류 카테고리', max_length=5)
     cat3 = models.CharField(verbose_name='소분류 카테고리', max_length=10)
@@ -48,7 +48,7 @@ class TourInfo(models.Model):
     firstimage2 = models.URLField(verbose_name='Second Image', max_length=150, null=True, blank=True)
     readcount = models.IntegerField(verbose_name='조회수', null=True, blank=True)
     telname = models.CharField(verbose_name='전화번호 Name', max_length=50, null=True, blank=True)
-    tel = models.CharField(verbose_name='전화번호', max_length=20, null=True, blank=True)
+    tel = models.CharField(verbose_name='전화번호', max_length=50, null=True, blank=True)
 
     addr1 = models.CharField(verbose_name='주소', max_length=100, null=True, blank=True)
     areacode = models.IntegerField(verbose_name='Area Code', null=True, blank=True)
