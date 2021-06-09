@@ -17,6 +17,7 @@ django-cors-headers
 django-createuser
 django-extensions
 django-filter
+django-jet
 django-tables2
 djangorestframework
 django-rest-auth

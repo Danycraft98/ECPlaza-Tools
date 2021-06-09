@@ -67,8 +67,8 @@ class Migration(migrations.Migration):
                 ('firstimage', models.URLField(blank=True, max_length=150, null=True, verbose_name='First Image')),
                 ('firstimage2', models.URLField(blank=True, max_length=150, null=True, verbose_name='Second Image')),
                 ('readcount', models.IntegerField(blank=True, null=True, verbose_name='조회수')),
-                ('telname', models.CharField(blank=True, max_length=15, null=True, verbose_name='전화번호 Name')),
-                ('tel', models.CharField(blank=True, max_length=15, null=True, verbose_name='전화번호')),
+                ('telname', models.CharField(blank=True, max_length=50, null=True, verbose_name='전화번호 Name')),
+                ('tel', models.CharField(blank=True, max_length=20, null=True, verbose_name='전화번호')),
                 ('addr1', models.CharField(blank=True, max_length=100, null=True, verbose_name='주소')),
                 ('areacode', models.IntegerField(blank=True, null=True, verbose_name='Area Code')),
                 ('sigungucode', models.IntegerField(blank=True, null=True, verbose_name='시군구 코드')),
@@ -91,7 +91,7 @@ class Migration(migrations.Migration):
             name='Restaurant',
             fields=[
                 ('tourinfo_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='tools.tourinfo')),
-                ('lcnsno', models.IntegerField(blank=True, null=True, verbose_name='LSNS No.')),
+                ('lcnsno', models.BigIntegerField(blank=True, null=True, verbose_name='LSNS No.')),
                 ('infocenterfood', models.CharField(blank=True, max_length=15, null=True, verbose_name='문의 전화번호')),
                 ('chkcreditcardfood', models.CharField(blank=True, max_length=15, null=True, verbose_name='체크/신용카드')),
                 ('discountinfofood', models.CharField(blank=True, max_length=15, null=True, verbose_name='할인 정보')),
@@ -108,7 +108,7 @@ class Migration(migrations.Migration):
             name='Word',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('word', models.CharField(max_length=50, verbose_name='단어')),
+                ('word', models.CharField(max_length=300, verbose_name='단어')),
                 ('count', models.IntegerField(default=0, verbose_name='Word Count')),
                 ('company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='words', to='tools.company', verbose_name='회사')),
             ],

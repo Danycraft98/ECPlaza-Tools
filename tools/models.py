@@ -47,8 +47,8 @@ class TourInfo(models.Model):
     firstimage = models.URLField(verbose_name='First Image', max_length=150, null=True, blank=True)
     firstimage2 = models.URLField(verbose_name='Second Image', max_length=150, null=True, blank=True)
     readcount = models.IntegerField(verbose_name='조회수', null=True, blank=True)
-    telname = models.CharField(verbose_name='전화번호 Name', max_length=15, null=True, blank=True)
-    tel = models.CharField(verbose_name='전화번호', max_length=15, null=True, blank=True)
+    telname = models.CharField(verbose_name='전화번호 Name', max_length=50, null=True, blank=True)
+    tel = models.CharField(verbose_name='전화번호', max_length=20, null=True, blank=True)
 
     addr1 = models.CharField(verbose_name='주소', max_length=100, null=True, blank=True)
     areacode = models.IntegerField(verbose_name='Area Code', null=True, blank=True)
@@ -60,7 +60,7 @@ class TourInfo(models.Model):
 
 
 class Restaurant(TourInfo):
-    lcnsno = models.IntegerField(verbose_name='LSNS No.', null=True, blank=True)
+    lcnsno = models.BigIntegerField(verbose_name='LSNS No.', null=True, blank=True)
     infocenterfood = models.CharField(verbose_name='문의 전화번호', max_length=15, null=True, blank=True)
 
     chkcreditcardfood = models.CharField(verbose_name='체크/신용카드', max_length=15, null=True, blank=True)
@@ -142,7 +142,7 @@ class Company(models.Model):
 
 
 class Word(models.Model):
-    word = models.CharField(verbose_name='단어', max_length=50)
+    word = models.CharField(verbose_name='단어', max_length=300)
     count = models.IntegerField(verbose_name='Word Count', default=0)
     company = models.ForeignKey(Company, verbose_name='회사', related_name='words', on_delete=models.CASCADE)
 

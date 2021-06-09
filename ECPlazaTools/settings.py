@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env.load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG', True)
+DEBUG = os.getenv('DEBUG', False)
 ALLOWED_HOSTS = [
     '*',
     'http://localhost:8000',
@@ -38,6 +38,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'tools.apps.ToolAppConfig',
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -97,7 +98,7 @@ WSGI_APPLICATION = 'ECPlazaTools.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3') if DEBUG else os.getenv('DATABASE_URL', 'mysql://root:password@localhost/ecptools_db')
+DATABASE_URL = 'mysql://127.0.0.1:3307/ecptools_db'  # os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3' if DEBUG else 'mysql://root:password@127.0.0.1:3307/ecptools_db')
 DATABASES = {
     'default': dj_database_url.config(default=DATABASE_URL),
 }

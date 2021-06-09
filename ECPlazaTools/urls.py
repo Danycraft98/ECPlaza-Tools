@@ -38,6 +38,7 @@ urlpatterns = [
 
     # Account URL
     path('accounts/', include('accounts.urls')),
+    path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
 
     # Chatterbot URL

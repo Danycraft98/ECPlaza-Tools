@@ -34,7 +34,6 @@ class EventSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        print(validated_data)
         info_datalist, image_datalist = validated_data.pop('detailInfo', []), validated_data.pop('detailImage', [])
         event, exist = Event.objects.update_or_create(**validated_data, entered_date=now())
         [DetailInfo.objects.create(event=event, **info_data) for info_data in info_datalist]
@@ -42,7 +41,6 @@ class EventSerializer(serializers.ModelSerializer):
         return event
 
     def update(self, instance, validated_data):
-        print(validated_data)
         info_datalist, image_datalist = validated_data.pop('detailInfo', []), validated_data.pop('detailImage', [])
         Event.objects.filter(contentid=instance.contentid).update(**validated_data, entered_date=now())
         for info_data in info_datalist:

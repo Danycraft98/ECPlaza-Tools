@@ -81,6 +81,10 @@ See the requirements.txt for more PyPi packages you need.
 
 ### Installation
 
+Please note that django-jet may cause some error, so in the jet/models.py, change<br/>
+`from django.utils.encoding import python_2_unicode_compatible` to
+`from six import python_2_unicode_compatible`
+
 #### Local Deployment
 Make sure you have Python 3.9.1 and mysql installed. 
 

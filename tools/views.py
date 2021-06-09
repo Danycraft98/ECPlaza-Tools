@@ -203,10 +203,9 @@ def big_data(request):
         dataframe, _ = read_file(data_file, data_file.name, header=doc_form.cleaned_data.get('header'))
         dataframe.fillna(method='ffill', inplace=True)
         for index, row in dataframe.iterrows():
-            print(row['기업명'])
-            new_comp, exists = Company.objects.update_or_create(name=row['기업명'])
+            new_comp, exists = Company.objects.update_or_create(name=row[dataframe.columns[2]])
             Company.objects.filter(id=new_comp.id).update(count=new_comp.count + 1 if new_comp.count else 1)
-            words = re.sub(r"[^\\p{L}\w]+|—", ' ', str(row[dataframe.columns[3]])).split(' ')
+            words = re.sub(r"[^\\p{L}\w\s]+|—", ' ', str(row[dataframe.columns[3]])).split(' ')
             for word in words:
                 new_item, exists = Word.objects.update_or_create(word=word, company_id=new_comp.id)
                 Word.objects.filter(id=new_item.id).update(count=new_item.count + 1 if new_item.count else 1)
@@ -225,4 +224,5 @@ def export_words(request):
         except Company.DoesNotExist:
             pass
         [row.pop(key, None) for key in keys if 'date' in key or key == '_state']
+    Word.objects.all().delete()
     return export_to_spreadsheet(data_list, filepath)
