@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'ECPlazaTools.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')# if DEBUG else 'mysql://root:password@127.0.0.1:3307/ecptools_db')
+DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3' if DEBUG else 'mysql://root:password@127.0.0.1:3307/ecptools_db')
 DATABASES = {
     'default': dj_database_url.config(default=DATABASE_URL),
 }

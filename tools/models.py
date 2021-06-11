@@ -118,10 +118,11 @@ class Item(models.Model):
     notes = models.TextField(verbose_name='비고', max_length=150, blank=True, null=True)
     quantity = models.IntegerField(verbose_name='상품 갯수', default=0)
 
-    date_entered = models.DateTimeField(verbose_name='등록일', auto_now=True)
-    date_updated = models.DateTimeField(verbose_name='수정일', auto_now=True)
-    date_download = models.DateTimeField(verbose_name='다운로드 일', auto_now=True)
-    delete = models.BooleanField(verbose_name='삭제여부', default=False)
+    date_entered = models.DateTimeField(verbose_name='등록일', auto_now=True)  # date_upload
+    date_updated = models.DateTimeField(verbose_name='수정일', auto_now=True)  # date_modify
+    date_download = models.DateTimeField(verbose_name='다운로드 일', blank=True, null=True)  # date_download
+    date_apply = models.DateTimeField(verbose_name='Date Apply', blank=True, null=True)  # date_download
+    delete = models.BooleanField(verbose_name='삭제여부', default=False)  # date_apply
 
     def __str__(self):
         """
