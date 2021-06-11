@@ -1,6 +1,7 @@
 import itertools
 import os
 import pandas as pd
+from dateutil.parser import parse
 from django.http import HttpResponse
 
 from .models import *
@@ -16,6 +17,21 @@ def export_to_spreadsheet(data_list, filepath):
     resp['Content-Disposition'] = 'inline;filename=' + os.path.basename(file.name)
     # resp['Content-Type'] = 'cp949'
     return resp
+
+
+def is_date(string, fuzzy=False):
+    """
+    Return whether the string can be interpreted as a date.
+
+    :param string: str, string to check for date
+    :param fuzzy: bool, ignore unknown tokens in string if True
+    """
+    try:
+        parse(string, fuzzy=fuzzy)
+        return True
+
+    except (TypeError, ValueError):
+        return False
 
 
 # Compare -----------------------------------------------------------------------------------

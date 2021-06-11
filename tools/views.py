@@ -17,6 +17,7 @@ from .constants import CAT_LIST, CAT_DETAIL_LIST
 
 from .forms import *
 from .functions import *
+from .functions import is_date
 from .models import *
 from .serializers import *
 from .tables import *
@@ -145,13 +146,17 @@ def collection(request, col_type):
             for index, row in dataframe.iterrows():
                 cat, exists = Category.objects.get_or_create(cat_id=row.pop('eck_category'))
                 Category.objects.filter(cat_id=cat.cat_id).update(name=row.pop('category'))
-                new_item, exists = Item.objects.update_or_create(category=cat, url=row.get('url', row.get('URL', '')))
+                new_item, exists = Item.objects.update_or_create(category=cat, url=row.get('url', ''))
                 try:
                     row['quantity'] = int(row['quantity'])
                 except ValueError:
                     row['quantity'] = 0
+                row['delete'] = True if row.get('delete', None) else False
+                for col in dataframe.head():
+                    if 'date' in col and not is_date(row[col]):
+                        row.pop(col)
                 print(row)
-                Item.objects.filter(id=new_item.id).update(**row, date_updated=timezone.now())
+                Item.objects.filter(id=new_item.id).update(**row)
         col_type = col_type if col_type in ['item', 'category'] else Category.objects.get(cat_id=col_type)
     return render(request, 'tools/collection.html', {'title': TITLE4, 'table': table, 'subtitle': col_type, 'formset': doc_form})
 

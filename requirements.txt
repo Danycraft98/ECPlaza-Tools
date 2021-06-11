@@ -37,6 +37,7 @@ openpyxl
 pandas
 Pillow
 pyopenssl
+python-dateutil
 python-dotenv
 pyxlsb
 SQLAlchemy
