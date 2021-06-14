@@ -114,7 +114,7 @@ class Item(models.Model):
     category = models.ForeignKey(Category, verbose_name='카테고리', related_name='items', on_delete=models.CASCADE)
     mall_name = models.CharField(verbose_name='MALL 이름', max_length=30, blank=True, null=True)
     mall_id = models.CharField(verbose_name='MALL ID', max_length=30, blank=True, null=True)
-    url = models.URLField(verbose_name='URL', max_length=150)
+    url = models.URLField(verbose_name='URL', max_length=500)  # 500 change count
     notes = models.TextField(verbose_name='비고', max_length=150, blank=True, null=True)
     quantity = models.IntegerField(verbose_name='상품 갯수', default=0)
 

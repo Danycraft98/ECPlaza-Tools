@@ -24,7 +24,7 @@ class ItemTable(tables.Table):
 
     class Meta:
         model = Item
-        sequence = ['view_edit', 'delete_btn', 'cat_id']
+        sequence = ['view_edit', 'cat_id', 'delete_btn']  # 'delete_btn' to the end of the table
         exclude = ['id']
         orderable = True
         order_by = 'delete'

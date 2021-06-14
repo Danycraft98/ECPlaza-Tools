@@ -1,15 +1,14 @@
 import os
 import re
+import numpy as np
 from datetime import datetime
 
-import pandas as pd
 from django.core import serializers
 from django.template.defaultfilters import filesizeformat
 from django.contrib.auth.decorators import login_required
 from django.forms import forms
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
-from django.utils import timezone
 from rest_framework import viewsets
 
 from ECPlazaTools.settings import STATICFILES_DIRS, ECP_API_URL, ECP_HT_URL, ECP_TOUR_URL, FILE_UPLOAD_MAX_MEMORY_SIZE, BASE_DIR
@@ -17,7 +16,6 @@ from .constants import CAT_LIST, CAT_DETAIL_LIST
 
 from .forms import *
 from .functions import *
-from .functions import is_date
 from .models import *
 from .serializers import *
 from .tables import *
@@ -142,10 +140,13 @@ def collection(request, col_type):
         if request.method == 'POST' and doc_form.is_valid():
             data_file = doc_form.cleaned_data.get('document', None)
             header_num = doc_form.cleaned_data.get('header')
-            dataframe, _ = read_file(data_file, data_file.name, header=header_num)
+            dataframe, _ = read_file(data_file, data_file.name, header=header_num, dtype={'eck_category': np.str})
             for index, row in dataframe.iterrows():
+                print(row.get('eck_category'))
                 cat, exists = Category.objects.get_or_create(cat_id=row.pop('eck_category'))
-                Category.objects.filter(cat_id=cat.cat_id).update(name=row.pop('category'))
+                name = row.pop('category')
+                if name:
+                    Category.objects.filter(cat_id=cat.cat_id).update(name=name)
                 new_item, exists = Item.objects.update_or_create(category=cat, url=row.get('url', ''))
                 try:
                     row['quantity'] = int(row['quantity'])
@@ -153,9 +154,8 @@ def collection(request, col_type):
                     row['quantity'] = 0
                 row['delete'] = True if row.get('delete', None) else False
                 for col in dataframe.head():
-                    if 'date' in col and not is_date(row[col]):
+                    if 'date' in col and not is_date(row[col]) or 'Unnamed' in col:
                         row.pop(col)
-                print(row)
                 Item.objects.filter(id=new_item.id).update(**row)
         col_type = col_type if col_type in ['item', 'category'] else Category.objects.get(cat_id=col_type)
     return render(request, 'tools/collection.html', {'title': TITLE4, 'table': table, 'subtitle': col_type, 'formset': doc_form})

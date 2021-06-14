@@ -6,7 +6,7 @@ from django.http import HttpResponse
 
 from .models import *
 
-__all__ = ['read_file', 'write_file', 'compare_columns', 'export_to_spreadsheet']
+__all__ = ['read_file', 'write_file', 'compare_columns', 'export_to_spreadsheet', 'is_date']
 
 
 def export_to_spreadsheet(data_list, filepath):
